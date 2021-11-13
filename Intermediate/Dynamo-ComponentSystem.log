@@ -1,0 +1,8 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\..\Intermediate\) contains files shared from another project (Dynamo-CommonUtilities.vcxproj, Dynamo-Core.vcxproj, Dynamo.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Component.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Component.cpp': No such file or directory
+  ComponentAdmin.cpp
+c1xx : fatal error C1083: Cannot open source file: 'ComponentAdmin.cpp': No such file or directory
+  GameObject.cpp
+c1xx : fatal error C1083: Cannot open source file: 'GameObject.cpp': No such file or directory
+  Generating Code...
