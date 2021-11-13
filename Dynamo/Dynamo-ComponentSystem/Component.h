@@ -20,19 +20,19 @@ protected:
 	template<typename T, typename... Args>
 	T* AddComponent(Args&&... params)
 	{
-		return ComponentAdmin::GetInstance()->AddComponent<T>(myGameObject->GetGameObjectID(), params);
+		return myAdmin->AddComponent<T>(myGameObject->GetGameObjectID(), params);
 	}
 
 	template<typename T>
 	T* GetComponent()
 	{
-		return ComponentAdmin::GetInstance()->GetComponent<T>(myGameObject->GetGameObjectID());
+		return myAdmin->GetComponent<T>(myGameObject->GetGameObjectID());
 	}
 
 	template<typename T>
 	void RemoveComponent()
 	{
-		ComponentAdmin::GetInstance()->RemoveComponent<T>(myGameObject->GetGameObjectID());
+		myAdmin->RemoveComponent<T>(myGameObject->GetGameObjectID());
 	}
 
 	// Runs once per frame.
@@ -67,4 +67,6 @@ private:
 
 	GameObject* myGameObject = nullptr;
 	bool myIsActive = true;
+
+	ComponentAdmin* myAdmin = nullptr;
 };

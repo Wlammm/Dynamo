@@ -10,7 +10,6 @@
 class Component;
 class GameObject;
 
-
 class GameObject
 {
 public:
@@ -19,16 +18,6 @@ public:
 
 	void operator delete(void*) = delete;
 	
-	static GameObject* Instantiate()
-	{
-		return ComponentAdmin::GetInstance()->CreateGameObject();
-	}
-	
-	static void Destroy(GameObject* anObject, const float aTime = 0)
-	{
-		ComponentAdmin::GetInstance()->RemoveGameObject(anObject, aTime);
-	}
-
 	void SetActive(bool isActive);
 	const bool IsActive() const;
 
@@ -68,4 +57,6 @@ private:
 	Tag myTag = Tag::Untagged;
 
 	bool myIsActive = true;
+
+	ComponentAdmin* myAdmin = nullptr;
 };

@@ -12,7 +12,7 @@ class GameObject;
 class ComponentAdmin
 {
 public:
-	ComponentAdmin();
+	ComponentAdmin() = default;
 	~ComponentAdmin();
 
 	void Init();
@@ -77,11 +77,4 @@ private:
 	std::vector<std::pair<std::string, GameObjectID>> myComponentsToRemove;
 
 	ComponentManager myComponentManager;
-	
-public:
-	static ComponentAdmin* GetInstance();
-
-private:
-	static ComponentAdmin* ourInstance;
-
 };

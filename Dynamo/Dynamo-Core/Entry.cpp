@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Entry.h"
 #include "Core/DirectXFramework.h"
+#include "Scene/Scene.h"
 
 namespace Dynamo
 {
@@ -29,7 +30,10 @@ namespace Dynamo
 
 			Main::GetFramework().BeginFrame();
 
-
+			if (Main::GetScene() != nullptr)
+			{
+				Main::GetScene()->Update();
+			}
 
 			Main::GetFramework().RenderFrame();
 			Main::GetFramework().EndFrame();

@@ -4,6 +4,7 @@ namespace Dynamo
 {
 	class WindowHandler;
 	class DirectXFramework;
+	class Scene;
 
 	class MainSingleton
 	{
@@ -28,6 +29,10 @@ namespace Dynamo
 		static WindowHandler& GetWindowHandler();
 		static DirectXFramework& GetFramework();
 
+		static Scene* GetScene();
+		static void SetScene(Scene* aScene);
+
+
 	private:
 		const Vec2ui myWindowSize = { 1920, 1080 };
 		const Vec2ui myWindowOffset = { 100, 100 };
@@ -45,6 +50,8 @@ namespace Dynamo
 
 		std::unique_ptr<WindowHandler> myWindowHandler;
 		std::unique_ptr<DirectXFramework> myFramework;
+
+		Scene* myScene = nullptr;
 
 	private:
 		friend WindowHandler;

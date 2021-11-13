@@ -69,12 +69,24 @@ namespace Dynamo
 		assert(ourInstance->myContext != nullptr && "DirectXFramework not initialized.");
 		return ourInstance->myContext;
 	}
+
 	WindowHandler& MainSingleton::GetWindowHandler()
 	{
 		return *ourInstance->myWindowHandler;
 	}
+
 	DirectXFramework& MainSingleton::GetFramework()
 	{
 		return *ourInstance->myFramework;
+	}
+
+	Scene* MainSingleton::GetScene()
+	{
+		return ourInstance->myScene;
+	}
+
+	void MainSingleton::SetScene(Scene* aScene)
+	{
+		ourInstance->myScene = aScene;
 	}
 }

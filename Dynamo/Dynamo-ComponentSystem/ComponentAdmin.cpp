@@ -2,17 +2,8 @@
 #include "GameObject.h"
 #include "Component.h"
 
-ComponentAdmin* ComponentAdmin::ourInstance = nullptr;
-
-ComponentAdmin::ComponentAdmin()
-{
-	ourInstance = this;
-}
-
 ComponentAdmin::~ComponentAdmin()
 {
-	ourInstance = nullptr;
-
 	delete[] myBase;
 	myBase = nullptr;
 }
@@ -25,6 +16,7 @@ void ComponentAdmin::Init()
 	{
 		myGameObjects.push(&myBase[i]);
 		myBase[i].myID = i;
+		myBase[i].myAdmin = this;
 	}
 }
 
@@ -91,9 +83,4 @@ void ComponentAdmin::RemoveGameObject(GameObject* anObject, const float aTime)
 const std::vector<GameObject*>& ComponentAdmin::GetAllGameObjects() const
 {
 	return myActiveGameObjects;
-}
-
-ComponentAdmin* ComponentAdmin::GetInstance()
-{
-	return ourInstance;
 }

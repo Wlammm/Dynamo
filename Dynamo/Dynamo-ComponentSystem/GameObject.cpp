@@ -36,7 +36,7 @@ void GameObject::Reset()
 
 void GameObject::SetActive(bool isActive)
 {
-	ComponentAdmin::GetInstance()->SetActive(this, isActive);
+	myAdmin->SetActive(this, isActive);
 }
 
 void GameObject::SetName(const std::string& aName)
