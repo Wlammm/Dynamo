@@ -164,6 +164,7 @@
     <ClCompile Include="Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="Core\DirectXFramework.h" />
     <ClInclude Include="Core\MainSingleton.h" />
     <ClInclude Include="Core\WindowHandler.h" />

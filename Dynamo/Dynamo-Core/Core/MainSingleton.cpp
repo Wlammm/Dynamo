@@ -13,6 +13,9 @@ namespace Dynamo
 		assert(ourInstance == nullptr && "MainSingleton already initialized.");
 		ourInstance = new MainSingleton();
 
+		// These needs to be in order. 
+		// 1. WindowHandler
+		// 2. DirectXFramework
 		ourInstance->myWindowHandler = std::make_unique<WindowHandler>();
 		ourInstance->myFramework = std::make_unique<DirectXFramework>();
 	}

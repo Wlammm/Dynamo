@@ -18,6 +18,10 @@
 #include <Quaternion.hpp>
 #include <io.hpp>
 
+#include <ComponentAdmin.h>
+#include <Component.h>
+#include <GameObject.h>
+
 #include "Types.h"
 
 #include "Core/MainSingleton.h"
