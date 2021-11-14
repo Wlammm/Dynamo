@@ -23,6 +23,7 @@ namespace CommonUtilities
 using Vec2f = CU::Vector2<float>;
 using Vec2ui = CU::Vector2<unsigned int>;
 using Vec2i = CU::Vector2<int>;
+using Vec2d = CU::Vector2<double>;
 
 using Vec3f = CU::Vector3<float>;
 using Vec3ui = CU::Vector3<unsigned int>;

@@ -44,9 +44,6 @@ namespace Dynamo
             }
         };
 
-        std::vector<Vertex> vertices;
-        std::vector<uint> indicies;
-
         FbxManager* manager = FbxManager::Create();
         FbxImporter* importer = FbxImporter::Create(manager, "");
 
@@ -65,6 +62,9 @@ namespace Dynamo
 
             for (FbxNode* node : meshNodes)
             {
+                std::vector<Vertex> vertices;
+                std::vector<uint> indicies;
+
                 FbxMesh* mesh = node->GetMesh();
 
                 if (mesh->GetElementBinormalCount() == 0 || mesh->GetElementTangentCount() == 0)
@@ -79,7 +79,7 @@ namespace Dynamo
                     for (int v = 0; v < 3; ++v)
                     {
                         const int controlPointIndex = mesh->GetPolygonVertex(p, v);
-                        const FbxVector4 vertexPos = mesh->GetControlPointAt(controlPointIndex);
+                        const fbxsdk::FbxVector4 vertexPos = mesh->GetControlPointAt(controlPointIndex);
 
                         FbxVector2 vertexUVs[4];
                         const int numUVs = mesh->GetElementUVCount();
@@ -91,7 +91,7 @@ namespace Dynamo
                         }
 
                         const int polygonIndex = p * 3 + v;
-                        FbxVector4 normal;
+                        fbxsdk::FbxVector4 normal;
                         FbxGeometryElementNormal* normalElement = mesh->GetElementNormal(0);
                         auto mapNode = normalElement->GetMappingMode();
                         assert(mapNode == 2);
@@ -99,11 +99,11 @@ namespace Dynamo
                         assert(refMode == 0);
                         normal = normalElement->GetDirectArray().GetAt(polygonIndex);
 
-                        FbxVector4 tangent;
+                        fbxsdk::FbxVector4 tangent;
                         FbxGeometryElementTangent* tangentElement = mesh->GetElementTangent(0);
                         tangent = tangentElement->GetDirectArray().GetAt(polygonIndex);
 
-                        FbxVector4 binormal;
+                        fbxsdk::FbxVector4 binormal;
                         FbxGeometryElementBinormal* binormalElement = mesh->GetElementBinormal(0);
                         binormal = binormalElement->GetDirectArray().GetAt(polygonIndex);
 
@@ -121,10 +121,10 @@ namespace Dynamo
                         vertex.myVertexColor2 = Vec4d{ fbxColors[1][0], fbxColors[1][1], fbxColors[1][2], fbxColors[1][3] }.Cast<float>();
                         vertex.myVertexColor3 = Vec4d{ fbxColors[2][0], fbxColors[2][1], fbxColors[2][2], fbxColors[2][3] }.Cast<float>();
                         vertex.myVertexColor4 = Vec4d{ fbxColors[3][0], fbxColors[3][1], fbxColors[3][2], fbxColors[3][3] }.Cast<float>();
-                        vertex.myVertexUV1 = Vec2i{ vertexUVs[0][0], vertexUVs[0][1] }.Cast<float>();
-                        vertex.myVertexUV2 = Vec2i{ vertexUVs[1][0], vertexUVs[1][1] }.Cast<float>();
-                        vertex.myVertexUV3 = Vec2i{ vertexUVs[2][0], vertexUVs[2][1] }.Cast<float>();
-                        vertex.myVertexUV4 = Vec2i{ vertexUVs[3][0], vertexUVs[3][1] }.Cast<float>();
+                        vertex.myVertexUV1 = Vec2d{ vertexUVs[0][0], vertexUVs[0][1] }.Cast<float>();
+                        vertex.myVertexUV2 = Vec2d{ vertexUVs[1][0], vertexUVs[1][1] }.Cast<float>();
+                        vertex.myVertexUV3 = Vec2d{ vertexUVs[2][0], vertexUVs[2][1] }.Cast<float>();
+                        vertex.myVertexUV4 = Vec2d{ vertexUVs[3][0], vertexUVs[3][1] }.Cast<float>();
                         vertex.myNormals = Vec4d{ normal[0], normal[1], normal[2], normal[3] }.Cast<float>();
                         vertex.myTangents = Vec4d{ tangent[0], tangent[1], tangent[2], tangent[3] }.Cast<float>();
                         vertex.myBinormals = Vec4d{ binormal[0], binormal[1], binormal[2], binormal[3] }.Cast<float>();
@@ -147,7 +147,58 @@ namespace Dynamo
                         }
                     }
                 }
+
+                HRESULT result;
+                
+                D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
+                vertexBufferDesc.ByteWidth = vertices.size() * sizeof(vertices[0]);
+                vertexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+                vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+
+                D3D11_SUBRESOURCE_DATA vertexSubresource = { 0 };
+                vertexSubresource.pSysMem = vertices.data();
+
+                ID3D11Buffer* vertexBuffer;
+                result = Main::GetDevice()->CreateBuffer(&vertexBufferDesc, &vertexSubresource, &vertexBuffer);
+                assert(SUCCEEDED(result));
+
+                D3D11_BUFFER_DESC indexBufferDesc = { 0 };
+                indexBufferDesc.ByteWidth = indicies.size() * sizeof(indicies[0]);
+                indexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+                indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+
+                D3D11_SUBRESOURCE_DATA indexSubresource = { 0 };
+                indexSubresource.pSysMem = indicies.data();
+
+                ID3D11Buffer* indexBuffer;
+                result = Main::GetDevice()->CreateBuffer(&indexBufferDesc, &indexSubresource, &indexBuffer);
+                assert(SUCCEEDED(result));
+
+                D3D11_INPUT_ELEMENT_DESC layout[] =
+                {
+                    { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "COLOR", 1, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "COLOR", 2, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "COLOR", 3, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "UV", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "UV", 1, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "UV", 2, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "UV", 3, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "TANGENT", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "BINORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+                };
+
+                ID3D11InputLayout* inputLayout;
+                result = Main::GetDevice()->CreateInputLayout(layout, sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC), nullptr, 0, &inputLayout);
+                assert(SUCCEEDED(result));
+
+
             }
+
+
+
         }
     }
 

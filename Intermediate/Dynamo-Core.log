@@ -1,163 +1,18 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\..\Intermediate\) contains files shared from another project (Dynamo-CommonUtilities.vcxproj, Dynamo-ComponentSystem.vcxproj, Dynamo-Game.vcxproj, Dynamo.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  pch.cpp
   MeshRenderer.cpp
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.h(19,31): error C2061: syntax error: identifier 'FbxNode'
+  Transform.cpp
+  DirectXFramework.cpp
+  MainSingleton.cpp
+  WindowHandler.cpp
   ModelFactory.cpp
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.h(19,31): error C2061: syntax error: identifier 'FbxNode'
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(64,60): error C2660: 'Dynamo::ModelFactory::GatherMeshNodes': function does not take 2 arguments
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.h(19,15): message : see declaration of 'Dynamo::ModelFactory::GatherMeshNodes'
 C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(77,35): warning C4018: '<': signed/unsigned mismatch
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(124,67): error C2398: Element '1': conversion from 'T' to 'const T &' requires a narrowing conversion
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(124,84): error C2398: Element '2': conversion from 'T' to 'const T &' requires a narrowing conversion
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(124,84): warning C4244: 'argument': conversion from 'T' to 'const T', possible loss of data
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(124,67): warning C4244: 'argument': conversion from 'T' to 'const T', possible loss of data
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(125,67): error C2398: Element '1': conversion from 'T' to 'const T &' requires a narrowing conversion
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(125,84): error C2398: Element '2': conversion from 'T' to 'const T &' requires a narrowing conversion
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(125,84): warning C4244: 'argument': conversion from 'T' to 'const T', possible loss of data
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(125,67): warning C4244: 'argument': conversion from 'T' to 'const T', possible loss of data
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(126,67): error C2398: Element '1': conversion from 'T' to 'const T &' requires a narrowing conversion
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(126,84): error C2398: Element '2': conversion from 'T' to 'const T &' requires a narrowing conversion
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(126,84): warning C4244: 'argument': conversion from 'T' to 'const T', possible loss of data
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(126,67): warning C4244: 'argument': conversion from 'T' to 'const T', possible loss of data
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(127,67): error C2398: Element '1': conversion from 'T' to 'const T &' requires a narrowing conversion
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(127,84): error C2398: Element '2': conversion from 'T' to 'const T &' requires a narrowing conversion
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(127,84): warning C4244: 'argument': conversion from 'T' to 'const T', possible loss of data
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(127,67): warning C4244: 'argument': conversion from 'T' to 'const T', possible loss of data
-          with
-          [
-              T=fbxsdk::FbxDouble
-          ]
-          and
-          [
-              T=int
-          ]
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(155,5): error C2511: 'void Dynamo::ModelFactory::GatherMeshNodes(fbxsdk::FbxNode *,std::vector<fbxsdk::FbxNode *,std::allocator<fbxsdk::FbxNode *>> &)': overloaded member function not found in 'Dynamo::ModelFactory'
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.h(12): message : see declaration of 'Dynamo::ModelFactory'
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(163,53): error C2660: 'Dynamo::ModelFactory::GatherMeshNodes': function does not take 2 arguments
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.h(19,15): message : see declaration of 'Dynamo::ModelFactory::GatherMeshNodes'
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(170,57): error C2660: 'Dynamo::ModelFactory::GatherMeshNodes': function does not take 2 arguments
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.h(19,15): message : see declaration of 'Dynamo::ModelFactory::GatherMeshNodes'
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(175,57): error C2660: 'Dynamo::ModelFactory::GatherMeshNodes': function does not take 2 arguments
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.h(19,15): message : see declaration of 'Dynamo::ModelFactory::GatherMeshNodes'
   ShaderFactory.cpp
+  TextureFactory.cpp
+  Entry.cpp
+  Model.cpp
+  Shader.cpp
+  Texture.cpp
   Scene.cpp
   Generating Code...
+  Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Debug.lib

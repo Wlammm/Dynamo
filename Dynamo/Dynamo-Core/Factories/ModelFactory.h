@@ -16,7 +16,7 @@ namespace Dynamo
 
 	private:
 		static void LoadModel(const std::string& aPath);
-		static void GatherMeshNodes(FbxNode* aNode, std::vector<FbxNode*>& outMeshes);
+		static void GatherMeshNodes(fbxsdk::FbxNode* aNode, std::vector<fbxsdk::FbxNode*>& outMeshes);
 
 	private:
 		static std::unordered_map<std::string, std::unique_ptr<Model>> myModels;
