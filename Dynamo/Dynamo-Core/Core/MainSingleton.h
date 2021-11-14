@@ -59,6 +59,6 @@ namespace Dynamo
 
 		static MainSingleton* ourInstance;
 	};
-}
 
-using Main = Dynamo::MainSingleton;
+	using Main = MainSingleton;
+}

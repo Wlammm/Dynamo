@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Point.h"
 
 CommonUtilities::Point::Point(const int& someX, const int& someY)

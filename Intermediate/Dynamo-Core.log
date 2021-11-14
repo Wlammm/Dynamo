@@ -1,9 +1,3 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\..\Intermediate\) contains files shared from another project (Dynamo-CommonUtilities.vcxproj, Dynamo-ComponentSystem.vcxproj, Dynamo.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  pch.cpp
-  DirectXFramework.cpp
-  MainSingleton.cpp
-  WindowHandler.cpp
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\..\Intermediate\) contains files shared from another project (Dynamo-CommonUtilities.vcxproj, Dynamo-ComponentSystem.vcxproj, Dynamo-Game.vcxproj, Dynamo.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Entry.cpp
-  Scene.cpp
-  Generating Code...
   Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Debug.lib

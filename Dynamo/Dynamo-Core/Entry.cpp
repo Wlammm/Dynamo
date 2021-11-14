@@ -5,14 +5,12 @@
 
 namespace Dynamo
 {
-	void Entry::Run()
+	void Entry::Init()
 	{
 		Main::Init();
-
-		Loop();
 	}
 
-	void Entry::Loop()
+	void Entry::Run()
 	{
 		MSG windowsMessage = { 0 };
 		while (Main::GetEngineRunning())
