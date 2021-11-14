@@ -33,6 +33,12 @@ namespace CommonUtilities
 		T Dot(const Vector3<T>& aVector) const;
 		//Returns the cross product of this and aVector
 		Vector3<T> Cross(const Vector3<T>& aVector) const;
+
+		template<typename Temp>
+		Vector3<Temp> Cast() const
+		{
+			return { (Temp)x, (Temp)y, (Temp)z };
+		}
 	};
 
 	//Returns the vector sum of aVector0 and aVector1

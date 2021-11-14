@@ -32,6 +32,7 @@ void GameObject::Reset()
 	myIsActive = true;
 	myName = "";
 	myTag = Tag::Untagged;
+	myTransform = nullptr;
 }
 
 void GameObject::SetActive(bool isActive)
@@ -42,4 +43,10 @@ void GameObject::SetActive(bool isActive)
 void GameObject::SetName(const std::string& aName)
 {
 	myName = aName;
+}
+
+Dynamo::Transform& GameObject::GetTransform()
+{
+	assert(myTransform != nullptr && "GameObject not initialized.");
+	return *myTransform;
 }

@@ -16,6 +16,8 @@ public:
 
 	void operator delete(void*) = delete;
 
+	Dynamo::Transform& GetTransform();
+
 protected:
 	template<typename T, typename... Args>
 	T* AddComponent(Args&&... params)

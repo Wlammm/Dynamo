@@ -70,6 +70,7 @@ GameObject* ComponentAdmin::CreateGameObject()
 
 	object->Reset();
 	myActiveGameObjects.push_back(object);
+	object->myAdmin = this;
 	return object;
 }
 

@@ -17,6 +17,7 @@
 #include <ContainerIncludes.hpp>
 #include <Quaternion.hpp>
 #include <io.hpp>
+#include <DArray.hpp>
 
 #include <ComponentAdmin.h>
 #include <Component.h>

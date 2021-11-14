@@ -3,6 +3,25 @@
 
 namespace CommonUtilities
 {
+	static const float PI = atanf(1.f) * 4.f;
+
+	template <typename T>
+	T DegreesToRadians(T someDegrees);
+
+	template <typename T>
+	T RadiansToDegrees(T someRadians);
+
+	template<typename T>
+	T DegreesToRadians(T someDegrees)
+	{
+		return someDegrees * (static_cast<T>(PI) / static_cast<T>(180.0));
+	}
+	template<typename T>
+	T RadiansToDegrees(T someRadians)
+	{
+		return someRadians * (static_cast<T>(180.0) / static_cast<T>(PI));
+	}
+
 	template<typename T>
 	T Max(const T& aFirst, const T& aSecond);
 
@@ -64,6 +83,12 @@ namespace CommonUtilities
 
 		aFirst = aSecond;
 		aSecond = first;
+	}
+
+	template<typename T>
+	bool AreEqual(T a, T b, T aTolerance)
+	{
+		return Abs(a - b) <= aTolerance;
 	}
 }
 

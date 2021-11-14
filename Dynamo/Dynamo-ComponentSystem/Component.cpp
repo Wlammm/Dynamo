@@ -25,6 +25,11 @@ GameObject* Component::GetGameObject() const
 	return myGameObject;
 }
 
+Dynamo::Transform& Component::GetTransform()
+{
+	return myGameObject->GetTransform();
+}
+
 void Component::Update() { }
 
 void Component::LateUpdate() { }

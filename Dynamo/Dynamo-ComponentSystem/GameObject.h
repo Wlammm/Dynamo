@@ -10,6 +10,12 @@
 class Component;
 class GameObject;
 
+namespace Dynamo
+{
+	class Transform;
+	class Scene;
+}
+
 class GameObject
 {
 public:
@@ -32,29 +38,34 @@ public:
 	template<typename T, typename... Args>
 	T* AddComponent(Args&&... params)
 	{
-		return ComponentAdmin::GetInstance()->AddComponent<T>(myID, std::forward<Args>(params)...);
+		return myAdmin->AddComponent<T>(myID, std::forward<Args>(params)...);
 	}
 
 	template<typename T>
 	T* GetComponent()
 	{
-		return ComponentAdmin::GetInstance()->GetComponent<T>(myID);
+		return myAdmin->GetComponent<T>(myID);
 	}
 
 	template<typename T>
 	void RemoveComponent()
 	{
-		ComponentAdmin::GetInstance()->RemoveComponent<T>(myID);
+		myAdmin->RemoveComponent<T>(myID);
 	}
+
+	Dynamo::Transform& GetTransform();
 
 private:
 	// Used to set private variables.
 	friend class ComponentAdmin;
+	friend Dynamo::Scene;
+
 	void Reset();
 
 	GameObjectID myID = -1;
 	std::string myName = "";
 	Tag myTag = Tag::Untagged;
+	Dynamo::Transform* myTransform = nullptr;
 
 	bool myIsActive = true;
 

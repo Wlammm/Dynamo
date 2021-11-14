@@ -53,7 +53,7 @@ inline std::ostream& operator<<(std::ostream& os, const CU::Matrix4x4<T>& aMatri
 }
 
 template<typename T>
-inline std::ostream& operator<<(std::ostream& os, const CU::Quaternion<T>& aQuaternion)
+inline std::ostream& operator<<(std::ostream& os, const CU::QuaternionT<T>& aQuaternion)
 {
 	os << "(" << aQuaternion[0] << ", " << aQuaternion[1] << ", " << aQuaternion[2] << ", " << aQuaternion[3] << ")";
 	return os;

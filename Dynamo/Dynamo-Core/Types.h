@@ -31,6 +31,7 @@ using Vec3i = CU::Vector3<int>;
 using Vec4f = CU::Vector4<float>;
 using Vec4ui = CU::Vector4<unsigned int>;
 using Vec4i = CU::Vector4<int>;
+using Vec4d = CU::Vector4<double>;
 
 using Color = CU::Color;
 
@@ -38,6 +39,10 @@ using Mat4f = CU::Matrix4x4<float>;
 
 using Matrix4x4f = CU::Matrix4x4f;
 using Mat4f = CU::Matrix4x4f;
-using Quat = CU::Quaternion<float>;
+using Quat = CU::Quaternion;
+
+#define Rad2Deg 57.2957795f
+#define Deg2Rad 0.0174532925f
+#define PI 3.14159265359f
 
 #define DYNAMO_VERSION " V0.0"

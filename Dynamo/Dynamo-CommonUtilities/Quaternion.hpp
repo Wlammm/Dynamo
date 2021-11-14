@@ -1,363 +1,339 @@
 #pragma once
-#include <math.h>
+#include "Maths.h"
 #include "Vector3.hpp"
-#include "Matrix3x3.hpp"
 #include "Matrix4x4.hpp"
-#include "Constants.hpp"
 
 namespace CommonUtilities
 {
+	template<typename T>
+	class QuaternionT
+	{
+	public:
+		QuaternionT<T>(); //Creates an Identity Quaternion
+		QuaternionT<T>(const QuaternionT<T>& anOther); //Copy constructor
+		QuaternionT<T>(const CU::Vector3<T>& aEulerAngles); //Create a to-object-space quaternion from euler angles
+		QuaternionT<T>(const CU::Matrix4x4<T>& aRotationMatrix); //Create a rotation quaternion from a rotation matrix
+		QuaternionT<T>(T aW, const CU::Vector3<T>& aVector); //Set raw quaternion values. Not recommended unless you know quaternions very well.
 
-    template <class T>
-    class Quaternion
-    {
-    public:
-        inline Quaternion() {}
+		void InitWithAxisAndRotation(const Vector3<T>& anAxis, T aRotation);
+		void Normalize();
+		QuaternionT<T> GetNormalized() const;
 
-        inline Quaternion(const Quaternion<T>& aQuaternion)
-        {
-            myScalar = aQuaternion.myScalar;
-            myVector = aQuaternion.myVector;
-        }
+		QuaternionT<T> GetInverse() const;
+		T GetMagnitude() const;
+		QuaternionT<T> GetConjugate() const;
+		T Dot(QuaternionT<T> anOther) const;
 
-        inline Quaternion(T aScalar, T aVectorX, T aVectorY, T aVectorZ)
-        {
-            myScalar = aScalar;
-            myVector = Vector3<T>(aVectorX, aVectorY, aVectorZ);
-        }
+		CU::Matrix4x4<T> ToMatrix() const;
+		CU::Vector3<T> EulerAngles() const;
 
-        inline Quaternion(T aScalar, const Vector3<T>& aVector)
-        {
-            myScalar = aScalar;
-            myVector = aVector;
-        }
+		static QuaternionT<T> Slerp(const QuaternionT<T>& aFirst, QuaternionT<T> aSecond, T anInterpolation);
+		inline static QuaternionT<T> Identity() { return QuaternionT<T>(); };
 
-        inline const T& scalar() const { return myScalar; }
+	public:
+		T myW;
+		CU::Vector3<T> myVector;
+	};
 
-        inline void set_scalar(T aScalar) { myScalar = aScalar; }
+	typedef QuaternionT<float> Quaternion;
 
-        inline const Vector3<T>& vector() const { return myVector; }
+	//Logically add two quaternions. If you are doing this, you are probably making your rotation quaternion invalid. Use multiplication to combine two rotations.
+	template<typename T>
+	QuaternionT<T> operator+(const QuaternionT<T>& aFirst, const QuaternionT<T>& aSecond);
 
-        inline void set_vector(const Vector3<T>& aVector) { myVector = aVector; }
+	//Combine two rotation quaternions into a single rotation. This must be done in reverse order to achieve the desired result.
+	//In other words, multiplying a vector with quaternion q1 and then q2, is equivalent to multiplying with the single quaternion q2*q1.
+	template <typename T>
+	QuaternionT<T> operator*(const QuaternionT<T>& aFirst, const QuaternionT<T>& aSecond);
 
-        inline Quaternion<T> Inverse() const { return Quaternion<T>(myScalar, -myVector); }
+	template<typename T>
+	QuaternionT<T> operator/(const QuaternionT<T>& aFirst, const QuaternionT<T>& aSecond);
 
-        inline Quaternion<T> operator+(const Quaternion<T>& aQuaternion) const
-        {
-            return Quaternion<T>(myScalar + aQuaternion.myScalar, myVector + aQuaternion.myVector);
-        }
+	//Rotate a vector by the rotation defined by the quaternion
+	template<typename T>
+	Vector3<T> operator* (const Vector3<T>& aVector, const QuaternionT<T>& aQuaternion);
 
-        inline Quaternion<T>& operator+=(const Quaternion<T>& aQuaternion)
-        {
-            myScalar += aQuaternion.myScalar;
-            myVector += aQuaternion.myVector;
-            return *this;
-        }
+	template<typename T>
+	QuaternionT<T> operator*(const QuaternionT<T>& aQuaternion, T aScalar);
 
-        inline Quaternion<T> operator*(const Quaternion<T>& aQuaternion) const
-        {
-            return Quaternion<T>(
-                myScalar * aQuaternion.myScalar - Vector3<T>::DotProduct(myVector, aQuaternion.myVector),
-                myScalar * aQuaternion.myVector + aQuaternion.myScalar * myVector + Vector3<T>::CrossProduct(myVector, aQuaternion.myVector));
-        }
+	template<typename T>
+	QuaternionT<T> operator/(const QuaternionT<T>& aQuaternion, T aScalar);
 
-        inline Quaternion<T> operator*(T aScalar) const
-        {
-            T angle;
-            Vector3<T> axis;
-            ToAngleAxis(&angle, &axis);
-            angle *= aScalar;
+	template<typename T>
+	inline QuaternionT<T>::QuaternionT() :
+		myW(1), myVector({ 0, 0, 0 })
+	{
+	}
 
-            return Quaternion<T>(cos(0.5f * angle),
-                axis.Normalized() * static_cast<T>(sin(0.5f * angle)));
-        }
+	template<typename T>
+	inline QuaternionT<T>::QuaternionT(const QuaternionT<T>& anOther) :
+		myW(anOther.myW), myVector(anOther.myVector)
+	{
+	}
 
-        inline Vector3<T> operator*(const Vector3<T>& aVector) const
-        {
-            T ss = myScalar + myScalar;
-            return ss * Vector3<T>::CrossProduct(myVector, aVector) + (ss * myScalar - 1) * aVector +
-                2 * Vector3<T>::DotProduct(myVector, aVector) * myVector;
-        }
+	template<typename T>
+	inline QuaternionT<T>::QuaternionT(T aW, const CU::Vector3<T>& aVector) :
+		myW(aW), myVector(aVector)
+	{
+	}
 
-        inline T Normalize()
-        {
-            T length = sqrt(myScalar * myScalar + Vector3<T>::DotProduct(myVector, myVector));
-            T scale = (1 / length);
-            myScalar *= scale;
-            myVector *= scale;
-            return length;
-        }
+	template<typename T>
+	inline QuaternionT<T>::QuaternionT(const CU::Vector3<T>& aEulerAngles)
+	{
+		T h = aEulerAngles.y * static_cast<T>(0.5);
+		T p = aEulerAngles.x * static_cast<T>(0.5);
+		T b = aEulerAngles.z * static_cast<T>(0.5);
 
-        inline Quaternion<T> Normalized() const
-        {
-            Quaternion<T> q(*this);
-            q.Normalize();
-            return q;
-        }
+		T sinH = sin(h);
+		T sinP = sin(p);
+		T sinB = sin(b);
 
-        inline void ToAngleAxis(T* outAngle, Vector3<T>* outAxis) const
-        {
-            const Quaternion<T> q = (myScalar > 0) ? *this : Quaternion<T>(-myScalar, -myVector);
-            q.ToAngleAxisFull(outAngle, outAxis);
-        }
+		T cosH = cos(h);
+		T cosP = cos(p);
+		T cosB = cos(b);
 
-        inline void ToAngleAxisFull(T* outAngle, Vector3<T>* outAxis) const
-        {
-            Vector3<T> axis = myVector;
-            const T axis_length = axis.Normalize();
-            if (axis_length == 0)
-            {
-                *outAxis = Vector3<T>(1, 0, 0);
-            }
-            else
-            {
-                *outAxis = axis;
-            }
-            *outAngle = 2 * atan2(axis_length, myScalar);
-        }
+		myW = cosH * cosP * cosB + sinH * sinP * sinB;
+		myVector.x = -cosH * sinP * cosB - sinH * cosP * sinB;
+		myVector.y = cosH * sinP * sinB - sinH * cosP * cosB;
+		myVector.z = sinH * sinP * cosB - cosH * cosP * sinB;
+	}
 
-        inline Vector3<T> ToEulerAngles() const
-        {
-            Matrix3x3<T> m(ToMatrix());
-            T cos2 = m[0] * m[0] + m[1] * m[1];
-            if (cos2 < 1e-6f)
-            {
-                return Vector3<T>(
-                    0,
-                    m[2] < 0 ? static_cast<T>(0.5 * PI) : static_cast<T>(-0.5 * PI),
-                    -std::atan2(m[3], m[4]));
-            }
-            else
-            {
-                return Vector3<T>(std::atan2(m[5], m[8]),
-                    std::atan2(-m[2], std::sqrt(cos2)),
-                    std::atan2(m[1], m[0]));
-            }
-        }
+	template<typename T>
+	inline QuaternionT<T>::QuaternionT(const CU::Matrix4x4<T>& aM) :
+		myW(0), myVector({ 0, 0, 0 })
+	{
+		T wValue = aM(1, 1) + aM(2, 2) + aM(3, 3);
+		T xValue = aM(1, 1) - aM(2, 2) - aM(3, 3);
+		T yValue = aM(2, 2) - aM(1, 1) - aM(3, 3);
+		T zValue = aM(3, 3) - aM(1, 1) - aM(2, 2);
 
-        inline Matrix3x3<T> ToMatrix() const
-        {
-            const T x2 = myVector[0] * myVector[0], y2 = myVector[1] * myVector[1], z2 = myVector[2] * myVector[2];
-            const T sx = myScalar * myVector[0], sy = myScalar * myVector[1], sz = myScalar * myVector[2];
-            const T xz = myVector[0] * myVector[2], yz = myVector[1] * myVector[2], xy = myVector[0] * myVector[1];
-            return Matrix3x3<T>(1 - 2 * (y2 + z2), 2 * (xy + sz), 2 * (xz - sy),
-                2 * (xy - sz), 1 - 2 * (x2 + z2), 2 * (sx + yz),
-                2 * (sy + xz), 2 * (yz - sx), 1 - 2 * (x2 + y2));
-        }
+		unsigned biggestIndex = 0;
+		T biggestValue = wValue;
 
-        inline Matrix4x4<T> ToMatrix4() const
-        {
-            const T x2 = myVector[0] * myVector[0], y2 = myVector[1] * myVector[1], z2 = myVector[2] * myVector[2];
-            const T sx = myScalar * myVector[0], sy = myScalar * myVector[1], sz = myScalar * myVector[2];
-            const T xz = myVector[0] * myVector[2], yz = myVector[1] * myVector[2], xy = myVector[0] * myVector[1];
-            return Matrix4x4<T>(1 - 2 * (y2 + z2), 2 * (xy + sz), 2 * (xz - sy), 0.0f,
-                2 * (xy - sz), 1 - 2 * (x2 + z2), 2 * (sx + yz), 0.0f,
-                2 * (sy + xz), 2 * (yz - sx), 1 - 2 * (x2 + y2), 0.0f,
-                0.0f, 0.0f, 0.0f, 1.0f);
-        }
+		if (xValue > biggestValue)
+		{
+			biggestValue = xValue;
+			biggestIndex = 1;
+		}
+		if (yValue > biggestValue)
+		{
+			biggestValue = yValue;
+			biggestIndex = 2;
+		}
+		if (zValue > biggestValue)
+		{
+			biggestValue = zValue;
+			biggestIndex = 3;
+		}
 
-        static Quaternion<T> FromAngleAxis(T angle, const Vector3<T>& axis)
-        {
-            const T halfAngle = static_cast<T>(0.5) * angle;
-            Vector3<T> localAxis(axis);
-            return Quaternion<T>(
-                cos(halfAngle),
-                localAxis.Normalized() * static_cast<T>(sin(halfAngle)));
-        }
+		biggestValue = sqrt(biggestValue + 1.0f) * 0.5f;
+		T mult = 0.25f / biggestValue;
 
-        static Quaternion<T> FromEulerAngles(const Vector3<T>& angles)
-        {
-            const Vector3<T> halfAngles(static_cast<T>(0.5) * angles[0],
-                static_cast<T>(0.5) * angles[1],
-                static_cast<T>(0.5) * angles[2]);
-            const T sinx = std::sin(halfAngles[0]);
-            const T cosx = std::cos(halfAngles[0]);
-            const T siny = std::sin(halfAngles[1]);
-            const T cosy = std::cos(halfAngles[1]);
-            const T sinz = std::sin(halfAngles[2]);
-            const T cosz = std::cos(halfAngles[2]);
-            return Quaternion<T>(cosx * cosy * cosz + sinx * siny * sinz,
-                sinx * cosy * cosz - cosx * siny * sinz,
-                cosx * siny * cosz + sinx * cosy * sinz,
-                cosx * cosy * sinz - sinx * siny * cosz);
-        }
+		switch (biggestIndex)
+		{
+		case 0:
+			myW = biggestValue;
+			myVector.x = (aM(2, 3) - aM(3, 2)) * mult;
+			myVector.y = (aM(3, 1) - aM(1, 3)) * mult;
+			myVector.z = (aM(1, 2) - aM(2, 1)) * mult;
+			break;
+		case 1:
+			myVector.x = biggestValue;
+			myW = (aM(2, 3) - aM(3, 2)) * mult;
+			myVector.y = (aM(1, 2) + aM(2, 1)) * mult;
+			myVector.z = (aM(3, 1) + aM(1, 3)) * mult;
+			break;
+		case 2:
+			myVector.y = biggestValue;
+			myW = (aM(3, 1) - aM(1, 3)) * mult;
+			myVector.x = (aM(1, 2) + aM(2, 1)) * mult;
+			myVector.z = (aM(2, 3) + aM(3, 2)) * mult;
+			break;
+		case 3:
+			myVector.z = biggestValue;
+			myW = (aM(1, 2) - aM(2, 1)) * mult;
+			myVector.x = (aM(3, 1) + aM(1, 3)) * mult;
+			myVector.y = (aM(2, 3) + aM(3, 2)) * mult;
+			break;
+		}
+	}
 
-        static Quaternion<T> FromEulerAngles(T x_rotation,
-            T y_rotation,
-            T z_rotation)
-        {
-            return FromEulerAngles(Vector3<T>(x_rotation, y_rotation, z_rotation));
-        }
+	template<typename T>
+	inline void QuaternionT<T>::InitWithAxisAndRotation(const Vector3<T>& anAxis, T aRotation)
+	{
+		T halfRot = aRotation * 0.5;
+		myW = cos(halfRot);
+		myVector = anAxis * sin(halfRot);
+	}
 
-        static Quaternion<T> FromMatrix(const Matrix3x3<T>& m)
-        {
-            const T trace = m(0, 0) + m(1, 1) + m(2, 2);
-            if (trace > 0)
-            {
-                const T s = sqrt(trace + 1) * 2;
-                const T oneOverS = 1 / s;
-                return Quaternion<T>(static_cast<T>(0.25) * s, (m[5] - m[7]) * oneOverS,
-                    (m[6] - m[2]) * oneOverS, (m[1] - m[3]) * oneOverS);
-            }
-            else if (m[0] > m[4] && m[0] > m[8])
-            {
-                const T s = sqrt(m[0] - m[4] - m[8] + 1) * 2;
-                const T oneOverS = 1 / s;
-                return Quaternion<T>((m[5] - m[7]) * oneOverS, static_cast<T>(0.25) * s,
-                    (m[3] + m[1]) * oneOverS, (m[6] + m[2]) * oneOverS);
-            }
-            else if (m[4] > m[8])
-            {
-                const T s = sqrt(m[4] - m[0] - m[8] + 1) * 2;
-                const T oneOverS = 1 / s;
-                return Quaternion<T>((m[6] - m[2]) * oneOverS, (m[3] + m[1]) * oneOverS,
-                    static_cast<T>(0.25) * s, (m[5] + m[7]) * oneOverS);
-            }
-            else
-            {
-                const T s = sqrt(m[8] - m[0] - m[4] + 1) * 2;
-                const T oneOverS = 1 / s;
-                return Quaternion<T>((m[1] - m[3]) * oneOverS, (m[6] + m[2]) * oneOverS,
-                    (m[5] + m[7]) * oneOverS, static_cast<T>(0.25) * s);
-            }
-        }
+	template<typename T>
+	inline void QuaternionT<T>::Normalize()
+	{
+		T length = GetMagnitude();
+		if (length > 0.0001)
+		{
+			myW = myW / length;
+			myVector = myVector / length;
+		}
+	}
 
-        static Quaternion<T> FromMatrix(const Matrix4x4<T>& m)
-        {
-            const T trace = m(0, 0) + m(1, 1) + m(2, 2);
-            if (trace > 0)
-            {
-                const T s = sqrt(trace + 1) * 2;
-                const T oneOverS = 1 / s;
-                return Quaternion<T>(static_cast<T>(0.25) * s, (m[6] - m[9]) * oneOverS,
-                    (m[8] - m[2]) * oneOverS, (m[1] - m[4]) * oneOverS);
-            }
-            else if (m[0] > m[5] && m[0] > m[10])
-            {
-                const T s = sqrt(m[0] - m[5] - m[10] + 1) * 2;
-                const T oneOverS = 1 / s;
-                return Quaternion<T>((m[6] - m[9]) * oneOverS, static_cast<T>(0.25) * s,
-                    (m[4] + m[1]) * oneOverS, (m[8] + m[2]) * oneOverS);
-            }
-            else if (m[5] > m[10])
-            {
-                const T s = sqrt(m[5] - m[0] - m[10] + 1) * 2;
-                const T oneOverS = 1 / s;
-                return Quaternion<T>((m[8] - m[2]) * oneOverS, (m[4] + m[1]) * oneOverS,
-                    static_cast<T>(0.25) * s, (m[6] + m[9]) * oneOverS);
-            }
-            else
-            {
-                const T s = sqrt(m[10] - m[0] - m[5] + 1) * 2;
-                const T oneOverS = 1 / s;
-                return Quaternion<T>((m[1] - m[4]) * oneOverS, (m[8] + m[2]) * oneOverS,
-                    (m[6] + m[9]) * oneOverS, static_cast<T>(0.25) * s);
-            }
-        }
+	template<typename T>
+	inline QuaternionT<T> QuaternionT<T>::GetNormalized() const
+	{
+		QuaternionT<T> returnValue(*this);
+		returnValue.Normalize();
+		return returnValue;
+	}
 
-        static inline T DotProduct(const Quaternion<T>& q1, const Quaternion<T>& q2)
-        {
-            return q1.myScalar * q2.myScalar + Vector3<T>::DotProduct(q1.myVector, q2.myVector);
-        }
+	template<typename T>
+	inline QuaternionT<T> QuaternionT<T>::GetInverse() const
+	{
+		T vectorLenghtSqr = GetMagnitude();
+		if (CU::AreEqual(vectorLenghtSqr, static_cast<T>(1.0), static_cast<T>(0.0001)))
+		{
+			return GetConjugate();
+		}
+		T denominator = sqrt(myW * myW + vectorLenghtSqr);
+		return QuaternionT<T>(myW / denominator, myVector / denominator);
+	}
 
-        static inline Quaternion<T> Slerp(const Quaternion<T>& q1,
-            const Quaternion<T>& q2, T s1)
-        {
-            if (q1.myScalar * q2.myScalar + Vector3<T>::DotProduct(q1.myVector, q2.myVector) > 0.9999f)
-            {
-                return Quaternion<T>(q1.myScalar * (1 - s1) + q2.myScalar * s1,
-                    q1.myVector * (1 - s1) + q2.myVector * s1)
-                    .Normalized();
-            }
-            return q1 * ((q1.Inverse() * q2) * s1);
-        }
+	template<typename T>
+	inline T QuaternionT<T>::GetMagnitude() const
+	{
+		return sqrt(myW * myW + myVector.Dot(myVector));
+	}
 
-        inline T operator[](const int i) const { return i == 0 ? myScalar : myVector[i - 1]; }
+	template<typename T>
+	inline QuaternionT<T> QuaternionT<T>::GetConjugate() const
+	{
+		return QuaternionT<T>{myW, myVector* static_cast<T>(-1)};
+	}
 
-        static inline Vector3<T> PerpendicularVector(const Vector3<T>& v)
-        {
-            Vector3<T> axis = Vector3<T>::CrossProduct(
-                Vector3<T>(static_cast<T>(1), static_cast<T>(0), static_cast<T>(0)),
-                v);
+	template<typename T>
+	inline T QuaternionT<T>::Dot(QuaternionT<T> anOther) const
+	{
+		T dotProduct = myW * anOther.myW + myVector.Dot(anOther.myVector);
+		return dotProduct;
+	}
 
-            if (axis.LengthSquared() < static_cast<T>(0.05))
-            {
-                axis = Vector3<T>::CrossProduct(
-                    Vector3<T>(static_cast<T>(0), static_cast<T>(1), static_cast<T>(0)),
-                    v);
-            }
-            return axis;
-        }
+	template<typename T>
+	inline CU::Matrix4x4<T> QuaternionT<T>::ToMatrix() const
+	{
+		T w = myW;
+		T x = myVector.x;
+		T y = myVector.y;
+		T z = myVector.z;
 
-        static inline Quaternion<T> RotateFromToWithAxis(
-            const Vector3<T>& v1, const Vector3<T>& v2,
-            const Vector3<T>& preferred_axis)
-        {
-            Vector3<T> start = v1.Normalized();
-            Vector3<T> end = v2.Normalized();
+		CU::Matrix4x4<T> output;
+		output(1, 1) = 1 - 2 * y * y - 2 * z * z;
+		output(1, 2) = 2 * x * y + 2 * w * z;
+		output(1, 3) = 2 * x * z - 2 * w * y;
 
-            T dot_product = Vector3<T>::DotProduct(start, end);
+		output(2, 1) = 2 * x * y - 2 * w * z;
+		output(2, 2) = 1 - 2 * x * x - 2 * z * z;
+		output(2, 3) = 2 * y * z + 2 * w * x;
 
-            if (dot_product >= static_cast<T>(0.99999847691))
-            {
-                return Quaternion<T>::Identity;
-            }
+		output(3, 1) = 2 * x * z + 2 * w * y;
+		output(3, 2) = 2 * y * z - 2 * w * x;
+		output(3, 3) = 1 - 2 * x * x - 2 * y * y;
 
-            if (dot_product <= static_cast<T>(-0.99999847691))
-            {
-                return Quaternion<T>(static_cast<T>(0), preferred_axis);
-            }
+		return output;
+	}
 
-            Vector3<T> cross_product = Vector3<T>::CrossProduct(start, end);
+	template<typename T>
+	inline CU::Vector3<T> QuaternionT<T>::EulerAngles() const
+	{
+		CU::Vector3<float> euler;
 
-            return Quaternion<T>(static_cast<T>(1.0) + dot_product, cross_product)
-                .Normalized();
-        }
+		T sp = -2 * (myVector.y * myVector.z + myW * myVector.x);
 
-        static inline Quaternion<T> RotateFromTo(const Vector3<T>& v1,
-            const Vector3<T>& v2)
-        {
-            Vector3<T> start = v1.Normalized();
-            Vector3<T> end = v2.Normalized();
+		if (Abs(sp) > 0.9999)
+		{
+			euler.x = static_cast<T>(CU::PI * 0.5f) * sp;
+			euler.y = atan2(-myVector.x * myVector.z - myW * myVector.y, static_cast<T>(0.5) - myVector.y * myVector.y - myVector.z * myVector.z);
+			euler.z = 0;
+		}
+		else
+		{
+			euler.x = asin(sp);
+			euler.y = atan2(myVector.x * myVector.z - myW * myVector.y, static_cast<T>(0.5) - myVector.x * myVector.x - myVector.y * myVector.y);
+			euler.z = atan2(myVector.x * myVector.y - myW * myVector.z, static_cast<T>(0.5) - myVector.x * myVector.x - myVector.z * myVector.z);
+		}
+		return euler;
+	}
 
-            T dot_product = Vector3<T>::DotProduct(start, end);
+	template<typename T>
+	inline QuaternionT<T> CommonUtilities::QuaternionT<T>::Slerp(const QuaternionT<T>& aFirst, QuaternionT<T> aSecond, T anInterpolation)
+	{
+		QuaternionT<T> returnQuaternion;
+		T cosOmega = aFirst.Dot(aSecond);
+		if (cosOmega < 0.0)
+		{
+			aSecond.myW *= -1.0;
+			aSecond.myVector = aSecond.myVector * -1.f;
+			cosOmega = -cosOmega;
+		}
 
-            if (dot_product >= static_cast<T>(0.99999847691))
-            {
-                return Quaternion<T>::Identity;
-            }
+		T k0, k1;
+		if (cosOmega > static_cast<T>(0.9999))
+		{
+			k0 = 1 - anInterpolation;
+			k1 = anInterpolation;
+		}
+		else
+		{
+			T sinOmega = sqrt(1 - cosOmega * cosOmega);
+			T omega = atan2(sinOmega, cosOmega);
+			T oneOverSinOmega = 1 / sinOmega;
 
-            if (dot_product <= static_cast<T>(-0.99999847691))
-            {
-                return Quaternion<T>(0, PerpendicularVector(start));
-            }
+			k0 = sin((1 - anInterpolation) * omega) * oneOverSinOmega;
+			k1 = sin(anInterpolation * omega) * oneOverSinOmega;
+		}
 
-            Vector3<T> cross_product = Vector3<T>::CrossProduct(start, end);
+		returnQuaternion.myW = aFirst.myW * k0 + aSecond.myW * k1;
+		returnQuaternion.myVector = aFirst.myVector * k0 + aSecond.myVector * k1;
+		returnQuaternion.Normalize();
 
-            return Quaternion<T>(static_cast<T>(1.0) + dot_product, cross_product)
-                .Normalized();
-        }
+		return returnQuaternion;
+	}
 
-        static inline Quaternion<T> LookAt(const Vector3<T>& forward,
-            const Vector3<T>& up)
-        {
-            return FromMatrix(
-                Matrix3x3<T>::LookAt(forward, Vector3<T>(static_cast<T>(0)), up));
-        }
+	template<typename T>
+	inline QuaternionT<T> operator+(const QuaternionT<T>& aFirst, const QuaternionT<T>& aSecond)
+	{
+		return QuaternionT<T>(aFirst.myW + aSecond.myW, aFirst.myVector + aSecond.myVector);
+	}
 
-        static Quaternion<T> Identity;
+	template<typename T>
+	inline QuaternionT<T> operator*(const QuaternionT<T>& aFirst, const QuaternionT<T>& aSecond)
+	{
+		return QuaternionT<T>{aFirst.myW* aSecond.myW - aFirst.myVector.Dot(aSecond.myVector), aFirst.myW* aSecond.myVector + aSecond.myW * aFirst.myVector + aFirst.myVector.Cross(aSecond.myVector)};
+	}
 
-    private:
-        Vector3<T> myVector;
-        T myScalar;
-    };
+	template<typename T>
+	inline QuaternionT<T> operator/(const QuaternionT<T>& aFirst, const QuaternionT<T>& aSecond)
+	{
+		return aFirst * aSecond.GetInverse();
+	}
 
-    template <typename T>
-    Quaternion<T> Quaternion<T>::Identity = Quaternion<T>(1, 0, 0, 0);
+	template<typename T>
+	inline Vector3<T> operator*(const Vector3<T>& aVector, const QuaternionT<T>& aQuaternion)
+	{
+		QuaternionT<T> vectorQuaternion(0, aVector);
+		return (aQuaternion * vectorQuaternion * aQuaternion.GetInverse()).myVector;
+	}
 
-    template <class T>
-    inline Quaternion<T> operator*(T s, const Quaternion<T>& q)
-    {
-        return q * s;
-    }
-}  
+	template<typename T>
+	inline QuaternionT<T> operator*(const QuaternionT<T>& aQuaternion, T aScalar)
+	{
+		return QuaternionT<T>(aQuaternion.myW * aScalar, aQuaternion.myVector * aScalar);
+	}
+
+	template<typename T>
+	QuaternionT<T> operator/(const QuaternionT<T>& aQuaternion, T aScalar)
+	{
+		T factor = static_cast<T>(1) / aScalar;
+		return aQuaternion * factor;
+	}
+}
+
+namespace CU = CommonUtilities;

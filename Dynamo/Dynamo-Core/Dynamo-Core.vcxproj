@@ -124,7 +124,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;$(SolutionDir)External\FBXSDK\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -142,7 +142,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;$(SolutionDir)External\FBXSDK\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -153,21 +153,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Components\MeshRenderer.cpp" />
+    <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="Core\DirectXFramework.cpp" />
     <ClCompile Include="Core\MainSingleton.cpp" />
     <ClCompile Include="Core\WindowHandler.cpp" />
+    <ClCompile Include="Factories\ModelFactory.cpp" />
+    <ClCompile Include="Factories\ShaderFactory.cpp" />
+    <ClCompile Include="Factories\TextureFactory.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Entry.cpp" />
+    <ClCompile Include="Rendering\Model.cpp" />
+    <ClCompile Include="Rendering\Shader.cpp" />
+    <ClCompile Include="Rendering\Texture.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Components\TransformComponent.h" />
+    <ClInclude Include="Components\MeshRenderer.h" />
+    <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="Core\DirectXFramework.h" />
     <ClInclude Include="Core\MainSingleton.h" />
     <ClInclude Include="Core\WindowHandler.h" />
+    <ClInclude Include="Factories\ModelFactory.h" />
+    <ClInclude Include="Factories\ShaderFactory.h" />
+    <ClInclude Include="Factories\TextureFactory.h" />
+    <ClInclude Include="Rendering\Material.h" />
+    <ClInclude Include="Rendering\Mesh.h" />
+    <ClInclude Include="Rendering\Model.h" />
+    <ClInclude Include="Rendering\Shader.h" />
+    <ClInclude Include="Rendering\Texture.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="pch.h" />

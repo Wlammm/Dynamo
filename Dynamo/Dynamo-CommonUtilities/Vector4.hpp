@@ -52,6 +52,50 @@ namespace CommonUtilities
 		void Normalize();
 		//Returns the dot product of this and aVector
 		T Dot(const Vector4<T>& aVector) const;
+
+		template<typename Temp>
+		Vector4<Temp> Cast() const
+		{
+			return { (Temp)x, (Temp)y, (Temp)z, (Temp)w };
+		}
+
+		T& operator[] (const int aIndex)
+		{
+			switch (aIndex)
+			{
+			case 0:
+				return x;
+			case 1:
+				return y;
+			case 2:
+				return z;
+			case 3:
+				return w;
+			default:
+				assert("index out of range");
+			}
+
+			return x;
+		}
+
+		const T& operator[](const int aIndex) const
+		{
+			switch (aIndex)
+			{
+			case 0:
+				return x;
+			case 1:
+				return y;
+			case 2:
+				return z;
+			case 3:
+				return w;
+			default:
+				assert("index out of range");
+			}
+
+			return x;
+		}
 	};
 
 	//Returns the vector sum of aVector0 and aVector1
