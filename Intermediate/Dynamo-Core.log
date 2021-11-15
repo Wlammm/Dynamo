@@ -1,8 +1,65 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\..\Intermediate\) contains files shared from another project (Dynamo-CommonUtilities.vcxproj, Dynamo-ComponentSystem.vcxproj, Dynamo-Game.vcxproj, Dynamo.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  pch.cpp
+  Camera.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\array(597,9): error C2079: 'std::array<T,50000>::_Elems' uses undefined class 'Dynamo::Transform'
+          with
+          [
+              T=Dynamo::Transform
+          ]
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\ComponentArray.hpp(122): message : see reference to class template instantiation 'std::array<T,50000>' being compiled
+          with
+          [
+              T=Dynamo::Transform
+          ]
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\ComponentManager.hpp(45): message : see reference to class template instantiation 'ComponentArray<T>' being compiled
+          with
+          [
+              T=Dynamo::Transform
+          ]
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\ComponentAdmin.h(40): message : see reference to function template instantiation 'T *ComponentManager::GetComponent<T>(const GameObjectID)' being compiled
+          with
+          [
+              T=Dynamo::Transform
+          ]
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Component.h(31): message : see reference to function template instantiation 'T *ComponentAdmin::GetComponent<T>(const GameObjectID)' being compiled
+          with
+          [
+              T=Dynamo::Transform
+          ]
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Components\Camera.cpp(8): message : see reference to function template instantiation 'T *Component::GetComponent<Dynamo::Transform>(void)' being compiled
+          with
+          [
+              T=Dynamo::Transform
+          ]
+  MeshRenderer.cpp
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Components\MeshRenderer.h(6,16): warning C4099: 'Dynamo::Material': type name first seen using 'struct' now seen using 'class'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\MaterialFactory.h(5): message : see declaration of 'Dynamo::Material'
+  Transform.cpp
+  DirectXFramework.cpp
+  MainSingleton.cpp
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Core\MainSingleton.cpp(105,56): error C2039: 'GetFirstGameObjectWithComponent': is not a member of 'ComponentAdmin'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Scene\Scene.h(3): message : see declaration of 'ComponentAdmin'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Core\MainSingleton.cpp(105,96): error C2059: syntax error: ')'
+  WindowHandler.cpp
+  DDSTextureLoader.cpp
+  JsonFactory.cpp
+  MaterialFactory.cpp
   ModelFactory.cpp
 C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(80,35): warning C4018: '<': signed/unsigned mismatch
 C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(157,83): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
 C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(169,82): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
 C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(209,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
 C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(210,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
-  Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Debug.lib
+  ResourceFactory.cpp
+  ShaderFactory.cpp
+  TextureFactory.cpp
+  Entry.cpp
+  ForwardRenderer.cpp
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(16,11): warning C4101: 'result': unreferenced local variable
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(18,28): warning C4101: 'bufferData': unreferenced local variable
+  Model.cpp
+  RenderManager.cpp
+  Shader.cpp
+  Texture.cpp
+  Scene.cpp
+  Generating Code...

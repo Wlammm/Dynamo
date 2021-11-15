@@ -4,6 +4,10 @@
 #include "WindowHandler.h"
 #include "DirectXFramework.h"
 
+#include "Scene/Scene.h"
+
+#include "Components/Camera.h"
+
 namespace Dynamo
 {
 	MainSingleton* MainSingleton::ourInstance = nullptr;
@@ -91,5 +95,26 @@ namespace Dynamo
 	void MainSingleton::SetScene(Scene* aScene)
 	{
 		ourInstance->myScene = aScene;
+	}
+
+	Camera* MainSingleton::GetMainCamera()
+	{
+		if (ourInstance->myMainCamera && ourInstance->myMainCamera->IsValid())
+			return ourInstance->myMainCamera;
+
+		if (!ourInstance->myScene)
+			return nullptr;
+
+		std::vector<GameObject*> cameras = GetScene()->GetComponentAdmin().GetGameObjectsWithComponent<Camera>();
+		for (const auto& cam : cameras)
+		{
+			if (cam->GetTag() == Tag::MainCamera)
+			{
+				ourInstance->myMainCamera = cam->GetComponent<Camera>();
+				return ourInstance->myMainCamera;
+			}
+		}
+
+		return nullptr;
 	}
 }

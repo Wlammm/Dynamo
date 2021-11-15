@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Components\Camera.cpp" />
     <ClCompile Include="Components\MeshRenderer.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="Core\DirectXFramework.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\Camera.h" />
     <ClInclude Include="Components\MeshRenderer.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="Core\DirectXFramework.h" />
@@ -200,6 +202,7 @@
     <ClInclude Include="Rendering\Mesh.h" />
     <ClInclude Include="Rendering\Model.h" />
     <ClInclude Include="Rendering\RenderManager.h" />
+    <ClInclude Include="Rendering\RenderStructs.hpp" />
     <ClInclude Include="Rendering\Shader.h" />
     <ClInclude Include="Rendering\Texture.h" />
     <ClInclude Include="Scene\Scene.h" />

@@ -21,17 +21,18 @@
 #include <io.hpp>
 #include <DArray.hpp>
 
+#include <ComponentAdmin.h>
+#include <Component.h>
+#include <GameObject.h>
+
+#include "Types.h"
+
+// Factories.
 #include "Factories/JsonFactory.h"
 #include "Factories/ModelFactory.h"
 #include "Factories/ResourceFactory.h"
 #include "Factories/MaterialFactory.h"
 #include "Factories/ShaderFactory.h"
 #include "Factories/TextureFactory.h"
-
-#include <ComponentAdmin.h>
-#include <Component.h>
-#include <GameObject.h>
-
-#include "Types.h"
 
 #include "Core/MainSingleton.h"

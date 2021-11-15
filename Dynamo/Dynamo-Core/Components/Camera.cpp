@@ -8,8 +8,19 @@ namespace Dynamo
 		myTransform = GetComponent<Transform>();
 	}
 
+	void Camera::OnCreate()
+	{
+		myIsValid = true;
+	}
+
+	void Camera::OnDestroy()
+	{
+		myIsValid = false;
+	}
+
 	void Camera::Init(const float aFoV, const Vec2f& aResolution, const float aNearPlane, const float aFarPlane)
 	{
+		myFoV = aFoV;
 		myNearPlane = aNearPlane;
 		myFarPlane = aFarPlane;
 
@@ -47,6 +58,16 @@ namespace Dynamo
 
 	void Camera::SetFoV(const float aFoV)
 	{
+		myFoV = aFoV;
 		Init(aFoV, myResolution);
+	}
+
+	Transform* Camera::GetTransform()
+	{
+		return myTransform;
+	}
+	bool Camera::IsValid() const
+	{
+		return myIsValid;
 	}
 }
