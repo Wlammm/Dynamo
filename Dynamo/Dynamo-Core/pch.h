@@ -20,12 +20,13 @@
 #include <Quaternion.hpp>
 #include <io.hpp>
 #include <DArray.hpp>
+#include "Types.h"
 
+// ComponentSystem
 #include <ComponentAdmin.h>
 #include <Component.h>
 #include <GameObject.h>
-
-#include "Types.h"
+#include "Components/Transform.h"
 
 // Factories.
 #include "Factories/JsonFactory.h"

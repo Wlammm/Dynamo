@@ -2,8 +2,6 @@
 
 namespace Dynamo
 {
-	class Transform;
-
 	class Camera : public Component
 	{
 	public:

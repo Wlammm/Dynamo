@@ -66,6 +66,7 @@ namespace Dynamo
 	{
 		return myTransform;
 	}
+
 	bool Camera::IsValid() const
 	{
 		return myIsValid;
