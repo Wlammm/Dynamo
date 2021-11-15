@@ -2,6 +2,7 @@
 #include "ModelFactory.h"
 #include "Rendering/Model.h"
 #include "fbxsdk.h"
+#include <fstream>
 
 /*
 * Autodesk FBX SDK Guide.
@@ -23,6 +24,8 @@ namespace Dynamo
 
     void ModelFactory::LoadModel(const std::string& aPath)
     {
+        std::unique_ptr<Model> model = std::make_unique<Model>();
+
         struct Vertex
         {
             Vec4f myPosition;
@@ -65,34 +68,34 @@ namespace Dynamo
                 std::vector<Vertex> vertices;
                 std::vector<uint> indicies;
 
-                FbxMesh* mesh = node->GetMesh();
+                FbxMesh* fbxMesh = node->GetMesh();
 
-                if (mesh->GetElementBinormalCount() == 0 || mesh->GetElementTangentCount() == 0)
+                if (fbxMesh->GetElementBinormalCount() == 0 || fbxMesh->GetElementTangentCount() == 0)
                 {
-                    bool result = mesh->GenerateTangentsData(0, true, false);
+                    bool result = fbxMesh->GenerateTangentsData(0, true, false);
                     assert(result);
                 }
 
-                const uint polyCount = mesh->GetPolygonCount();
+                const uint polyCount = fbxMesh->GetPolygonCount();
                 for (int p = 0; p < polyCount; ++p)
                 {
                     for (int v = 0; v < 3; ++v)
                     {
-                        const int controlPointIndex = mesh->GetPolygonVertex(p, v);
-                        const fbxsdk::FbxVector4 vertexPos = mesh->GetControlPointAt(controlPointIndex);
+                        const int controlPointIndex = fbxMesh->GetPolygonVertex(p, v);
+                        const fbxsdk::FbxVector4 vertexPos = fbxMesh->GetControlPointAt(controlPointIndex);
 
                         FbxVector2 vertexUVs[4];
-                        const int numUVs = mesh->GetElementUVCount();
-                        const int textureUVIndex = mesh->GetTextureUVIndex(p, v);
+                        const int numUVs = fbxMesh->GetElementUVCount();
+                        const int textureUVIndex = fbxMesh->GetTextureUVIndex(p, v);
                         for (int uv = 0; uv < numUVs && uv < 4; ++uv)
                         {
-                            FbxGeometryElementUV* uvElement = mesh->GetElementUV(uv);
+                            FbxGeometryElementUV* uvElement = fbxMesh->GetElementUV(uv);
                             vertexUVs[uv] = uvElement->GetDirectArray().GetAt(textureUVIndex);
                         }
 
                         const int polygonIndex = p * 3 + v;
                         fbxsdk::FbxVector4 normal;
-                        FbxGeometryElementNormal* normalElement = mesh->GetElementNormal(0);
+                        FbxGeometryElementNormal* normalElement = fbxMesh->GetElementNormal(0);
                         auto mapNode = normalElement->GetMappingMode();
                         assert(mapNode == 2);
                         auto refMode = normalElement->GetReferenceMode();
@@ -100,18 +103,18 @@ namespace Dynamo
                         normal = normalElement->GetDirectArray().GetAt(polygonIndex);
 
                         fbxsdk::FbxVector4 tangent;
-                        FbxGeometryElementTangent* tangentElement = mesh->GetElementTangent(0);
+                        FbxGeometryElementTangent* tangentElement = fbxMesh->GetElementTangent(0);
                         tangent = tangentElement->GetDirectArray().GetAt(polygonIndex);
 
                         fbxsdk::FbxVector4 binormal;
-                        FbxGeometryElementBinormal* binormalElement = mesh->GetElementBinormal(0);
+                        FbxGeometryElementBinormal* binormalElement = fbxMesh->GetElementBinormal(0);
                         binormal = binormalElement->GetDirectArray().GetAt(polygonIndex);
 
                         FbxColor fbxColors[4];
-                        const int numVertexColors = mesh->GetElementVertexColorCount();
+                        const int numVertexColors = fbxMesh->GetElementVertexColorCount();
                         for (int col = 0; col < numVertexColors && col < 4; ++col)
                         {
-                            FbxGeometryElementVertexColor* colorElement = mesh->GetElementVertexColor(col);
+                            FbxGeometryElementVertexColor* colorElement = fbxMesh->GetElementVertexColor(col);
                             fbxColors[col] = colorElement->GetDirectArray().GetAt(polygonIndex);
                         }
 
@@ -190,16 +193,31 @@ namespace Dynamo
                     { "BINORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
                 };
 
+                std::ifstream vsFile;
+                vsFile.open("VertexShader.cso", std::ios::binary);
+                std::string vsData = { std::istreambuf_iterator<char>(vsFile), std::istreambuf_iterator<char>() };
+                ID3D11VertexShader* vertexShader;
+                result = Main::GetDevice()->CreateVertexShader(vsData.data(), vsData.size(), nullptr, &vertexShader);
+
                 ID3D11InputLayout* inputLayout;
-                result = Main::GetDevice()->CreateInputLayout(layout, sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC), nullptr, 0, &inputLayout);
+                result = Main::GetDevice()->CreateInputLayout(layout, sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC), vsData.data(), vsData.size(), &inputLayout);
                 assert(SUCCEEDED(result));
 
+                Mesh mesh;
+                mesh.myVertexBuffer = vertexBuffer;
+                mesh.myIndexBuffer = indexBuffer;
+                mesh.myNumVertices = vertices.size();
+                mesh.myNumIndicies = indicies.size();
+                mesh.myInputLayout = inputLayout;
+                mesh.myPrimitiveTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+                mesh.myOffset = 0;
+                mesh.myStride = sizeof(Vertex);
 
+                model->AddMesh(mesh);
             }
-
-
-
         }
+
+        myModels[aPath] = std::move(model);
     }
 
     void ModelFactory::GatherMeshNodes(FbxNode* aNode, std::vector<FbxNode*>& outMeshes)

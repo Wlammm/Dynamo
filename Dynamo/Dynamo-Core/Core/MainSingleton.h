@@ -53,6 +53,7 @@ namespace Dynamo
 
 		Scene* myScene = nullptr;
 
+
 	private:
 		friend WindowHandler;
 		friend class DirectXFramework;

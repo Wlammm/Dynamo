@@ -158,7 +158,11 @@
     <ClCompile Include="Core\DirectXFramework.cpp" />
     <ClCompile Include="Core\MainSingleton.cpp" />
     <ClCompile Include="Core\WindowHandler.cpp" />
+    <ClCompile Include="External\DirectXTK\DDSTextureLoader.cpp" />
+    <ClCompile Include="Factories\JsonFactory.cpp" />
+    <ClCompile Include="Factories\MaterialFactory.cpp" />
     <ClCompile Include="Factories\ModelFactory.cpp" />
+    <ClCompile Include="Factories\ResourceFactory.cpp" />
     <ClCompile Include="Factories\ShaderFactory.cpp" />
     <ClCompile Include="Factories\TextureFactory.cpp" />
     <ClCompile Include="pch.cpp">
@@ -166,7 +170,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Entry.cpp" />
+    <ClCompile Include="Rendering\ForwardRenderer.cpp" />
     <ClCompile Include="Rendering\Model.cpp" />
+    <ClCompile Include="Rendering\RenderManager.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />
     <ClCompile Include="Rendering\Texture.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
@@ -177,12 +183,23 @@
     <ClInclude Include="Core\DirectXFramework.h" />
     <ClInclude Include="Core\MainSingleton.h" />
     <ClInclude Include="Core\WindowHandler.h" />
+    <ClInclude Include="External\DirectXTK\DDS.h" />
+    <ClInclude Include="External\DirectXTK\DDSTextureLoader.h" />
+    <ClInclude Include="External\DirectXTK\DirectXHelpers.h" />
+    <ClInclude Include="External\DirectXTK\LoaderHelpers.h" />
+    <ClInclude Include="External\DirectXTK\PlatformHelpers.h" />
+    <ClInclude Include="External\Json\json.hpp" />
+    <ClInclude Include="Factories\JsonFactory.h" />
+    <ClInclude Include="Factories\MaterialFactory.h" />
     <ClInclude Include="Factories\ModelFactory.h" />
+    <ClInclude Include="Factories\ResourceFactory.h" />
     <ClInclude Include="Factories\ShaderFactory.h" />
     <ClInclude Include="Factories\TextureFactory.h" />
+    <ClInclude Include="Rendering\ForwardRenderer.h" />
     <ClInclude Include="Rendering\Material.h" />
     <ClInclude Include="Rendering\Mesh.h" />
     <ClInclude Include="Rendering\Model.h" />
+    <ClInclude Include="Rendering\RenderManager.h" />
     <ClInclude Include="Rendering\Shader.h" />
     <ClInclude Include="Rendering\Texture.h" />
     <ClInclude Include="Scene\Scene.h" />

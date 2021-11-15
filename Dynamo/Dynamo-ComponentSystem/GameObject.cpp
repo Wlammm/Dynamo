@@ -37,6 +37,7 @@ void GameObject::Reset()
 
 void GameObject::SetActive(bool isActive)
 {
+	myIsActive = isActive;
 	myAdmin->SetActive(this, isActive);
 }
 

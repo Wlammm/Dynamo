@@ -4,8 +4,11 @@
 
 namespace Dynamo
 {
-    Shader* Dynamo::ShaderFactory::GetShader(const std::string& aPath, const uint aShaderType)
+    Shader* Dynamo::ShaderFactory::GetShader(const std::string& aPath, const ShaderType aShaderType)
     {
+        if (aPath == "")
+            return nullptr;
+
         if (myShaders.find(aPath) != myShaders.end())
         {
             return myShaders[aPath].get();
@@ -15,9 +18,9 @@ namespace Dynamo
         return myShaders[aPath].get();
     }
 
-    void ShaderFactory::LoadShader(const std::string& aPath, const uint aShaderType)
+    void ShaderFactory::LoadShader(const std::string& aPath, const ShaderType aShaderType)
     {
-        std::unique_ptr<Shader> shader = std::make_unique<Shader>(aPath, (ShaderType) aShaderType);
+        std::unique_ptr<Shader> shader = std::make_unique<Shader>(aPath, aShaderType);
         myShaders[aPath] = std::move(shader);
     }
 }

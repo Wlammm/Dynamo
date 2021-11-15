@@ -1,18 +1,8 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\..\Intermediate\) contains files shared from another project (Dynamo-CommonUtilities.vcxproj, Dynamo-ComponentSystem.vcxproj, Dynamo-Game.vcxproj, Dynamo.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  pch.cpp
-  MeshRenderer.cpp
-  Transform.cpp
-  DirectXFramework.cpp
-  MainSingleton.cpp
-  WindowHandler.cpp
   ModelFactory.cpp
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(77,35): warning C4018: '<': signed/unsigned mismatch
-  ShaderFactory.cpp
-  TextureFactory.cpp
-  Entry.cpp
-  Model.cpp
-  Shader.cpp
-  Texture.cpp
-  Scene.cpp
-  Generating Code...
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(80,35): warning C4018: '<': signed/unsigned mismatch
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(157,83): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(169,82): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(209,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(210,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
   Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Debug.lib

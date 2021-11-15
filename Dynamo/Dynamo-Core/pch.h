@@ -11,6 +11,8 @@
 #include <string>
 #include <memory>
 
+#include "External/Json/json.hpp"
+
 // CommonUtilities
 #include <Vector.hpp>
 #include <Matrix.hpp>
@@ -18,6 +20,13 @@
 #include <Quaternion.hpp>
 #include <io.hpp>
 #include <DArray.hpp>
+
+#include "Factories/JsonFactory.h"
+#include "Factories/ModelFactory.h"
+#include "Factories/ResourceFactory.h"
+#include "Factories/MaterialFactory.h"
+#include "Factories/ShaderFactory.h"
+#include "Factories/TextureFactory.h"
 
 #include <ComponentAdmin.h>
 #include <Component.h>
