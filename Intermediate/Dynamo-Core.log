@@ -1,9 +1,10 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\..\Intermediate\) contains files shared from another project (Dynamo-CommonUtilities.vcxproj, Dynamo-ComponentSystem.vcxproj, Dynamo-Game.vcxproj, Dynamo.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\ForwardPS.cso
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\VertexShader.hlsl(3,17-36): warning X3578: Output value 'main' is not completely initialized
+  
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\VertexShader.cso
   pch.cpp
   Camera.cpp
   MeshRenderer.cpp
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Components\MeshRenderer.h(6,16): warning C4099: 'Dynamo::Material': type name first seen using 'struct' now seen using 'class'
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\MaterialFactory.h(5): message : see declaration of 'Dynamo::Material'
   Transform.cpp
   DirectXFramework.cpp
   MainSingleton.cpp
@@ -22,8 +23,8 @@ C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\Model
   TextureFactory.cpp
   Entry.cpp
   ForwardRenderer.cpp
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(16,11): warning C4101: 'result': unreferenced local variable
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(18,28): warning C4101: 'bufferData': unreferenced local variable
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(22,11): warning C4101: 'result': unreferenced local variable
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(24,28): warning C4101: 'bufferData': unreferenced local variable
   Model.cpp
   RenderManager.cpp
   Shader.cpp

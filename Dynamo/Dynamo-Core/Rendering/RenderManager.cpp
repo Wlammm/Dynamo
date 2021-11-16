@@ -1,20 +1,29 @@
 #include "pch.h"
 #include "RenderManager.h"
+#include "ForwardRenderer.h"
 
 namespace Dynamo
 {
-	void Dynamo::RenderManager::AddMesh(MeshRenderer* aMeshRenderer)
+	RenderManager::RenderManager()
 	{
-		myMeshes.Add(aMeshRenderer);
+	}
+	
+	RenderManager::~RenderManager()
+	{
+	}
+
+	void RenderManager::AddMesh(MeshRenderer* aMeshRenderer)
+	{
+		myModels.Add(aMeshRenderer);
 	}
 
 	void RenderManager::RemoveMesh(MeshRenderer* aMeshRenderer)
 	{
-		myMeshes.TryRemove(aMeshRenderer);
+		myModels.TryRemove(aMeshRenderer);
 	}
 
 	void RenderManager::Render()
 	{
-
+		myForwardRenderer.Render(myModels);
 	}
 }

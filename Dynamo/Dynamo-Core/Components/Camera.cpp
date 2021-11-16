@@ -67,6 +67,11 @@ namespace Dynamo
 		return myTransform;
 	}
 
+	const Mat4f& Camera::GetProjectionMatrix()
+	{
+		return myProjection;
+	}
+
 	bool Camera::IsValid() const
 	{
 		return myIsValid;

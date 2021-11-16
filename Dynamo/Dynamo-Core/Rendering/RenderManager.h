@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ForwardRenderer.h"
+
 namespace Dynamo
 {
 	class MeshRenderer;
@@ -7,13 +9,17 @@ namespace Dynamo
 	class RenderManager
 	{
 	public:
-		static void AddMesh(MeshRenderer* aMeshRenderer);
-		static void RemoveMesh(MeshRenderer* aMeshRenderer);
+		RenderManager();
+		~RenderManager();
 
-		static void Render();
+		void AddMesh(MeshRenderer* aMeshRenderer);
+		void RemoveMesh(MeshRenderer* aMeshRenderer);
+
+		void Render();
 
 	private:
-		static CU::DArray<MeshRenderer*> myMeshes;
+		CU::DArray<MeshRenderer*> myModels;
 
+		ForwardRenderer myForwardRenderer;
 	};
 }

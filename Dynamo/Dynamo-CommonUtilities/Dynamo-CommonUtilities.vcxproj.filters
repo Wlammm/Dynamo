@@ -141,6 +141,18 @@
     <ClInclude Include="DArray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mat3Fwd.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mat2Fwd.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mat4Fwd.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CU.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Dynamo-CommonUtilities.cpp">

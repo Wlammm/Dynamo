@@ -6,6 +6,7 @@ namespace Dynamo
 	class DirectXFramework;
 	class Scene;
 	class Camera;
+	class RenderManager;
 
 	class MainSingleton
 	{
@@ -35,6 +36,8 @@ namespace Dynamo
 
 		static Camera* GetMainCamera();
 
+		static RenderManager& GetRenderManager();
+
 	private:
 		const Vec2ui myWindowSize = { 1920, 1080 };
 		const Vec2ui myWindowOffset = { 100, 100 };
@@ -52,6 +55,7 @@ namespace Dynamo
 
 		std::unique_ptr<WindowHandler> myWindowHandler;
 		std::unique_ptr<DirectXFramework> myFramework;
+		std::unique_ptr<RenderManager> myRenderManager;
 
 		Scene* myScene = nullptr;
 		Camera* myMainCamera = nullptr;

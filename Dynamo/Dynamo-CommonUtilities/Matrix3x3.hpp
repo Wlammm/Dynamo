@@ -1,48 +1,7 @@
 #pragma once
 #include "Matrix2x2.hpp"
+#include "Mat3Fwd.hpp"
 #include "Vector3.hpp"
-
-namespace CommonUtilities
-{
-	template<class T>
-	class Matrix4x4;
-
-	template<class T>
-	class Matrix3x3
-	{
-	public:
-		Matrix3x3<T>();
-		Matrix3x3<T>(
-			const T m11, const T m12, const T m13,
-			const T m21, const T m22, const T m23,
-			const T m31, const T m32, const T m33
-			);
-		Matrix3x3<T>(const Matrix3x3<T>& aMatrix);
-		Matrix3x3<T>(const Matrix4x4<T>& aMatrix);
-
-		T& operator()(const int aRow, const int aColumn);
-		const T& operator()(const int aRow, const int aColumn) const;
-		Matrix3x3<T> operator=(const Matrix3x3<T>& aMatrix);
-
-		T Minor(int aX, int aY) const;
-		T Cofactor(int aX, int aY) const;
-		T Determinant() const;
-		Matrix3x3<T> Cofactors() const;
-		Matrix3x3<T> Adjoint() const;
-		Matrix3x3<T> Inverse() const;
-
-		static Matrix3x3<T> CreateRotationAroundX(T aAngleInRadians);
-		static Matrix3x3<T> CreateRotationAroundY(T aAngleInRadians);
-		static Matrix3x3<T> CreateRotationAroundZ(T aAngleInRadians);
-
-		static Matrix3x3<T> Transpose(const Matrix3x3<T>& aMatrixToTranspose);
-
-	private:
-		T myData[3][3];
-	};
-
-	using Matrix3x3f = Matrix3x3<float>;
-}
 
 namespace CommonUtilities
 {
@@ -351,5 +310,3 @@ namespace CommonUtilities
 		return Adjoint() * (1 / Determinant());
 	}
 }
-
-namespace CU = CommonUtilities;

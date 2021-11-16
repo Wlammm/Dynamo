@@ -1,65 +1,8 @@
 #pragma once
 
+#include "Mat4Fwd.hpp"
 #include "Matrix3x3.hpp"
-
-namespace CommonUtilities
-{
-	template<class T>
-	class Vector4;
-
-	template<class T>
-	class Vector3;
-
-	template<class T>
-	class Matrix4x4
-	{
-	public:
-		Matrix4x4<T>();
-		Matrix4x4<T>(
-			const T m11, const T m12, const T m13, const T m14,
-			const T m21, const T m22, const T m23, const T m24,
-			const T m31, const T m32, const T m33, const T m34,
-			const T m41, const T m42, const T m43, const T m44
-			);
-		Matrix4x4<T>(const Matrix4x4<T>& aMatrix);
-
-		T& operator()(const int aRow, const int aColumn);
-		const T& operator()(const int aRow, const int aColumn) const;
-		Matrix4x4<T>& operator=(const Matrix4x4<T>& aMatrix);
-
-		Vector4<T> GetRow(const int aRow) const;
-		void SetRow(const int aRow, const Vector4<T>& aValue);
-		Vector4<T> GetColumn(const int aColumn) const;
-		void SetColumn(const int aColumn, const Vector4<T>& aValue);
-
-		T Minor(const int aX, const int aY) const;
-		T Cofactor(const int aX, const int aY) const;
-		T Determinant() const;
-		Matrix4x4<T> Cofactors() const;
-		Matrix4x4<T> Adjoint() const;
-		Matrix4x4<T> Inverse() const;
-		static Matrix4x4<T> Transpose(const Matrix4x4<T>& aMatrixToTranspose);
-		static Matrix4x4<T> GetFastInverse(const Matrix4x4<T>& aTransform);
-
-		static Matrix4x4<T> CreateRotationAroundX(T aAngleInRadians);
-		static Matrix4x4<T> CreateRotationAroundY(T aAngleInRadians);
-		static Matrix4x4<T> CreateRotationAroundZ(T aAngleInRadians);
-		static Matrix4x4<T> CreateTranslation(const Vector3<T>& aPosition);
-		static Matrix4x4<T> CreateRotation(const Vector3<T>& aRotation);
-		static Matrix4x4<T> CreateScale(const Vector3<T>& aScale);
-		static Matrix4x4<T> TRS(const Vector3<T>& aTranslation, const Vector3<T>& aRotation, const Vector3<T>& aScale);
-
-	private:
-		T myData[4][4];
-	};
-
-	template <class T>
-	[[nodiscard]] bool operator==(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1);
-	template <class T>
-	[[nodiscard]] bool operator!=(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1);
-
-	using Matrix4x4f = Matrix4x4<float>;
-}
+#include "Quaternion.hpp"
 
 namespace CommonUtilities
 {
@@ -104,25 +47,18 @@ namespace CommonUtilities
 	template <class T>
 	T& Matrix4x4<T>::operator()(const int aRow, const int aColumn)
 	{
-		assert(aRow > 0 && aRow < 5 && "Out of range.");
-		assert(aColumn > 0 && aColumn < 5 && "Out of range.");
 		return myData[aRow - 1][aColumn - 1];
 	}
 
 	template <class T>
 	const T& Matrix4x4<T>::operator()(const int aRow, const int aColumn) const
 	{
-		assert(aRow > 0 && aRow < 5 && "Out of range.");
-		assert(aColumn > 0 && aColumn < 5 && "Out of range.");
-
 		return myData[aRow - 1][aColumn - 1];
 	}
 
 	template <class T>
 	void Matrix4x4<T>::SetRow(const int aRow, const Vector4<T>& aValue)
 	{
-		assert(aRow > 0 && aRow < 5 && "Out of range.");
-
 		(*this)(aRow, 1) = aValue.x;
 		(*this)(aRow, 2) = aValue.y;
 		(*this)(aRow, 3) = aValue.z;
@@ -132,8 +68,6 @@ namespace CommonUtilities
 	template <class T>
 	void Matrix4x4<T>::SetColumn(const int aColumn, const Vector4<T>& aValue)
 	{
-		assert(aColumn > 0 && aColumn < 5 && "Out of range.");
-		
 		(*this)(1, aColumn) = aValue.x;
 		(*this)(2, aColumn) = aValue.y;
 		(*this)(3, aColumn) = aValue.z;
@@ -174,6 +108,43 @@ namespace CommonUtilities
 			0, 0, 1, 0,
 			0, 0, 0, 1
 			);
+	}
+
+	template<class T>
+	inline Matrix4x4<T> Matrix4x4<T>::CreateRotationAroundAxis(T anAngleInRadians, CU::Vector4<T> anAxis)
+	{
+		CU::Matrix4x4<T> output;
+		anAxis.Normalize();
+		T cosAngle = cos(anAngleInRadians);
+		T sinAngle = sin(anAngleInRadians);
+		T oneMinusCos = 1 - cosAngle;
+		output(1, 1) = anAxis.x * anAxis.x * (oneMinusCos)+cosAngle;
+		output(1, 2) = anAxis.x * anAxis.y * (oneMinusCos)+anAxis.z * sinAngle;
+		output(1, 3) = anAxis.x * anAxis.z * (oneMinusCos)-anAxis.y * sinAngle;
+
+		output(2, 1) = anAxis.x * anAxis.y * (oneMinusCos)-anAxis.z * sinAngle;
+		output(2, 2) = anAxis.y * anAxis.y * (oneMinusCos)+cosAngle;
+		output(2, 3) = anAxis.y * anAxis.z * (oneMinusCos)+anAxis.x * sinAngle;
+
+		output(3, 1) = anAxis.x * anAxis.z * (oneMinusCos)+anAxis.y * sinAngle;
+		output(3, 2) = anAxis.y * anAxis.z * (oneMinusCos)-anAxis.x * sinAngle;
+		output(3, 3) = anAxis.z * anAxis.z * (oneMinusCos)+cosAngle;
+
+		output(4, 4) = 1;
+
+		return output;
+	}
+
+	template<class T>
+	inline Matrix4x4<T> Matrix4x4<T>::Transposed() const
+	{
+		return Transpose(*this);
+	}
+
+	template<class T>
+	inline Matrix4x4<T> Matrix4x4<T>::FastInverse() const
+	{
+		return Matrix4x4<T>::GetFastInverse(*this);
 	}
 
 	template <class T>
@@ -460,6 +431,18 @@ namespace CommonUtilities
 			);
 	}
 
+	template<class T>
+	inline Matrix4x4<T> Matrix4x4<T>::CreateTranslationColumn(const Vector3<T>& aPosition)
+	{
+		const Vector3<T>& p = aPosition;
+		return Matrix4x4<T>(
+			1, 0, 0, p.x,
+			0, 1, 0, p.y,
+			0, 0, 1, p.z,
+			0, 0, 0, 1
+			);
+	}
+
 	template <class T>
 	Matrix4x4<T> Matrix4x4<T>::CreateRotation(const Vector3<T>& aRotation)
 	{
@@ -483,6 +466,115 @@ namespace CommonUtilities
 	{
 		return CreateScale(aScale) * CreateRotation(aRotation) * CreateTranslation(aTranslation);
 	}
-}
 
-namespace CU = CommonUtilities;
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::TRS(const Vector3<T>& aTranslation, const QuaternionT<T>& aRotation, const Vector3<T>& aScale)
+	{
+		return CreateScale(aScale) * aRotation.ToMatrix() * CreateTranslation(aTranslation);
+	}
+
+	template<class T>
+	inline void Matrix4x4<T>::LookTowards(const Vector3<T>& aPosition)
+	{
+		CU::Vector3<T> up = { myData[1][0], myData[1][1], myData[1][2] };
+		CU::Vector3<T> currentPos = { myData[3][0], myData[3][1], myData[3][2] };
+
+		CU::Vector3<T> f = CU::Vector3<T>(aPosition - currentPos).GetNormalized();
+		CU::Vector3<T> s = CU::Vector3<T>(up.Cross(f)).GetNormalized();
+		CU::Vector3<T> u = CU::Vector3<T>(f.Cross(s));
+
+		myData[0][0] = s.x;
+		myData[0][1] = s.y;
+		myData[0][2] = s.z;
+
+		myData[1][0] = u.x;
+		myData[1][1] = u.y;
+		myData[1][2] = u.z;
+
+		myData[2][0] = u.x;
+		myData[2][1] = f.y;
+		myData[2][2] = f.z;
+
+		myData[0][3] = -s.Dot(currentPos);
+		myData[1][3] = -u.Dot(currentPos);
+		myData[2][3] = -f.Dot(currentPos);
+	}
+
+	template<class T>
+	inline void Matrix4x4<T>::InitWithColumnMatrix(T* aFirst)
+	{
+		myData(1, 1) = aFirst[0];
+		myData(1, 2) = aFirst[4];
+		myData(1, 3) = aFirst[8];
+		myData(1, 4) = aFirst[12];
+
+		myData(2, 1) = aFirst[1];
+		myData(2, 2) = aFirst[5];
+		myData(2, 3) = aFirst[9];
+		myData(2, 4) = aFirst[13];
+
+		myData(3, 1) = aFirst[2];
+		myData(3, 2) = aFirst[6];
+		myData(3, 3) = aFirst[10];
+		myData(3, 4) = aFirst[14];
+
+		myData(4, 1) = aFirst[3];
+		myData(4, 2) = aFirst[7];
+		myData(4, 3) = aFirst[11];
+		myData(4, 4) = aFirst[15];
+	}
+
+	template<class T>
+	inline Matrix4x4<T> Matrix4x4<T>::ColumnToRow(T* aFirst)
+	{
+		Matrix4x4<T> mat;
+		mat(1, 1) = aFirst[0];
+		mat(1, 2) = aFirst[4];
+		mat(1, 3) = aFirst[8];
+		mat(1, 4) = aFirst[12];
+
+		mat(2, 1) = aFirst[1];
+		mat(2, 2) = aFirst[5];
+		mat(2, 3) = aFirst[9];
+		mat(2, 4) = aFirst[13];
+
+		mat(3, 1) = aFirst[2];
+		mat(3, 2) = aFirst[6];
+		mat(3, 3) = aFirst[10];
+		mat(3, 4) = aFirst[14];
+
+		mat(4, 1) = aFirst[3];
+		mat(4, 2) = aFirst[7];
+		mat(4, 3) = aFirst[11];
+		mat(4, 4) = aFirst[15];
+
+		return mat;
+	}
+
+	template<class T>
+	inline Matrix4x4<T> Matrix4x4<T>::ColumnToColumn(T* aFirst)
+	{
+		Matrix4x4<T> mat;
+		mat(1, 1) = aFirst[0];
+		mat(1, 2) = aFirst[1];
+		mat(1, 3) = aFirst[2];
+		mat(1, 4) = aFirst[3];
+
+		mat(2, 1) = aFirst[4];
+		mat(2, 2) = aFirst[5];
+		mat(2, 3) = aFirst[6];
+		mat(2, 4) = aFirst[7];
+
+		mat(3, 1) = aFirst[8];
+		mat(3, 2) = aFirst[9];
+		mat(3, 3) = aFirst[10];
+		mat(3, 4) = aFirst[11];
+
+		mat(4, 1) = aFirst[12];
+		mat(4, 2) = aFirst[13];
+		mat(4, 3) = aFirst[14];
+		mat(4, 4) = aFirst[15];
+
+		return mat;
+	}
+}

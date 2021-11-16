@@ -1,5 +1,5 @@
 #pragma once
-
+#include <cmath>
 #include <assert.h>
 
 namespace CommonUtilities
@@ -8,108 +8,150 @@ namespace CommonUtilities
 	class Vector2
 	{
 	public:
-		T x;
-		T y;
-
-		//Creates a null-vector
-		Vector2<T>();
-		//Creates a vector (aX, aY, aZ)
-		Vector2<T>(const T& aX, const T& aY);
-		//Copy constructor (compiler generated)
-		Vector2<T>(const Vector2<T>& aVector) = default;
-		//Assignment operator (compiler generated)
-		Vector2<T>& operator=(const Vector2<T>& aVector3) = default;
-		//Destructor (compiler generated)
-		~Vector2<T>() = default;
-		//Returns the squared length of the vector
-		T LengthSqr() const;
-		//Returns the length of the vector
-		T Length() const;
-		//Returns a normalized copy of this
-		Vector2<T> GetNormalized() const;
-		//Normalizes the vector
-		void Normalize();
-		//Returns the dot product of this and aVector
-		T Dot(const Vector2<T>& aVector) const;
-		//Returns the cross product of this and aVector
-		Vector2<T> Cross(const Vector2<T>& aVector) const;
-
-		template<typename Temp>
-		Vector2<Temp> Cast() const
+		union
 		{
-			return { (Temp)x, (Temp)y };
-		}
+			T x;
+			T myX;
+		};
+		union
+		{
+			T y;
+			T myY;
+		};
+
+		Vector2<T>();
+		Vector2<T>(const T& aX, const T& aY);
+		Vector2<T>(const Vector2<T>& aVector) = default;
+		~Vector2<T>() = default;
+
+		Vector2<T> Zero() const;
+
+		T LengthSqr() const;
+		T Length() const;
+
+		Vector2<T> GetNormalized() const;
+		void Normalize();
+
+		Vector2<T> Normal() const { return Vector2<T>(y, -x); }
+
+		T Dot(const Vector2<T>& aVector) const;
+
+		template <class OtherT>
+		Vector2<T>& operator=(const Vector2<OtherT>& aVector) { x = static_cast<T>(aVector.x); y = static_cast<T>(aVector.y); return *this; }
+		template<class OtherT>
+		Vector2<OtherT> Cast() const { return Vector2<OtherT>{static_cast<OtherT>(x), static_cast<OtherT>(y)}; }
+		Vector2<T>& operator=(const Vector2<T>& aVector2) = default;
+		bool operator==(const Vector2<T>& aVector) const { return (x == aVector.x && y == aVector.y); }
+		bool operator!=(const Vector2<T>& aVector) const { return !(*this == aVector); }
+		void Set(T aT, T aBT) { x = aT; y = aBT; }
+
+		void Rotate(const T anAngleInRadians);
+
+		bool IsWithin(const Vector2<T>& aVector, float aTolerance);
 	};
-	//Returns the vector sum of aVector0 and aVector1
-	template <class T> Vector2<T> operator+(const Vector2<T>& aVector0, const Vector2<T>&
-		aVector1)
+
+	template <class T>
+	inline Vector2<T> operator+(const Vector2<T>& aVector0, const Vector2<T>& aVector1)
 	{
-		return { aVector0.x + aVector1.x, aVector0.y + aVector1.y };
+		return Vector2<T>(aVector0.x + aVector1.x, aVector0.y + aVector1.y);
 	}
 
-	//Returns the vector difference of aVector0 and aVector1
-	template <class T> Vector2<T> operator-(const Vector2<T>& aVector0, const Vector2<T>&
-		aVector1)
+	template <class T>
+	inline Vector2<T> operator-(const Vector2<T>& aVector0, const Vector2<T>& aVector1)
 	{
-		return { aVector0.x - aVector1.x, aVector0.y - aVector1.y };
+		return Vector2<T>(aVector0.x - aVector1.x, aVector0.y - aVector1.y);
 	}
 
-	//Returns the vector aVector multiplied by the scalar aScalar
-	template <class T> Vector2<T> operator*(const Vector2<T>& aVector, const T& aScalar)
+	template <class T>
+	inline Vector2<T> operator*(const Vector2<T>& aVector, const T& aScalar)
 	{
-		return { aVector.x * aScalar, aVector.y * aScalar };
+		return Vector2<T>(aVector.x * aScalar, aVector.y * aScalar);
 	}
 
-	//Returns the vector aVector multiplied by the scalar aScalar
-	template <class T> Vector2<T> operator*(const T& aScalar, const Vector2<T>& aVector)
+	template <class T>
+	inline Vector2<T> operator*(const T& aScalar, const Vector2<T>& aVector)
 	{
-		return { aVector.x * aScalar, aVector.y * aScalar };
+		return aVector * aScalar;
 	}
 
-	//Returns the vector aVector divided by the scalar aScalar (equivalent to aVector multiplied by 1 / aScalar)
-	template <class T> Vector2<T> operator/(const Vector2<T>& aVector, const T& aScalar)
+	template <class T>
+	Vector2<T> operator/(const Vector2<T>& aVector, const T& aScalar)
 	{
-		assert(aScalar != 0 && "Divide by 0");
-		return { aVector.x / aScalar, aVector.y / aScalar };
+		assert(aScalar != 0 && "Cannot divide by zero");
+		if (aScalar == static_cast<T>(0))
+		{
+			return aVector;
+		}
+		return Vector2<T>(aVector.x / aScalar, aVector.y / aScalar);
 	}
 
-	//Equivalent to setting aVector0 to (aVector0 + aVector1)
-	template <class T> void operator+=(Vector2<T>& aVector0, const Vector2<T>& aVector1)
+	template <class T>
+	inline void operator/=(Vector2<T>& aVector, const T& aScalar)
+	{
+		aVector = aVector / aScalar;
+	}
+
+	template <class T>
+	inline Vector2<T> operator*(const Vector2<T> aVector, const Vector2<T> anotherVector)
+	{
+		return Vector2<T>{aVector.x* anotherVector.x, aVector.y* anotherVector.y};
+	}
+
+	template <class T>
+	inline void operator*=(Vector2<T> aVector, const Vector2<T> anotherVector)
+	{
+		aVector = aVector * anotherVector;
+	}
+
+	template <class T>
+	inline Vector2<T> operator/(const Vector2<T> aVector, const Vector2<T> anotherVector)
+	{
+		return Vector2<T>{aVector.x / anotherVector.x, aVector.y / anotherVector.y};
+	}
+
+	template <class T>
+	inline void operator/=(Vector2<T> aVector, const Vector2<T> anotherVector)
+	{
+		aVector = aVector / anotherVector;
+	}
+
+	template <class T>
+	inline void operator+=(Vector2<T>& aVector0, const Vector2<T>& aVector1)
 	{
 		aVector0 = aVector0 + aVector1;
 	}
 
-	//Equivalent to setting aVector0 to (aVector0 - aVector1)
-	template <class T> void operator-=(Vector2<T>& aVector0, const Vector2<T>& aVector1)
+	template <class T>
+	inline void operator-=(Vector2<T>& aVector0, const Vector2<T>& aVector1)
 	{
 		aVector0 = aVector0 - aVector1;
 	}
 
-	//Equivalent to setting aVector to (aVector * aScalar)
-	template <class T> void operator*=(Vector2<T>& aVector, const T& aScalar)
+	template <class T>
+	inline void operator*=(Vector2<T>& aVector, const T& aScalar)
 	{
 		aVector = aVector * aScalar;
 	}
 
-	//Equivalent to setting aVector to (aVector / aScalar)
-	template <class T> void operator/=(Vector2<T>& aVector, const T& aScalar)
+
+
+	template<class T>
+	inline Vector2<T>::Vector2() :
+		x(0), y(0)
 	{
-		assert(aScalar != 0 && "Divide by 0");
-		aVector = aVector / aScalar;
+	}
+
+
+	template<class T>
+	inline Vector2<T>::Vector2(const T& aX, const T& aY) :
+		x(aX), y(aY)
+	{
 	}
 
 	template<class T>
-	inline Vector2<T>::Vector2()
+	inline Vector2<T> Vector2<T>::Zero() const
 	{
-		x = 0;
-		y = 0;
-	}
-
-	template<class T>
-	inline Vector2<T>::Vector2(const T& aX, const T& aY)
-	{
-		x = aX;
-		y = aY;
+		return Vector2<T>();
 	}
 
 	template<class T>
@@ -121,33 +163,49 @@ namespace CommonUtilities
 	template<class T>
 	inline T Vector2<T>::Length() const
 	{
-		return sqrt(LengthSqr());
+		return static_cast<T>(sqrt(LengthSqr()));
 	}
 
 	template<class T>
 	inline Vector2<T> Vector2<T>::GetNormalized() const
 	{
 		T length = Length();
-		assert(length != 0 && "Divide by 0");
+		if (length == 0)
+		{
+			return *this;
+		}
 
-		return { x / length, y / length };
+		return *this / length;
 	}
 
 	template<class T>
 	inline void Vector2<T>::Normalize()
 	{
-		T length = Length();
-		assert(length != 0 && "Divide by 0");
-
-		x /= length;
-		y /= length;
+		*this = GetNormalized();
 	}
 
 	template<class T>
 	inline T Vector2<T>::Dot(const Vector2<T>& aVector) const
 	{
-		return { x * aVector.x + y * aVector.y };
+		return x * aVector.x + y * aVector.y;
 	}
-}
 
+	template<class T>
+	inline void Vector2<T>::Rotate(const T anAngleInRadians)
+	{
+		T cosine = cos(anAngleInRadians);
+		T sine = sin(anAngleInRadians);
+
+		operator=(Vector2<T>{ cosine* x - sine * y, sine* x + cosine * y });
+	}
+	template<class T>
+	inline bool Vector2<T>::IsWithin(const Vector2<T>& aVector, float aTolerance)
+	{
+		return (operator-(*this, aVector)).LengthSqr() <= aTolerance * aTolerance;
+	}
+
+	using Vector2f = CommonUtilities::Vector2<float>;
+	using Vector2i = CommonUtilities::Vector2<int>;
+	using Vector2ui = CommonUtilities::Vector2<unsigned>;
+}
 namespace CU = CommonUtilities;

@@ -28,7 +28,7 @@
 #include <GameObject.h>
 #include "Components/Transform.h"
 
-// Factories.
+// Factories
 #include "Factories/JsonFactory.h"
 #include "Factories/ModelFactory.h"
 #include "Factories/ResourceFactory.h"

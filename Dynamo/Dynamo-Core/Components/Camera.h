@@ -17,6 +17,8 @@ namespace Dynamo
 
 		Transform* GetTransform();
 
+		const Mat4f& GetProjectionMatrix();
+
 		bool IsValid() const;
 
 	private:

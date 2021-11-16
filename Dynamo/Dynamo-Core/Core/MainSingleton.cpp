@@ -5,6 +5,7 @@
 #include "DirectXFramework.h"
 
 #include "Scene/Scene.h"
+#include"Rendering/RenderManager.h"
 
 #include "Components/Camera.h"
 
@@ -22,6 +23,8 @@ namespace Dynamo
 		// 2. DirectXFramework
 		ourInstance->myWindowHandler = std::make_unique<WindowHandler>();
 		ourInstance->myFramework = std::make_unique<DirectXFramework>();
+
+		ourInstance->myRenderManager = std::make_unique<RenderManager>();
 	}
 
 	const Vec2ui& MainSingleton::GetWindowSize()
@@ -116,5 +119,10 @@ namespace Dynamo
 		}
 
 		return nullptr;
+	}
+
+	RenderManager& MainSingleton::GetRenderManager()
+	{
+		return *ourInstance->myRenderManager;
 	}
 }

@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "DirectXFramework.h"
+#include "Rendering/RenderManager.h"
 
 #pragma comment(lib, "d3d11.lib")
 
 namespace Dynamo
 {
-	Dynamo::DirectXFramework::DirectXFramework()
+	DirectXFramework::DirectXFramework()
 	{
 		HRESULT result;
 		DXGI_SWAP_CHAIN_DESC swapchainDesc = {};
@@ -66,7 +67,7 @@ namespace Dynamo
 		Main::ourInstance->myDevice = myDevice;
 	}
 
-	Dynamo::DirectXFramework::~DirectXFramework()
+	DirectXFramework::~DirectXFramework()
 	{
 		mySwapChain->Release();
 		mySwapChain = nullptr;
@@ -84,7 +85,7 @@ namespace Dynamo
 		myDepthBuffer = nullptr;
 	}
 
-	void Dynamo::DirectXFramework::BeginFrame()
+	void DirectXFramework::BeginFrame()
 	{
 		myContext->OMSetRenderTargets(1, &myBackBuffer, myDepthBuffer);
 
@@ -92,12 +93,12 @@ namespace Dynamo
 		myContext->ClearDepthStencilView(myDepthBuffer, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	}
 
-	void Dynamo::DirectXFramework::RenderFrame()
+	void DirectXFramework::RenderFrame()
 	{
-
+		//Main::GetRenderManager().Render();
 	}
 
-	void Dynamo::DirectXFramework::EndFrame()
+	void DirectXFramework::EndFrame()
 	{
 		mySwapChain->Present(1, 0);
 	}

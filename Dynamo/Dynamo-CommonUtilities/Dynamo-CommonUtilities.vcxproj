@@ -167,6 +167,7 @@
     <ClInclude Include="BSTSetNode.hpp" />
     <ClInclude Include="Constants.hpp" />
     <ClInclude Include="ContainerIncludes.hpp" />
+    <ClInclude Include="CU.h" />
     <ClInclude Include="DArray.hpp" />
     <ClInclude Include="DoublyLinkedList.hpp" />
     <ClInclude Include="DoublyLinkedListNode.hpp" />
@@ -183,6 +184,9 @@
     <ClInclude Include="io.hpp" />
     <ClInclude Include="Line.hpp" />
     <ClInclude Include="LineVolume.hpp" />
+    <ClInclude Include="Mat2Fwd.hpp" />
+    <ClInclude Include="Mat3Fwd.hpp" />
+    <ClInclude Include="Mat4Fwd.hpp" />
     <ClInclude Include="MathIncludes.hpp" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="Matrix.hpp" />

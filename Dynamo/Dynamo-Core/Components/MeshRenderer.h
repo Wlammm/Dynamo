@@ -3,7 +3,8 @@
 namespace Dynamo
 {
 	class Model;
-	class Material;
+	struct Material;
+	struct Mesh;
 
 	class MeshRenderer : public Component
 	{
@@ -16,8 +17,16 @@ namespace Dynamo
 
 		void AddMaterial(Material* aMaterial);
 
+		const std::vector<Mesh>& GetMeshes() const;
+
+		void SetColor(const Color& aColor);
+		const Color& GetColor() const;
+
+		Material* GetMaterial() const;
+
 	private:
 		Model* myModel = nullptr;
+		Color myColor = { 1, 1, 1, 1 };
 
 		std::vector<Material*> myMaterials;
 	};

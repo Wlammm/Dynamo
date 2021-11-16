@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "MeshRenderer.h"
 #include "Factories/ModelFactory.h"
+#include "Rendering/Model.h"
 
 namespace Dynamo
 {
@@ -17,5 +18,28 @@ namespace Dynamo
 	void MeshRenderer::AddMaterial(Material* aMaterial)
 	{
 		myMaterials.push_back(aMaterial);
+	}
+
+	const std::vector<Mesh>& MeshRenderer::GetMeshes() const
+	{
+		return myModel->GetMeshes();
+	}
+	
+	void MeshRenderer::SetColor(const Color& aColor)
+	{
+		myColor = aColor;
+	}
+
+	const Color& MeshRenderer::GetColor() const
+	{
+		return myColor;
+	}
+
+	Material* MeshRenderer::GetMaterial() const
+	{
+		if (myMaterials.size() > 0)
+			return myMaterials.front();
+
+		return nullptr;
 	}
 }
