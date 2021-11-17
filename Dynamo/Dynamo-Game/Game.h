@@ -9,6 +9,6 @@ public:
 	~Game();
 
 private:
-	std::unique_ptr<GameScene> myScene;
+	std::unique_ptr<GameScene> myScene = std::make_unique<GameScene>();
 
 };

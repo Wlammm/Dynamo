@@ -13,6 +13,7 @@ namespace Dynamo
 	{
 		myDefaultPixelShader = ShaderFactory::GetShader("Shaders/ForwardPS.cso", ShaderType::PixelShader);
 		myDefaultVertexShader = ShaderFactory::GetShader("Shaders/VertexShader.cso", ShaderType::VertexShader);
+		myDefaultMaterial = MaterialFactory::GetDefaultMaterial();
 		
 		CreateBuffers();
 	}
@@ -52,14 +53,26 @@ namespace Dynamo
 				Main::GetContext()->IASetVertexBuffers(0, 1, &mesh.myVertexBuffer, &mesh.myStride, &mesh.myOffset);
 				Main::GetContext()->IASetIndexBuffer(mesh.myIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 		
-				Main::GetContext()->VSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model->GetMaterial()->myAlbedo);
-		
-				Shader* vs = model->GetMaterial()->myVertexShader;
-				vs ? vs->Bind() : myDefaultVertexShader->Bind();
-				
-				Shader* ps = model->GetMaterial()->myPixelShader;
-				ps ? ps->Bind() : myDefaultPixelShader->Bind();
-		
+				if (model->GetMaterial())
+				{
+					Main::GetContext()->VSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model->GetMaterial()->myAlbedo);
+					Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model->GetMaterial()->myAlbedo);
+
+					Shader* vs = model->GetMaterial()->myVertexShader;
+					vs ? vs->Bind() : myDefaultVertexShader->Bind();
+
+					Shader* ps = model->GetMaterial()->myPixelShader;
+					ps ? ps->Bind() : myDefaultPixelShader->Bind();
+				}
+				else
+				{
+					Main::GetContext()->VSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &myDefaultMaterial->myAlbedo);
+					Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &myDefaultMaterial->myAlbedo);
+
+					myDefaultPixelShader->Bind();
+					myDefaultVertexShader->Bind();
+				}
+
 				Main::GetContext()->DrawIndexed(mesh.myNumIndicies, 0, 0);
 			}
 		}

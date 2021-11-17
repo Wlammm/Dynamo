@@ -30,6 +30,7 @@ namespace Dynamo
 		}
 
 	private:
+		Material* myDefaultMaterial = nullptr;
 		Shader* myDefaultPixelShader = nullptr;
 		Shader* myDefaultVertexShader = nullptr;
 		

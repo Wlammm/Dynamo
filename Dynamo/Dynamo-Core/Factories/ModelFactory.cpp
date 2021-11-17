@@ -3,6 +3,7 @@
 #include "Rendering/Model.h"
 #include "fbxsdk.h"
 #include <fstream>
+#include "Rendering/Material.h"
 
 /*
 * Autodesk FBX SDK Guide.
@@ -45,12 +46,14 @@ namespace Dynamo
 
             bool operator==(const Vertex& lhs)
             {
-                return memcmp(this, &lhs, sizeof(Vertex));
+                return !memcmp(this, &lhs, sizeof(Vertex));
             }
         };
 
         FbxManager* manager = FbxManager::Create();
-        FbxImporter* importer = FbxImporter::Create(manager, "");
+        FbxImporter* importer = FbxImporter::Create(manager, "Scene");
+        assert(importer->Initialize(aPath.c_str(), -1, manager->GetIOSettings()));
+        assert(importer->IsFBX());
 
         FbxScene* scene = FbxScene::Create(manager, "Scene");
 
@@ -195,14 +198,9 @@ namespace Dynamo
                     { "BINORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
                 };
 
-                std::ifstream vsFile;
-                vsFile.open("VertexShader.cso", std::ios::binary);
-                std::string vsData = { std::istreambuf_iterator<char>(vsFile), std::istreambuf_iterator<char>() };
-                ID3D11VertexShader* vertexShader;
-                result = Main::GetDevice()->CreateVertexShader(vsData.data(), vsData.size(), nullptr, &vertexShader);
-
                 ID3D11InputLayout* inputLayout;
-                result = Main::GetDevice()->CreateInputLayout(layout, sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC), vsData.data(), vsData.size(), &inputLayout);
+                const std::string defaultVSData = MaterialFactory::GetDefaultMaterial()->myVertexShader->GetData();
+                result = Main::GetDevice()->CreateInputLayout(layout, sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC), defaultVSData.data(), defaultVSData.size(), &inputLayout);
                 assert(SUCCEEDED(result));
 
                 Mesh mesh;

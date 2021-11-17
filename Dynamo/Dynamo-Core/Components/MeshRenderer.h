@@ -12,6 +12,12 @@ namespace Dynamo
 		MeshRenderer() = default;
 		~MeshRenderer() = default;
 
+		void OnCreate() override;
+		void OnEnable() override;
+
+		void OnDestroy() override;
+		void OnDisable() override;
+
 		void SetModel(const std::string& aPath);
 		void SetModel(Model* aModel);
 

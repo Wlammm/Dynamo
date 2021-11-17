@@ -22,12 +22,15 @@ namespace Dynamo
 		// Unbinds shader from stage. 
 		void ResetStage();
 
+		const std::string& GetData() const;
+
 	private:
 		void LoadPixelShader(const std::string& aPath);
 		void LoadVertexShader(const std::string& aPath);
 		void LoadGeometryShader(const std::string& aPath);
 
 	private:
+		std::string myData;
 		ShaderType myShaderType;
 		ID3D11PixelShader* myPixelShader = nullptr;
 		ID3D11VertexShader* myVertexShader = nullptr;

@@ -4,6 +4,8 @@
 
 namespace Dynamo
 {
+	std::unordered_map<std::string, nlohmann::json> JsonFactory::myJsons;
+
 	nlohmann::json& JsonFactory::GetJson(const std::string& aPath)
 	{
 		if (myJsons.find(aPath) != myJsons.end())

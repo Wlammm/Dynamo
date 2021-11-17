@@ -5,13 +5,15 @@ namespace Dynamo
 	class Camera : public Component
 	{
 	public:
-		Camera();
+		Camera() = default;
 
 		void OnCreate() override;
 		void OnDestroy() override;
 
 		void Init(const float aFoV, const Vec2f& aResolution, const float aNearPlane = 1.0f, const float aFarPlane = 10000.0f);
 		void Init(const Vec2f& aResolution, const float aNearPlane = 1.0f, const float aFarPlane = 10000.0f);
+
+		void Update() override;
 
 		void SetFoV(const float aFoV);
 

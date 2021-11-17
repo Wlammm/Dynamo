@@ -4,6 +4,8 @@
 
 namespace Dynamo
 {
+	std::unordered_map<std::string, ID3D11ShaderResourceView*> ResourceFactory::mySRVs;
+
 	ID3D11ShaderResourceView* Dynamo::ResourceFactory::GetSRV(const std::string& aPath)
 	{
 		if (aPath == "")

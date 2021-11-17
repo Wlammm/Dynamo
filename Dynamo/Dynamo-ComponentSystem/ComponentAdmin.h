@@ -31,6 +31,8 @@ public:
 		T* comp =  myComponentManager.AddComponent<T>(aID, std::forward<Args>(params)...);
 		comp->myGameObject = &myBase[aID];
 		comp->myIsActive = true;
+		comp->myAdmin = this;
+		comp->OnCreate();
 		return comp;
 	}
 

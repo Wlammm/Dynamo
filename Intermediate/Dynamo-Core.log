@@ -11,17 +11,17 @@
   JsonFactory.cpp
   MaterialFactory.cpp
   ModelFactory.cpp
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(82,35): warning C4018: '<': signed/unsigned mismatch
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(159,83): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(171,82): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(211,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(212,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(85,35): warning C4018: '<': signed/unsigned mismatch
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(162,83): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(174,82): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(209,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(210,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
   ResourceFactory.cpp
   ShaderFactory.cpp
   TextureFactory.cpp
   ForwardRenderer.cpp
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(22,11): warning C4101: 'result': unreferenced local variable
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(24,28): warning C4101: 'bufferData': unreferenced local variable
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(23,11): warning C4101: 'result': unreferenced local variable
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(25,28): warning C4101: 'bufferData': unreferenced local variable
   Model.cpp
   RenderManager.cpp
   Shader.cpp

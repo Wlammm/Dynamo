@@ -4,6 +4,8 @@
 
 namespace Dynamo
 {
+    std::unordered_map<std::string, Material> MaterialFactory::myMaterials;
+
     Material* Dynamo::MaterialFactory::GetMaterial(const std::string& aPath)
     {
         if (myMaterials.find(aPath) != myMaterials.end())

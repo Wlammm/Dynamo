@@ -24,6 +24,6 @@ namespace Dynamo
 
 	void RenderManager::Render()
 	{
-		//myForwardRenderer.Render(myModels);
+		myForwardRenderer.Render(myModels);
 	}
 }

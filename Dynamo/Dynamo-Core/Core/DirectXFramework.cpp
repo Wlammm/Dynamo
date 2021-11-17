@@ -95,7 +95,7 @@ namespace Dynamo
 
 	void DirectXFramework::RenderFrame()
 	{
-		//Main::GetRenderManager().Render();
+		Main::GetRenderManager().Render();
 	}
 
 	void DirectXFramework::EndFrame()

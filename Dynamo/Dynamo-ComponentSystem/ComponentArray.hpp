@@ -32,8 +32,6 @@ public:
 		myComponentArray[newIndex] = aComponent;
 		mySize++;
 
-		myComponentArray[newIndex].OnCreate();
-
 		return &myComponentArray[newIndex];
 	}
 

@@ -3,14 +3,11 @@
 
 namespace Dynamo
 {
-	Camera::Camera()
-	{
-		myTransform = GetComponent<Transform>();
-	}
-
 	void Camera::OnCreate()
 	{
 		myIsValid = true;
+
+		myTransform = GetComponent<Transform>();
 	}
 
 	void Camera::OnDestroy()
