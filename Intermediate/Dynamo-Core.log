@@ -1,4 +1,4 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\..\Intermediate\) contains files shared from another project (Dynamo-CommonUtilities.vcxproj, Dynamo-ComponentSystem.vcxproj, Dynamo-Game.vcxproj, Dynamo.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\..\Intermediate\) contains files shared from another project (Dynamo-CommonUtilities.vcxproj, Dynamo-ComponentSystem.vcxproj, Dynamo-Game.vcxproj, Dynamo.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   pch.cpp
   Camera.cpp
   MeshRenderer.cpp
@@ -11,19 +11,21 @@
   JsonFactory.cpp
   MaterialFactory.cpp
   ModelFactory.cpp
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(80,35): warning C4018: '<': signed/unsigned mismatch
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(157,83): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(169,82): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(209,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(210,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(82,35): warning C4018: '<': signed/unsigned mismatch
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(159,83): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(171,82): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(211,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Factories\ModelFactory.cpp(212,53): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
   ResourceFactory.cpp
   ShaderFactory.cpp
   TextureFactory.cpp
   ForwardRenderer.cpp
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(22,11): warning C4101: 'result': unreferenced local variable
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Rendering\ForwardRenderer.cpp(24,28): warning C4101: 'bufferData': unreferenced local variable
   Model.cpp
   RenderManager.cpp
   Shader.cpp
   Texture.cpp
   Scene.cpp
   Generating Code...
-  Dynamo-Core.vcxproj -> C:\Users\william.arnback\Documents\GitHub\Dynamo\Libs\Dynamo-Core_Debug.lib
+  Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Debug.lib

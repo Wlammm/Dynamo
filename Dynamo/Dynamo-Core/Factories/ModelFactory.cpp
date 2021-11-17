@@ -11,6 +11,8 @@
 
 namespace Dynamo
 {
+    std::unordered_map<std::string, std::unique_ptr<Model>> ModelFactory::myModels;
+
     Model* ModelFactory::GetModel(const std::string& aPath)
     {
         if (myModels.find(aPath) != myModels.end())
