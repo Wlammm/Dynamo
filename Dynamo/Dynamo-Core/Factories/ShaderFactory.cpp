@@ -4,6 +4,8 @@
 
 namespace Dynamo
 {
+    std::unordered_map<std::string, std::unique_ptr<Shader>> ShaderFactory::myShaders;
+
     Shader* Dynamo::ShaderFactory::GetShader(const std::string& aPath, const ShaderType aShaderType)
     {
         if (aPath == "")

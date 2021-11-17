@@ -72,10 +72,10 @@
     <ClCompile Include="Factories\MaterialFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\ForwardRenderer.cpp">
+    <ClCompile Include="Components\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Camera.cpp">
+    <ClCompile Include="Rendering\ForwardRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,13 +161,13 @@
     <ClInclude Include="Factories\JsonFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\ForwardRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\RenderStructs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\ForwardRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "pch.h"
-
 #define FRAME_BUFFER_SLOT 0
 #define OBJECT_BUFFER_SLOT 1
 #define ALBEDO_TEXTURE_SLOT 1
