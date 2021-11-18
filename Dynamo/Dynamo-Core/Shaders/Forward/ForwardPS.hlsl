@@ -7,6 +7,7 @@ PixelOutput main(VertexOutput input)
     PixelOutput output;
     output.myColor = albedo;
     output.myColor.a = 1;
+    output.myColor = 1;
 
     return output;
 }

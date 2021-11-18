@@ -6,8 +6,9 @@ namespace Dynamo
 	void Camera::OnCreate()
 	{
 		myIsValid = true;
-
 		myTransform = GetComponent<Transform>();
+
+		Init(myFoV, Main::GetWindowResolution().Cast<float>(), myNearPlane, myFarPlane);
 	}
 
 	void Camera::OnDestroy()
@@ -51,6 +52,19 @@ namespace Dynamo
 		myProjection(3, 3) = 1.f / (myFarPlane - myNearPlane);
 		myProjection(4, 3) = myNearPlane / (myNearPlane - myFarPlane);
 		myProjection(4, 4) = 1.f;
+	}
+
+	void Camera::Update()
+	{
+		if (Input::IsKeyPressed(KeyCode::W))
+		{
+			myTransform->SetPosition(myTransform->GetPosition() + myTransform->GetForward());
+		}
+
+		if (Input::IsKeyPressed(KeyCode::S))
+		{
+			myTransform->SetPosition(myTransform->GetPosition() - myTransform->GetForward());
+		}
 	}
 
 	void Camera::SetFoV(const float aFoV)

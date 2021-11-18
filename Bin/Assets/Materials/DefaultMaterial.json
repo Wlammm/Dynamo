@@ -1,7 +1,7 @@
 {
-	"AlbedoTexture": "Assets/Shaders/Default_C",
-	"NormalTexture": "Assets/Shaders/Default_N",
-	"MaterialTexture": "Assets/Shaders/Default_M",
+	"AlbedoTexture": "Assets/Textures/Default_C.dds",
+	"NormalTexture": "Assets/Textures/Default_N.dds",
+	"MaterialTexture": "Assets/Textures/Default_M.dds",
 	"PixelShader": "Shaders/ForwardPS.cso",
 	"VertexShader": "Shaders/VertexShader.cso",
 	"CustomTexture1": "",

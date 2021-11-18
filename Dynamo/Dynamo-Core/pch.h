@@ -22,6 +22,8 @@
 #include <DArray.hpp>
 #include "Types.h"
 
+#include "Utils/Input.h"
+
 // ComponentSystem
 #include <ComponentAdmin.h>
 #include <Component.h>

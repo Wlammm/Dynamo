@@ -101,5 +101,6 @@ namespace Dynamo
 	void DirectXFramework::EndFrame()
 	{
 		mySwapChain->Present(1, 0);
+		Input::GetManager().EndFrame();
 	}
 }

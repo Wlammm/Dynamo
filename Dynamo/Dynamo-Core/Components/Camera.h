@@ -30,8 +30,8 @@ namespace Dynamo
 
 		Mat4f myProjection;
 		Vec2f myResolution;
-		float myNearPlane = 1.0f;
-		float myFarPlane = 10000.0f;
+		float myNearPlane = 0.1f;
+		float myFarPlane = 100000.0f;
 		float myFoV = 90.0f;
 	};
 }

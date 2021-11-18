@@ -34,7 +34,9 @@ namespace Dynamo
 		ID3D11ShaderResourceView* srv;
 		std::wstring wPath = { aPath.begin(), aPath.end() };
 
-		DirectX::CreateDDSTextureFromFile(Main::GetDevice(), wPath.c_str(), nullptr, &srv);
+		HRESULT result = DirectX::CreateDDSTextureFromFile(Main::GetDevice(), wPath.c_str(), nullptr, &srv);
+		assert(SUCCEEDED(result));
+
 		mySRVs[aPath] = srv;
 	}
 }

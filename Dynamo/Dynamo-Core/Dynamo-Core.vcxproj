@@ -185,6 +185,7 @@
     <ClCompile Include="Rendering\Shader.cpp" />
     <ClCompile Include="Rendering\Texture.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Utils\Input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Camera.h" />
@@ -217,6 +218,7 @@
     <ClInclude Include="Types.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Entry.h" />
+    <ClInclude Include="Utils\Input.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Forward\ForwardPS.hlsl">

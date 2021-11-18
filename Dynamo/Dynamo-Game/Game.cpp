@@ -15,6 +15,7 @@ Game::Game()
 	GameObject* mesh = Dyn::Main::GetScene()->CreateGameObject();
 	Dyn::MeshRenderer* meshComp = mesh->AddComponent<Dyn::MeshRenderer>();
 	meshComp->SetModel("Assets/Fbx/Particle_Chest.fbx");
+	//mesh->GetTransform().SetScale({ 0.5f, 0.5f, 0.5f });
 }
 
 Game::~Game()

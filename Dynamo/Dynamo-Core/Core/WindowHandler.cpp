@@ -21,6 +21,11 @@ namespace Dynamo
 
 	LRESULT WindowHandler::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
+		if (Input::GetManager().UpdateEvents(uMsg, wParam, lParam))
+		{
+			return 0;
+		}
+
 		if (uMsg == WM_DESTROY || uMsg == WM_CLOSE)
 		{
 			PostQuitMessage(0);

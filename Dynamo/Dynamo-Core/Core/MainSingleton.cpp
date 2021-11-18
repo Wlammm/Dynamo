@@ -18,6 +18,8 @@ namespace Dynamo
 		assert(ourInstance == nullptr && "MainSingleton already initialized.");
 		ourInstance = new MainSingleton();
 
+		Input::Create();
+
 		// These needs to be in order. 
 		// 1. WindowHandler
 		// 2. DirectXFramework

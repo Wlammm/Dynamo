@@ -52,8 +52,10 @@ namespace Dynamo
 
         FbxManager* manager = FbxManager::Create();
         FbxImporter* importer = FbxImporter::Create(manager, "Scene");
-        assert(importer->Initialize(aPath.c_str(), -1, manager->GetIOSettings()));
-        assert(importer->IsFBX());
+        bool result = importer->Initialize(aPath.c_str(), -1, manager->GetIOSettings());
+        assert(result);
+        result = importer->IsFBX();
+        assert(result);
 
         FbxScene* scene = FbxScene::Create(manager, "Scene");
 
