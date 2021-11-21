@@ -107,10 +107,10 @@ PixelOutput main(VertexOutput input)
     }
     
     float3 spotLights = 0;
-    for (uint i = 0; i < mySpotLightBuffer.myNumSpotLights; ++i)
+    for (uint j = 0; j < mySpotLightBuffer.myNumSpotLights; ++j)
     {
-        spotLights += EvaluateSpotLight(difColor, specColor, normal, pRoughness, mySpotLightBuffer.myLights[i].myColor.rgb, mySpotLightBuffer.myLights[i].myIntensity, mySpotLightBuffer.myLights[i].myRange,
-            mySpotLightBuffer.myLights[i].myPosition.xyz, mySpotLightBuffer.myLights[i].myDirection.xyz, mySpotLightBuffer.myLights[i].myOuterAngle, mySpotLightBuffer.myLights[i].myInnerAngle, 
+        spotLights += EvaluateSpotLight(difColor, specColor, normal, pRoughness, mySpotLightBuffer.myLights[j].myColor.rgb, mySpotLightBuffer.myLights[j].myIntensity, mySpotLightBuffer.myLights[j].myRange,
+            mySpotLightBuffer.myLights[j].myPosition.xyz, mySpotLightBuffer.myLights[j].myDirection.xyz, mySpotLightBuffer.myLights[j].myOuterAngle, mySpotLightBuffer.myLights[j].myInnerAngle, 
             toEye.xyz, input.myWorldPosition.xyz);
     }
     
