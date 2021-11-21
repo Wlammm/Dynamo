@@ -25,10 +25,10 @@ struct VertexOutput
     float4 myPosition : SV_POSITION;
     float4 myWorldPosition : WORLDPOSITION;
     float myDepth : DEPTH;
-    float4 myColor0 : COLOR0;
-    float4 myColor1 : COLOR1;
-    float4 myColor2 : COLOR2;
-    float4 myColor3 : COLOR3;
+    float4 myVxColor0 : COLOR0;
+    float4 myVxColor1 : COLOR1;
+    float4 myVxColor2 : COLOR2;
+    float4 myVxColor3 : COLOR3;
     float2 myUV0 : UV0;
     float2 myUV1 : UV1;
     float2 myUV2 : UV2;

@@ -79,13 +79,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\Bin\</OutDir>
-    <IntDir>$(SolutionDir)..\Intermediate\</IntDir>
+    <IntDir>$(SolutionDir)..\Intermediate\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_ $(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\Bin\</OutDir>
-    <IntDir>$(SolutionDir)..\Intermediate\</IntDir>
+    <IntDir>$(SolutionDir)..\Intermediate\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)_ $(Configuration)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -118,30 +118,32 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_WINDOWS;FBXSDK_SHARED</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dynamo-Core\;$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;$(SolutionDir)Dynamo-Game\;$(SolutionDir)External\FBXSDK\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dynamo-Core\;$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;$(SolutionDir)Dynamo-Game\;$(SolutionDir)Dynamo-ImGui\;$(SolutionDir)External\FBXSDK\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Libs\;$(SolutionDir)External\FBXSDK\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Dynamo-Core_$(Configuration).lib;Dynamo-CommonUtilities_$(Configuration).lib;Dynamo-ComponentSystem_$(Configuration).lib;Dynamo-Game_$(Configuration).lib;libfbxsdk_release.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Dynamo-Core_$(Configuration).lib;Dynamo-CommonUtilities_$(Configuration).lib;Dynamo-ComponentSystem_$(Configuration).lib;Dynamo-Game_$(Configuration).lib;Dynamo-ImGui_$(Configuration).lib;libfbxsdk_release.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_WINDOWS;FBXSDK_SHARED</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dynamo-Core\;$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;$(SolutionDir)Dynamo-Game\;$(SolutionDir)External\FBXSDK\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dynamo-Core\;$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;$(SolutionDir)Dynamo-Game\;$(SolutionDir)Dynamo-ImGui\;$(SolutionDir)External\FBXSDK\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,7 +151,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Libs\;$(SolutionDir)External\FBXSDK\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Dynamo-Core_$(Configuration).lib;Dynamo-CommonUtilities_$(Configuration).lib;Dynamo-ComponentSystem_$(Configuration).lib;Dynamo-Game_$(Configuration).lib;libfbxsdk_release.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Dynamo-Core_$(Configuration).lib;Dynamo-CommonUtilities_$(Configuration).lib;Dynamo-ComponentSystem_$(Configuration).lib;Dynamo-Game_$(Configuration).lib;Dynamo-ImGui_$(Configuration).lib;libfbxsdk_release.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

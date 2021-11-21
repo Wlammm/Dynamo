@@ -56,6 +56,16 @@ POINT CommonUtilities::InputManager::GetMousePositionClientRelative() const
 	return myMousePosClientRelative;
 }
 
+POINT CommonUtilities::InputManager::GetMouseDelta() const
+{
+	return { myMousePos.x - myMousePosLastFrame.x, myMousePos.y - myMousePosLastFrame.y };
+}
+
+POINT CommonUtilities::InputManager::GetMouseDeltaClientRelative() const
+{
+	return { myMousePosClientRelative.x - myMousePosClientRelativeLastFrame.x, myMousePosClientRelative.y - myMousePosClientRelativeLastFrame.y };
+}
+
 bool CommonUtilities::InputManager::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	bool detectMessage = false;
@@ -180,6 +190,9 @@ void CommonUtilities::InputManager::EndFrame()
 		myKeyState[keyCode].myIsUp = false;
 		myKeyState[keyCode].myIsDown = false;
 	}
+
+	myMousePosLastFrame = myMousePos;
+	myMousePosClientRelativeLastFrame = myMousePosClientRelative;
 }
 
 int CommonUtilities::InputManager::GetRightOrLeftKeyCode(const int aVirtualKeyCode, const LPARAM lParam)

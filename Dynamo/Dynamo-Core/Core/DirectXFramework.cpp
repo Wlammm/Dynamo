@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "DirectXFramework.h"
 #include "Rendering/RenderManager.h"
+#include "Utils/ImGuiManager.h"
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -87,6 +88,8 @@ namespace Dynamo
 
 	void DirectXFramework::BeginFrame()
 	{
+		ImGuiManager::BeginFrame();
+
 		myContext->OMSetRenderTargets(1, &myBackBuffer, myDepthBuffer);
 
 		myContext->ClearRenderTargetView(myBackBuffer, &Main::GetClearColor().r);
@@ -96,6 +99,7 @@ namespace Dynamo
 	void DirectXFramework::RenderFrame()
 	{
 		Main::GetRenderManager().Render();
+		ImGuiManager::Render();
 	}
 
 	void DirectXFramework::EndFrame()

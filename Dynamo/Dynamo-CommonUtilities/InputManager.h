@@ -181,6 +181,8 @@ namespace CommonUtilities
 		POINT GetMousePosition() const;
 		POINT GetMousePositionClientRelative() const;
 
+		POINT GetMouseDelta() const;
+		POINT GetMouseDeltaClientRelative() const;
 
 		bool UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam);
 		void EndFrame();
@@ -197,7 +199,10 @@ namespace CommonUtilities
 		};
 		KeyState myKeyState[254];
 		POINT myMousePos = { 0, 0 };
+		POINT myMousePosLastFrame = { 0, 0 };
+
 		POINT myMousePosClientRelative = { 0, 0 };
+		POINT myMousePosClientRelativeLastFrame = { 0, 0 };
 	};
 }
 namespace CU = CommonUtilities;

@@ -25,9 +25,9 @@ namespace Dynamo
 
 		Mat4f newMatrix;
 		newMatrix =
-			Mat4f::CreateRotationAroundY(aRotation.y) *
-			Mat4f::CreateRotationAroundX(aRotation.x) *
 			Mat4f::CreateRotationAroundZ(aRotation.z) *
+			Mat4f::CreateRotationAroundX(aRotation.x) *
+			Mat4f::CreateRotationAroundY(aRotation.y) *
 			translation;
 
 		myMatrix = newMatrix;
@@ -167,5 +167,11 @@ namespace Dynamo
 	{
 		Vec4f up = Vec4f(0, 1, 0, 0) * myMatrix;
 		return Vec3f(up.x, up.y, up.z).GetNormalized();
+	}
+	void Transform::Move(const Vec3f& aVec)
+	{
+		Vec3f pos = GetPosition();
+		pos += aVec;
+		SetPosition(pos);
 	}
 }

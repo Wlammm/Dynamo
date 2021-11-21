@@ -11,12 +11,13 @@ namespace Dynamo
 	{
 	public:
 		ForwardRenderer();
-		~ForwardRenderer() = default;
+		~ForwardRenderer();
 
 		void Render(const CU::DArray<MeshRenderer*>& someModels);
 
 	private:
 		void CreateBuffers();
+		void CreateRSStates();
 
 		template<typename T>
 		void MapBuffer(T& aBufferData, ID3D11Buffer* aBuffer)
@@ -39,5 +40,7 @@ namespace Dynamo
 		
 		ObjectBuffer myObjectBufferData;
 		ID3D11Buffer* myObjectBuffer = nullptr;
+
+		ID3D11RasterizerState* myRSState;
 	};
 }

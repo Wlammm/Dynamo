@@ -2,6 +2,8 @@
 #include "WindowHandler.h"
 #include <Windows.h>
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 namespace Dynamo
 {
 	WindowHandler::WindowHandler()
@@ -19,8 +21,14 @@ namespace Dynamo
 			Main::GetWindowSize().x, Main::GetWindowSize().y, nullptr, nullptr, nullptr, this);
 	}
 
+
 	LRESULT WindowHandler::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
+		if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+		{
+			return true;
+		}
+
 		if (Input::GetManager().UpdateEvents(uMsg, wParam, lParam))
 		{
 			return 0;

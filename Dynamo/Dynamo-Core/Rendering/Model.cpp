@@ -12,4 +12,9 @@ namespace Dynamo
 	{
 		return myMeshes;
 	}
+
+	const std::string& Model::GetPath() const
+	{
+		return myPath;
+	}
 }

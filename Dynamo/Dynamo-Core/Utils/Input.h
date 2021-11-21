@@ -37,11 +37,20 @@ namespace Dynamo
 		static bool IsMousePressed(const MouseButton aMouseButton);
 
 		// Mouse position relative to the entire computer screen
-		static CU::Vector2ui GetMousePosition();
+		static Vec2ui GetMousePosition();
 		// Mouse position relative to the client screen
-		static CU::Vector2ui GetMousePositionClientRelative();
+		static Vec2ui GetMousePositionClientRelative();
 		// Normalized mouse position relative to client screen.
-		static CU::Vector2f GetMousePositionClientNormalized();
+		static Vec2f GetMousePositionClientNormalized();
+
+		// Mouse delta relative to entire computer screen.
+		static Vec2ui GetMouseDelta();
+		// MOuse delta relative to the client screen.
+		static Vec2ui GetMouseDeltaClientRelative();
+		// Normalized mouse delta relative to computer screen.
+		static Vec2f GetMouseDeltaNormalized();
+		// Normalized mouse delta relative to client screen.
+		static Vec2f GetMouseDeltaClientNormalized();
 
 		static CU::InputManager& GetManager();
 

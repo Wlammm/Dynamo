@@ -14,7 +14,12 @@ namespace Dynamo
 
 		const std::vector<Mesh>& GetMeshes() const;
 
+		const std::string& GetPath() const;
+
 	private:
+		friend class ModelFactory;
+
 		std::vector<Mesh> myMeshes;
+		std::string myPath = "";
 	};
 }

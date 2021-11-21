@@ -12,9 +12,14 @@ namespace Dynamo
 	{
 	public:
 		static void Init();
+		static void Destroy();
+		static void Update();
 
+		// Returns full window size. Including top-bar.
 		static const Vec2ui& GetWindowSize();
 		static const Vec2ui& GetWindowOffset();
+
+		// Returns screensize in window.
 		static const Vec2ui& GetWindowResolution();
 
 		static const Color& GetClearColor();

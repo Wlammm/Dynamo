@@ -31,6 +31,8 @@ namespace Dynamo
 		Vec3f GetRight() const;
 		Vec3f GetUp() const;
 
+		void Move(const Vec3f& aVec);
+
 	private:
 		Mat4f myMatrix;
 

@@ -23,15 +23,27 @@ namespace Dynamo
 
 		bool IsValid() const;
 
+		void EnableFreeCamera();
+		void DisableFreeCamera();
+
+	private:
+		void CameraMovement();
+		void CameraRotation();
+
 	private:
 		bool myIsValid = false;
 
-		Transform* myTransform;
+		Transform* myTransform = nullptr;
 
 		Mat4f myProjection;
 		Vec2f myResolution;
-		float myNearPlane = 0.1f;
-		float myFarPlane = 100000.0f;
+		float myNearPlane = 0.01f;
+		float myFarPlane = 10000.0f;
 		float myFoV = 90.0f;
+
+		bool myEnableFreeMovement = false;
+		float myMovementSpeed = 100;
+		float myShiftMultiplier = 5;
+		float myMouseSensitivity = 3;
 	};
 }

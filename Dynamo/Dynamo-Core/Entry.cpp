@@ -28,13 +28,12 @@ namespace Dynamo
 
 			Main::GetFramework().BeginFrame();
 
-			if (Main::GetScene() != nullptr)
-			{
-				Main::GetScene()->Update();
-			}
+			Main::Update();
 
 			Main::GetFramework().RenderFrame();
 			Main::GetFramework().EndFrame();
 		}
+
+		Main::Destroy();
 	}
 }

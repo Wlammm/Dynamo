@@ -1,8 +1,17 @@
 #pragma once
 #include <chrono>
+#include <functional>
 
 namespace CommonUtilities
 {
+	struct StopTimer
+	{
+		float myTimer = 0.0f;
+		float myStartTime = 0.0f;
+		std::function<void(void)> myCallback;
+		bool myIsRepeatable = false;
+	};
+
 	class Timer
 	{
 	public:
@@ -13,15 +22,29 @@ namespace CommonUtilities
 		void Update();
 
 		float GetDeltaTime() const;
-		double GetTotalTime() const;
+		float GetUnscaledDeltaTime() const;
+		float GetTotalTime() const;
+
+		void SetTimeScale(const float aScaleValue);
+		float GetTimeScale() const;
+		void ResetDeltaTime();
+
+		void SetTimer(const float aTime, const std::function<void(void)>& aCallbackFunction, const bool isRepeatable = false);
+		void SetUpdateTimer(const float aTime, const std::function<void(void)>& aCallbackFunction, const bool isRepeatable = false);
+		void ClearAllTimers();
 
 	private:
+		void UpdateStopTimers();
 
-		std::chrono::high_resolution_clock myClock{};
-		std::chrono::high_resolution_clock::time_point myUpdateStart;
-		double myTotalTime = 0;
-		float myDeltaTime = 0;
+	private:
+		std::chrono::high_resolution_clock myTimer;
+		std::chrono::time_point<std::chrono::high_resolution_clock> myUpdateStart;
+		float myDeltaTime = 0.0f;
+		float myTimeScale = 0.0f;
+		float myTotalTime = 0.0f;
+
+		std::vector<StopTimer> myStopTimers;
+		std::vector<StopTimer> myUpdateTimers;
 	};
 }
-
 namespace CU = CommonUtilities;

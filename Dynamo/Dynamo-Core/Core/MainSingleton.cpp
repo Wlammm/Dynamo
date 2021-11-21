@@ -9,6 +9,8 @@
 
 #include "Components/Camera.h"
 
+#include "Utils/ImGuiManager.h"
+
 namespace Dynamo
 {
 	MainSingleton* MainSingleton::ourInstance = nullptr;
@@ -18,7 +20,9 @@ namespace Dynamo
 		assert(ourInstance == nullptr && "MainSingleton already initialized.");
 		ourInstance = new MainSingleton();
 
+		Console::Create();
 		Input::Create();
+		Time::Create();
 
 		// These needs to be in order. 
 		// 1. WindowHandler
@@ -27,6 +31,28 @@ namespace Dynamo
 		ourInstance->myFramework = std::make_unique<DirectXFramework>();
 
 		ourInstance->myRenderManager = std::make_unique<RenderManager>();
+
+		ImGuiManager::Start();
+	}
+
+	void MainSingleton::Destroy()
+	{
+		ImGuiManager::Destroy();
+		Time::Destroy();
+		Input::Destroy();
+		Console::Destroy();
+	}
+
+	void MainSingleton::Update()
+	{
+		Time::Update();
+
+		if (GetScene() != nullptr)
+		{
+			GetScene()->Update();
+		}
+
+		Debug::Update();
 	}
 
 	const Vec2ui& MainSingleton::GetWindowSize()

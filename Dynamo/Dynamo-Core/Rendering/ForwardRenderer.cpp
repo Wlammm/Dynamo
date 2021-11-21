@@ -18,12 +18,15 @@ namespace Dynamo
 		CreateBuffers();
 	}
 
+	ForwardRenderer::~ForwardRenderer()
+	{
+		myFrameBuffer->Release();
+		myObjectBuffer->Release();
+		myRSState->Release();
+	}
+
 	void ForwardRenderer::Render(const CU::DArray<MeshRenderer*>& someModels)
 	{
-		HRESULT result;
-
-		D3D11_MAPPED_SUBRESOURCE bufferData;
-		
 		Camera* camera = Main::GetMainCamera();
 		if (!camera)
 			return;
@@ -48,11 +51,12 @@ namespace Dynamo
 				Main::GetContext()->VSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
 				Main::GetContext()->PSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
 		
+				Main::GetContext()->RSSetState(myRSState);
 				Main::GetContext()->IASetPrimitiveTopology(mesh.myPrimitiveTopology);
 				Main::GetContext()->IASetInputLayout(mesh.myInputLayout);
 				Main::GetContext()->IASetVertexBuffers(0, 1, &mesh.myVertexBuffer, &mesh.myStride, &mesh.myOffset);
 				Main::GetContext()->IASetIndexBuffer(mesh.myIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-		
+
 				if (model->GetMaterial())
 				{
 					Main::GetContext()->VSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model->GetMaterial()->myAlbedo);
@@ -93,6 +97,16 @@ namespace Dynamo
 		
 		bufferDesc.ByteWidth = sizeof(ObjectBuffer);
 		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myObjectBuffer);
+		assert(SUCCEEDED(result));
+	}
+
+	void ForwardRenderer::CreateRSStates()
+	{
+		D3D11_RASTERIZER_DESC desc;
+		desc.FillMode = D3D11_FILL_SOLID;
+		desc.CullMode = D3D11_CULL_BACK;
+
+		HRESULT result = Main::GetDevice()->CreateRasterizerState(&desc, &myRSState);
 		assert(SUCCEEDED(result));
 	}
 }

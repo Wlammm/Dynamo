@@ -63,4 +63,9 @@ namespace Dynamo
 
 		return nullptr;
 	}
+
+	void MeshRenderer::ApplyModelMaterial()
+	{
+		AddMaterial(MaterialFactory::GetMaterialForModel(myModel->GetPath()));
+	}
 }

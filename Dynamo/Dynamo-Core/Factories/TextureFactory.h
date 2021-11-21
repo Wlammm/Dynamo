@@ -12,6 +12,5 @@ namespace Dynamo
 		static Texture CreateDepth(const Vec2ui& aSize, DXGI_FORMAT aFormat);
 
 	private:
-
 	};
 }

@@ -80,33 +80,65 @@ bool Dynamo::Input::IsMousePressed(const MouseButton aMouseButton)
 	return IsKeyPressed(aMouseButton);
 }
 
-CU::Vector2ui Dynamo::Input::GetMousePosition()
+Vec2ui Dynamo::Input::GetMousePosition()
 {
-	return CU::Vector2ui{
+	return Vec2ui{
 		static_cast<unsigned int>(myInstance->myInputManager->GetMousePosition().x),
 		static_cast<unsigned int>(myInstance->myInputManager->GetMousePosition().y)
 	};
 }
 
-CU::Vector2ui Dynamo::Input::GetMousePositionClientRelative()
+Vec2ui Dynamo::Input::GetMousePositionClientRelative()
 {
-	return CU::Vector2ui{
+	return Vec2ui{
 		static_cast<unsigned int>(myInstance->myInputManager->GetMousePositionClientRelative().x),
 		static_cast<unsigned int>(myInstance->myInputManager->GetMousePositionClientRelative().y)
 	};
 }
 
-CU::Vector2f Dynamo::Input::GetMousePositionClientNormalized()
+Vec2f Dynamo::Input::GetMousePositionClientNormalized()
 {
-	CU::Vector2f pixelPos = {
+	Vec2f pixelPos = {
 		static_cast<float>(GetMousePositionClientRelative().x),
 		static_cast<float>(GetMousePositionClientRelative().y) };
 
-	CU::Vector2f floatResolution = {
+	Vec2f floatResolution = {
 		static_cast<float>(Main::GetWindowResolution().x),
 		static_cast<float>(Main::GetWindowResolution().y) };
 
 	return (pixelPos / floatResolution);
+}
+
+Vec2ui Dynamo::Input::GetMouseDelta()
+{
+	POINT mousePos = myInstance->myInputManager->GetMouseDelta();
+	Vec2ui pos = { (uint)mousePos.x, (uint)mousePos.y };
+	return pos;
+}
+
+Vec2ui Dynamo::Input::GetMouseDeltaClientRelative()
+{
+	POINT mousePos = myInstance->myInputManager->GetMouseDeltaClientRelative();
+	Vec2ui pos = { (uint)mousePos.x, (uint)mousePos.y };
+	return pos;
+}
+
+Vec2f Dynamo::Input::GetMouseDeltaNormalized()
+{
+	POINT mousePos = myInstance->myInputManager->GetMouseDelta();
+	Vec2f pos = { (float)mousePos.x, (float)mousePos.y };
+	Vec2f screenRes = Main::GetWindowResolution().Cast<float>();
+	Vec2f norm = pos / screenRes;
+	return norm;
+}
+
+Vec2f Dynamo::Input::GetMouseDeltaClientNormalized()
+{
+	POINT mousePos = myInstance->myInputManager->GetMouseDeltaClientRelative();
+	Vec2f pos = { (float)mousePos.x, (float)mousePos.y };
+	Vec2f screenRes = Main::GetWindowResolution().Cast<float>();
+	Vec2f norm = pos / screenRes;
+	return norm;
 }
 
 CU::InputManager& Dynamo::Input::GetManager()

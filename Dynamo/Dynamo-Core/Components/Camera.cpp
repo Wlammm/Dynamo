@@ -56,14 +56,10 @@ namespace Dynamo
 
 	void Camera::Update()
 	{
-		if (Input::IsKeyPressed(KeyCode::W))
+		if (myEnableFreeMovement)
 		{
-			myTransform->SetPosition(myTransform->GetPosition() + myTransform->GetForward());
-		}
-
-		if (Input::IsKeyPressed(KeyCode::S))
-		{
-			myTransform->SetPosition(myTransform->GetPosition() - myTransform->GetForward());
+			CameraMovement();
+			CameraRotation();
 		}
 	}
 
@@ -86,5 +82,75 @@ namespace Dynamo
 	bool Camera::IsValid() const
 	{
 		return myIsValid;
+	}
+
+	void Camera::EnableFreeCamera()
+	{
+		myEnableFreeMovement = true;
+	}
+
+	void Camera::DisableFreeCamera()
+	{
+		myEnableFreeMovement = false;
+	}
+
+	void Camera::CameraMovement()
+	{
+		CU::Vector3f moveDir;
+
+		if (Input::IsKeyPressed(KeyCode::W))
+		{
+			moveDir += myTransform->GetForward();
+		}
+
+		if (Input::IsKeyPressed(KeyCode::S))
+		{
+			moveDir -= myTransform->GetForward();
+		}
+
+		if (Input::IsKeyPressed(KeyCode::D))
+		{
+			moveDir += myTransform->GetRight();
+		}
+
+		if (Input::IsKeyPressed(KeyCode::A))
+		{
+			moveDir -= myTransform->GetRight();
+		}
+
+		if (Input::IsKeyPressed(KeyCode::E))
+		{
+			moveDir += myTransform->GetUp();
+		}
+
+		if (Input::IsKeyPressed(KeyCode::Q))
+		{
+			moveDir -= myTransform->GetUp();
+		}
+
+		float multiplier = 1;
+		if (Input::IsKeyPressed(KeyCode::LeftShift))
+		{
+			multiplier = myShiftMultiplier;
+		}
+
+		myTransform->Move(moveDir * myMovementSpeed * multiplier * Time::GetUnscaledDeltaTime());
+	}
+
+	void Camera::CameraRotation()
+	{
+		if (Input::IsKeyPressed(MouseButton::Right))
+		{
+			Vec2f mouseDelta = Input::GetMouseDeltaNormalized();
+
+			static float yaw = 0.0f;
+			static float pitch = 0.0f;
+
+			yaw += mouseDelta.x * myMouseSensitivity;
+			pitch += mouseDelta.y * myMouseSensitivity;
+			pitch = CU::Clamp(-HALF_PI + 0.001f, HALF_PI - 0.001f, pitch);
+
+			myTransform->SetRotationRad({ -pitch, -yaw, 0.0f });
+		}
 	}
 }

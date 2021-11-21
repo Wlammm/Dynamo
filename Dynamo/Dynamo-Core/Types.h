@@ -42,8 +42,9 @@ using Matrix4x4f = CU::Matrix4x4f;
 using Mat4f = CU::Matrix4x4f;
 using Quat = CU::Quaternion;
 
-#define Rad2Deg 57.2957795f
-#define Deg2Rad 0.0174532925f
-#define PI 3.14159265359f
+constexpr float Rad2Deg = 57.2957795f;
+constexpr float Deg2Rad = 0.0174532925f;
+constexpr float PI = 3.14159265359f;
+constexpr float HALF_PI = 3.14159265359f * .5f;
 
 #define DYNAMO_VERSION " V0.0"

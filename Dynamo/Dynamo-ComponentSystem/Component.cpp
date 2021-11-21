@@ -42,10 +42,22 @@ void Component::OnEnable() { }
 
 void Component::OnDisable() { }
 
-void Component::OnCollision(GameObject* anOther) { }
+void Component::OnCollision(GameObject* anOther) 
+{ 
+	anOther;
+}
 
-void Component::OnTriggerEnter(GameObject* anOther) { }
+void Component::OnTriggerEnter(GameObject* anOther) 
+{ 
+	anOther;
+}
 
-void Component::OnTriggerExit(GameObject* anOther) { }
+void Component::OnTriggerExit(GameObject* anOther) 
+{ 
+	anOther;
+}
 
-void Component::OnTrigger(GameObject* anOther) { }
+void Component::OnTrigger(GameObject* anOther) 
+{ 
+	anOther;
+}

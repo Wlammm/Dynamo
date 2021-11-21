@@ -30,6 +30,8 @@ namespace Dynamo
 
 		Material* GetMaterial() const;
 
+		void ApplyModelMaterial();
+
 	private:
 		Model* myModel = nullptr;
 		Color myColor = { 1, 1, 1, 1 };
