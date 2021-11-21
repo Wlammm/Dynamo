@@ -90,8 +90,10 @@ namespace Dynamo
 
 	void RenderManager::Render()
 	{
-		myRenderTexture.SetAsActiveTarget(&myRenderDepth);
+		ClearTextures();
 
+		myRenderTexture.SetAsActiveTarget(&myRenderDepth);
+		//RenderUtils::SetBlendState(RenderUtils::BLENDSTATE_ADDITIVE);
 		myForwardRenderer.Render(myModels, myDirLights, myAmbLights, myPointLights, mySpotLights);
 
 		RenderFullscreenEffects();
@@ -112,8 +114,8 @@ namespace Dynamo
 
 	void RenderManager::RenderToBackBuffer()
 	{
-		myRenderTexture.SetAsActiveTarget(FS_TEXTURE_SLOT1);
 		myBackBuffer.SetAsActiveTarget();
+		myRenderTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		myFullscreenRenderer.RenderCopy();
 	}
 
@@ -128,5 +130,12 @@ namespace Dynamo
 		myRenderTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		myRenderDepth = TextureFactory::CreateDepth(Main::GetWindowResolution(), DXGI_FORMAT_D32_FLOAT);
+	}
+
+	void RenderManager::ClearTextures()
+	{
+		myRenderTexture.ClearTexture();
+		myRenderDepth.ClearDepth();
+		myBackBuffer.ClearTexture();
 	}
 }

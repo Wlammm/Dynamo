@@ -12,6 +12,9 @@ namespace Dynamo
 		void Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget);
 
 	private:
+		void ClearTextures();
+
+	private:
 		Texture myLuminanceTexture;
 		Texture myHalfSizeTexture;
 		Texture myQuarterSizeTexture;

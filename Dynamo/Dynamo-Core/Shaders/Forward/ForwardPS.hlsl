@@ -97,7 +97,7 @@ PixelOutput main(VertexOutput input)
     float3 difColor = lerp((float3) 0.0f, albedo, 1.0f - metalness);
     
     float3 ambience = EvaluateAmbience(myCubeMap, normal, input.myNormal.xyz, toEye, pRoughness, ao, difColor, specColor) * myAmbientLightBuffer.myIntensity;
-    float3 dirLight = EvaluateDirectionalLight(difColor, specColor, normal, pRoughness, myDirectionalLightBuffer.myColor.rgb, myDirectionalLightBuffer.myToLight.xyz, toEye.xyz);
+    float3 dirLight = EvaluateDirectionalLight(difColor, specColor, normal, pRoughness, myDirectionalLightBuffer.myColor.rgb, myDirectionalLightBuffer.myToLight.xyz, toEye.xyz) * myDirectionalLightBuffer.myIntensity;
 
     float3 pointLights = 0;
     for (uint i = 0; i < myPointLightBuffer.myLightCount; ++i)

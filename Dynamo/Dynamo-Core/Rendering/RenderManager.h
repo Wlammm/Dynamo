@@ -43,6 +43,7 @@ namespace Dynamo
 		void RenderToBackBuffer();
 
 		void CreateTextures();
+		void ClearTextures();
 
 	private:
 		CU::DArray<MeshRenderer*> myModels;

@@ -25,6 +25,7 @@ namespace Dynamo
 
         Texture textureResult = CreateTexture(texture);
         ID3D11ShaderResourceView* srv;
+
         result = Main::GetDevice()->CreateShaderResourceView(texture, nullptr, &srv);
         assert(SUCCEEDED(result));
 

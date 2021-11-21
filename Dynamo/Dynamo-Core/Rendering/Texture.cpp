@@ -5,23 +5,6 @@ namespace Dynamo
 {
 	Texture::~Texture()
 	{
-		if(myRenderTarget)
-			myRenderTarget->Release();
-		
-		if(myDepth)
-			myDepth->Release();
-		
-		if(myTexture)
-			myTexture->Release();
-		
-		if(mySRV)
-			mySRV->Release();
-		// BRB
-		if (myViewport)
-		{
-			delete myViewport;
-			myViewport = nullptr;
-		}
 	}
 
 	void Texture::SetAsActiveDepth()
@@ -50,5 +33,16 @@ namespace Dynamo
 		Main::GetContext()->PSSetShaderResources(aSlot, 1, &mySRV);
 		Main::GetContext()->GSSetShaderResources(aSlot, 1, &mySRV);
 		Main::GetContext()->VSSetShaderResources(aSlot, 1, &mySRV);
+	}
+
+	void Texture::ClearTexture()
+	{
+		float clearColor[4] = { 0, 0, 0, 0 };
+		Main::GetContext()->ClearRenderTargetView(myRenderTarget, &clearColor[0]);
+	}
+
+	void Texture::ClearDepth(float aClearDepthValue, uint aClearStencilValue)
+	{
+		Main::GetContext()->ClearDepthStencilView(myDepth, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, aClearDepthValue, aClearStencilValue);
 	}
 }

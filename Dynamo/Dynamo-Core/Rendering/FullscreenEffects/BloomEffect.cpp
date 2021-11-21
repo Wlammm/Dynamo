@@ -24,6 +24,8 @@ namespace Dynamo
 
 	void BloomEffect::Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget)
 	{
+		ClearTextures();
+
 		myLuminanceTexture.SetAsActiveTarget();
 		aFinalTarget.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.Render(myLuminanceShader);
@@ -69,8 +71,18 @@ namespace Dynamo
 		myHalfSizeTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT2);
 		aFullscreenRenderer.Render(myBloomShader);
 
-		aFinalTarget.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
+		aFinalTarget.SetAsActiveTarget(FS_TEXTURE_SLOT1);
 		myIntermediateTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
+	}
+
+	void BloomEffect::ClearTextures()
+	{
+		myLuminanceTexture.ClearTexture();
+		myHalfSizeTexture.ClearTexture();
+		myQuarterSizeTexture.ClearTexture();
+		myBlurTexture1.ClearTexture();
+		myBlurTexture2.ClearTexture();
+		myIntermediateTexture.ClearTexture();
 	}
 }

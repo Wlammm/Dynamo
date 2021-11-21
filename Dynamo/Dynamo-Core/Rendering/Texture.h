@@ -11,6 +11,8 @@ namespace Dynamo
 		void SetAsActiveTarget(Texture* aDepth = nullptr);
 		void SetAsResourceOnSlot(const uint aSlot) const;
 
+		void ClearTexture();
+		void ClearDepth(float aClearDepthValue = 1.0f, uint aClearStencilValue = 0);
 
 	private:
 		friend class TextureFactory;
