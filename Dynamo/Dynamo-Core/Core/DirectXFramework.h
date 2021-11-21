@@ -12,6 +12,8 @@ namespace Dynamo
 		void RenderFrame();
 		void EndFrame();
 
+		ID3D11RenderTargetView* GetBackBuffer() const;
+
 	private:
 		IDXGISwapChain* mySwapChain = nullptr;
 		ID3D11Device* myDevice = nullptr;

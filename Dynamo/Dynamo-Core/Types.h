@@ -42,6 +42,8 @@ using Matrix4x4f = CU::Matrix4x4f;
 using Mat4f = CU::Matrix4x4f;
 using Quat = CU::Quaternion;
 
+using DXSRV = ID3D11ShaderResourceView;
+
 constexpr float Rad2Deg = 57.2957795f;
 constexpr float Deg2Rad = 0.0174532925f;
 constexpr float PI = 3.14159265359f;

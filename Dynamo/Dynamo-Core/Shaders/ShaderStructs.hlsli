@@ -1,3 +1,5 @@
+TextureCube myCubeMap : register(t0);
+
 Texture2D myAlbedoTexture : register(t1);
 Texture2D myNormalTexture : register(t2);
 Texture2D myMaterialTexture : register(t3);
@@ -63,4 +65,26 @@ cbuffer ObjectBuffer : register(b1)
         
         float2 padding;
     } myObjectBuffer;
+}
+
+cbuffer DirectionalLightBuffer : register(b4)
+{
+    struct DirectionalLightBuffer
+    {
+        float4 myToLight;
+        float4 myColor;
+        float myIntensity;
+
+        float3 padding;
+    } myDirectionalLightBuffer;
+}
+
+cbuffer AmbientLightBuffer : register(b5)
+{
+    struct AmbientLightBuffer
+    {
+        float myIntensity;
+        
+        float3 padding;
+    } myAmbientLightBuffer;
 }

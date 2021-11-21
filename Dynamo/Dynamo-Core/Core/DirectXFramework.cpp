@@ -107,4 +107,9 @@ namespace Dynamo
 		mySwapChain->Present(1, 0);
 		Input::GetManager().EndFrame();
 	}
+
+	ID3D11RenderTargetView* DirectXFramework::GetBackBuffer() const
+	{
+		return myBackBuffer;
+	}
 }

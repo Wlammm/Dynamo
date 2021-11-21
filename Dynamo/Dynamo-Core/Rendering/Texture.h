@@ -5,6 +5,7 @@ namespace Dynamo
 	class Texture
 	{
 	public:
+		Texture() = default;
 		~Texture();
 		void SetAsActiveDepth();
 		void SetAsActiveTarget(Texture* aDepth = nullptr);
@@ -16,7 +17,7 @@ namespace Dynamo
 
 		union
 		{
-			ID3D11RenderTargetView* myRenderTarget;
+			ID3D11RenderTargetView* myRenderTarget = nullptr;
 			ID3D11DepthStencilView* myDepth;
 		};
 

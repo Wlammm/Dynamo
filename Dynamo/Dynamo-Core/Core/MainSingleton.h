@@ -43,7 +43,7 @@ namespace Dynamo
 
 		static RenderManager& GetRenderManager();
 
-	private:
+ 	private:
 		const Vec2ui myWindowSize = { 1920, 1080 };
 		const Vec2ui myWindowOffset = { 100, 100 };
 		const Color myClearColor = { 0, 0, 0, 1 };

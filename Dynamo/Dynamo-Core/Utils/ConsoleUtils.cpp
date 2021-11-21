@@ -67,7 +67,7 @@ namespace Dynamo
 	{
 		std::string msg;
 		msg += aMsg;
-		msg += "x: %f, y: %f";
+		msg += "[%f, %f]";
 		Log(msg.c_str(), aVec.x, aVec.y);
 	}
 
@@ -75,7 +75,7 @@ namespace Dynamo
 	{
 		std::string msg;
 		msg += aMsg;
-		msg += "x: %f, y: %f, z: %f";
+		msg += "[%f, %f, %f]";
 		Log(msg.c_str(), aVec.x, aVec.y, aVec.z);
 	}
 
@@ -83,7 +83,7 @@ namespace Dynamo
 	{
 		std::string msg;
 		msg += aMsg;
-		msg += "x: %f, y: %f, z: %f, w: %f";
+		msg += "[%f, %f, %f, %f]";
 		Log(msg.c_str(), aVec.x, aVec.y, aVec.z, aVec.w);
 	}
 

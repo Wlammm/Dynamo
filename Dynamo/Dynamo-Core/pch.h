@@ -51,3 +51,5 @@
 #include "Factories/TextureFactory.h"
 
 #include "Core/MainSingleton.h"
+
+#include "Rendering/RenderManager.h"

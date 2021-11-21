@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -163,8 +163,12 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Components\AmbientLight.cpp" />
     <ClCompile Include="Components\Camera.cpp" />
+    <ClCompile Include="Components\DirectionalLight.cpp" />
     <ClCompile Include="Components\MeshRenderer.cpp" />
+    <ClCompile Include="Components\PointLight.cpp" />
+    <ClCompile Include="Components\SpotLight.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="Core\DirectXFramework.cpp" />
     <ClCompile Include="Core\MainSingleton.cpp" />
@@ -182,21 +186,33 @@
     </ClCompile>
     <ClCompile Include="Entry.cpp" />
     <ClCompile Include="Rendering\ForwardRenderer.cpp" />
+    <ClCompile Include="Rendering\FullscreenEffects\BloomEffect.cpp" />
+    <ClCompile Include="Rendering\FullscreenRenderer.cpp" />
     <ClCompile Include="Rendering\Model.cpp" />
     <ClCompile Include="Rendering\RenderManager.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />
     <ClCompile Include="Rendering\Texture.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-GaussianV.hlsl">
+      <FileType>Document</FileType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <ClCompile Include="Utils\ConsoleUtils.cpp" />
     <ClCompile Include="Utils\Debug.cpp" />
     <ClCompile Include="Utils\FileUtils.cpp" />
     <ClCompile Include="Utils\ImGuiManager.cpp" />
     <ClCompile Include="Utils\Input.cpp" />
+    <ClCompile Include="Utils\RenderUtils.cpp" />
     <ClCompile Include="Utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\AmbientLight.h" />
     <ClInclude Include="Components\Camera.h" />
+    <ClInclude Include="Components\DirectionalLight.h" />
     <ClInclude Include="Components\MeshRenderer.h" />
+    <ClInclude Include="Components\PointLight.h" />
+    <ClInclude Include="Components\SpotLight.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="Core\DirectXFramework.h" />
     <ClInclude Include="Core\MainSingleton.h" />
@@ -214,6 +230,9 @@
     <ClInclude Include="Factories\ShaderFactory.h" />
     <ClInclude Include="Factories\TextureFactory.h" />
     <ClInclude Include="Rendering\ForwardRenderer.h" />
+    <ClInclude Include="Rendering\FullscreenEffects\BloomEffect.h" />
+    <ClInclude Include="Rendering\FullscreenEffects\FullscreenEffect.h" />
+    <ClInclude Include="Rendering\FullscreenRenderer.h" />
     <ClInclude Include="Rendering\Material.h" />
     <ClInclude Include="Rendering\Mesh.h" />
     <ClInclude Include="Rendering\Model.h" />
@@ -230,6 +249,7 @@
     <ClInclude Include="Utils\FileUtils.h" />
     <ClInclude Include="Utils\ImGuiManager.h" />
     <ClInclude Include="Utils\Input.h" />
+    <ClInclude Include="Utils\RenderUtils.h" />
     <ClInclude Include="Utils\Time.h" />
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +259,26 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-Bloom.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-Copy.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-GaussianH.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-Luminance.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Fullscreen\FullscreenVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\VertexShader.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
@@ -247,6 +287,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Fullscreen\FullscreenStructs.hlsli" />
+    <None Include="Shaders\PBRFunctions.hlsli" />
     <None Include="Shaders\ShaderStructs.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
