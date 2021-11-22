@@ -39,12 +39,14 @@ namespace Dynamo
 		static Scene* GetScene();
 		static void SetScene(Scene* aScene);
 
+		// Overrides the main camera. nullptr to disable.
+		static Camera* SetOverrideCamera(Camera* aCamera);
 		static Camera* GetMainCamera();
 
 		static RenderManager& GetRenderManager();
 
  	private:
-		const Vec2ui myWindowSize = { 1920, 1080 };
+		const Vec2ui myWindowSize = { 1600, 900 };
 		const Vec2ui myWindowOffset = { 100, 100 };
 		const Color myClearColor = { 0, 0, 0, 1 };
 		const std::wstring myWindowTitle = L"Dynamo";
@@ -63,6 +65,7 @@ namespace Dynamo
 		std::unique_ptr<RenderManager> myRenderManager;
 
 		Scene* myScene = nullptr;
+		Camera* myOverrideCamera = nullptr;
 		Camera* myMainCamera = nullptr;
 
 	private:

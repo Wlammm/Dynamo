@@ -5,6 +5,9 @@ Texture2D myNormalTexture : register(t2);
 Texture2D myMaterialTexture : register(t3);
 
 SamplerState myDefaultSampler : register(s0);
+SamplerState myWrapSampler : register(s1);
+SamplerState myClampSampler : register(s2);
+SamplerState myPointSampler : register(s3);
 
 struct VertexInput
 {

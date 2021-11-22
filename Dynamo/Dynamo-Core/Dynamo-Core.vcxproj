@@ -188,6 +188,7 @@
     <ClCompile Include="Rendering\ForwardRenderer.cpp" />
     <ClCompile Include="Rendering\FullscreenEffects\BloomEffect.cpp" />
     <ClCompile Include="Rendering\FullscreenRenderer.cpp" />
+    <ClCompile Include="Rendering\GBuffer.cpp" />
     <ClCompile Include="Rendering\Model.cpp" />
     <ClCompile Include="Rendering\RenderManager.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="Rendering\FullscreenEffects\BloomEffect.h" />
     <ClInclude Include="Rendering\FullscreenEffects\FullscreenEffect.h" />
     <ClInclude Include="Rendering\FullscreenRenderer.h" />
+    <ClInclude Include="Rendering\GBuffer.h" />
     <ClInclude Include="Rendering\Material.h" />
     <ClInclude Include="Rendering\Mesh.h" />
     <ClInclude Include="Rendering\Model.h" />

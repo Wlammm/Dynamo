@@ -218,6 +218,7 @@ namespace Dynamo
                 model->AddMesh(mesh);
             }
         }
+
         model->myPath = aPath;
         myModels[aPath] = std::move(model);
     }

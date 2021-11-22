@@ -128,8 +128,16 @@ namespace Dynamo
 		ourInstance->myScene = aScene;
 	}
 
+	Camera* MainSingleton::SetOverrideCamera(Camera* aCamera)
+	{
+		ourInstance->myOverrideCamera = aCamera;
+	}
+
 	Camera* MainSingleton::GetMainCamera()
 	{
+		if (ourInstance->myOverrideCamera)
+			return ourInstance->myOverrideCamera;
+
 		if (ourInstance->myMainCamera && ourInstance->myMainCamera->IsValid())
 			return ourInstance->myMainCamera;
 

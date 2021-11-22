@@ -35,6 +35,11 @@ namespace Dynamo
 		Main::GetContext()->VSSetShaderResources(aSlot, 1, &mySRV);
 	}
 
+	ID3D11DepthStencilView* Texture::GetDepth() const
+	{
+		return myDepth;
+	}
+
 	void Texture::ClearTexture()
 	{
 		float clearColor[4] = { 0, 0, 0, 0 };
