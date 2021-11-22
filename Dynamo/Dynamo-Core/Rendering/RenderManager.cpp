@@ -11,6 +11,8 @@ namespace Dynamo
 		RenderUtils::Create();
 
 		CreateTextures();
+
+		myGammaCorrectionShader = ShaderFactory::GetShader("Shaders/FullscreenPS-GammaCorrection.cso", ShaderType::PixelShader);
 	}
 	
 	RenderManager::~RenderManager()
@@ -90,15 +92,53 @@ namespace Dynamo
 
 	void RenderManager::Render()
 	{
+		ImGuiRender();
+
 		ClearTextures();
 
-		myRenderTexture.SetAsActiveTarget(&myRenderDepth);
-		//RenderUtils::SetBlendState(RenderUtils::BLENDSTATE_ADDITIVE);
-		myForwardRenderer.Render(myModels, myDirLights, myAmbLights, myPointLights, mySpotLights);
+		if(myRenderDeferred)
+			RenderDeferred();
+		else
+			RenderForward();
 
-		RenderFullscreenEffects();
+		if(myRenderEffects)
+			RenderFullscreenEffects();
+
+		if (myGammaCorrection)
+			GammaCorrection();
 
 		RenderToBackBuffer();
+	}
+
+	void RenderManager::ImGuiRender()
+	{
+		Debug::ImGui("RenderManager", [this]()
+			{
+				ImGui::Checkbox("Deferred", &myRenderDeferred);
+				ImGui::Checkbox("Fullscreen Effects", &myRenderEffects);
+				ImGui::Checkbox("Gamma correction", &myGammaCorrection);
+			});
+	}
+
+	void RenderManager::RenderDeferred()
+	{
+		RenderUtils::SetBlendState(RenderUtils::BlendState::BLENDSTATE_DISABLE);
+		
+		myGBuffer.SetAsActiveTarget(&myRenderDepth);
+		myDeferredRenderer.GenerateGBuffer(myModels);
+		
+		RenderUtils::SetBlendState(RenderUtils::BlendState::BLENDSTATE_ADDITIVE);
+		myRenderTexture.SetAsActiveTarget();
+		myGBuffer.SetAllAsResources();
+		myDeferredRenderer.Render(myDirLights, myAmbLights, myPointLights, mySpotLights);
+	}
+
+	void RenderManager::RenderForward()
+	{
+		RenderUtils::SetBlendState(RenderUtils::BlendState::BLENDSTATE_DISABLE);
+
+		myRenderTexture.SetAsActiveTarget(&myRenderDepth);
+		myForwardRenderer.Render(myModels, myDirLights, myAmbLights, myPointLights, mySpotLights);
 	}
 
 	void RenderManager::RenderFullscreenEffects()
@@ -119,6 +159,17 @@ namespace Dynamo
 		myFullscreenRenderer.RenderCopy();
 	}
 
+	void RenderManager::GammaCorrection()
+	{
+		myIntermediateTexture.SetAsActiveTarget();
+		myRenderTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
+		myFullscreenRenderer.Render(myGammaCorrectionShader);
+
+		myRenderTexture.SetAsActiveTarget();
+		myIntermediateTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
+		myFullscreenRenderer.RenderCopy();
+	}
+
 	void RenderManager::CreateTextures()
 	{
 		ID3D11Resource* backBufferResource = nullptr;
@@ -128,8 +179,10 @@ namespace Dynamo
 
 		myBackBuffer = TextureFactory::CreateTexture(backBufferTexture);
 		myRenderTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R8G8B8A8_UNORM);
-
+		myIntermediateTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R8G8B8A8_UNORM);
 		myRenderDepth = TextureFactory::CreateDepth(Main::GetWindowResolution(), DXGI_FORMAT_D32_FLOAT);
+
+		myGBuffer = TextureFactory::CreateGBuffer(Main::GetWindowResolution());
 	}
 
 	void RenderManager::ClearTextures()
@@ -137,5 +190,7 @@ namespace Dynamo
 		myRenderTexture.ClearTexture();
 		myRenderDepth.ClearDepth();
 		myBackBuffer.ClearTexture();
+		myGBuffer.ClearTextures();
+		myIntermediateTexture.ClearTexture();
 	}
 }

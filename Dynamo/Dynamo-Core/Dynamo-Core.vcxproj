@@ -185,6 +185,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Entry.cpp" />
+    <ClCompile Include="Rendering\DeferredRenderer.cpp" />
     <ClCompile Include="Rendering\ForwardRenderer.cpp" />
     <ClCompile Include="Rendering\FullscreenEffects\BloomEffect.cpp" />
     <ClCompile Include="Rendering\FullscreenRenderer.cpp" />
@@ -194,6 +195,30 @@
     <ClCompile Include="Rendering\Shader.cpp" />
     <ClCompile Include="Rendering\Texture.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
+    <FxCompile Include="Shaders\Deferred\AmbientLightShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Deferred\DirectionalLightShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Deferred\GBuffer.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Deferred\PointLightShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Deferred\SpotLightShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-GammaCorrection.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\Fullscreen\FullscreenPS-GaussianV.hlsl">
       <FileType>Document</FileType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -230,6 +255,7 @@
     <ClInclude Include="Factories\ResourceFactory.h" />
     <ClInclude Include="Factories\ShaderFactory.h" />
     <ClInclude Include="Factories\TextureFactory.h" />
+    <ClInclude Include="Rendering\DeferredRenderer.h" />
     <ClInclude Include="Rendering\ForwardRenderer.h" />
     <ClInclude Include="Rendering\FullscreenEffects\BloomEffect.h" />
     <ClInclude Include="Rendering\FullscreenEffects\FullscreenEffect.h" />

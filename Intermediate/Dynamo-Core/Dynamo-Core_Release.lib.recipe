@@ -3,6 +3,24 @@
   <ProjectOutputs />
   <ContentFiles>
     <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\AmbientLightShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\DirectionalLightShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\GBuffer.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\PointLightShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\SpotLightShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-GammaCorrection.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-GaussianV.cso</FullPath>
     </ContentFile>
     <ContentFile>

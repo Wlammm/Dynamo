@@ -1,1 +1,6 @@
-﻿  Dynamo.vcxproj -> C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Dynamo_ Debug.exe
+﻿  Generating code
+  63 of 5923 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
+    19 functions were new in current compilation
+    32 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Dynamo.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Dynamo_ Release.exe

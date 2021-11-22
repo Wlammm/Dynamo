@@ -120,6 +120,9 @@
     <ClCompile Include="Rendering\GBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rendering\DeferredRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entry.h">
@@ -257,6 +260,9 @@
     <ClInclude Include="Rendering\GBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\DeferredRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />
@@ -269,6 +275,12 @@
     <FxCompile Include="Shaders\Fullscreen\FullscreenPS-GaussianV.hlsl">
       <Filter>Source Files</Filter>
     </FxCompile>
+    <FxCompile Include="Shaders\Deferred\GBuffer.hlsl" />
+    <FxCompile Include="Shaders\Deferred\DirectionalLightShader.hlsl" />
+    <FxCompile Include="Shaders\Deferred\AmbientLightShader.hlsl" />
+    <FxCompile Include="Shaders\Deferred\PointLightShader.hlsl" />
+    <FxCompile Include="Shaders\Deferred\SpotLightShader.hlsl" />
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-GammaCorrection.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ShaderStructs.hlsli" />

@@ -60,7 +60,7 @@ namespace Dynamo
         FbxScene* scene = FbxScene::Create(manager, "Scene");
 
         FbxAxisSystem axisSystem(FbxAxisSystem::eDirectX);
-        axisSystem.ConvertScene(scene);
+        axisSystem.DeepConvertScene(scene);
 
         if (importer->Import(scene))
         {

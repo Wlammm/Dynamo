@@ -16,7 +16,7 @@ Game::Game()
 
 	Dyn::Main::SetScene(myScene.get());
 	GameObject* defaultLights = Dyn::Main::GetScene()->CreateGameObject();
-	Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
+	//Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
 	Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
 
 	GameObject* camera = Dyn::Main::GetScene()->CreateGameObject();

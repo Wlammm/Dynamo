@@ -2,6 +2,8 @@
 
 #include "ForwardRenderer.h"
 #include "FullscreenRenderer.h"
+#include "DeferredRenderer.h"
+#include "GBuffer.h"
 
 namespace Dynamo
 {
@@ -39,11 +41,23 @@ namespace Dynamo
 		void Render();
 
 	private:
+		void ImGuiRender();
+
+		void RenderDeferred();
+		void RenderForward();
 		void RenderFullscreenEffects();
 		void RenderToBackBuffer();
 
+		void GammaCorrection();
+
 		void CreateTextures();
 		void ClearTextures();
+
+		// TEMP
+	private:
+		bool myRenderDeferred = true;
+		bool myGammaCorrection = true;
+		bool myRenderEffects = true;
 
 	private:
 		CU::DArray<MeshRenderer*> myModels;
@@ -56,9 +70,16 @@ namespace Dynamo
 
 		ForwardRenderer myForwardRenderer;
 		FullscreenRenderer myFullscreenRenderer;
+		DeferredRenderer myDeferredRenderer;
 
 		Texture myRenderTexture;
 		Texture myRenderDepth;
 		Texture myBackBuffer;
+
+		Texture myIntermediateTexture;
+
+		GBuffer myGBuffer = {};
+
+		Shader* myGammaCorrectionShader = nullptr;
 	};
 }
