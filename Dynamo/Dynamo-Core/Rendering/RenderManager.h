@@ -56,7 +56,6 @@ namespace Dynamo
 		// TEMP
 	private:
 		bool myRenderDeferred = true;
-		bool myGammaCorrection = true;
 		bool myRenderEffects = true;
 
 	private:

@@ -16,8 +16,11 @@ Game::Game()
 
 	Dyn::Main::SetScene(myScene.get());
 	GameObject* defaultLights = Dyn::Main::GetScene()->CreateGameObject();
-	//Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
+	Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
+	dirLight->SetIntensity(1);
+	defaultLights->GetTransform().SetRotationDeg({ 45, 45, 45 });
 	Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
+	ambLight->SetIntensity(1.f);
 
 	GameObject* camera = Dyn::Main::GetScene()->CreateGameObject();
 	Dyn::Camera* camComp = camera->AddComponent<Dyn::Camera>();

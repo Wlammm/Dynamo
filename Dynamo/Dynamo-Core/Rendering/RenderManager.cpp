@@ -13,6 +13,11 @@ namespace Dynamo
 		CreateTextures();
 
 		myGammaCorrectionShader = ShaderFactory::GetShader("Shaders/FullscreenPS-GammaCorrection.cso", ShaderType::PixelShader);
+
+		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_TRILINEAR, DEFAULT_SAMPLER_SLOT);
+		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_POINT, POINT_SAMPLER_SLOT);
+		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_TRILINEARCLAMP, CLAMP_SAMPLER_SLOT);
+		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_TRILINEARWRAP, WRAP_SAMPLER_SLOT);
 	}
 	
 	RenderManager::~RenderManager()
@@ -77,6 +82,7 @@ namespace Dynamo
 
 	void RenderManager::RemoveFullscreenEffect(FullscreenEffect* anEffect)
 	{
+
 		for (auto it : myFullscreenEffects)
 		{
 			for(int i = 0; i < it.second.size(); ++i)
@@ -96,16 +102,16 @@ namespace Dynamo
 
 		ClearTextures();
 
-		if(myRenderDeferred)
+		if (myRenderDeferred)
+		{
 			RenderDeferred();
+			GammaCorrection();
+		}
 		else
 			RenderForward();
 
 		if(myRenderEffects)
 			RenderFullscreenEffects();
-
-		if (myGammaCorrection)
-			GammaCorrection();
 
 		RenderToBackBuffer();
 	}
@@ -116,7 +122,6 @@ namespace Dynamo
 			{
 				ImGui::Checkbox("Deferred", &myRenderDeferred);
 				ImGui::Checkbox("Fullscreen Effects", &myRenderEffects);
-				ImGui::Checkbox("Gamma correction", &myGammaCorrection);
 			});
 	}
 

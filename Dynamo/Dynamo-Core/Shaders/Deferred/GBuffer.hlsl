@@ -34,12 +34,12 @@ GBufferOutput main(VertexOutput input)
     
     GBufferOutput output;
     
-    output.myWorldPosition = outputPos;
     output.myAlbedo = float4(albedo, 1);
     output.myNormal = float4(pixelNormal, 1);
-    output.myVertexNormal = float4(input.myNormal.xyz, 1);
     output.myMaterial = material;
-    output.myDepth = 1.0f;
+    output.myWorldPosition = outputPos;
+    output.myVertexNormal = float4(input.myNormal.xyz, 1);
     output.myAmbientOcclusion = float4(ao, ao, ao, 1.0f);
+    output.myDepth = 1.0f;
     return output;
 }
