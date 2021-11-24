@@ -38,6 +38,7 @@ namespace Dynamo
 		void AddFullscreenEffect(FullscreenEffect* anEffect, const int aLayer = 0);
 		void RemoveFullscreenEffect(FullscreenEffect* anEffect);
 
+		void Update();
 		void Render();
 
 	private:
@@ -46,6 +47,7 @@ namespace Dynamo
 		void RenderDeferred();
 		void RenderForward();
 		void RenderFullscreenEffects();
+		void RenderDeferredPass();
 		void RenderToBackBuffer();
 
 		void GammaCorrection();
@@ -57,6 +59,8 @@ namespace Dynamo
 	private:
 		bool myRenderDeferred = true;
 		bool myRenderEffects = true;
+
+		int myRenderPass = -1;
 
 	private:
 		CU::DArray<MeshRenderer*> myModels;

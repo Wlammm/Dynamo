@@ -82,7 +82,6 @@ namespace Dynamo
 
 	void RenderManager::RemoveFullscreenEffect(FullscreenEffect* anEffect)
 	{
-
 		for (auto it : myFullscreenEffects)
 		{
 			for(int i = 0; i < it.second.size(); ++i)
@@ -92,6 +91,19 @@ namespace Dynamo
 					it.second.erase(it.second.begin() + i);
 					return;
 				}
+			}
+		}
+	}
+
+	void RenderManager::Update()
+	{
+		if (Input::IsKeyDown(KeyCode::F6)) 
+		{
+			myRenderPass++;
+
+			if (myRenderPass > 6)
+			{
+				myRenderPass = -1;
 			}
 		}
 	}
@@ -112,6 +124,8 @@ namespace Dynamo
 
 		if(myRenderEffects)
 			RenderFullscreenEffects();
+
+		RenderDeferredPass();
 
 		RenderToBackBuffer();
 	}
@@ -154,6 +168,17 @@ namespace Dynamo
 			{
 				effect->Render(myFullscreenRenderer, myRenderTexture);
 			}
+		}
+	}
+
+	void RenderManager::RenderDeferredPass()
+	{
+		RenderUtils::SetBlendState(RenderUtils::BLENDSTATE_DISABLE);
+		if (myRenderPass != -1)
+		{
+			myRenderTexture.SetAsActiveTarget();
+			myGBuffer.SetAsResourceOnSlot((GBuffer::GBufferTexture)myRenderPass, FS_TEXTURE_SLOT1);
+			myFullscreenRenderer.RenderCopy();
 		}
 	}
 

@@ -19,8 +19,8 @@ Game::Game()
 	Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
 	dirLight->SetIntensity(1);
 	defaultLights->GetTransform().SetRotationDeg({ 45, 45, 45 });
-	Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
-	ambLight->SetIntensity(1.f);
+	//Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
+	//ambLight->SetIntensity(1.f);
 
 	GameObject* camera = Dyn::Main::GetScene()->CreateGameObject();
 	Dyn::Camera* camComp = camera->AddComponent<Dyn::Camera>();

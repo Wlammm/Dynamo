@@ -46,6 +46,7 @@ namespace Dynamo
 	void MainSingleton::Update()
 	{
 		Time::Update();
+		GetRenderManager().Update();
 
 		if (GetScene() != nullptr)
 		{
@@ -128,7 +129,7 @@ namespace Dynamo
 		ourInstance->myScene = aScene;
 	}
 
-	Camera* MainSingleton::SetOverrideCamera(Camera* aCamera)
+	void MainSingleton::SetOverrideCamera(Camera* aCamera)
 	{
 		ourInstance->myOverrideCamera = aCamera;
 	}

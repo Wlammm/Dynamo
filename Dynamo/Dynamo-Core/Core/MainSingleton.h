@@ -40,7 +40,8 @@ namespace Dynamo
 		static void SetScene(Scene* aScene);
 
 		// Overrides the main camera. nullptr to disable.
-		static Camera* SetOverrideCamera(Camera* aCamera);
+		static void SetOverrideCamera(Camera* aCamera);
+
 		static Camera* GetMainCamera();
 
 		static RenderManager& GetRenderManager();
