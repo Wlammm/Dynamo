@@ -41,8 +41,11 @@ namespace Dynamo
 		void Update();
 		void Render();
 
+		FullscreenRenderer& GetFullscreenRenderer();
+
 	private:
 		void ImGuiRender();
+		void SetSamplers();
 
 		void RenderDeferred();
 		void RenderForward();
@@ -60,7 +63,7 @@ namespace Dynamo
 		bool myRenderDeferred = true;
 		bool myRenderEffects = true;
 
-		int myRenderPass = -1;
+		int myRenderPass = 0;
 
 	private:
 		CU::DArray<MeshRenderer*> myModels;

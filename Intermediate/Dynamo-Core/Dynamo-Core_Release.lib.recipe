@@ -39,6 +39,9 @@
       <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-Luminance.cso</FullPath>
     </ContentFile>
     <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-MaterialPass.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenVS.cso</FullPath>
     </ContentFile>
     <ContentFile>

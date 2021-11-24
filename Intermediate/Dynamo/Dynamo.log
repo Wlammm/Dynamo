@@ -1,1 +1,5 @@
-﻿  Dynamo.vcxproj -> C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Dynamo_ Debug.exe
+﻿  Generating code
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 6002 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Dynamo.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Dynamo_ Release.exe

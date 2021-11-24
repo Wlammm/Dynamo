@@ -36,6 +36,5 @@ namespace Dynamo
 		std::array<ID3D11RenderTargetView*, GBufferTexture::COUNT> myRTVs;
 		std::array<ID3D11ShaderResourceView*, GBufferTexture::COUNT> mySRVs;
 		D3D11_VIEWPORT* myViewport;
-
 	};
 }

@@ -21,6 +21,8 @@ namespace Dynamo
 		void Render(const CU::DArray<DirectionalLight*>& someDirLights, const CU::DArray<AmbientLight*>& someAmbLights,
 			const CU::DArray<PointLight*>& somePointLights, const CU::DArray<SpotLight*>& someSpotLights);
 
+		void DrawRenderPass(const int aPass);
+
 	private:
 		void CreateBuffers();
 		void CreateShaders();
@@ -37,6 +39,13 @@ namespace Dynamo
 		}
 
 	private:
+		struct PassBuffer 
+		{
+			int myPass;
+			Vec3i padding;
+		} myPassBufferData;
+		ID3D11Buffer* myPassBuffer = nullptr;
+
 		FrameBuffer myFrameBufferData;
 		ID3D11Buffer* myFrameBuffer = nullptr;
 
@@ -51,6 +60,7 @@ namespace Dynamo
 
 		Shader* myFSVertexShader = nullptr;
 		Shader* myMeshVertexShader = nullptr;
+		Shader* myMaterialPassShader = nullptr;
 
 		Shader* myDirLightShader = nullptr;
 		Shader* myAmbLightShader = nullptr;

@@ -13,11 +13,6 @@ namespace Dynamo
 		CreateTextures();
 
 		myGammaCorrectionShader = ShaderFactory::GetShader("Shaders/FullscreenPS-GammaCorrection.cso", ShaderType::PixelShader);
-
-		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_TRILINEAR, DEFAULT_SAMPLER_SLOT);
-		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_POINT, POINT_SAMPLER_SLOT);
-		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_TRILINEARCLAMP, CLAMP_SAMPLER_SLOT);
-		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_TRILINEARWRAP, WRAP_SAMPLER_SLOT);
 	}
 	
 	RenderManager::~RenderManager()
@@ -101,9 +96,9 @@ namespace Dynamo
 		{
 			myRenderPass++;
 
-			if (myRenderPass > 6)
+			if (myRenderPass > 5)
 			{
-				myRenderPass = -1;
+				myRenderPass = 0;
 			}
 		}
 	}
@@ -113,6 +108,7 @@ namespace Dynamo
 		ImGuiRender();
 
 		ClearTextures();
+		SetSamplers();
 
 		if (myRenderDeferred)
 		{
@@ -130,6 +126,11 @@ namespace Dynamo
 		RenderToBackBuffer();
 	}
 
+	FullscreenRenderer& RenderManager::GetFullscreenRenderer()
+	{
+		return myFullscreenRenderer;
+	}
+
 	void RenderManager::ImGuiRender()
 	{
 		Debug::ImGui("RenderManager", [this]()
@@ -137,6 +138,14 @@ namespace Dynamo
 				ImGui::Checkbox("Deferred", &myRenderDeferred);
 				ImGui::Checkbox("Fullscreen Effects", &myRenderEffects);
 			});
+	}
+
+	void RenderManager::SetSamplers()
+	{
+		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_TRILINEAR, DEFAULT_SAMPLER_SLOT);
+		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_POINT, POINT_SAMPLER_SLOT);
+		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_TRILINEARCLAMP, CLAMP_SAMPLER_SLOT);
+		RenderUtils::SetSamplerState(RenderUtils::SamplerState::SAMPLERSTATE_TRILINEARWRAP, WRAP_SAMPLER_SLOT);
 	}
 
 	void RenderManager::RenderDeferred()
@@ -174,11 +183,13 @@ namespace Dynamo
 	void RenderManager::RenderDeferredPass()
 	{
 		RenderUtils::SetBlendState(RenderUtils::BLENDSTATE_DISABLE);
-		if (myRenderPass != -1)
+		if (myRenderPass != 0)
 		{
 			myRenderTexture.SetAsActiveTarget();
-			myGBuffer.SetAsResourceOnSlot((GBuffer::GBufferTexture)myRenderPass, FS_TEXTURE_SLOT1);
-			myFullscreenRenderer.RenderCopy();
+			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::ALBEDO, 0);
+			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::MATERIAL, 1);
+			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::NORMAL, 2);
+			myDeferredRenderer.DrawRenderPass(myRenderPass);
 		}
 	}
 

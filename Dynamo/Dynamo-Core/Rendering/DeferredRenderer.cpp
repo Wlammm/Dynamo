@@ -102,6 +102,38 @@ namespace Dynamo
 		}
 	}
 
+	void DeferredRenderer::DrawRenderPass(const int aPass)
+	{
+		switch (aPass)
+		{
+		case 1:
+			Console::Log("RenderPass: Albedo");
+			break;
+
+		case 2:
+			Console::Log("RenderPass: Roughness");
+			break;
+
+		case 3:
+			Console::Log("RenderPass: Metalness");
+			break;
+
+		case 4:
+			Console::Log("RenderPass: Ambient Occlusion");
+			break;
+
+		case 5:
+			Console::Log("RenderPass: Emissive");
+			break;
+		}
+
+		myPassBufferData.myPass = aPass;
+		MapBuffer<PassBuffer>(myPassBufferData, myPassBuffer);
+		Main::GetContext()->PSSetConstantBuffers(CUSTOM_BUFFER_SLOT, 1, &myPassBuffer);
+
+		Main::GetRenderManager().GetFullscreenRenderer().Render(myMaterialPassShader);
+	}
+
 	void DeferredRenderer::CreateBuffers()
 	{
 		HRESULT result;
@@ -126,12 +158,17 @@ namespace Dynamo
 		bufferDesc.ByteWidth = sizeof(AmbientLightBuffer);
 		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myAmbLightBuffer);
 		assert(SUCCEEDED(result));
+
+		bufferDesc.ByteWidth = sizeof(PassBuffer);
+		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myPassBuffer);
+		assert(SUCCEEDED(result));
 	}
 
 	void DeferredRenderer::CreateShaders()
 	{
 		myFSVertexShader = ShaderFactory::GetShader("Shaders/FullscreenVS.cso", ShaderType::VertexShader);
 		myMeshVertexShader = ShaderFactory::GetShader("Shaders/VertexShader.cso", ShaderType::VertexShader);
+		myMaterialPassShader = ShaderFactory::GetShader("Shaders/FullscreenPS-MaterialPass.cso", ShaderType::PixelShader);
 
 		myGBufferShader = ShaderFactory::GetShader("Shaders/GBuffer.cso", ShaderType::PixelShader);
 		myDirLightShader = ShaderFactory::GetShader("Shaders/DirectionalLightShader.cso", ShaderType::PixelShader);

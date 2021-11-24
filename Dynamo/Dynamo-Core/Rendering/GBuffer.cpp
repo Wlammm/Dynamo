@@ -22,6 +22,8 @@ namespace Dynamo
 	void GBuffer::SetAsResourceOnSlot(GBufferTexture aTexture, uint aSlot) const
 	{
 		Main::GetContext()->PSSetShaderResources(aSlot, 1, &mySRVs[aTexture]);
+		Main::GetContext()->GSSetShaderResources(aSlot, 1, &mySRVs[aTexture]);
+		Main::GetContext()->VSSetShaderResources(aSlot, 1, &mySRVs[aTexture]);
 	}
 
 	void GBuffer::SetAllAsResources()

@@ -1,4 +1,6 @@
-﻿  MainSingleton.cpp
+﻿  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\GBuffer.cso
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-MaterialPass.hlsl(62,31-38): warning X3081: comma expression used where a vector constructor may have been intended
+  
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-MaterialPass.cso
   RenderManager.cpp
-  Generating Code...
-  Dynamo-Core.vcxproj -> C:\Users\william.arnback\Documents\GitHub\Dynamo\Libs\Dynamo-Core_Debug.lib
+  Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Release.lib

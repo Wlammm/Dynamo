@@ -281,6 +281,7 @@
     <FxCompile Include="Shaders\Deferred\PointLightShader.hlsl" />
     <FxCompile Include="Shaders\Deferred\SpotLightShader.hlsl" />
     <FxCompile Include="Shaders\Fullscreen\FullscreenPS-GammaCorrection.hlsl" />
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-MaterialPass.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ShaderStructs.hlsli" />
