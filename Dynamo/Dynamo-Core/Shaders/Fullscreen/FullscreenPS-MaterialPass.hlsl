@@ -6,13 +6,18 @@
     myFullscreenTexture1 Albedo
     myFullscreenTexture2 Material
     myFullscreenTexture3 Normal
+    myFullscreenTexture4 AO
 
     // Passes
     1. Albedo
-    2. Roughness
-    3. Metalness
-    4. Ao
-    5. Emissive
+    2. Normal
+    3. Roughness
+    4. Metalness
+    5. Ao
+    6. Emissive
+
+    // Den heliga bilden på Tga Standard.
+    https://cdn.discordapp.com/attachments/789538022134644807/912792323233030164/unknown.png
 */
 
 cbuffer PassBuffer : register(b8)
@@ -34,15 +39,14 @@ PixelOutput main(VertexToPixel input)
 
     if (myPass == 2)
     {
-        float val = myFullscreenTexture2.Sample(myDefaultSampler, input.myUV).g;
-        output.myColor.rgb = float3(val, val, val);
+        output.myColor.rgb = myFullscreenTexture3.Sample(myDefaultSampler, input.myUV).rgb;
         output.myColor.a = 1.0f;
         return output;
     }
 
     if (myPass == 3)
     {
-        float val = myFullscreenTexture2.Sample(myDefaultSampler, input.myUV).r;
+        float val = myFullscreenTexture2.Sample(myDefaultSampler, input.myUV).g;
         output.myColor.rgb = float3(val, val, val);
         output.myColor.a = 1.0f;
         return output;
@@ -50,13 +54,21 @@ PixelOutput main(VertexToPixel input)
 
     if (myPass == 4)
     {
-        float val = myFullscreenTexture3.Sample(myDefaultSampler, input.myUV).b;
+        float val = myFullscreenTexture2.Sample(myDefaultSampler, input.myUV).r;
         output.myColor.rgb = float3(val, val, val);
         output.myColor.a = 1.0f;
         return output;
     }
 
     if (myPass == 5)
+    {
+        float val = myFullscreenTexture4.Sample(myDefaultSampler, input.myUV).r;
+        output.myColor.rgb = float3(val, val, val);
+        output.myColor.a = 1.0f;
+        return output;
+    }
+
+    if (myPass == 6)
     {
         float val = myFullscreenTexture2.Sample(myDefaultSampler, input.myUV).b;
         output.myColor.rgb = (val, val, val);

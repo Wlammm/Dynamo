@@ -96,7 +96,7 @@ namespace Dynamo
 		{
 			myRenderPass++;
 
-			if (myRenderPass > 5)
+			if (myRenderPass > 6)
 			{
 				myRenderPass = 0;
 			}
@@ -113,16 +113,17 @@ namespace Dynamo
 		if (myRenderDeferred)
 		{
 			RenderDeferred();
-			GammaCorrection();
+			//GammaCorrection();
 		}
 		else
+		{
 			RenderForward();
+		}
 
 		if(myRenderEffects)
 			RenderFullscreenEffects();
 
 		RenderDeferredPass();
-
 		RenderToBackBuffer();
 	}
 
@@ -189,6 +190,7 @@ namespace Dynamo
 			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::ALBEDO, 0);
 			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::MATERIAL, 1);
 			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::NORMAL, 2);
+			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::AMBIENTOCCLUSION, 3);
 			myDeferredRenderer.DrawRenderPass(myRenderPass);
 		}
 	}

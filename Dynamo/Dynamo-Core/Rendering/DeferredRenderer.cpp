@@ -111,18 +111,22 @@ namespace Dynamo
 			break;
 
 		case 2:
-			Console::Log("RenderPass: Roughness");
+			Console::Log("RenderPass: Albedo");
 			break;
 
 		case 3:
-			Console::Log("RenderPass: Metalness");
+			Console::Log("RenderPass: Roughness");
 			break;
 
 		case 4:
-			Console::Log("RenderPass: Ambient Occlusion");
+			Console::Log("RenderPass: Metalness");
 			break;
 
 		case 5:
+			Console::Log("RenderPass: Ambient Occlusion");
+			break;
+
+		case 6:
 			Console::Log("RenderPass: Emissive");
 			break;
 		}

@@ -28,7 +28,7 @@ PixelOutput main(FullscreenVertexToPixel input)
     float3 ambience = EvaluateAmbience(myCubeMap, normal, vertexNormal, toEye, roughness, ao, diffColor, specColor);
     
     PixelOutput output;
-    output.myColor.rgb = ambience * myAmbientLightBuffer.myIntensity;
+    output.myColor.rgb = LinearToGamma(ambience * myAmbientLightBuffer.myIntensity);
     output.myColor.a = 1.0f;
 
     return output;

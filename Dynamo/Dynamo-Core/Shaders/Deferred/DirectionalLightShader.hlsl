@@ -33,7 +33,7 @@ PixelOutput main(FullscreenVertexToPixel input)
     float3 radiance = directionalLight * myDirectionalLightBuffer.myIntensity + emissive;
     
     PixelOutput output;
-    output.myColor.rgb = radiance;
+    output.myColor.rgb = LinearToGamma(radiance);
     output.myColor.a = 1.0f;
     return output;
 }
