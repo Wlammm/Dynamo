@@ -231,6 +231,9 @@
     <ClCompile Include="Utils\ImGuiManager.cpp" />
     <ClCompile Include="Utils\Input.cpp" />
     <ClCompile Include="Utils\RenderUtils.cpp" />
+    <ClCompile Include="Utils\ScopeTimer.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Disabled</Optimization>
+    </ClCompile>
     <ClCompile Include="Utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +282,7 @@
     <ClInclude Include="Utils\ImGuiManager.h" />
     <ClInclude Include="Utils\Input.h" />
     <ClInclude Include="Utils\RenderUtils.h" />
+    <ClInclude Include="Utils\ScopeTimer.h" />
     <ClInclude Include="Utils\Time.h" />
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +310,7 @@
     </FxCompile>
     <FxCompile Include="Shaders\Fullscreen\FullscreenPS-MaterialPass.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Shaders\Fullscreen\FullscreenVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>

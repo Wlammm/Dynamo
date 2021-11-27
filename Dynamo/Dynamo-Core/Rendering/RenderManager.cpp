@@ -113,7 +113,7 @@ namespace Dynamo
 		if (myRenderDeferred)
 		{
 			RenderDeferred();
-			//GammaCorrection();
+			GammaCorrection();
 		}
 		else
 		{
@@ -172,9 +172,9 @@ namespace Dynamo
 
 	void RenderManager::RenderFullscreenEffects()
 	{
-		for (auto it : myFullscreenEffects)
+		for (auto& it : myFullscreenEffects)
 		{
-			for (auto effect : it.second)
+			for (auto& effect : it.second)
 			{
 				effect->Render(myFullscreenRenderer, myRenderTexture);
 			}

@@ -16,7 +16,7 @@ PixelOutput main(FullscreenVertexToPixel input)
     float4 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV);
     
     float metalness = material.r;
-    float roughness = material.g;
+    float roughness = PerceptualRoughnessFromRoughness(material.g);
     
     float ao = myAmbientOcclusionTexture.Sample(myDefaultSampler, input.myUV).r;
     
@@ -28,7 +28,7 @@ PixelOutput main(FullscreenVertexToPixel input)
     float3 ambience = EvaluateAmbience(myCubeMap, normal, vertexNormal, toEye, roughness, ao, diffColor, specColor);
     
     PixelOutput output;
-    output.myColor.rgb = LinearToGamma(ambience * myAmbientLightBuffer.myIntensity);
+    output.myColor.rgb = ambience * myAmbientLightBuffer.myIntensity;
     output.myColor.a = 1.0f;
 
     return output;

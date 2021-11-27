@@ -20,7 +20,7 @@ void ComponentAdmin::Init()
 	}
 }
 
-void ComponentAdmin::Update()
+void ComponentAdmin::Update(const float aDeltaTime)
 {
 	for (const auto& comp : myComponentsToRemove)
 	{
@@ -31,7 +31,7 @@ void ComponentAdmin::Update()
 	std::vector<GameObject*> removedKeys;
 	for (auto& val : myGameObjectsToBeDeleted)
 	{
-		val.second -= 0; // REPLACE WITH DELTATIME
+		val.second -= aDeltaTime;
 
 		if (val.second <= 0)
 		{

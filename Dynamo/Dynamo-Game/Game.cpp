@@ -16,9 +16,9 @@ Game::Game()
 
 	Dyn::Main::SetScene(myScene.get());
 	GameObject* defaultLights = Dyn::Main::GetScene()->CreateGameObject();
-	//Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
-	//dirLight->SetIntensity(1);
-	//defaultLights->GetTransform().SetRotationDeg({ 45, 45, 45 });
+	Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
+	dirLight->SetIntensity(5.0f);
+	defaultLights->GetTransform().SetRotationDeg({ -45, -45, -45 });
 	Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
 	ambLight->SetIntensity(1.f);
 
@@ -30,7 +30,7 @@ Game::Game()
 
 	GameObject* mesh = Dyn::Main::GetScene()->CreateGameObject();
 	Dyn::MeshRenderer* meshComp = mesh->AddComponent<Dyn::MeshRenderer>();
-	meshComp->SetModel("Assets/Fbx/Wall.fbx");
+	meshComp->SetModel("Assets/Fbx/Chest.fbx");
 	meshComp->ApplyModelMaterial();
 }
 

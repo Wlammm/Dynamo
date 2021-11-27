@@ -3,46 +3,49 @@
   <ProjectOutputs />
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\AmbientLightShader.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\AmbientLightShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\DirectionalLightShader.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\DirectionalLightShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\GBuffer.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\GBuffer.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\PointLightShader.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\PointLightShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\SpotLightShader.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\SpotLightShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-GammaCorrection.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-GammaCorrection.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-GaussianV.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-GaussianV.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\ForwardPS.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\ForwardPS.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-Bloom.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-Bloom.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-Copy.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-Copy.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-GaussianH.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-GaussianH.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-Luminance.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-Luminance.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenVS.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-MaterialPass.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\VertexShader.cso</FullPath>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenVS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\VertexShader.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

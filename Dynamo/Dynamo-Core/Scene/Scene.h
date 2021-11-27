@@ -6,7 +6,7 @@ class GameObject;
 namespace Dynamo
 {
 	/*
-	* Dont forget to always call Internal init!
+	* Dont forget to call Internal init!
 	*/
 	class Scene
 	{
@@ -18,6 +18,14 @@ namespace Dynamo
 		void RemoveGameObject(GameObject* aGameObject, const float aTime = 0);
 
 		ComponentAdmin& GetComponentAdmin();
+
+		std::vector<GameObject*> GetAllGameObjects();
+
+		template<typename T>
+		std::vector<GameObject*> GetAllGameObjectsWithComponent()
+		{
+			return myComponentAdmin->GetGameObjectsWithComponent<T>();
+		}
 		
 	protected:
 		void InternalInit();

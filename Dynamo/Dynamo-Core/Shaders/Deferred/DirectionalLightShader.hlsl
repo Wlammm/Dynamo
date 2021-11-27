@@ -16,7 +16,7 @@ PixelOutput main(FullscreenVertexToPixel input)
     float4 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV);
     
     float metalness = material.r;
-    float roughness = material.g;
+    float roughness = PerceptualRoughnessFromRoughness(material.g);
     float emissiveMask = material.b;
     
     float ao = myAmbientOcclusionTexture.Sample(myDefaultSampler, input.myUV).r;
@@ -33,7 +33,7 @@ PixelOutput main(FullscreenVertexToPixel input)
     float3 radiance = directionalLight * myDirectionalLightBuffer.myIntensity + emissive;
     
     PixelOutput output;
-    output.myColor.rgb = LinearToGamma(radiance);
+    output.myColor.rgb = radiance;
     output.myColor.a = 1.0f;
     return output;
 }

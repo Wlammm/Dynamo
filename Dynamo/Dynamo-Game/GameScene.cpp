@@ -8,6 +8,6 @@ GameScene::GameScene()
 
 void GameScene::Update()
 {
-	GetComponentAdmin().Update();
+	GetComponentAdmin().Update(Time::GetDeltaTime());
 	GetComponentAdmin().LateUpdate();
 }

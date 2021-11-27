@@ -17,7 +17,7 @@ public:
 
 	void Init();
 
-	void Update();
+	void Update(const float aDeltaTime);
 	void LateUpdate();
 
 	void SetActive(GameObject* ob, const bool aState);

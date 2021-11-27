@@ -25,6 +25,11 @@ namespace Dynamo
         return *myComponentAdmin;
     }
 
+    std::vector<GameObject*> Scene::GetAllGameObjects()
+    {
+        return myComponentAdmin->GetAllGameObjects();
+    }
+
     void Scene::InternalInit()
     {
         myComponentAdmin = std::make_unique<ComponentAdmin>();

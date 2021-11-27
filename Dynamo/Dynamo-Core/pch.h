@@ -41,6 +41,7 @@
 #include "Utils/Input.h"
 #include "Utils/Time.h"
 #include "Utils/Debug.h"
+#include "Utils/ScopeTimer.h"
 
 // Factories
 #include "Factories/JsonFactory.h"
