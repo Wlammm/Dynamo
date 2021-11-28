@@ -4,7 +4,7 @@
 
 int main()
 {
-	Dynamo::Entry::Init();
+	Dynamo::Entry::Init(nullptr);
 	Game* game = new Game();
 
 	Dynamo::Entry::Run();

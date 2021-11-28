@@ -6,8 +6,9 @@
 
 namespace Dynamo
 {
-	void Entry::Init()
+	void Entry::Init(std::function<void(void)> aOutsideUpdate)
 	{
+		myOutsideUpdate = aOutsideUpdate;
 		Main::Init();
 	}
 
@@ -28,6 +29,9 @@ namespace Dynamo
 			}
 
 			Main::GetFramework().BeginFrame();
+
+			if(myOutsideUpdate != nullptr)
+				myOutsideUpdate();
 
 			Main::Update();
 
