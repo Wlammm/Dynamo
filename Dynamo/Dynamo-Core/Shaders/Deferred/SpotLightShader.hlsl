@@ -1,17 +1,24 @@
 #include "../ShaderStructs.hlsli"
 #include "../PBRFunctions.hlsli"
+#include "../SharedDefines.hpp"
 
 cbuffer SpotLightBuffer : register(b7)
 {
     struct SpotLightBuffer
     {
-        float4 myPosition;
-        float4 myDirection;
-        float4 myColor;
-        float myIntensity;
-        float myRange;
-        float myInnerAngle;
-        float myOuterAngle;
+        struct
+        {
+            float4 myPosition;
+            float4 myDirection;
+            float4 myColor;
+            float myIntensity;
+            float myRange;
+            float myInnerAngle;
+            float myOuterAngle;
+        } myLights[DEFERRED_SPOT_LIGHT_COUNT];
+
+        uint myNumSpotLights;
+        uint3 padding;
     } mySpotLightBuffer;
 }
 
@@ -42,11 +49,17 @@ PixelOutput main(FullscreenVertexToPixel input)
     float3 specColor = lerp((float3) 0.04, albedo, metalness);
     float3 diffColor = lerp((float3) 0.00, albedo, 1 - metalness);
 
-    float3 spotLights = EvaluateSpotLight(diffColor, specColor, normal, roughness, mySpotLightBuffer.myColor.rgb, mySpotLightBuffer.myIntensity, mySpotLightBuffer.myRange, 
-        mySpotLightBuffer.myPosition.xyz, mySpotLightBuffer.myDirection.xyz, mySpotLightBuffer.myOuterAngle, mySpotLightBuffer.myInnerAngle, toEye.xyz, worldPosition.xyz);
+    float3 spotLight = 0;
+
+    for (int i = 0; i < mySpotLightBuffer.myNumSpotLights; ++i)
+    {
+        spotLight += EvaluateSpotLight(diffColor, specColor, normal, roughness, mySpotLightBuffer.myLights[i].myColor.rgb, mySpotLightBuffer.myLights[i].myIntensity,
+            mySpotLightBuffer.myLights[i].myRange, mySpotLightBuffer.myLights[i].myPosition.xyz, mySpotLightBuffer.myLights[i].myDirection.xyz,
+            mySpotLightBuffer.myLights[i].myOuterAngle, mySpotLightBuffer.myLights[i].myInnerAngle, toEye.xyz, worldPosition.xyz);
+    }
     
     PixelOutput output;
-    output.myColor.rgb = spotLights;
+    output.myColor.rgb = spotLight;
     output.myColor.a = 1.0f;
 
     return output;

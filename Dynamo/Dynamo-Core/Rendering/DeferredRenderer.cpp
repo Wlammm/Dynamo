@@ -122,6 +122,33 @@ namespace Dynamo
 		RenderUtils::MapBuffer<DeferredPointLightBuffer>(myPointLightBufferData, myPointLightBuffer);
 		Main::GetContext()->PSSetConstantBuffers(POINT_LIGHT_BUFFER_SLOT, 1, &myPointLightBuffer);
 		Main::GetContext()->Draw(3, 0);
+
+		mySpotLightShader->Bind();
+		uint numSpotLights = DEFERRED_SPOT_LIGHT_COUNT;
+		for (uint i = 0; i < DEFERRED_SPOT_LIGHT_COUNT; ++i)
+		{
+			if (i == someSpotLights.size())
+			{
+				numSpotLights = i;
+				break;
+			}
+
+			mySpotLightBufferData.myLights[i].myColor = someSpotLights[i]->GetColor();
+			mySpotLightBufferData.myLights[i].myDirection = { someSpotLights[i]->GetDirection(), 0.0f };
+			mySpotLightBufferData.myLights[i].myPosition = { someSpotLights[i]->GetTransform().GetPosition(),  1.0f};
+			mySpotLightBufferData.myLights[i].myInnerAngle = someSpotLights[i]->GetInnerAngle();
+			mySpotLightBufferData.myLights[i].myOuterAngle = someSpotLights[i]->GetOuterAngle();
+			mySpotLightBufferData.myLights[i].myIntensity = someSpotLights[i]->GetIntensity();
+			mySpotLightBufferData.myLights[i].myRange = someSpotLights[i]->GetRange();
+		}
+		mySpotLightBufferData.myLightCount = numSpotLights;
+
+		RenderUtils::MapBuffer<DeferredSpotLightBuffer>(mySpotLightBufferData, mySpotLightBuffer);
+		Main::GetContext()->PSSetConstantBuffers(SPOT_LIGHT_BUFFER_SLOT, 1, &mySpotLightBuffer);
+		Main::GetContext()->Draw(3, 0);
+
+		myEmissiveShader->Bind();
+		Main::GetContext()->Draw(3, 0);
 	}
 
 	void DeferredRenderer::DrawRenderPass(const int aPass)
@@ -133,7 +160,7 @@ namespace Dynamo
 			break;
 
 		case 2:
-			Console::Log("RenderPass: Albedo");
+			Console::Log("RenderPass: Normal");
 			break;
 
 		case 3:
@@ -168,6 +195,7 @@ namespace Dynamo
 		RenderUtils::CreateBuffer<AmbientLightBuffer>(myAmbLightBuffer);
 		RenderUtils::CreateBuffer<PassBuffer>(myPassBuffer);
 		RenderUtils::CreateBuffer<DeferredPointLightBuffer>(myPointLightBuffer);
+		RenderUtils::CreateBuffer<DeferredSpotLightBuffer>(mySpotLightBuffer);
 	}
 
 	void DeferredRenderer::CreateShaders()
@@ -180,5 +208,7 @@ namespace Dynamo
 		myDirLightShader = ShaderFactory::GetShader("Shaders/DirectionalLightShader.cso", ShaderType::PixelShader);
 		myAmbLightShader = ShaderFactory::GetShader("Shaders/AmbientLightShader.cso", ShaderType::PixelShader);
 		myPointLightShader = ShaderFactory::GetShader("Shaders/PointLightShader.cso", ShaderType::PixelShader);
+		mySpotLightShader = ShaderFactory::GetShader("Shaders/SpotLightShader.cso", ShaderType::PixelShader);
+		myEmissiveShader = ShaderFactory::GetShader("Shaders/EmissiveShader.cso", ShaderType::PixelShader);
 	}
 }

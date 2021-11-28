@@ -116,12 +116,19 @@ namespace Dynamo
 
 	struct DeferredSpotLightBuffer
 	{
-		Vec4f myPosition;
-		Vec4f myDirection;
-		Color myColor;
-		float myIntensity;
-		float myRange;
-		float myInnerAngle;
-		float myOuterAngle;
+		struct Buffer
+		{
+			Vec4f myPosition;
+			Vec4f myDirection;
+			Color myColor;
+			float myIntensity;
+			float myRange;
+			float myInnerAngle;
+			float myOuterAngle;
+		};
+		std::array<Buffer, DEFERRED_SPOT_LIGHT_COUNT> myLights;
+
+		uint myLightCount;
+		Vec3ui padding;
 	};
 }

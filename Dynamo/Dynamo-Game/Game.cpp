@@ -17,19 +17,35 @@ Game::Game()
 	Dyn::Main::GetRenderManager().AddFullscreenEffect(new Dyn::FXAAEffect(), 1);
 
 	Dyn::Main::SetScene(myScene.get());
-	GameObject* defaultLights = Dyn::Main::GetScene()->CreateGameObject();
-	Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
-	dirLight->SetIntensity(5.0f);
-	defaultLights->GetTransform().SetRotationDeg({ -45, -45, -45 });
-	Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
-	ambLight->SetIntensity(1.f);
+	//GameObject* defaultLights = Dyn::Main::GetScene()->CreateGameObject();
+	//Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
+	//dirLight->SetIntensity(5.0f);
+	//defaultLights->GetTransform().SetRotationDeg({ -45, -45, -45 });
+	//Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
+	//ambLight->SetIntensity(1.f);
+	//
+	//GameObject* pointLight = Dyn::Main::GetScene()->CreateGameObject();
+	//Dyn::PointLight* pLight = pointLight->AddComponent<Dyn::PointLight>();
+	//pLight->SetIntensity(500000);
+	//pLight->SetRange(10000);
+	//pLight->SetColor({ 1, 0, 0, 1 });
+	//pointLight->GetTransform().SetPosition({ 0, 100, 0 });
 
-	GameObject* pointLight = Dyn::Main::GetScene()->CreateGameObject();
-	Dyn::PointLight* pLight = pointLight->AddComponent<Dyn::PointLight>();
-	pLight->SetIntensity(500000);
-	pLight->SetRange(10000);
-	pLight->SetColor({ 1, 0, 0, 1 });
-	pointLight->GetTransform().SetPosition({ 0, 100, 0 });
+	GameObject* spotLight = Dyn::Main::GetScene()->CreateGameObject();
+	Dyn::SpotLight* sLight = spotLight->AddComponent<Dyn::SpotLight>();
+	sLight->SetRange(10000);
+	sLight->SetIntensity(1000000);
+	sLight->SetColor({ 0, 1, 0, 1 });
+	spotLight->GetTransform().SetRotationDeg({0, 0, 0});
+	spotLight->GetTransform().SetPosition({ 0, 0, -1000 });
+
+	GameObject* spotLight1 = Dyn::Main::GetScene()->CreateGameObject();
+	Dyn::SpotLight* sLight1 = spotLight1->AddComponent<Dyn::SpotLight>();
+	sLight1->SetRange(10000);
+	sLight1->SetIntensity(1000000);
+	sLight1->SetColor({ 1, 0, 0, 1 });
+	spotLight1->GetTransform().SetRotationDeg({ 0, 1, 0 });
+	spotLight1->GetTransform().SetPosition({ 250, 0, -1000 });
 
 	GameObject* camera = Dyn::Main::GetScene()->CreateGameObject();
 	Dyn::Camera* camComp = camera->AddComponent<Dyn::Camera>();

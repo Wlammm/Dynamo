@@ -12,12 +12,10 @@ PixelOutput main(FullscreenVertexToPixel input)
     float3 albedo = albedoData.rgb;
     float4 worldPosition = myPositionTexture.Sample(myDefaultSampler, input.myUV);
     float3 normal = myNormalTexture.Sample(myDefaultSampler, input.myUV).xyz;
-    float3 vertexNormal = myVertexNormalTexture.Sample(myDefaultSampler, input.myUV).xyz;
     float4 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV);
     
     float metalness = material.r;
     float roughness = PerceptualRoughnessFromRoughness(material.g);
-    float emissiveMask = material.b;
     
     float ao = myAmbientOcclusionTexture.Sample(myDefaultSampler, input.myUV).r;
     float depth = myDepthTexture.Sample(myDefaultSampler, input.myUV).r;
@@ -29,8 +27,7 @@ PixelOutput main(FullscreenVertexToPixel input)
     
     float3 directionalLight = EvaluateDirectionalLight(diffColor, specColor, normal, roughness, myDirectionalLightBuffer.myColor.rgb, myDirectionalLightBuffer.myToLight.xyz, toEye.xyz);
     
-    float3 emissive = albedo * emissiveMask;
-    float3 radiance = directionalLight * myDirectionalLightBuffer.myIntensity + emissive;
+    float3 radiance = directionalLight * myDirectionalLightBuffer.myIntensity;
     
     PixelOutput output;
     output.myColor.rgb = radiance;

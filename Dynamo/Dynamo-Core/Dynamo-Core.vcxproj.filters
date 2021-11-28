@@ -325,6 +325,7 @@
     <FxCompile Include="Shaders\Debug\DebugLine3DVertexShader.hlsl" />
     <FxCompile Include="Shaders\Debug\DebugLineVertexShader.hlsl" />
     <FxCompile Include="Shaders\Debug\DebugLinePixelShader.hlsl" />
+    <FxCompile Include="Shaders\Deferred\EmissiveShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ShaderStructs.hlsli" />

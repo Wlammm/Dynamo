@@ -50,6 +50,9 @@ namespace Dynamo
 		DeferredPointLightBuffer myPointLightBufferData;
 		ID3D11Buffer* myPointLightBuffer = nullptr;
 
+		DeferredSpotLightBuffer mySpotLightBufferData;
+		ID3D11Buffer* mySpotLightBuffer = nullptr;
+
 		Shader* myFSVertexShader = nullptr;
 		Shader* myMeshVertexShader = nullptr;
 		Shader* myMaterialPassShader = nullptr;
@@ -58,6 +61,7 @@ namespace Dynamo
 		Shader* myAmbLightShader = nullptr;
 		Shader* myPointLightShader = nullptr;
 		Shader* mySpotLightShader = nullptr;
+		Shader* myEmissiveShader = nullptr;
 		Shader* myGBufferShader = nullptr;
 	};
 }
