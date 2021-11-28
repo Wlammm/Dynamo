@@ -3,6 +3,15 @@
   <ProjectOutputs />
   <ContentFiles>
     <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\DebugLine3DVertexShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\DebugLinePixelShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\DebugLineVertexShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\AmbientLightShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
@@ -16,6 +25,9 @@
     </ContentFile>
     <ContentFile>
       <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\SpotLightShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-FXAA.cso</FullPath>
     </ContentFile>
     <ContentFile>
       <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-GammaCorrection.cso</FullPath>

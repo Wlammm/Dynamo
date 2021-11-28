@@ -2,6 +2,7 @@
 #include "Entry.h"
 #include "Core/DirectXFramework.h"
 #include "Scene/Scene.h"
+#include "Utils/CrashHandler.h"
 
 namespace Dynamo
 {

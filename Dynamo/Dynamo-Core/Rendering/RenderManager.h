@@ -2,6 +2,7 @@
 
 #include "ForwardRenderer.h"
 #include "FullscreenRenderer.h"
+#include "DebugRenderer.h"
 #include "DeferredRenderer.h"
 #include "GBuffer.h"
 
@@ -42,6 +43,7 @@ namespace Dynamo
 		void Render();
 
 		FullscreenRenderer& GetFullscreenRenderer();
+		DebugRenderer& GetDebugRenderer();
 
 	private:
 		void ImGuiRender();
@@ -49,6 +51,7 @@ namespace Dynamo
 
 		void RenderDeferred();
 		void RenderForward();
+		void RenderDebug();
 		void RenderFullscreenEffects();
 		void RenderDeferredPass();
 		void RenderToBackBuffer();
@@ -77,6 +80,7 @@ namespace Dynamo
 		ForwardRenderer myForwardRenderer;
 		FullscreenRenderer myFullscreenRenderer;
 		DeferredRenderer myDeferredRenderer;
+		DebugRenderer myDebugRenderer;
 
 		Texture myRenderTexture;
 		Texture myRenderDepth;

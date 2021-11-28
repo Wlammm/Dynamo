@@ -112,4 +112,9 @@ namespace Dynamo
 	{
 		return myBackBuffer;
 	}
+
+	IDXGISwapChain* DirectXFramework::GetSwapChain() const
+	{
+		return mySwapChain;
+	}
 }

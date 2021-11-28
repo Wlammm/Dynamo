@@ -9,10 +9,12 @@
 #include "Components/SpotLight.h"
 
 #include "Rendering/FullscreenEffects/BloomEffect.h"
+#include "Rendering/FullscreenEffects/FXAAEffect.h"
 
 Game::Game()
 {
 	//Dyn::Main::GetRenderManager().AddFullscreenEffect(new Dyn::BloomEffect());
+	Dyn::Main::GetRenderManager().AddFullscreenEffect(new Dyn::FXAAEffect(), 1);
 
 	Dyn::Main::SetScene(myScene.get());
 	GameObject* defaultLights = Dyn::Main::GetScene()->CreateGameObject();
@@ -32,6 +34,8 @@ Game::Game()
 	Dyn::MeshRenderer* meshComp = mesh->AddComponent<Dyn::MeshRenderer>();
 	meshComp->SetModel("Assets/Fbx/Chest.fbx");
 	meshComp->ApplyModelMaterial();
+
+	Dyn::Debug::DrawCircle2D({ 0.5f, 0.5f }, 0.1f, { 1, 0, 1, 1 }, 10);
 }
 
 Game::~Game()

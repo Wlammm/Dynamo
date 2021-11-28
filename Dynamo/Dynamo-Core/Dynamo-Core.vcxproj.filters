@@ -126,6 +126,21 @@
     <ClCompile Include="Utils\ScopeTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\CrashHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="External\DirectXTK\ScreenGrab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="External\DirectXTK\WICTextureLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\FullscreenEffects\FXAAEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\DebugRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entry.h">
@@ -269,6 +284,21 @@
     <ClInclude Include="Utils\ScopeTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\CrashHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="External\DirectXTK\ScreenGrab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="External\DirectXTK\WICTextureLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\FullscreenEffects\FXAAEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\DebugRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />
@@ -288,10 +318,15 @@
     <FxCompile Include="Shaders\Deferred\SpotLightShader.hlsl" />
     <FxCompile Include="Shaders\Fullscreen\FullscreenPS-GammaCorrection.hlsl" />
     <FxCompile Include="Shaders\Fullscreen\FullscreenPS-MaterialPass.hlsl" />
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-FXAA.hlsl" />
+    <FxCompile Include="Shaders\Debug\DebugLine3DVertexShader.hlsl" />
+    <FxCompile Include="Shaders\Debug\DebugLineVertexShader.hlsl" />
+    <FxCompile Include="Shaders\Debug\DebugLinePixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ShaderStructs.hlsli" />
     <None Include="Shaders\PBRFunctions.hlsli" />
     <None Include="Shaders\Fullscreen\FullscreenStructs.hlsli" />
+    <None Include="Shaders\Debug\DebugLineStructs.hlsli" />
   </ItemGroup>
 </Project>

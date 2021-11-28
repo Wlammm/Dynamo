@@ -1,12 +1,13 @@
 #include "pch.h"
 #include "ForwardRenderer.h"
 
-#include "Components/Camera.h"
-#include "Components/MeshRenderer.h"
+#include "Utils/RenderUtils.h"
 
 #include "Rendering/Mesh.h"
 #include "Rendering/Material.h"
 
+#include "Components/Camera.h"
+#include "Components/MeshRenderer.h"
 #include "Components/DirectionalLight.h"
 #include "Components/AmbientLight.h"
 #include "Components/PointLight.h"
@@ -78,36 +79,12 @@ namespace Dynamo
 
 	void ForwardRenderer::CreateBuffers()
 	{
-		HRESULT result;
-		
-		D3D11_BUFFER_DESC bufferDesc = { 0 };
-		bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-		bufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		
-		bufferDesc.ByteWidth = sizeof(FrameBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myFrameBuffer);
-		assert(SUCCEEDED(result));
-		
-		bufferDesc.ByteWidth = sizeof(ObjectBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myObjectBuffer);
-		assert(SUCCEEDED(result));
-
-		bufferDesc.ByteWidth = sizeof(DirectionalLightBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myDirLightBuffer);
-		assert(SUCCEEDED(result));
-
-		bufferDesc.ByteWidth = sizeof(AmbientLightBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myAmbLightBuffer);
-		assert(SUCCEEDED(result));
-
-		bufferDesc.ByteWidth = sizeof(ForwardPointLightBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myPointLightBuffer);
-		assert(SUCCEEDED(result));
-
-		bufferDesc.ByteWidth = sizeof(ForwardSpotLightBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &mySpotLightBuffer);
-		assert(SUCCEEDED(result));
+		RenderUtils::CreateBuffer<FrameBuffer>(myFrameBuffer);
+		RenderUtils::CreateBuffer<ObjectBuffer>(myObjectBuffer);
+		RenderUtils::CreateBuffer<DirectionalLightBuffer>(myDirLightBuffer);
+		RenderUtils::CreateBuffer<AmbientLightBuffer>(myAmbLightBuffer);
+		RenderUtils::CreateBuffer<ForwardPointLightBuffer>(myPointLightBuffer);
+		RenderUtils::CreateBuffer<ForwardSpotLightBuffer>(mySpotLightBuffer);
 	}
 
 	void ForwardRenderer::CreateRSStates()
@@ -125,7 +102,7 @@ namespace Dynamo
 		myFrameBufferData.myToCamera = aCamera->GetTransform()->GetMatrix().FastInverse();
 		myFrameBufferData.myToProjection = aCamera->GetProjectionMatrix();
 		myFrameBufferData.myCameraPosition = { aCamera->GetTransform()->GetPosition(), 1.0f };
-		MapBuffer<FrameBuffer>(myFrameBufferData, myFrameBuffer);
+		RenderUtils::MapBuffer<FrameBuffer>(myFrameBufferData, myFrameBuffer);
 
 		Main::GetContext()->VSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
 		Main::GetContext()->PSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
@@ -136,7 +113,7 @@ namespace Dynamo
 		myObjectBufferData.myToWorld = aModel->GetTransform().GetMatrix();
 		myObjectBufferData.myUVScale = { 1.0f, 1.0f };
 		myObjectBufferData.myColor = aModel->GetColor();
-		MapBuffer<ObjectBuffer>(myObjectBufferData, myObjectBuffer);
+		RenderUtils::MapBuffer<ObjectBuffer>(myObjectBufferData, myObjectBuffer);
 
 		Main::GetContext()->VSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
 		Main::GetContext()->PSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
@@ -158,7 +135,7 @@ namespace Dynamo
 			myDirLightBufferData.myColor = someDirLights.front()->GetColor();
 			myDirLightBufferData.myIntensity = someDirLights.front()->GetIntensity();
 		}
-		MapBuffer<DirectionalLightBuffer>(myDirLightBufferData, myDirLightBuffer);
+		RenderUtils::MapBuffer<DirectionalLightBuffer>(myDirLightBufferData, myDirLightBuffer);
 
 		Main::GetContext()->PSSetConstantBuffers(DIRECTIONAL_LIGHT_BUFFER_SLOT, 1, &myDirLightBuffer);
 	}
@@ -171,7 +148,7 @@ namespace Dynamo
 			Main::GetContext()->PSSetShaderResources(CUBEMAP_TEXTURE_SLOT, 1, someAmbLights.front()->GetCubeMapConst());
 		}
 
-		MapBuffer<AmbientLightBuffer>(myAmbLightBufferData, myAmbLightBuffer);
+		RenderUtils::MapBuffer<AmbientLightBuffer>(myAmbLightBufferData, myAmbLightBuffer);
 
 		Main::GetContext()->PSSetConstantBuffers(AMBIENT_LIGHT_BUFFER_SLOT, 1, &myAmbLightBuffer);
 	}
@@ -195,7 +172,7 @@ namespace Dynamo
 			myPointLightBufferData.myNumPointLights = 8;
 		}
 
-		MapBuffer<ForwardPointLightBuffer>(myPointLightBufferData, myPointLightBuffer);
+		RenderUtils::MapBuffer<ForwardPointLightBuffer>(myPointLightBufferData, myPointLightBuffer);
 
 		Main::GetContext()->PSSetConstantBuffers(POINT_LIGHT_BUFFER_SLOT, 1, &myPointLightBuffer);
 	}
@@ -222,7 +199,7 @@ namespace Dynamo
 			mySpotLightBufferData.myNumSpotLights = 8;
 		}
 
-		MapBuffer<ForwardSpotLightBuffer>(mySpotLightBufferData, mySpotLightBuffer);
+		RenderUtils::MapBuffer<ForwardSpotLightBuffer>(mySpotLightBufferData, mySpotLightBuffer);
 
 		Main::GetContext()->PSSetConstantBuffers(SPOT_LIGHT_BUFFER_SLOT, 1, &mySpotLightBuffer);
 	}

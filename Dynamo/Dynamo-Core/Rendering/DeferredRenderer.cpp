@@ -4,6 +4,7 @@
 #include "Components/MeshRenderer.h"
 #include "Rendering/Mesh.h"
 #include "Rendering/Material.h"
+#include "Utils/RenderUtils.h"
 
 #include "Components/DirectionalLight.h"
 #include "Components/AmbientLight.h"
@@ -27,7 +28,7 @@ namespace Dynamo
 		myFrameBufferData.myToCamera = camera->GetTransform()->GetMatrix().FastInverse();
 		myFrameBufferData.myToProjection = camera->GetProjectionMatrix();
 		myFrameBufferData.myCameraPosition = { camera->GetTransform()->GetPosition(), 1.0f };
-		MapBuffer<FrameBuffer>(myFrameBufferData, myFrameBuffer);
+		RenderUtils::MapBuffer<FrameBuffer>(myFrameBufferData, myFrameBuffer);
 
 		Main::GetContext()->VSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
 		Main::GetContext()->PSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
@@ -41,7 +42,7 @@ namespace Dynamo
 			myObjectBufferData.myToWorld = model->GetTransform().GetMatrix();
 			myObjectBufferData.myUVScale = { 1.0f, 1.0f };
 			myObjectBufferData.myColor = model->GetColor();
-			MapBuffer<ObjectBuffer>(myObjectBufferData, myObjectBuffer);
+			RenderUtils::MapBuffer<ObjectBuffer>(myObjectBufferData, myObjectBuffer);
 
 			Main::GetContext()->VSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
 			Main::GetContext()->PSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
@@ -83,7 +84,7 @@ namespace Dynamo
 			myDirLightBufferData.myToLight = { dirLight->GetDirection() * -1.0f, 0.0f };
 			myDirLightBufferData.myColor = dirLight->GetColor();
 			myDirLightBufferData.myIntensity = dirLight->GetIntensity();
-			MapBuffer<DirectionalLightBuffer>(myDirLightBufferData, myDirLightBuffer);
+			RenderUtils::MapBuffer<DirectionalLightBuffer>(myDirLightBufferData, myDirLightBuffer);
 
 			Main::GetContext()->PSSetConstantBuffers(DIRECTIONAL_LIGHT_BUFFER_SLOT, 1, &myDirLightBuffer);
 			Main::GetContext()->Draw(3, 0);
@@ -93,7 +94,7 @@ namespace Dynamo
 		for (auto& ambLight : someAmbLights.AsVector())
 		{
 			myAmbLightBufferData.myIntensity = ambLight->GetIntensity();
-			MapBuffer<AmbientLightBuffer>(myAmbLightBufferData, myAmbLightBuffer);
+			RenderUtils::MapBuffer<AmbientLightBuffer>(myAmbLightBufferData, myAmbLightBuffer);
 			Main::GetContext()->PSSetConstantBuffers(AMBIENT_LIGHT_BUFFER_SLOT, 1, &myAmbLightBuffer);
 
 			Main::GetContext()->PSSetShaderResources(CUBEMAP_TEXTURE_SLOT, 1, ambLight->GetCubeMapConst());
@@ -132,7 +133,7 @@ namespace Dynamo
 		}
 
 		myPassBufferData.myPass = aPass;
-		MapBuffer<PassBuffer>(myPassBufferData, myPassBuffer);
+		RenderUtils::MapBuffer<PassBuffer>(myPassBufferData, myPassBuffer);
 		Main::GetContext()->PSSetConstantBuffers(CUSTOM_BUFFER_SLOT, 1, &myPassBuffer);
 
 		Main::GetRenderManager().GetFullscreenRenderer().Render(myMaterialPassShader);
@@ -140,32 +141,11 @@ namespace Dynamo
 
 	void DeferredRenderer::CreateBuffers()
 	{
-		HRESULT result;
-
-		D3D11_BUFFER_DESC bufferDesc = { 0 };
-		bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-		bufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-		bufferDesc.ByteWidth = sizeof(FrameBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myFrameBuffer);
-		assert(SUCCEEDED(result));
-
-		bufferDesc.ByteWidth = sizeof(ObjectBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myObjectBuffer);
-		assert(SUCCEEDED(result));
-
-		bufferDesc.ByteWidth = sizeof(DirectionalLightBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myDirLightBuffer);
-		assert(SUCCEEDED(result));
-
-		bufferDesc.ByteWidth = sizeof(AmbientLightBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myAmbLightBuffer);
-		assert(SUCCEEDED(result));
-
-		bufferDesc.ByteWidth = sizeof(PassBuffer);
-		result = Main::GetDevice()->CreateBuffer(&bufferDesc, nullptr, &myPassBuffer);
-		assert(SUCCEEDED(result));
+		RenderUtils::CreateBuffer<FrameBuffer>(myFrameBuffer);
+		RenderUtils::CreateBuffer<ObjectBuffer>(myObjectBuffer);
+		RenderUtils::CreateBuffer<DirectionalLightBuffer>(myDirLightBuffer);
+		RenderUtils::CreateBuffer<AmbientLightBuffer>(myAmbLightBuffer);
+		RenderUtils::CreateBuffer<PassBuffer>(myPassBuffer);
 	}
 
 	void DeferredRenderer::CreateShaders()

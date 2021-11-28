@@ -69,12 +69,12 @@ namespace Dynamo
 		Init(aFoV, myResolution);
 	}
 
-	Transform* Camera::GetTransform()
+	Transform* Camera::GetTransform() const
 	{
 		return myTransform;
 	}
 
-	const Mat4f& Camera::GetProjectionMatrix()
+	const Mat4f& Camera::GetProjectionMatrix() const
 	{
 		return myProjection;
 	}

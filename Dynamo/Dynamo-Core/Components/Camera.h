@@ -17,9 +17,9 @@ namespace Dynamo
 
 		void SetFoV(const float aFoV);
 
-		Transform* GetTransform();
+		Transform* GetTransform() const;
 
-		const Mat4f& GetProjectionMatrix();
+		const Mat4f& GetProjectionMatrix() const;
 
 		bool IsValid() const;
 

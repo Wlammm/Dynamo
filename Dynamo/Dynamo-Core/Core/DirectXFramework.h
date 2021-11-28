@@ -13,6 +13,7 @@ namespace Dynamo
 		void EndFrame();
 
 		ID3D11RenderTargetView* GetBackBuffer() const;
+		IDXGISwapChain* GetSwapChain() const;
 
 	private:
 		IDXGISwapChain* mySwapChain = nullptr;

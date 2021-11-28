@@ -169,7 +169,7 @@ namespace CommonUtilities
 
 		inline void RemoveIndex(const uint aIndex)
 		{
-			assert(myVector.size() < aIndex && "Index out of range.");
+			assert(myVector.size() > aIndex && aIndex >= 0 && "Index out of range.");
 
 			myVector.erase(myVector.begin() + aIndex);
 		}

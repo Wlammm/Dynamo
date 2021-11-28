@@ -13,6 +13,8 @@ namespace Dynamo
 		CreateTextures();
 
 		myGammaCorrectionShader = ShaderFactory::GetShader("Shaders/FullscreenPS-GammaCorrection.cso", ShaderType::PixelShader);
+
+		myDebugRenderer.Init(&Main::GetFramework());
 	}
 	
 	RenderManager::~RenderManager()
@@ -123,6 +125,8 @@ namespace Dynamo
 		if(myRenderEffects)
 			RenderFullscreenEffects();
 
+		RenderDebug();
+
 		RenderDeferredPass();
 		RenderToBackBuffer();
 	}
@@ -130,6 +134,11 @@ namespace Dynamo
 	FullscreenRenderer& RenderManager::GetFullscreenRenderer()
 	{
 		return myFullscreenRenderer;
+	}
+
+	DebugRenderer& RenderManager::GetDebugRenderer()
+	{
+		return myDebugRenderer;
 	}
 
 	void RenderManager::ImGuiRender()
@@ -168,6 +177,20 @@ namespace Dynamo
 
 		myRenderTexture.SetAsActiveTarget(&myRenderDepth);
 		myForwardRenderer.Render(myModels, myDirLights, myAmbLights, myPointLights, mySpotLights);
+	}
+
+	void RenderManager::RenderDebug()
+	{
+		myRenderTexture.SetAsActiveTarget(&myRenderDepth);
+		RenderUtils::SetBlendState(RenderUtils::BLENDSTATE_DISABLE);
+
+		Camera* cam = Main::GetMainCamera();
+		if (!cam)
+			return;
+
+		myDebugRenderer.RenderDepthTested(*cam);
+		myRenderTexture.SetAsActiveTarget();
+		myDebugRenderer.Render(*cam);
 	}
 
 	void RenderManager::RenderFullscreenEffects()
