@@ -1,5 +1,6 @@
 #include "../ShaderStructs.hlsli"
 #include "../PBRFunctions.hlsli"
+#include "../SharedDefines.hpp"
 
 float3 GetAlbedo(VertexOutput input)
 {
@@ -56,7 +57,7 @@ cbuffer PointLightBuffer : register(b6)
             float myRange;
 
             float2 padding;
-        } myLights[8];
+        } myLights[FORWARD_POINT_LIGHT_COUNT];
         
         uint myLightCount;
         uint3 padding;
@@ -76,7 +77,7 @@ cbuffer SpotLightBuffer : register(b7)
             float myRange;
             float myInnerAngle;
             float myOuterAngle;
-        } myLights[8];
+        } myLights[FORWARD_SPOT_LIGHT_COUNT];
 
         uint myNumSpotLights;
         uint3 padding;

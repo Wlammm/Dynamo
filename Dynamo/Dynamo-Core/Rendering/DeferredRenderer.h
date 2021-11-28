@@ -47,6 +47,9 @@ namespace Dynamo
 		AmbientLightBuffer myAmbLightBufferData;
 		ID3D11Buffer* myAmbLightBuffer = nullptr;
 
+		DeferredPointLightBuffer myPointLightBufferData;
+		ID3D11Buffer* myPointLightBuffer = nullptr;
+
 		Shader* myFSVertexShader = nullptr;
 		Shader* myMeshVertexShader = nullptr;
 		Shader* myMaterialPassShader = nullptr;

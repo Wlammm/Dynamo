@@ -26,13 +26,17 @@ namespace Dynamo
 		void CreateBuffers();
 		void CreateRSStates();
 
+		std::vector<PointLight*> GetSortedPointLights(const std::vector<PointLight*>& someInData, MeshRenderer* aInstance);
+		std::vector<SpotLight*> GetSortedSpotLights(const std::vector<SpotLight*>& someInData, MeshRenderer* aInstance);
+
 		void MapFrameBuffer(Camera* aCamera);
 		void MapObjectBuffer(MeshRenderer* aModel);
 		void SetMeshSettings(const Mesh& aMesh);
-		void MapDirLightBuffer(const CU::DArray<DirectionalLight*>& someDirLights);
-		void MapAmbLightBuffer(const CU::DArray<AmbientLight*>& someAmbLights);
-		void MapPointLightBuffer(const CU::DArray<PointLight*>& somePointLights);
-		void MapSpotLightBuffer(const CU::DArray<SpotLight*>& someSpotLights);
+
+		void MapDirLightBuffer(const std::vector<DirectionalLight*>& someDirLights);
+		void MapAmbLightBuffer(const std::vector<AmbientLight*>& someAmbLights);
+		void MapPointLightBuffer(const std::vector<PointLight*>& somePointLights);
+		void MapSpotLightBuffer(const std::vector<SpotLight*>& someSpotLights);
 
 	private:
 		Material* myDefaultMaterial = nullptr;

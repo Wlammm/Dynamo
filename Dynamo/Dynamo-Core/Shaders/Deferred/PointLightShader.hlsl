@@ -1,4 +1,5 @@
 #include "../ShaderStructs.hlsli"
+#include "../SharedDefines.hpp"
 #include "../PBRFunctions.hlsli"
 
 cbuffer PointLightBuffer : register(b6)
@@ -12,7 +13,7 @@ cbuffer PointLightBuffer : register(b6)
             float myIntensity;
             float myRange;
             float2 padding;
-        } lights[32];
+        } lights[DEFERRED_POINT_LIGHT_COUNT];
         
         uint myNumLights;
         uint3 padding;

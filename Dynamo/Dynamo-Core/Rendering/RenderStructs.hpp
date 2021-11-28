@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Shaders/SharedDefines.hpp"
+
 #define FRAME_BUFFER_SLOT 0
 #define OBJECT_BUFFER_SLOT 1
 #define SHADER_BUFFER_SLOT 2
@@ -70,7 +72,7 @@ namespace Dynamo
 
 			Vec2f padding;
 		};
-		std::array<Buffer, 8> myPointLights;
+		std::array<Buffer, FORWARD_POINT_LIGHT_COUNT> myPointLights;
 
 		uint myNumPointLights;
 		Vec3ui padding;
@@ -90,7 +92,7 @@ namespace Dynamo
 			float myOuterAngle;
 		};
 
-		std::array<Buffer, 8> myLights;
+		std::array<Buffer, FORWARD_SPOT_LIGHT_COUNT> myLights;
 
 		uint myNumSpotLights;
 		Vec3ui padding;
@@ -106,7 +108,7 @@ namespace Dynamo
 			float myRange;
 			Vec2f padding;
 		};
-		std::array<Buffer, 32> myLights;
+		std::array<Buffer, DEFERRED_POINT_LIGHT_COUNT> myLights;
 
 		uint myLightCount;
 		Vec3ui padding;

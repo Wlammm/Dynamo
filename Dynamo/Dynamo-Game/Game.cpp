@@ -24,6 +24,13 @@ Game::Game()
 	Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
 	ambLight->SetIntensity(1.f);
 
+	GameObject* pointLight = Dyn::Main::GetScene()->CreateGameObject();
+	Dyn::PointLight* pLight = pointLight->AddComponent<Dyn::PointLight>();
+	pLight->SetIntensity(500000);
+	pLight->SetRange(10000);
+	pLight->SetColor({ 1, 0, 0, 1 });
+	pointLight->GetTransform().SetPosition({ 0, 100, 0 });
+
 	GameObject* camera = Dyn::Main::GetScene()->CreateGameObject();
 	Dyn::Camera* camComp = camera->AddComponent<Dyn::Camera>();
 	camComp->EnableFreeCamera();
@@ -34,8 +41,6 @@ Game::Game()
 	Dyn::MeshRenderer* meshComp = mesh->AddComponent<Dyn::MeshRenderer>();
 	meshComp->SetModel("Assets/Fbx/Chest.fbx");
 	meshComp->ApplyModelMaterial();
-
-	Dyn::Debug::DrawCircle2D({ 0.5f, 0.5f }, 0.1f, { 1, 0, 1, 1 }, 10);
 }
 
 Game::~Game()

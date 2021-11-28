@@ -296,6 +296,7 @@
     <ClInclude Include="Rendering\Shader.h" />
     <ClInclude Include="Rendering\Texture.h" />
     <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Shaders\SharedDefines.hpp" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Entry.h" />

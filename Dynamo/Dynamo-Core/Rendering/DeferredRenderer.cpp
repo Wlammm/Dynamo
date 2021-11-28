@@ -101,6 +101,27 @@ namespace Dynamo
 
 			Main::GetContext()->Draw(3, 0);
 		}
+
+		myPointLightShader->Bind();
+		uint numPointLights = DEFERRED_POINT_LIGHT_COUNT;
+		for (uint i = 0; i < DEFERRED_POINT_LIGHT_COUNT; ++i)
+		{
+			if (i == somePointLights.size())
+			{
+				numPointLights = i;
+				break;
+			}
+
+			myPointLightBufferData.myLights[i].myColor = somePointLights[i]->GetColor();
+			myPointLightBufferData.myLights[i].myIntensity = somePointLights[i]->GetIntensity();
+			myPointLightBufferData.myLights[i].myPosition = { somePointLights[i]->GetPosition(), 1.0f };
+			myPointLightBufferData.myLights[i].myRange = somePointLights[i]->GetRange();
+		}
+		myPointLightBufferData.myLightCount = numPointLights;
+
+		RenderUtils::MapBuffer<DeferredPointLightBuffer>(myPointLightBufferData, myPointLightBuffer);
+		Main::GetContext()->PSSetConstantBuffers(POINT_LIGHT_BUFFER_SLOT, 1, &myPointLightBuffer);
+		Main::GetContext()->Draw(3, 0);
 	}
 
 	void DeferredRenderer::DrawRenderPass(const int aPass)
@@ -146,6 +167,7 @@ namespace Dynamo
 		RenderUtils::CreateBuffer<DirectionalLightBuffer>(myDirLightBuffer);
 		RenderUtils::CreateBuffer<AmbientLightBuffer>(myAmbLightBuffer);
 		RenderUtils::CreateBuffer<PassBuffer>(myPassBuffer);
+		RenderUtils::CreateBuffer<DeferredPointLightBuffer>(myPointLightBuffer);
 	}
 
 	void DeferredRenderer::CreateShaders()
@@ -157,5 +179,6 @@ namespace Dynamo
 		myGBufferShader = ShaderFactory::GetShader("Shaders/GBuffer.cso", ShaderType::PixelShader);
 		myDirLightShader = ShaderFactory::GetShader("Shaders/DirectionalLightShader.cso", ShaderType::PixelShader);
 		myAmbLightShader = ShaderFactory::GetShader("Shaders/AmbientLightShader.cso", ShaderType::PixelShader);
+		myPointLightShader = ShaderFactory::GetShader("Shaders/PointLightShader.cso", ShaderType::PixelShader);
 	}
 }

@@ -37,15 +37,15 @@ namespace Dynamo
 		Camera* camera = Main::GetMainCamera();
 		if (!camera)
 			return;
-		
+
 		MapFrameBuffer(camera);
-		MapDirLightBuffer(someDirLights);
-		MapAmbLightBuffer(someAmbLights);
+		MapDirLightBuffer(someDirLights.AsVector());
+		MapAmbLightBuffer(someAmbLights.AsVector());
 		
 		for (MeshRenderer* model : someModels.AsVector())
 		{
-			MapPointLightBuffer(somePointLights);
-			MapSpotLightBuffer(someSpotLights);
+			MapPointLightBuffer(GetSortedPointLights(somePointLights.AsVector(), model));
+			MapSpotLightBuffer(GetSortedSpotLights(someSpotLights.AsVector(), model));
 
 			for (auto& mesh : model->GetMeshes())
 			{
@@ -97,6 +97,34 @@ namespace Dynamo
 		assert(SUCCEEDED(result));
 	}
 
+	std::vector<PointLight*> ForwardRenderer::GetSortedPointLights(const std::vector<PointLight*>& someInData, MeshRenderer* aInstance)
+	{
+		std::vector<PointLight*> lights = someInData;
+
+		std::sort(lights.begin(), lights.end(), [aInstance](PointLight* aFirst, PointLight* aSecond)
+			{
+				float firstDist = (aFirst->GetPosition() - aInstance->GetGameObject()->GetTransform().GetPosition()).LengthSqr();
+				float secondDist = (aSecond->GetPosition() - aInstance->GetGameObject()->GetTransform().GetPosition()).LengthSqr();
+				return firstDist < secondDist;
+			});
+
+		return lights;
+	}
+
+	std::vector<SpotLight*> ForwardRenderer::GetSortedSpotLights(const std::vector<SpotLight*>& someInData, MeshRenderer* aInstance)
+	{
+		std::vector<SpotLight*> lights = someInData;
+
+		std::sort(lights.begin(), lights.end(), [aInstance](SpotLight* aFirst, SpotLight* aSecond)
+			{
+				float firstDist = (aFirst->GetGameObject()->GetTransform().GetPosition() - aInstance->GetGameObject()->GetTransform().GetPosition()).LengthSqr();
+				float secondDist = (aSecond->GetGameObject()->GetTransform().GetPosition() - aInstance->GetGameObject()->GetTransform().GetPosition()).LengthSqr();
+				return firstDist < secondDist;
+			});
+
+		return lights;
+	}
+
 	void ForwardRenderer::MapFrameBuffer(Camera* aCamera)
 	{
 		myFrameBufferData.myToCamera = aCamera->GetTransform()->GetMatrix().FastInverse();
@@ -127,7 +155,7 @@ namespace Dynamo
 		Main::GetContext()->IASetIndexBuffer(aMesh.myIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	}
 
-	void ForwardRenderer::MapDirLightBuffer(const CU::DArray<DirectionalLight*>& someDirLights)
+	void ForwardRenderer::MapDirLightBuffer(const std::vector<DirectionalLight*>& someDirLights)
 	{
 		if (!someDirLights.empty())
 		{
@@ -140,7 +168,7 @@ namespace Dynamo
 		Main::GetContext()->PSSetConstantBuffers(DIRECTIONAL_LIGHT_BUFFER_SLOT, 1, &myDirLightBuffer);
 	}
 	
-	void ForwardRenderer::MapAmbLightBuffer(const CU::DArray<AmbientLight*>& someAmbLights)
+	void ForwardRenderer::MapAmbLightBuffer(const std::vector<AmbientLight*>& someAmbLights)
 	{
 		if (!someAmbLights.empty())
 		{
@@ -153,12 +181,16 @@ namespace Dynamo
 		Main::GetContext()->PSSetConstantBuffers(AMBIENT_LIGHT_BUFFER_SLOT, 1, &myAmbLightBuffer);
 	}
 
-	void ForwardRenderer::MapPointLightBuffer(const CU::DArray<PointLight*>& somePointLights)
+	void ForwardRenderer::MapPointLightBuffer(const std::vector<PointLight*>& somePointLights)
 	{
-		for (uint i = 0; i < 8; ++i)
+		uint numPointLights = FORWARD_POINT_LIGHT_COUNT;
+		for (uint i = 0; i < FORWARD_POINT_LIGHT_COUNT; ++i)
 		{
 			if (i == somePointLights.size())
+			{
+				numPointLights = i;
 				break;
+			}
 
 			myPointLightBufferData.myPointLights[i].myColor = somePointLights[i]->GetColor();
 			myPointLightBufferData.myPointLights[i].myIntensity = somePointLights[i]->GetIntensity();
@@ -166,23 +198,23 @@ namespace Dynamo
 			myPointLightBufferData.myPointLights[i].myPosition = { somePointLights[i]->GetPosition(), 1.0f };
 		}
 
-		myPointLightBufferData.myNumPointLights = somePointLights.size();
-		if (somePointLights.size() > 8)
-		{
-			myPointLightBufferData.myNumPointLights = 8;
-		}
+		myPointLightBufferData.myNumPointLights = numPointLights;
 
 		RenderUtils::MapBuffer<ForwardPointLightBuffer>(myPointLightBufferData, myPointLightBuffer);
 
 		Main::GetContext()->PSSetConstantBuffers(POINT_LIGHT_BUFFER_SLOT, 1, &myPointLightBuffer);
 	}
 
-	void ForwardRenderer::MapSpotLightBuffer(const CU::DArray<SpotLight*>& someSpotLights)
+	void ForwardRenderer::MapSpotLightBuffer(const std::vector<SpotLight*>& someSpotLights)
 	{
-		for (uint i = 0; i < 8; ++i)
+		uint numSpotLights = FORWARD_SPOT_LIGHT_COUNT;
+		for (uint i = 0; i < FORWARD_SPOT_LIGHT_COUNT; ++i)
 		{
 			if (i == someSpotLights.size())
+			{
+				numSpotLights = i;
 				break;
+			}
 
 			mySpotLightBufferData.myLights[i].myColor = someSpotLights[i]->GetColor();
 			mySpotLightBufferData.myLights[i].myDirection = { someSpotLights[i]->GetDirection(), 0.0f };
@@ -193,11 +225,7 @@ namespace Dynamo
 			mySpotLightBufferData.myLights[i].myOuterAngle = someSpotLights[i]->GetOuterAngle() * Deg2Rad;
 		}
 
-		mySpotLightBufferData.myNumSpotLights = someSpotLights.size();
-		if (someSpotLights.size() > 8)
-		{
-			mySpotLightBufferData.myNumSpotLights = 8;
-		}
+		mySpotLightBufferData.myNumSpotLights = numSpotLights;
 
 		RenderUtils::MapBuffer<ForwardSpotLightBuffer>(mySpotLightBufferData, mySpotLightBuffer);
 

@@ -18,6 +18,7 @@ namespace Dynamo
 
 	void FXAAEffect::Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget)
 	{
+		myIntermediateTexture.ClearTexture();
 		myBufferData.myResolution = Main::GetWindowResolution().Cast<float>();
 		RenderUtils::MapBuffer<FXAABuffer>(myBufferData, myBuffer);
 
