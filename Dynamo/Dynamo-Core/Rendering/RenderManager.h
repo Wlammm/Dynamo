@@ -45,6 +45,9 @@ namespace Dynamo
 		FullscreenRenderer& GetFullscreenRenderer();
 		DebugRenderer& GetDebugRenderer();
 
+		Texture& GetMainRenderTarget();
+		Texture& GetNonEffectRenderTarget();
+
 	private:
 		void ImGuiRender();
 		void SetSamplers();
@@ -53,6 +56,7 @@ namespace Dynamo
 		void RenderForward();
 		void RenderDebug();
 		void RenderFullscreenEffects();
+		void RenderNonEffectTexture();
 		void RenderDeferredPass();
 		void RenderToBackBuffer();
 
@@ -84,6 +88,7 @@ namespace Dynamo
 
 		Texture myRenderTexture;
 		Texture myRenderDepth;
+		Texture myNonEffectTexture;
 		Texture myBackBuffer;
 
 		Texture myIntermediateTexture;

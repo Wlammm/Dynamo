@@ -1,5 +1,11 @@
 #include "FullscreenStructs.hlsli"
 
+cbuffer LuminanceBuffer : register(b8)
+{
+    float myCutoff;
+    float3 padding;
+}
+
 PixelOutput main(VertexToPixel input)
 {
     PixelOutput result;
@@ -7,15 +13,14 @@ PixelOutput main(VertexToPixel input)
 
 	{
         float luminance = dot(resource, float3(0.2126f, 0.7152f, 0.0722f));
-        float cutOff = 0.8f;
 
-        if (luminance >= cutOff)
+        if (luminance >= myCutoff)
         {
             result.myColor.rgb = resource;
         }
-        else if (luminance >= cutOff * .5f)
+        else if (luminance >= myCutoff * .5f)
         {
-            float fade = luminance / cutOff;
+            float fade = luminance / myCutoff;
             fade = pow(fade, 5);
             result.myColor.rgb = resource * fade;
         }

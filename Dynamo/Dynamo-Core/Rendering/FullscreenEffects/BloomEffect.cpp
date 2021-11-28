@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "BloomEffect.h"
+#include "Utils/RenderUtils.h"
 
 namespace Dynamo
 {
@@ -20,11 +21,16 @@ namespace Dynamo
 		myBlurTexture1 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R8G8B8A8_UNORM);
 		myBlurTexture2 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R8G8B8A8_UNORM);
 		myIntermediateTexture = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R8G8B8A8_UNORM);
+
+		RenderUtils::CreateBuffer<LuminanceBuffer>(myLuminanceBuffer);
 	}
 
 	void BloomEffect::Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget)
 	{
 		ClearTextures();
+
+		RenderUtils::MapBuffer<LuminanceBuffer>(myLuminanceBufferData, myLuminanceBuffer);
+		Main::GetContext()->PSSetConstantBuffers(CUSTOM_BUFFER_SLOT, 1, &myLuminanceBuffer);
 
 		myLuminanceTexture.SetAsActiveTarget();
 		aFinalTarget.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
@@ -74,6 +80,16 @@ namespace Dynamo
 		aFinalTarget.SetAsActiveTarget(FS_TEXTURE_SLOT1);
 		myIntermediateTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
+	}
+
+	void BloomEffect::SetCutoff(const float aCutoff)
+	{
+		myLuminanceBufferData.myCutoff = aCutoff;
+	}
+
+	float BloomEffect::GetCutoff() const
+	{
+		return myLuminanceBufferData.myCutoff;
 	}
 
 	void BloomEffect::ClearTextures()

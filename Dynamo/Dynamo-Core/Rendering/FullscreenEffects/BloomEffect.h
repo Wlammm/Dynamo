@@ -11,10 +11,20 @@ namespace Dynamo
 
 		void Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget);
 
+		void SetCutoff(const float aCutoff);
+		float GetCutoff() const;
+
 	private:
 		void ClearTextures();
 
 	private:
+		struct LuminanceBuffer
+		{
+			float myCutoff = 0.8f;
+			Vec3f padding;
+		} myLuminanceBufferData;
+		ID3D11Buffer* myLuminanceBuffer;
+
 		Texture myLuminanceTexture;
 		Texture myHalfSizeTexture;
 		Texture myQuarterSizeTexture;

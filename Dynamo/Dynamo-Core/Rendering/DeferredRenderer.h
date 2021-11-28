@@ -9,12 +9,13 @@ namespace Dynamo
 	class AmbientLight;
 	class PointLight;
 	class SpotLight;
+	class BloomEffect;
 
 	class DeferredRenderer
 	{
 	public:
 		DeferredRenderer();
-		~DeferredRenderer() = default;
+		~DeferredRenderer();
 
 		void GenerateGBuffer(const CU::DArray<MeshRenderer*>& someModels);
 
@@ -63,5 +64,9 @@ namespace Dynamo
 		Shader* mySpotLightShader = nullptr;
 		Shader* myEmissiveShader = nullptr;
 		Shader* myGBufferShader = nullptr;
+
+		BloomEffect* myEmissiveBloom;
+		Texture myEmissiveTexture;
+		Texture myIntermediateTexture;
 	};
 }
