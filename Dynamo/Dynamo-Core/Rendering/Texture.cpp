@@ -50,4 +50,9 @@ namespace Dynamo
 	{
 		Main::GetContext()->ClearDepthStencilView(myDepth, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, aClearDepthValue, aClearStencilValue);
 	}
+
+	ID3D11ShaderResourceView* Texture::GetSRV()
+	{
+		return mySRV;
+	}
 }

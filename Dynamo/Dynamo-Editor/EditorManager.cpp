@@ -3,6 +3,8 @@
 #include "Entry.h"
 #include "EditorWindow.h"
 
+#include "Windows/Viewport.h"
+
 namespace Editor
 {
 	EditorManager::~EditorManager()
@@ -10,9 +12,17 @@ namespace Editor
 
 	}
 
+	void EditorManager::InitWindows()
+	{
+		AddWindow(new Viewport());
+	}
+
 	void EditorManager::Run()
 	{
 		Dynamo::Entry::Init(std::bind(&EditorManager::Update, this));
+
+		InitWindows();
+
 		Dynamo::Entry::Run();
 	}
 	
@@ -32,7 +42,7 @@ namespace Editor
 	{
 		myWindows.Add(aWindow);
 		aWindow->myWindowID = myNextID++;
-		aWindow->myWindowName = aWindow->myWindowName + std::to_string(aWindow->myWindowID);
+		aWindow->myWindowName = aWindow->myWindowName + "##" + std::to_string(aWindow->myWindowID);
 		return aWindow;
 	}
 
@@ -53,6 +63,7 @@ namespace Editor
 		mySystems.Remove(aSystem);
 		delete aSystem;
 	}
+
 
 	void EditorManager::BeginImGuiDocking()
 	{

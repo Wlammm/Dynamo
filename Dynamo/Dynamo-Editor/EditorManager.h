@@ -51,6 +51,8 @@ namespace Editor
 
 
 	private:
+		void InitWindows();
+
 		void BeginImGuiDocking();
 
 	private:
