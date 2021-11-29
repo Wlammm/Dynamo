@@ -97,7 +97,6 @@ float3 EvaluateAmbience(TextureCube lysBurleyCube, float3 vN, float3 org_normal,
     const int nrBrdfMips = numMips - nMipOffset;
     float VdotN = clamp(dot(to_cam, vN), 0.0, 1.0f);
     const float3 vRorg = 2 * vN * VdotN - to_cam;
-
     float3 vR = GetSpecularDominantDir(vN, vRorg, RoughnessFromPerceptualRoughness(perceptualRoughness));
     float RdotNsat = saturate(dot(vN, vR));
 
