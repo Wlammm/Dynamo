@@ -1,7 +1,5 @@
 #pragma once
 
-#include "EditorWindow.h"
-
 namespace Editor
 {
 	class Viewport : public EditorWindow

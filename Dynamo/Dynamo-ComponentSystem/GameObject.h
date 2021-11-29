@@ -63,7 +63,7 @@ private:
 	void Reset();
 
 	GameObjectID myID = 0;
-	std::string myName = "";
+	std::string myName = "Unnamed GameObject";
 	Tag myTag = Tag::Untagged;
 	Dynamo::Transform* myTransform = nullptr;
 

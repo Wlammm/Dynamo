@@ -63,6 +63,11 @@ namespace Dynamo
 		}
 	}
 
+	void Camera::EditorUpdate()
+	{
+		Update();
+	}
+
 	void Camera::SetFoV(const float aFoV)
 	{
 		myFoV = aFoV;

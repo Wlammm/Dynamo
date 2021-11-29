@@ -15,7 +15,6 @@
 #include <unordered_map>
 #include <assert.h>
 #include <string>
-#include <memory>
 #include <unordered_set>
 #include <utility>
 
@@ -54,3 +53,4 @@
 #include "Core/MainSingleton.h"
 
 #include "Rendering/RenderManager.h"
+#include "Scene/Scene.h"

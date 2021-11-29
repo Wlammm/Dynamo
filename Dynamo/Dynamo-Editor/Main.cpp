@@ -1,11 +1,12 @@
 #include "EditorPch.h"
 #include <iostream>
-#include "EditorManager.h"
+#include "Entry.h"
 
 int main()
 {
-	Editor::EditorManager manager;
-	manager.Run();
+	Dynamo::Entry::Init(Editor::MainSingleton::Update);
+	Editor::MainSingleton::Init();
+	Dynamo::Entry::Run();
 
 	return 0;
 }

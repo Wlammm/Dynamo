@@ -14,15 +14,15 @@ namespace Dynamo
 
 	void RenderUtils::Destroy()
 	{
-		for (int i = 0; i < SAMPLERSTATE_COUNT; ++i)
-		{
-			mySamplerStates[i]->Release();
-		}
-
-		for (int i = 0; i < BLENDSTATE_COUNT; ++i)
-		{
-			myBlendStates[i]->Release();
-		}
+		//for (int i = 0; i < SAMPLERSTATE_COUNT; ++i)
+		//{
+		//	mySamplerStates[i]->Release();
+		//}
+		
+		//for (int i = 0; i < BLENDSTATE_COUNT; ++i)
+		//{
+		//	myBlendStates[i]->Release();
+		//}
 	}
 
 	void RenderUtils::SetSamplerState(SamplerState aState, uint aSlot)

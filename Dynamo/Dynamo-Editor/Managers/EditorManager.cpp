@@ -1,29 +1,59 @@
 #include "EditorPch.h"
 #include "EditorManager.h"
+
 #include "Entry.h"
-#include "EditorWindow.h"
+
+#include "Core/EditorWindow.h"
+#include "Scene/EditorScene.h"
+#include "Utils/ThemeUtils.h"
 
 #include "Windows/Viewport.h"
+#include "Windows/Hierarchy.h"
+#include "Windows/Inspector.h"
 
+#include "Systems/Toolbar.h"
+
+
+/*
+* __pragma(warning(suppress: XXXX))
+*/
 namespace Editor
 {
+	EditorManager::EditorManager()
+	{
+		Themes::ApplyDefaultTheme();
+
+		InitWindows();
+		InitSystems();
+	}
+	
 	EditorManager::~EditorManager()
 	{
+		for (int i = 0; i < myWindows.sizeI(); ++i)
+		{
+			delete myWindows[i];
+			myWindows[i] = nullptr;
+		}
+		myWindows.clear();
 
+		for (int i = 0; i < mySystems.sizeI(); ++i)
+		{
+			delete mySystems[i];
+			mySystems[i] = nullptr;
+		}
+		mySystems.clear();
 	}
 
 	void EditorManager::InitWindows()
 	{
 		AddWindow(new Viewport());
+		AddWindow(new Hierarchy());
+		AddWindow(new Inspector());
 	}
 
-	void EditorManager::Run()
+	void EditorManager::InitSystems()
 	{
-		Dynamo::Entry::Init(std::bind(&EditorManager::Update, this));
-
-		InitWindows();
-
-		Dynamo::Entry::Run();
+		AddSystem(new Toolbar());
 	}
 	
 	void EditorManager::Update()
@@ -33,6 +63,11 @@ namespace Editor
 		for (int i = 0; i < myWindows.sizeI(); ++i)
 		{
 			myWindows[i]->DoUpdate();
+		}
+
+		for (int i = 0; i < mySystems.sizeI(); ++i)
+		{
+			mySystems[i]->Update();
 		}
 
 		ImGui::End();
@@ -64,14 +99,13 @@ namespace Editor
 		delete aSystem;
 	}
 
-
 	void EditorManager::BeginImGuiDocking()
 	{
 		static bool p_open = true;
 
 		static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
 
-		ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking;
+		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 		const ImGuiViewport* viewport = ImGui::GetMainViewport();
 		ImGui::SetNextWindowPos(viewport->WorkPos);
 		ImGui::SetNextWindowSize(viewport->WorkSize);

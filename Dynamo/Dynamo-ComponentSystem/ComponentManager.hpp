@@ -48,6 +48,12 @@ public:
 	template<typename T>
 	std::vector<GameObjectID> GetGameObjectsWithComponent()
 	{
+		std::string typeName = typeid(T).name();
+		if (myComponentTypes.find(typeName) == myComponentTypes.end())
+		{
+			RegisterComponent<T>();
+		}
+
 		return GetComponentArray<T>()->GetGameObjects();
 	}
 
@@ -74,6 +80,14 @@ public:
 		for (auto& comp : myComponentArrays)
 		{
 			comp.second->LateUpdate();
+		}
+	}
+
+	void EditorUpdate()
+	{
+		for (auto& comp : myComponentArrays)
+		{
+			comp.second->EditorUpdate();
 		}
 	}
 

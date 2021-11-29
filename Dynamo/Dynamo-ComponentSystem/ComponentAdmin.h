@@ -6,6 +6,7 @@
 #include "Types.h"
 #include "ComponentManager.hpp"
 #include <queue>
+#include <unordered_set>
 
 class GameObject;
 
@@ -18,7 +19,9 @@ public:
 	void Init();
 
 	void Update(const float aDeltaTime);
-	void LateUpdate();
+	void UpdateComponents();
+	void LateUpdateComponents();
+	void EditorUpdateComponents();
 
 	void SetActive(GameObject* ob, const bool aState);
 
@@ -39,6 +42,8 @@ public:
 	template<typename T>
 	T* GetComponent(const GameObjectID aID)
 	{
+		assert(myActiveIDS.count(aID) != 0 && "GameObject is not currently active.");
+
 		return myComponentManager.GetComponent<T>(aID);
 	}
 
@@ -69,6 +74,7 @@ public:
 	}
 
 private:
+	std::unordered_set<GameObjectID> myActiveIDS;
 
 	GameObject* myBase;
 	std::queue<GameObject*> myGameObjects;

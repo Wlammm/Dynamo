@@ -41,6 +41,8 @@ protected:
 	virtual void Update();
 	// Runs once per frame after update.
 	virtual void LateUpdate();
+	// Runs once per frame in editor.
+	virtual void EditorUpdate();
 
 	// Runs when the component is created.
 	virtual void OnCreate();

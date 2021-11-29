@@ -5,6 +5,13 @@ namespace Dynamo
 {
 	Texture::~Texture()
 	{
+		//myRenderTarget->Release();
+		//myDepth->Release();
+		//myTexture->Release();
+		//mySRV->Release();
+
+		//delete myViewport;
+		//myViewport = nullptr;
 	}
 
 	void Texture::SetAsActiveDepth()

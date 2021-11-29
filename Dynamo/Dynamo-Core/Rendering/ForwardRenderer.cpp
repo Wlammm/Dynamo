@@ -26,9 +26,9 @@ namespace Dynamo
 
 	ForwardRenderer::~ForwardRenderer()
 	{
-		myFrameBuffer->Release();
-		myObjectBuffer->Release();
-		myRSState->Release();
+		//myFrameBuffer->Release();
+		//myObjectBuffer->Release();
+		//myRSState->Release();
 	}
 
 	void ForwardRenderer::Render(const CU::DArray<MeshRenderer*>& someModels, const CU::DArray<DirectionalLight*>& someDirLights, const CU::DArray<AmbientLight*>& someAmbLights,

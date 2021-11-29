@@ -75,7 +75,6 @@ namespace Dynamo
 				Main::GetContext()->IASetVertexBuffers(0, 1, &mesh.myVertexBuffer, &mesh.myStride, &mesh.myOffset);
 				Main::GetContext()->IASetIndexBuffer(mesh.myIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-
 				Main::GetContext()->DrawIndexed(mesh.myNumIndicies, 0, 0);
 			}
 		}
@@ -96,7 +95,6 @@ namespace Dynamo
 		myFrameBufferData.myToProjection = camera->GetProjectionMatrix();
 		myFrameBufferData.myCameraPosition = { camera->GetTransform()->GetPosition(), 1.0f };
 		RenderUtils::MapBuffer<FrameBuffer>(myFrameBufferData, myFrameBuffer);
-		Console::LogVector("CamPos: ", myFrameBufferData.myCameraPosition);
 		Main::GetContext()->VSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
 		Main::GetContext()->PSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
 

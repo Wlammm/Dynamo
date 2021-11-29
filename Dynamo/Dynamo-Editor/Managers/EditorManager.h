@@ -4,19 +4,15 @@ namespace Editor
 {
 	class EditorWindow;
 	class EditorSystem;
+	class Scene;
 
 	class EditorManager
 	{
 	public:
-		EditorManager() = default;
+		EditorManager();
 		~EditorManager();
 
-		void Run();
-
 		void Update();
-
-		EditorWindow* AddWindow(EditorWindow* aWindow);
-		void RemoveWindow(EditorWindow* aWindow);
 
 		template<typename T>
 		T* GetWindow()
@@ -31,9 +27,8 @@ namespace Editor
 
 			return nullptr;
 		}
-
-		EditorSystem* AddSystem(EditorSystem* aSystem);
-		void RemoveSystem(EditorSystem* aSystem);
+		EditorWindow* AddWindow(EditorWindow* aWindow);
+		void RemoveWindow(EditorWindow* aWindow);
 
 		template<typename T>
 		T* GetSystem()
@@ -48,18 +43,20 @@ namespace Editor
 
 			return nullptr;
 		}
-
+		EditorSystem* AddSystem(EditorSystem* aSystem);
+		void RemoveSystem(EditorSystem* aSystem);
 
 	private:
 		void InitWindows();
+		void InitSystems();
 
 		void BeginImGuiDocking();
 
 	private:
-		bool myIsRunning = true;
-
 		CU::DArray<EditorWindow*> myWindows{};
 		CU::DArray<EditorSystem*> mySystems{};
+
+		bool myIsRunning = true;
 		int myNextID = 0;
 	};
 }

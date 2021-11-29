@@ -25,7 +25,7 @@ namespace Dynamo
         return *myComponentAdmin;
     }
 
-    std::vector<GameObject*> Scene::GetAllGameObjects()
+    const std::vector<GameObject*>& Scene::GetAllGameObjects()
     {
         return myComponentAdmin->GetAllGameObjects();
     }

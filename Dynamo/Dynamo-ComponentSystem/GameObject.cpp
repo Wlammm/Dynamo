@@ -30,7 +30,7 @@ const size_t& GameObject::GetGameObjectID() const
 void GameObject::Reset()
 {
 	myIsActive = true;
-	myName = "";
+	myName = "Unnamed GameObject";
 	myTag = Tag::Untagged;
 	myTransform = nullptr;
 }

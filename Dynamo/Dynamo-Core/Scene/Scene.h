@@ -19,7 +19,7 @@ namespace Dynamo
 
 		ComponentAdmin& GetComponentAdmin();
 
-		std::vector<GameObject*> GetAllGameObjects();
+		const std::vector<GameObject*>& GetAllGameObjects();
 
 		template<typename T>
 		std::vector<GameObject*> GetAllGameObjectsWithComponent()

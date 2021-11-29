@@ -34,6 +34,8 @@ void Component::Update() { }
 
 void Component::LateUpdate() { }
 
+void Component::EditorUpdate() { }
+
 void Component::OnCreate() { }
 
 void Component::OnDestroy() { }

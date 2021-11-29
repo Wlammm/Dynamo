@@ -61,9 +61,9 @@ namespace Dynamo
 		ID3D11Device* myDevice = nullptr;
 		ID3D11DeviceContext* myContext = nullptr;
 
-		std::unique_ptr<WindowHandler> myWindowHandler;
-		std::unique_ptr<DirectXFramework> myFramework;
-		std::unique_ptr<RenderManager> myRenderManager;
+		WindowHandler* myWindowHandler;
+		DirectXFramework* myFramework;
+		RenderManager* myRenderManager;
 
 		Scene* myScene = nullptr;
 		Camera* myOverrideCamera = nullptr;

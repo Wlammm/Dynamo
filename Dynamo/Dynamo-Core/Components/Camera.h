@@ -14,6 +14,7 @@ namespace Dynamo
 		void Init(const Vec2f& aResolution, const float aNearPlane = 1.0f, const float aFarPlane = 10000.0f);
 
 		void Update() override;
+		void EditorUpdate() override;
 
 		void SetFoV(const float aFoV);
 

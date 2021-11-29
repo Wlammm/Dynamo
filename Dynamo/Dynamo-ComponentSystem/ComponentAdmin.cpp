@@ -47,13 +47,21 @@ void ComponentAdmin::Update(const float aDeltaTime)
 	}
 
 	myComponentsToRemove.clear();
+}
 
+void ComponentAdmin::UpdateComponents()
+{
 	myComponentManager.Update();
 }
 
-void ComponentAdmin::LateUpdate()
+void ComponentAdmin::LateUpdateComponents()
 {
 	myComponentManager.LateUpdate();
+}
+
+void ComponentAdmin::EditorUpdateComponents()
+{
+	myComponentManager.EditorUpdate();
 }
 
 void ComponentAdmin::SetActive(GameObject* ob, const bool aState)
@@ -71,13 +79,15 @@ GameObject* ComponentAdmin::CreateGameObject()
 	object->Reset();
 	myActiveGameObjects.push_back(object);
 	object->myAdmin = this;
+
+	myActiveIDS.insert(object->GetGameObjectID());
 	return object;
 }
 
 void ComponentAdmin::RemoveGameObject(GameObject* anObject, const float aTime)
 {
 	assert(std::find(myActiveGameObjects.begin(), myActiveGameObjects.end(), anObject) != myActiveGameObjects.end() && "Gameobject is not currently active.");
-
+	myActiveIDS.erase(anObject->GetGameObjectID());
 	myGameObjectsToBeDeleted[anObject] = aTime;
 }
 

@@ -5,8 +5,7 @@ namespace Editor
 {
 	Viewport::Viewport()
 		: EditorWindow("Viewport")
-	{
-	}
+	{ }
 
 	void Viewport::Update()
 	{

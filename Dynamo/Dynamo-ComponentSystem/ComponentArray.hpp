@@ -11,6 +11,7 @@ public:
 	virtual void GameObjectDestroyed(GameObjectID anEntity) = 0;
 	virtual void Update() = 0;
 	virtual void LateUpdate() = 0;
+	virtual void EditorUpdate() = 0;
 	virtual void SetActive(GameObjectID anEntity, const bool aState) = 0;
 	virtual void RemoveData(GameObjectID anEntity) = 0;
 };
@@ -92,6 +93,17 @@ public:
 			if (myComponentArray[e.second].IsActive())
 			{
 				myComponentArray[e.second].LateUpdate();
+			}
+		}
+	}
+
+	void EditorUpdate() override
+	{
+		for (auto& e : myEntityToIndexMap)
+		{
+			if (myComponentArray[e.second].IsActive())
+			{
+				myComponentArray[e.second].EditorUpdate();
 			}
 		}
 	}
