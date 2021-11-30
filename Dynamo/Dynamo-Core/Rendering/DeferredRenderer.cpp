@@ -19,16 +19,10 @@ namespace Dynamo
 	{
 		CreateBuffers();
 		CreateShaders();
-
-		myEmissiveBloom = new BloomEffect();
-		myEmissiveBloom->SetCutoff(0.0f);
-		myEmissiveTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R8G8B8A8_UNORM);
 	}
 
 	DeferredRenderer::~DeferredRenderer()
 	{
-		delete myEmissiveBloom;
-		myEmissiveBloom = nullptr;
 	}
 
 	void DeferredRenderer::GenerateGBuffer(const CU::DArray<MeshRenderer*>& someModels)
@@ -169,16 +163,12 @@ namespace Dynamo
 		Main::GetContext()->PSSetConstantBuffers(SPOT_LIGHT_BUFFER_SLOT, 1, &mySpotLightBuffer);
 		Main::GetContext()->Draw(3, 0);
 
-		myEmissiveTexture.ClearTexture();
-
-		myEmissiveTexture.SetAsActiveTarget();
 		myEmissiveShader->Bind();
-		Main::GetContext()->Draw(3, 0);
+		myEmissiveBufferData.myIntensity = Main::GetScene()->GetEmissiveIntensity();
+		RenderUtils::MapBuffer<EmissiveBuffer>(myEmissiveBufferData, myEmissiveBuffer);
+		Main::GetContext()->PSSetConstantBuffers(CUSTOM_BUFFER_SLOT, 1, &myEmissiveBuffer);
 
-		myEmissiveBloom->Render(Main::GetRenderManager().GetFullscreenRenderer(), myEmissiveTexture);
-		Main::GetRenderManager().GetNonEffectRenderTarget().SetAsActiveTarget();
-		myEmissiveTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
-		Main::GetRenderManager().GetFullscreenRenderer().RenderCopy();
+		Main::GetContext()->Draw(3, 0);
 	}
 
 	void DeferredRenderer::DrawRenderPass(const int aPass)
@@ -226,6 +216,7 @@ namespace Dynamo
 		RenderUtils::CreateBuffer<PassBuffer>(myPassBuffer);
 		RenderUtils::CreateBuffer<DeferredPointLightBuffer>(myPointLightBuffer);
 		RenderUtils::CreateBuffer<DeferredSpotLightBuffer>(mySpotLightBuffer);
+		RenderUtils::CreateBuffer<EmissiveBuffer>(myEmissiveBuffer);
 	}
 
 	void DeferredRenderer::CreateShaders()

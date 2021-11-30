@@ -54,6 +54,9 @@ namespace Dynamo
 		DeferredSpotLightBuffer mySpotLightBufferData;
 		ID3D11Buffer* mySpotLightBuffer = nullptr;
 
+		EmissiveBuffer myEmissiveBufferData;
+		ID3D11Buffer* myEmissiveBuffer = nullptr;
+
 		Shader* myFSVertexShader = nullptr;
 		Shader* myMeshVertexShader = nullptr;
 		Shader* myMaterialPassShader = nullptr;
@@ -64,9 +67,5 @@ namespace Dynamo
 		Shader* mySpotLightShader = nullptr;
 		Shader* myEmissiveShader = nullptr;
 		Shader* myGBufferShader = nullptr;
-
-		BloomEffect* myEmissiveBloom;
-		Texture myEmissiveTexture;
-		Texture myIntermediateTexture;
 	};
 }

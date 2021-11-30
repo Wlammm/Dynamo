@@ -13,23 +13,24 @@
 
 Game::Game()
 {
-	//Dyn::Main::GetRenderManager().AddFullscreenEffect(new Dyn::BloomEffect());
 	Dyn::Main::GetRenderManager().AddFullscreenEffect(new Dyn::FXAAEffect(), 1);
 
 	Dyn::Main::SetScene(new GameScene());
 
+	Dyn::Main::GetScene()->SetBloomActive(true);
+
 	GameObject* defaultLights = Dyn::Main::GetScene()->CreateGameObject();
 	Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
-	dirLight->SetIntensity(0.1f);
+	dirLight->SetIntensity(100);
 	defaultLights->GetTransform().SetRotationDeg({ -45, -45, -45 });
 	Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
-	ambLight->SetIntensity(1.f);
+	ambLight->SetIntensity(10.f);
 	
 	//GameObject* pointLight = Dyn::Main::GetScene()->CreateGameObject();
 	//Dyn::PointLight* pLight = pointLight->AddComponent<Dyn::PointLight>();
-	//pLight->SetIntensity(500000);
+	//pLight->SetIntensity(50000000);
 	//pLight->SetRange(10000);
-	//pLight->SetColor({ 1, 0, 0, 1 });
+	//pLight->SetColor({ 1, 0.1f, 0.1f, 1 });
 	//pointLight->GetTransform().SetPosition({ 0, 100, 0 });
 
 	//GameObject* spotLight = Dyn::Main::GetScene()->CreateGameObject();

@@ -15,22 +15,18 @@ namespace Dynamo
 		Vec2ui halfRes = (resolution.Cast<float>() * 0.5f).Cast<uint>();
 		Vec2ui quarterRes = (resolution.Cast<float>() * 0.25f).Cast<uint>();
 
-		myLuminanceTexture = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R8G8B8A8_UNORM);
-		myHalfSizeTexture = TextureFactory::CreateTexture(halfRes, DXGI_FORMAT_R8G8B8A8_UNORM);
-		myQuarterSizeTexture = TextureFactory::CreateTexture(quarterRes, DXGI_FORMAT_R8G8B8A8_UNORM);
-		myBlurTexture1 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R8G8B8A8_UNORM);
-		myBlurTexture2 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R8G8B8A8_UNORM);
-		myIntermediateTexture = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R8G8B8A8_UNORM);
+		myLuminanceTexture = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myHalfSizeTexture = TextureFactory::CreateTexture(halfRes, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myQuarterSizeTexture = TextureFactory::CreateTexture(quarterRes, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myBlurTexture1 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myBlurTexture2 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myIntermediateTexture = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
 
-		RenderUtils::CreateBuffer<LuminanceBuffer>(myLuminanceBuffer);
 	}
 
 	void BloomEffect::Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget)
 	{
 		ClearTextures();
-
-		RenderUtils::MapBuffer<LuminanceBuffer>(myLuminanceBufferData, myLuminanceBuffer);
-		Main::GetContext()->PSSetConstantBuffers(CUSTOM_BUFFER_SLOT, 1, &myLuminanceBuffer);
 
 		myLuminanceTexture.SetAsActiveTarget();
 		aFinalTarget.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
@@ -80,16 +76,6 @@ namespace Dynamo
 		aFinalTarget.SetAsActiveTarget(FS_TEXTURE_SLOT1);
 		myIntermediateTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
-	}
-
-	void BloomEffect::SetCutoff(const float aCutoff)
-	{
-		myLuminanceBufferData.myCutoff = aCutoff;
-	}
-
-	float BloomEffect::GetCutoff() const
-	{
-		return myLuminanceBufferData.myCutoff;
 	}
 
 	void BloomEffect::ClearTextures()

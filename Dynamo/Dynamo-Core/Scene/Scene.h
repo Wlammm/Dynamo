@@ -27,11 +27,25 @@ namespace Dynamo
 			return myComponentAdmin->GetGameObjectsWithComponent<T>();
 		}
 		
+		void SetBloomActive(const bool aValue);
+		bool IsBoolActive() const;
+
+		void SetBloomCutoff(const float aValue);
+		float GetBloomCutoff() const;
+
+		void SetEmissiveIntensity(const float aValue);
+		float GetEmissiveIntensity() const;
+
 	protected:
 		void InternalInit();
 
 	private:
 		CU::DArray<GameObject*> myGameObjects;
 		std::unique_ptr<ComponentAdmin> myComponentAdmin;
+
+		bool myBloomEnabled = false;
+		float myBloomCutoff = 0.2f;
+
+		float myEmissiveIntensity = 100;
 	};
 }

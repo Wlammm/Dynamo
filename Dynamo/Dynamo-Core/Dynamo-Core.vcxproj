@@ -193,6 +193,7 @@
     <ClCompile Include="Rendering\ForwardRenderer.cpp" />
     <ClCompile Include="Rendering\FullscreenEffects\BloomEffect.cpp" />
     <ClCompile Include="Rendering\FullscreenEffects\FXAAEffect.cpp" />
+    <ClCompile Include="Rendering\FullscreenEffects\HDREffect.cpp" />
     <ClCompile Include="Rendering\FullscreenRenderer.cpp" />
     <ClCompile Include="Rendering\GBuffer.cpp" />
     <ClCompile Include="Rendering\Model.cpp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="Rendering\FullscreenEffects\BloomEffect.h" />
     <ClInclude Include="Rendering\FullscreenEffects\FullscreenEffect.h" />
     <ClInclude Include="Rendering\FullscreenEffects\FXAAEffect.h" />
+    <ClInclude Include="Rendering\FullscreenEffects\HDREffect.h" />
     <ClInclude Include="Rendering\FullscreenRenderer.h" />
     <ClInclude Include="Rendering\GBuffer.h" />
     <ClInclude Include="Rendering\Material.h" />
@@ -330,6 +332,10 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Shaders\Fullscreen\FullscreenPS-GaussianH.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-HDR.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>

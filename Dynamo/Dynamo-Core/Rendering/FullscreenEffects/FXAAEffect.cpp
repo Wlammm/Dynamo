@@ -7,7 +7,7 @@ namespace Dynamo
 	FXAAEffect::FXAAEffect()
 	{
 		RenderUtils::CreateBuffer<FXAABuffer>(myBuffer);
-		myIntermediateTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R8G8B8A8_UNORM);
+		myIntermediateTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R32G32B32A32_FLOAT);
 		myShader = ShaderFactory::GetShader("Shaders/FullscreenPS-FXAA.cso", ShaderType::PixelShader);
 	}
 	

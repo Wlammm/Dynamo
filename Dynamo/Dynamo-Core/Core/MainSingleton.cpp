@@ -11,6 +11,8 @@
 
 #include "Utils/ImGuiManager.h"
 
+#include "Rendering/FullscreenEffects/HDREffect.h"
+
 namespace Dynamo
 {
 	MainSingleton* MainSingleton::ourInstance = nullptr;
@@ -30,7 +32,6 @@ namespace Dynamo
 		ourInstance->myWindowHandler = new WindowHandler();
 		ourInstance->myFramework = new DirectXFramework();
 		ourInstance->myRenderManager = new RenderManager();
-
 
 		ImGuiManager::Start();
 	}

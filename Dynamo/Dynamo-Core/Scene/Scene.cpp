@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include <ComponentAdmin.h>
 #include "Components/Transform.h"
+#include "Rendering/FullscreenEffects/BloomEffect.h"
 
 namespace Dynamo
 {
@@ -28,6 +29,41 @@ namespace Dynamo
     const std::vector<GameObject*>& Scene::GetAllGameObjects()
     {
         return myComponentAdmin->GetAllGameObjects();
+    }
+
+    void Scene::SetBloomActive(const bool aValue)
+    {
+        if (aValue && !myBloomEnabled)
+        {
+            Main::GetRenderManager().AddFullscreenEffect(new BloomEffect());
+        }
+
+        myBloomEnabled = aValue;
+    }
+
+    bool Scene::IsBoolActive() const
+    {
+        return myBloomEnabled;
+    }
+
+    void Scene::SetBloomCutoff(const float aValue)
+    {
+        myBloomCutoff = aValue;
+    }
+
+    float Scene::GetBloomCutoff() const
+    {
+        return myBloomCutoff;
+    }
+
+    void Scene::SetEmissiveIntensity(const float aValue)
+    {
+        myEmissiveIntensity = aValue;
+    }
+
+    float Scene::GetEmissiveIntensity() const
+    {
+        return myEmissiveIntensity;
     }
 
     void Scene::InternalInit()

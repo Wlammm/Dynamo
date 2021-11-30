@@ -51,6 +51,9 @@
       <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-GaussianH.cso</FullPath>
     </ContentFile>
     <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-HDR.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-Luminance.cso</FullPath>
     </ContentFile>
     <ContentFile>

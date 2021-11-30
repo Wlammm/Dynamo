@@ -9,25 +9,14 @@ cbuffer LuminanceBuffer : register(b8)
 PixelOutput main(VertexToPixel input)
 {
     PixelOutput result;
+    result.myColor = 0;
+
     float3 resource = myFullscreenTexture1.Sample(myDefaultSampler, input.myUV).rgb;
+    float brightness = dot(resource, float3(0.2126, 0.7152, 0.0722));
 
-	{
-        float luminance = dot(resource, float3(0.2126f, 0.7152f, 0.0722f));
-
-        if (luminance >= myCutoff)
-        {
-            result.myColor.rgb = resource;
-        }
-        else if (luminance >= myCutoff * .5f)
-        {
-            float fade = luminance / myCutoff;
-            fade = pow(fade, 5);
-            result.myColor.rgb = resource * fade;
-        }
-        else
-        {
-            result.myColor.rgb = 0;
-        }
+    if (brightness > myCutoff)
+    {
+        result.myColor.rgb = resource.rgb;
     }
 
     result.myColor.a = 1.0f;

@@ -3,6 +3,7 @@
 #include "Utils/RenderUtils.h"
 #include "FullscreenEffects/FullscreenEffect.h"
 #include "Core/DirectXFramework.h"
+#include "FullscreenEffects/HDREffect.h"
 
 namespace Dynamo
 {
@@ -15,6 +16,8 @@ namespace Dynamo
 		myGammaCorrectionShader = ShaderFactory::GetShader("Shaders/FullscreenPS-GammaCorrection.cso", ShaderType::PixelShader);
 
 		myDebugRenderer.Init(&Main::GetFramework());
+
+		AddFullscreenEffect(new HDREffect(), 10);
 	}
 	
 	RenderManager::~RenderManager()
@@ -125,8 +128,6 @@ namespace Dynamo
 		if(myRenderEffects)
 			RenderFullscreenEffects();
 
-		RenderNonEffectTexture();
-
 		RenderDebug();
 
 		RenderDeferredPass();
@@ -146,11 +147,6 @@ namespace Dynamo
 	Texture& RenderManager::GetMainRenderTarget()
 	{
 		return myRenderTexture;
-	}
-
-	Texture& RenderManager::GetNonEffectRenderTarget()
-	{
-		return myNonEffectTexture;
 	}
 
 	void RenderManager::ImGuiRender()
@@ -207,6 +203,7 @@ namespace Dynamo
 
 	void RenderManager::RenderFullscreenEffects()
 	{
+		RenderUtils::SetBlendState(RenderUtils::BLENDSTATE_DISABLE);
 		for (auto& it : myFullscreenEffects)
 		{
 			for (auto& effect : it.second)
@@ -214,14 +211,6 @@ namespace Dynamo
 				effect->Render(myFullscreenRenderer, myRenderTexture);
 			}
 		}
-	}
-
-	void RenderManager::RenderNonEffectTexture()
-	{
-		RenderUtils::SetBlendState(RenderUtils::BLENDSTATE_ADDITIVE);
-		myRenderTexture.SetAsActiveTarget();
-		myNonEffectTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
-		myFullscreenRenderer.RenderCopy();
 	}
 
 	void RenderManager::RenderDeferredPass()
@@ -264,9 +253,8 @@ namespace Dynamo
 		assert(backBufferTexture);
 
 		myBackBuffer = TextureFactory::CreateTexture(backBufferTexture);
-		myRenderTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R8G8B8A8_UNORM);
-		myIntermediateTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R8G8B8A8_UNORM);
-		myNonEffectTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R8G8B8A8_UNORM);
+		myRenderTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myIntermediateTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R32G32B32A32_FLOAT);
 		myRenderDepth = TextureFactory::CreateDepth(Main::GetWindowResolution(), DXGI_FORMAT_D32_FLOAT);
 
 		myGBuffer = TextureFactory::CreateGBuffer(Main::GetWindowResolution());
@@ -279,6 +267,5 @@ namespace Dynamo
 		myBackBuffer.ClearTexture();
 		myGBuffer.ClearTextures();
 		myIntermediateTexture.ClearTexture();
-		myNonEffectTexture.ClearTexture();
 	}
 }

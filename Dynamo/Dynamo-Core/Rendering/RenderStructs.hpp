@@ -54,6 +54,14 @@ namespace Dynamo
 		Vec3f padding;
 	};
 
+	// Use custom buffer slot.
+	struct EmissiveBuffer
+	{
+		float myIntensity;
+
+		Vec3f padding;
+	};
+
 	struct AmbientLightBuffer
 	{
 		float myIntensity;

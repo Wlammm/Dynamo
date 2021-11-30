@@ -141,6 +141,9 @@
     <ClCompile Include="Rendering\DebugRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rendering\FullscreenEffects\HDREffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entry.h">
@@ -302,6 +305,9 @@
     <ClInclude Include="Shaders\SharedDefines.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\FullscreenEffects\HDREffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />
@@ -326,6 +332,7 @@
     <FxCompile Include="Shaders\Debug\DebugLineVertexShader.hlsl" />
     <FxCompile Include="Shaders\Debug\DebugLinePixelShader.hlsl" />
     <FxCompile Include="Shaders\Deferred\EmissiveShader.hlsl" />
+    <FxCompile Include="Shaders\Fullscreen\FullscreenPS-HDR.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ShaderStructs.hlsli" />
