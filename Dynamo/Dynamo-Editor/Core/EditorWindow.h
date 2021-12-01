@@ -7,6 +7,8 @@ namespace Editor
 	public:
 		EditorWindow(const std::string& aWindowName);
 
+		virtual void Init();
+
 		void DoUpdate();
 
 	protected:

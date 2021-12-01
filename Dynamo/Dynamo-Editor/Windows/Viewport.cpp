@@ -1,11 +1,17 @@
 #include "EditorPch.h"
 #include "Viewport.h"
+#include "Systems/Guizmos.h"
 
 namespace Editor
 {
 	Viewport::Viewport()
 		: EditorWindow("Viewport")
 	{ }
+
+	void Viewport::Init()
+	{
+		myGuizmos = Main::GetEditorManager()->GetSystem<Guizmos>();
+	}
 
 	void Viewport::Update()
 	{
@@ -22,6 +28,12 @@ namespace Editor
 
 		ImGui::SetCursorPos(pos);
 		ImGui::Image(renderTexture.GetSRV(), imageSize);
+
+		ImVec2 windowPos = ImGui::GetWindowPos();
+		pos.x += windowPos.x;
+		pos.y += windowPos.y;
+
+		myGuizmos->DrawGuizmos(pos, imageSize);
 	}
 
 	const ImVec2 Viewport::ClampToAspectRatio(const ImVec2& aSize, const ImVec2& anAspectRatio) const

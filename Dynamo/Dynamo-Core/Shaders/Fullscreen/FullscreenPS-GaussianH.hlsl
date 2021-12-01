@@ -1,6 +1,7 @@
 #include "FullscreenStructs.hlsli"
+#include "../SharedDefines.hpp"
 
-static const float2 Resolution = float2(1280.0f, 720.0f) / 4.0f;
+static const float2 Resolution = float2(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y) / 4.0f;
 static const float GaussianKernal5[5] = { 0.06136f, 0.24477f, 0.38774f, 0.24477f, 0.06136f };
 
 PixelOutput main(VertexToPixel input)

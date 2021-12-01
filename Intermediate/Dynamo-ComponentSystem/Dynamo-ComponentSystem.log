@@ -1,2 +1,5 @@
-﻿  GameObject.cpp
+﻿  Component.cpp
+  ComponentAdmin.cpp
+  GameObject.cpp
+  Generating Code...
   Dynamo-ComponentSystem.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-ComponentSystem_Debug.lib

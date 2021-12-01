@@ -38,6 +38,8 @@ namespace Dynamo
 
 		void AddFullscreenEffect(FullscreenEffect* anEffect, const int aLayer = 0);
 		void RemoveFullscreenEffect(FullscreenEffect* anEffect);
+		template<typename T>
+		T* GetFullscreenEffect();
 
 		void Update();
 		void Render();
@@ -94,4 +96,20 @@ namespace Dynamo
 
 		Shader* myGammaCorrectionShader = nullptr;
 	};
+
+	template<typename T>
+	inline T* RenderManager::GetFullscreenEffect()
+	{
+		for (auto it : myFullscreenEffects)
+		{
+			for (int i = 0; i < it.second.size(); ++i)
+			{
+				if (T* ptr = dynamic_cast<T*>(it.second[i]))
+				{
+					return ptr;
+				}
+			}
+		}
+		return nullptr;
+	}
 }

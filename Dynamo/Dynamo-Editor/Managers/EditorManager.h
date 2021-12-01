@@ -12,6 +12,8 @@ namespace Editor
 		EditorManager();
 		~EditorManager();
 
+		void Init();
+
 		void Update();
 
 		template<typename T>
@@ -47,6 +49,9 @@ namespace Editor
 		void RemoveSystem(EditorSystem* aSystem);
 
 	private:
+		void CreateWindows();
+		void CreateSystems();
+
 		void InitWindows();
 		void InitSystems();
 

@@ -22,11 +22,16 @@ namespace Dynamo
 		myBlurTexture2 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
 		myIntermediateTexture = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
 
+		RenderUtils::CreateBuffer<LuminanceBuffer>(myLuminanceBuffer);
 	}
 
 	void BloomEffect::Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget)
 	{
 		ClearTextures();
+
+		myLuminanceBufferData.myCutoff = myCutoff;
+		RenderUtils::MapBuffer<LuminanceBuffer>(myLuminanceBufferData, myLuminanceBuffer);
+		Main::GetContext()->PSSetConstantBuffers(CUSTOM_BUFFER_SLOT, 1, &myLuminanceBuffer);
 
 		myLuminanceTexture.SetAsActiveTarget();
 		aFinalTarget.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
@@ -35,47 +40,61 @@ namespace Dynamo
 		myHalfSizeTexture.SetAsActiveTarget();
 		myLuminanceTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
-
+		
 		myQuarterSizeTexture.SetAsActiveTarget();
 		myHalfSizeTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
-
+		
 		myBlurTexture1.SetAsActiveTarget();
 		myQuarterSizeTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
-
+		
 		myBlurTexture2.SetAsActiveTarget();
 		myBlurTexture1.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.Render(myGaussianHShader);
-
+		
 		myBlurTexture1.SetAsActiveTarget();
 		myBlurTexture2.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.Render(myGaussianVShader);
-
+		
 		myBlurTexture2.SetAsActiveTarget();
 		myBlurTexture1.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.Render(myGaussianHShader);
-
+		
 		myBlurTexture1.SetAsActiveTarget();
 		myBlurTexture2.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.Render(myGaussianVShader);
-
+		
 		myQuarterSizeTexture.SetAsActiveTarget();
 		myBlurTexture1.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
-
+		
 		myHalfSizeTexture.SetAsActiveTarget();
 		myQuarterSizeTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
-
+		
 		myIntermediateTexture.SetAsActiveTarget();
 		aFinalTarget.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		myHalfSizeTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT2);
 		aFullscreenRenderer.Render(myBloomShader);
 
+		//myIntermediateTexture.SetAsActiveTarget();
+		//myLuminanceTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
+		//aFullscreenRenderer.RenderCopy();
+		//
 		aFinalTarget.SetAsActiveTarget(FS_TEXTURE_SLOT1);
 		myIntermediateTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
+	}
+
+	void BloomEffect::SetCutoff(const float aCutoff)
+	{
+		myCutoff = aCutoff;
+	}
+
+	float BloomEffect::GetCutoff() const
+	{
+		return myCutoff;
 	}
 
 	void BloomEffect::ClearTextures()

@@ -51,6 +51,12 @@
     <ClCompile Include="Systems\Toolbar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\Guizmos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EditorSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EditorPch.h">
@@ -93,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\Toolbar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\Guizmos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

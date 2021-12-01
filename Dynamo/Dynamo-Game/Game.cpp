@@ -9,26 +9,24 @@
 #include "Components/SpotLight.h"
 
 #include "Rendering/FullscreenEffects/BloomEffect.h"
-#include "Rendering/FullscreenEffects/FXAAEffect.h"
 
 Game::Game()
 {
-	Dyn::Main::GetRenderManager().AddFullscreenEffect(new Dyn::FXAAEffect(), 1);
+	Dyn::Main::GetRenderManager().AddFullscreenEffect(new Dyn::BloomEffect(), 0);
+	Dyn::Main::GetRenderManager().GetFullscreenEffect<Dyn::BloomEffect>()->SetCutoff(10);
 
 	Dyn::Main::SetScene(new GameScene());
 
-	Dyn::Main::GetScene()->SetBloomActive(true);
-
 	GameObject* defaultLights = Dyn::Main::GetScene()->CreateGameObject();
 	Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
-	dirLight->SetIntensity(100);
+	dirLight->SetIntensity(10.0f);
 	defaultLights->GetTransform().SetRotationDeg({ -45, -45, -45 });
 	Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
 	ambLight->SetIntensity(10.f);
 	
 	//GameObject* pointLight = Dyn::Main::GetScene()->CreateGameObject();
 	//Dyn::PointLight* pLight = pointLight->AddComponent<Dyn::PointLight>();
-	//pLight->SetIntensity(50000000);
+	//pLight->SetIntensity(500000);
 	//pLight->SetRange(10000);
 	//pLight->SetColor({ 1, 0.1f, 0.1f, 1 });
 	//pointLight->GetTransform().SetPosition({ 0, 100, 0 });

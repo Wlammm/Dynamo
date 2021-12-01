@@ -12,7 +12,7 @@
 #include "Windows/Inspector.h"
 
 #include "Systems/Toolbar.h"
-
+#include "Systems/Guizmos.h"
 
 /*
 * __pragma(warning(suppress: XXXX))
@@ -23,8 +23,8 @@ namespace Editor
 	{
 		Themes::ApplyDefaultTheme();
 
-		InitWindows();
-		InitSystems();
+		CreateWindows();
+		CreateSystems();
 	}
 	
 	EditorManager::~EditorManager()
@@ -44,16 +44,39 @@ namespace Editor
 		mySystems.clear();
 	}
 
-	void EditorManager::InitWindows()
+	void EditorManager::Init()
+	{
+		InitWindows();
+		InitSystems();
+	}
+
+	void EditorManager::CreateWindows()
 	{
 		AddWindow(new Viewport());
 		AddWindow(new Hierarchy());
 		AddWindow(new Inspector());
 	}
 
-	void EditorManager::InitSystems()
+	void EditorManager::CreateSystems()
 	{
 		AddSystem(new Toolbar());
+		AddSystem(new Guizmos());
+	}
+
+	void EditorManager::InitWindows()
+	{
+		for (int i = 0; i < myWindows.size(); ++i)
+		{
+			myWindows[i]->Init();
+		}
+	}
+
+	void EditorManager::InitSystems()
+	{
+		for (int i = 0; i < mySystems.size(); ++i)
+		{
+			mySystems[i]->Init();
+		}
 	}
 	
 	void EditorManager::Update()

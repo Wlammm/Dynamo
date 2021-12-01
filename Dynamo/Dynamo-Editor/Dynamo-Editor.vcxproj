@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\EditorSystem.cpp" />
     <ClCompile Include="Scene\EditorScene.cpp" />
     <ClCompile Include="Core\EditorWindow.cpp" />
     <ClCompile Include="Managers\EditorManager.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Core\EditorMainSingleton.cpp" />
     <ClCompile Include="PostMaster\EditorPostMaster.cpp" />
+    <ClCompile Include="Systems\Guizmos.cpp" />
     <ClCompile Include="Utils\ThemeUtils.cpp" />
     <ClCompile Include="Windows\Hierarchy.cpp" />
     <ClCompile Include="Windows\Inspector.cpp" />
@@ -182,6 +184,7 @@
     <ClInclude Include="PostMaster\EditorCommandTypes.hpp" />
     <ClInclude Include="Core\EditorMainSingleton.h" />
     <ClInclude Include="PostMaster\EditorPostObserver.h" />
+    <ClInclude Include="Systems\Guizmos.h" />
     <ClInclude Include="Utils\ThemeUtils.h" />
     <ClInclude Include="Windows\Hierarchy.h" />
     <ClInclude Include="PostMaster\EditorPostMaster.h" />

@@ -6,6 +6,8 @@ Editor::EditorWindow::EditorWindow(const std::string& aWindowName)
 	myWindowName = aWindowName;
 }
 
+void Editor::EditorWindow::Init() { }
+
 void Editor::EditorWindow::DoUpdate()
 {
 	ImGui::Begin(myWindowName.c_str());

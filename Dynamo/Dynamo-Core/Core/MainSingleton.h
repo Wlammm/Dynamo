@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Shaders/SharedDefines.hpp"
+
 namespace Dynamo
 {
 	class WindowHandler;
@@ -47,7 +49,7 @@ namespace Dynamo
 		static RenderManager& GetRenderManager();
 
  	private:
-		const Vec2ui myWindowSize = { 1600, 900 };
+		const Vec2ui myWindowSize = { WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y };
 		const Vec2ui myWindowOffset = { 100, 100 };
 		const Color myClearColor = { 0, 0, 0, 1 };
 		const std::wstring myWindowTitle = L"Dynamo";

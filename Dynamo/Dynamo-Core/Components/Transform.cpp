@@ -96,6 +96,11 @@ namespace Dynamo
 			0.0f, 0.0f, 0.0f, 1.0f);
 	}
 
+	Mat4f& Transform::GetMatrixRef()
+	{
+		return myMatrix;
+	}
+
 	Quat Transform::GetRotation() const
 	{
 		Mat4f mat = GetRotationMatrix();

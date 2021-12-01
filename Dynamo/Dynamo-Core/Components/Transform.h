@@ -19,6 +19,8 @@ namespace Dynamo
 		const Mat4f& GetMatrix() const;
 		Mat4f GetRotationMatrix() const;
 
+		Mat4f& GetMatrixRef();
+
 		Quat GetRotation() const;
 		void SetRotation(const Quat& aQuat);
 

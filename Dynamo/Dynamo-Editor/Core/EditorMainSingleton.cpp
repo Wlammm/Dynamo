@@ -18,7 +18,9 @@ namespace Editor
 		assert(ourInstance == nullptr && "Singleton already exists.");
 		ourInstance = new MainSingleton();
 
-		ourInstance->myManager = new EditorManager();
+		ourInstance->myEditorManager = new EditorManager();
+		ourInstance->myEditorManager->Init();
+
 		ourInstance->myPostMaster = new PostMaster();
 
 		InitScenes();
@@ -26,7 +28,7 @@ namespace Editor
 
 	void MainSingleton::Destroy()
 	{
-		delete ourInstance->myManager;
+		delete ourInstance->myEditorManager;
 		delete ourInstance->myPostMaster;
 
 		delete ourInstance;
@@ -35,7 +37,7 @@ namespace Editor
 
 	void MainSingleton::Update()
 	{
-		ourInstance->myManager->Update();
+		ourInstance->myEditorManager->Update();
 	}
 
 	void MainSingleton::SetSelectedGameObject(GameObject* aGameObject)
@@ -53,16 +55,21 @@ namespace Editor
 		return ourInstance->myPostMaster;
 	}
 
+	EditorManager* MainSingleton::GetEditorManager()
+	{
+		return ourInstance->myEditorManager;
+	}
+
 	void MainSingleton::InitScenes()
 	{
 		Dyn::Main::SetScene(new Scene());
 
 		GameObject* defaultLights = Dyn::Main::GetScene()->CreateGameObject();
 		Dyn::DirectionalLight* dirLight = defaultLights->AddComponent<Dyn::DirectionalLight>();
-		dirLight->SetIntensity(0.1f);
+		dirLight->SetIntensity(10.0f);
 		defaultLights->GetTransform().SetRotationDeg({ -45, -45, -45 });
 		Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
-		ambLight->SetIntensity(1.f);
+		ambLight->SetIntensity(10.f);
 
 		GameObject* camera = Dyn::Main::GetScene()->CreateGameObject();
 		Dyn::Camera* camComp = camera->AddComponent<Dyn::Camera>();

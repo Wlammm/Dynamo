@@ -101,6 +101,9 @@ namespace Dynamo
 
 	void Camera::CameraMovement()
 	{
+		if (!Input::IsKeyPressed(MouseButton::Right))
+			return;
+
 		CU::Vector3f moveDir;
 
 		if (Input::IsKeyPressed(KeyCode::W))

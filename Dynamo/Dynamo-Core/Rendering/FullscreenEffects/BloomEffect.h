@@ -6,6 +6,14 @@ namespace Dynamo
 {
 	class BloomEffect : public FullscreenEffect
 	{
+#pragma region Structs
+		struct LuminanceBuffer
+		{
+			float myCutoff;
+			Vec3f padding;
+		};
+#pragma endregion
+
 	public:
 		BloomEffect();
 
@@ -18,6 +26,8 @@ namespace Dynamo
 		void ClearTextures();
 
 	private:
+		float myCutoff = 1.0f;
+
 		Texture myLuminanceTexture;
 		Texture myHalfSizeTexture;
 		Texture myQuarterSizeTexture;
@@ -29,5 +39,8 @@ namespace Dynamo
 		Shader* myGaussianVShader = nullptr;
 		Shader* myGaussianHShader = nullptr;
 		Shader* myBloomShader = nullptr;
+
+		LuminanceBuffer myLuminanceBufferData;
+		ID3D11Buffer* myLuminanceBuffer = nullptr;
 	};
 }

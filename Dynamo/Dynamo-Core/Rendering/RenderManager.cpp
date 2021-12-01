@@ -3,7 +3,10 @@
 #include "Utils/RenderUtils.h"
 #include "FullscreenEffects/FullscreenEffect.h"
 #include "Core/DirectXFramework.h"
+
 #include "FullscreenEffects/HDREffect.h"
+#include "FullscreenEffects/BloomEffect.h"
+#include "FullscreenEffects/FXAAEffect.h"
 
 namespace Dynamo
 {
@@ -17,7 +20,8 @@ namespace Dynamo
 
 		myDebugRenderer.Init(&Main::GetFramework());
 
-		AddFullscreenEffect(new HDREffect(), 10);
+		AddFullscreenEffect(new Dyn::FXAAEffect(), 1);
+		AddFullscreenEffect(new Dyn::HDREffect(), 10);
 	}
 	
 	RenderManager::~RenderManager()

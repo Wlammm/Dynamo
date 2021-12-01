@@ -17,17 +17,18 @@ namespace Editor
 
 		static PostMaster* GetPostMaster();
 
+		static EditorManager* GetEditorManager();
+
 	private:
 		static void InitScenes();
 
 	private:
-		EditorManager* myManager = nullptr;
+		EditorManager* myEditorManager = nullptr;
 		PostMaster* myPostMaster = nullptr;
 
 		GameObject* mySelectedGameObject = nullptr;
 
 	private:
 		inline static MainSingleton* ourInstance = nullptr;
-
 	};
 }
