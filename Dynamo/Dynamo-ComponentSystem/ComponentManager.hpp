@@ -94,15 +94,31 @@ public:
 	}
 
 	template<typename T>
-	const std::string& GetComponentName()
+	std::string GetComponentName()
 	{
 		std::string typeID = typeid(T).name();
 		if (myTypeNameToNameRegistry.find(typeID) != myTypeNameToNameRegistry.end())
 		{
+			return "bokbok";
 			return myTypeNameToNameRegistry[typeID];
 		}
 
 		return "Unregistered component with typeID: " + typeID;
+	}
+
+	std::vector<void*> GetAllComponentsOnGameObject(GameObjectID aGo)
+	{
+		std::vector<void*> components;
+		for (const auto& val : myComponentArrays)
+		{
+			void* comp = val.second->GetComponentOnGameObject(aGo);
+
+			if (comp)
+			{
+				components.push_back(comp);
+			}
+		}
+		return components;
 	}
 
 private:

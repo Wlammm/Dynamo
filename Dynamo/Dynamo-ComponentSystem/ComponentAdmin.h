@@ -9,6 +9,7 @@
 #include <unordered_set>
 
 class GameObject;
+class Component;
 
 class ComponentAdmin
 {
@@ -73,7 +74,11 @@ public:
 		return gameObjects;
 	}
 
+	std::vector<Component*> GetAllComponentsOnGameObject(GameObjectID aGO);
+
 	ComponentManager& GetComponentManager();
+
+	const std::string& GetComponentName(const std::string& aTypeID);
 
 private:
 	std::unordered_set<GameObjectID> myActiveIDS;

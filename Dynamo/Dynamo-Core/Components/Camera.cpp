@@ -3,6 +3,30 @@
 
 namespace Dynamo
 {
+	void Camera::ExposeValues()
+	{
+		ImGui::Text("Field of View");
+		ImGui::SameLine(0.0f, 10);
+		if (ImGui::DragFloat("##camerafov", &myFoV, 1.0f, 0.0f, 360.0f))
+		{
+			Init(myFoV, Main::GetWindowResolution().Cast<float>(), myNearPlane, myFarPlane);
+		}
+
+		ImGui::Text("Near Plane");
+		ImGui::SameLine(0.0f, 31);
+		if (ImGui::DragFloat("##cameranearplane", &myNearPlane, 0.01f, 0.01f, myFarPlane))
+		{
+			Init(myFoV, Main::GetWindowResolution().Cast<float>(), myNearPlane, myFarPlane);
+		}
+
+		ImGui::Text("Far Plane");
+		ImGui::SameLine(0.0f, 38);
+		if (ImGui::DragFloat("##camerafarplane", &myFarPlane, 0.01f, myNearPlane, 1000000.0f))
+		{
+			Init(myFoV, Main::GetWindowResolution().Cast<float>(), myNearPlane, myFarPlane);
+		}
+	}
+
 	void Camera::OnCreate()
 	{
 		myIsValid = true;

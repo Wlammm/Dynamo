@@ -4,8 +4,11 @@ namespace Dynamo
 {
 	class Camera : public Component
 	{
+		COMP(Camera);
 	public:
 		Camera() = default;
+
+		void ExposeValues() override;
 
 		void OnCreate() override;
 		void OnDestroy() override;

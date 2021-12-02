@@ -16,6 +16,10 @@ public:
 
 	Dynamo::Transform& GetTransform();
 
+	virtual void ExposeValues();
+
+	virtual std::string GetName();
+
 protected:
 	template<typename T, typename... Args>
 	T* AddComponent(Args&&... params)

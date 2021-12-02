@@ -5,7 +5,7 @@
 
 #define TO_STRING(x) #x
 
-#define COMP(className)																		      \
+#define COMP(className)																			  \
 class Creator											   							 			  \
 {														   							 			  \
 public:													   							 			  \
@@ -21,4 +21,10 @@ protected:																						  \
 	void RegisterToAdmin(ComponentAdmin& anAdmin) override										  \
 	{																							  \
 		anAdmin.GetComponentManager().RegisterComponent<className>(TO_STRING(className));		  \
+	}																							  \
+																								  \
+public:																							  \
+	std::string GetName() override																  \
+	{																							  \
+		return TO_STRING(className);															  \
 	}																							  \

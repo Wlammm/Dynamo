@@ -14,6 +14,7 @@ public:
 	virtual void EditorUpdate() = 0;
 	virtual void SetActive(GameObjectID anEntity, const bool aState) = 0;
 	virtual void RemoveData(GameObjectID anEntity) = 0;
+	virtual void* GetComponentOnGameObject(GameObjectID aGo) = 0;
 };
 
 template<typename T>
@@ -126,6 +127,16 @@ public:
 		}
 
 		return returnVec;
+	}
+
+	void* GetComponentOnGameObject(GameObjectID aGo) override
+	{
+		if (myEntityToIndexMap.find(aGo) == myEntityToIndexMap.end())
+		{
+			return nullptr;
+		}
+
+		return (void*)&myComponentArray[myEntityToIndexMap[aGo]];
 	}
 
 private:

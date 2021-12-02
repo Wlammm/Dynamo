@@ -4,7 +4,10 @@ namespace Dynamo
 {
 	class AmbientLight : public Component
 	{
+		COMP(AmbientLight);
 	public:
+		void ExposeValues() override;
+
 		void OnCreate() override;
 		void OnDestroy() override;
 

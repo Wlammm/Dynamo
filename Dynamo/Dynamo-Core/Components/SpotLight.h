@@ -4,7 +4,10 @@ namespace Dynamo
 {
 	class SpotLight : public Component
 	{
+		COMP(SpotLight);
 	public:
+		void ExposeValues() override;
+
 		void OnCreate() override;
 		void OnDestroy() override;
 

@@ -4,7 +4,10 @@ namespace Dynamo
 {
 	class DirectionalLight : public Component
 	{
+		COMP(DirectionalLight);
 	public:
+		void ExposeValues() override;
+
 		void OnCreate() override;
 		void OnDestroy() override;
 

@@ -1,2 +1,6 @@
-﻿  ComponentRegistry.cpp
-  Dynamo-ComponentSystem.vcxproj -> C:\Users\william.arnback\Documents\GitHub\Dynamo\Libs\Dynamo-ComponentSystem_Debug.lib
+﻿  Component.cpp
+  ComponentAdmin.cpp
+  ComponentRegistry.cpp
+  GameObject.cpp
+  Generating Code...
+  Dynamo-ComponentSystem.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-ComponentSystem_Debug.lib

@@ -55,6 +55,10 @@ public:
 
 	Dynamo::Transform& GetTransform();
 
+	std::vector<Component*> GetAllComponents();
+
+	ComponentAdmin* GetAdmin();
+
 private:
 	// Used to set private variables.
 	friend class ComponentAdmin;

@@ -8,5 +8,9 @@ namespace Editor
 		Inspector();
 
 		void Update() override;
+		
+	private:
+		void AddComponentButton();
+
 	};
 }

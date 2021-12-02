@@ -44,6 +44,13 @@ void Component::OnEnable() { }
 
 void Component::OnDisable() { }
 
+void Component::ExposeValues() { }
+
+std::string Component::GetName()
+{
+	return std::string();
+}
+
 void Component::OnCollision(GameObject* anOther) 
 { 
 	anOther;

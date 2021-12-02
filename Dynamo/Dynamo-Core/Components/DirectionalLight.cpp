@@ -3,6 +3,17 @@
 
 namespace Dynamo
 {
+	void DirectionalLight::ExposeValues()
+	{
+		ImGui::Text("Intensity");
+		ImGui::SameLine(0.0f, 40);
+		ImGui::DragFloat("##dirlightIntensity", &myIntensity, 0.1f, 0, 1000000);
+
+		ImGui::Text("Color");
+		ImGui::SameLine(0.0f, 68);
+		ImGui::ColorEdit3("##dirlightColor", &myColor.r);
+	}
+
 	void DirectionalLight::OnCreate()
 	{
 		myTransform = GetComponent<Transform>();

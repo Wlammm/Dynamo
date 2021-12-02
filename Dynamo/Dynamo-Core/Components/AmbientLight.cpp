@@ -3,6 +3,13 @@
 
 namespace Dynamo
 {
+	void AmbientLight::ExposeValues()
+	{
+		ImGui::Text("Intensity");
+		ImGui::SameLine(0.0f, 40);
+		ImGui::DragFloat("##amblightIntensity", &myIntensity, 0.1f, 0, 1000000);
+	}
+
 	void AmbientLight::OnCreate()
 	{
 		SetCubeMap("Assets/Textures/Default_Cubemap.dds");

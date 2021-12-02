@@ -3,6 +3,39 @@
 
 namespace Dynamo
 {
+	void Transform::ExposeValues()
+	{
+		Vec3f position, rotation, scale;
+		ImGuizmo::DecomposeMatrixToComponents(&myMatrix(1, 1), &position.x, &rotation.x, &scale.x);
+		bool isDirty = false;
+
+		ImGui::Text("Position");
+		ImGui::SameLine(0.0f, 40);
+		if (ImGui::DragFloat3("##pos", &position.x))
+		{
+			isDirty = true;
+		}
+
+		ImGui::Text("Rotation");
+		ImGui::SameLine(0.0f, 40);
+		if (ImGui::DragFloat3("##rot", &rotation.x))
+		{
+			isDirty = true;
+		}
+
+		ImGui::Text("Scale");
+		ImGui::SameLine(0.0f, 60);
+		if (ImGui::DragFloat3("##scale", &scale.x, 0.01f))
+		{
+			isDirty = true;
+		}
+
+		if (isDirty)
+		{
+			ImGuizmo::RecomposeMatrixFromComponents(&position.x, &rotation.x, &scale.x, &myMatrix(1, 1));
+		}
+	}
+
 	void Dynamo::Transform::SetPosition(const Vec3f& aPosition)
 	{
 		myMatrix(4, 1) = aPosition.x;
@@ -127,21 +160,21 @@ namespace Dynamo
 	{
 		Vec3f x = { myMatrix(1, 1), myMatrix(1, 2), myMatrix(1, 3) };
 		x.Normalize();
-		x *= aScale.x;
+		x *= aScale.x == 0 ? 0.0001f : aScale.x;
 		myMatrix(1, 1) = x.x;
 		myMatrix(1, 2) = x.y;
 		myMatrix(1, 3) = x.z;
 
 		Vec3f y = { myMatrix(2, 1), myMatrix(2, 2), myMatrix(2, 3) };
 		y.Normalize();
-		y *= aScale.y;
+		y *= aScale.y == 0 ? 0.0001f : aScale.y;
 		myMatrix(2, 1) = y.x;
 		myMatrix(2, 2) = y.y;
 		myMatrix(2, 3) = y.z;
 
 		Vec3f z = { myMatrix(3, 1), myMatrix(3, 2), myMatrix(3, 3) };
 		z.Normalize();
-		z *= aScale.z;
+		z *= aScale.z == 0 ? 0.0001f : aScale.z;
 		myMatrix(3, 1) = z.x;
 		myMatrix(3, 2) = z.y;
 		myMatrix(3, 3) = z.z;

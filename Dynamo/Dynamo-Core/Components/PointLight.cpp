@@ -3,6 +3,21 @@
 
 namespace Dynamo
 {
+	void PointLight::ExposeValues()
+	{
+		ImGui::Text("Intensity");
+		ImGui::SameLine(0.0f, 40);
+		ImGui::DragFloat("##pointlightIntensity", &myIntensity, 0, 1000000);
+
+		ImGui::Text("Range");
+		ImGui::SameLine(0.0f, 50);
+		ImGui::DragFloat("##pointlightRange", &myRange, 0, 1000000);
+
+		ImGui::Text("Color");
+		ImGui::SameLine(0.0f, 68);
+		ImGui::ColorEdit3("##pointlightColor", &myColor.r);
+	}
+
 	void PointLight::OnCreate()
 	{
 		myTransform = GetComponent<Transform>();

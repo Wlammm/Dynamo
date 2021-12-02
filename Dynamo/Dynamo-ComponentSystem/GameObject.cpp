@@ -51,3 +51,13 @@ Dynamo::Transform& GameObject::GetTransform()
 	assert(myTransform != nullptr && "GameObject not initialized.");
 	return *myTransform;
 }
+
+std::vector<Component*> GameObject::GetAllComponents()
+{
+	return myAdmin->GetAllComponentsOnGameObject(myID);
+}
+
+ComponentAdmin* GameObject::GetAdmin()
+{
+	return myAdmin;
+}

@@ -19,7 +19,7 @@ void ComponentAdmin::Init()
 		myBase[i].myID = i;
 		myBase[i].myAdmin = this;
 	}
-
+	
 	ComponentRegistry::RegisterToAdmin(*this);
 }
 
@@ -97,6 +97,19 @@ void ComponentAdmin::RemoveGameObject(GameObject* anObject, const float aTime)
 const std::vector<GameObject*>& ComponentAdmin::GetAllGameObjects() const
 {
 	return myActiveGameObjects;
+}
+
+std::vector<Component*> ComponentAdmin::GetAllComponentsOnGameObject(GameObjectID aGO)
+{
+	std::vector<void*> vec = myComponentManager.GetAllComponentsOnGameObject(aGO);
+
+	std::vector<Component*> returnVec;
+	for (int i = 0; i < vec.size(); ++i)
+	{
+		returnVec.push_back((Component*)vec[i]);
+	}
+
+	return returnVec;
 }
 
 ComponentManager& ComponentAdmin::GetComponentManager()

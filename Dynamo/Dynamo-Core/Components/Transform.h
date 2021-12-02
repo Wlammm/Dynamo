@@ -6,7 +6,10 @@ namespace Dynamo
 {
 	class Transform : public Component
 	{
+		COMP(Transform);
 	public:
+		void ExposeValues() override;
+
 		void SetPosition(const Vec3f& aPosition);
 		Vec3f GetPosition();
 

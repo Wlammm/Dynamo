@@ -4,7 +4,10 @@ namespace Dynamo
 {
 	class PointLight : public Component
 	{
+		COMP(PointLight);
 	public:
+		void ExposeValues() override;
+
 		void OnCreate() override;
 		void OnDestroy() override;
 		void OnEnable() override;
