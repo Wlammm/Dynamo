@@ -28,3 +28,8 @@ public:																							  \
 	{																							  \
 		return TO_STRING(className);															  \
 	}																							  \
+																								  \
+	std::string GetTypeID() override															  \
+	{																							  \
+		return typeid(className).name();														  \
+	}																							  \

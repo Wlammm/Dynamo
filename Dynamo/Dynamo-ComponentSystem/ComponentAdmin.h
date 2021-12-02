@@ -78,7 +78,8 @@ public:
 
 	ComponentManager& GetComponentManager();
 
-	const std::string& GetComponentName(const std::string& aTypeID);
+	// To be removed.
+	//const std::string& GetComponentName(const std::string& aTypeID);
 
 private:
 	std::unordered_set<GameObjectID> myActiveIDS;

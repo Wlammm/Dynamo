@@ -48,6 +48,11 @@ namespace Editor
 		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + remainingWidth * 0.4f);
 		if (ImGui::Button("Add Component", ImVec2(buttonWidth, 40)))
 		{
+			ImGui::OpenPopup("AddComponent");
+		}
+
+		if (ImGui::BeginPopup("AddComponent"))
+		{
 
 		}
 	}

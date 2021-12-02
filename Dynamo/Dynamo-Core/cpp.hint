@@ -1,0 +1,4 @@
+// Hint files help the Visual Studio IDE interpret Visual C++ identifiers
+// such as names of functions and macros.
+// For more information see https://go.microsoft.com/fwlink/?linkid=865984
+#define COMP(className) class Creator { public: Creator() { ComponentRegistry::RegisterComponent<className>(); } private: inline static std::unique_ptr<Creator> myCreator = std::make_unique<Creator>(); }; protected: void RegisterToAdmin(ComponentAdmin& anAdmin) override { anAdmin.GetComponentManager().RegisterComponent<className>(TO_STRING(className)); } public: std::string GetName() override { return TO_STRING(className); } std::string GetTypeID() override { return typeid(className).name(); } \

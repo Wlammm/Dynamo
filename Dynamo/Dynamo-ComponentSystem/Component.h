@@ -18,7 +18,8 @@ public:
 
 	virtual void ExposeValues();
 
-	virtual std::string GetName();
+	virtual ComponentName GetName();
+	virtual TypeID GetTypeID();
 
 protected:
 	template<typename T, typename... Args>
@@ -73,6 +74,8 @@ private:
 	friend class ComponentAdmin;
 	friend class GameObject;
 	friend class ComponentRegistry;
+
+	std::string myCategory = "Uncategorized";
 
 	GameObject* myGameObject = nullptr;
 	bool myIsActive = true;

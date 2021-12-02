@@ -85,25 +85,11 @@ public:
 	void RegisterComponent(const std::string& aName)
 	{
 		std::string typeID = typeid(T).name();
-		myTypeNameToNameRegistry[typeID] = aName;
 
 		if (myComponentArrays.find(typeID) == myComponentArrays.end())
 		{
 			myComponentArrays.insert({ typeID, std::make_shared<ComponentArray<T>>() });
 		}
-	}
-
-	template<typename T>
-	std::string GetComponentName()
-	{
-		std::string typeID = typeid(T).name();
-		if (myTypeNameToNameRegistry.find(typeID) != myTypeNameToNameRegistry.end())
-		{
-			return "bokbok";
-			return myTypeNameToNameRegistry[typeID];
-		}
-
-		return "Unregistered component with typeID: " + typeID;
 	}
 
 	std::vector<void*> GetAllComponentsOnGameObject(GameObjectID aGo)
@@ -123,7 +109,6 @@ public:
 
 private:
 	std::unordered_map<std::string, std::shared_ptr<IComponentArray>> myComponentArrays{};
-	std::unordered_map<std::string, std::string> myTypeNameToNameRegistry;
 
 	template<typename T>
 	std::shared_ptr<ComponentArray<T>> GetComponentArray()

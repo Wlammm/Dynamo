@@ -339,5 +339,6 @@
     <None Include="Shaders\PBRFunctions.hlsli" />
     <None Include="Shaders\Fullscreen\FullscreenStructs.hlsli" />
     <None Include="Shaders\Debug\DebugLineStructs.hlsli" />
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

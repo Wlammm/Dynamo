@@ -11,6 +11,5 @@ namespace Editor
 		
 	private:
 		void AddComponentButton();
-
 	};
 }

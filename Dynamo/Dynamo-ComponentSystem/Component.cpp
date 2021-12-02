@@ -46,7 +46,12 @@ void Component::OnDisable() { }
 
 void Component::ExposeValues() { }
 
-std::string Component::GetName()
+ComponentName Component::GetName()
+{
+	return std::string();
+}
+
+TypeID Component::GetTypeID()
 {
 	return std::string();
 }

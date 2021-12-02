@@ -14,14 +14,14 @@ namespace Dynamo
 
 		ImGui::Text("Near Plane");
 		ImGui::SameLine(0.0f, 31);
-		if (ImGui::DragFloat("##cameranearplane", &myNearPlane, 0.01f, 0.01f, myFarPlane))
+		if (ImGui::DragFloat("##cameranearplane", &myNearPlane, 0.1f, 0.01f, myFarPlane))
 		{
 			Init(myFoV, Main::GetWindowResolution().Cast<float>(), myNearPlane, myFarPlane);
 		}
 
 		ImGui::Text("Far Plane");
 		ImGui::SameLine(0.0f, 38);
-		if (ImGui::DragFloat("##camerafarplane", &myFarPlane, 0.01f, myNearPlane, 1000000.0f))
+		if (ImGui::DragFloat("##camerafarplane", &myFarPlane, 0.1f, myNearPlane, 1000000.0f))
 		{
 			Init(myFoV, Main::GetWindowResolution().Cast<float>(), myNearPlane, myFarPlane);
 		}

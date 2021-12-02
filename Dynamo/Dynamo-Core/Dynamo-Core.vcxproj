@@ -359,6 +359,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="Shaders\Debug\DebugLineStructs.hlsli" />
     <None Include="Shaders\Fullscreen\FullscreenStructs.hlsli" />
     <None Include="Shaders\PBRFunctions.hlsli" />

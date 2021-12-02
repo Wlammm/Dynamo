@@ -1,6 +1,27 @@
-﻿  Component.cpp
-  ComponentAdmin.cpp
+﻿  ComponentAdmin.cpp
   ComponentRegistry.cpp
-  GameObject.cpp
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Types.h(7,28): error C2039: 'uint8_t': is not a member of 'std'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\predefined C++ types (compiler internal)(341): message : see declaration of 'std'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Types.h(7,35): error C2061: syntax error: identifier 'uint8_t'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Types.h(9,21): error C2039: 'string': is not a member of 'std'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\predefined C++ types (compiler internal)(341): message : see declaration of 'std'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Types.h(9,27): error C2061: syntax error: identifier 'string'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Types.h(10,28): error C2039: 'string': is not a member of 'std'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\predefined C++ types (compiler internal)(341): message : see declaration of 'std'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Types.h(10,34): error C2061: syntax error: identifier 'string'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\ComponentRegistry.h(29,35): error C2065: 'TypeID': undeclared identifier
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\ComponentRegistry.h(29,21): error C2923: 'std::unordered_map': 'TypeID' is not a valid template type argument for parameter '_Kty'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\ComponentRegistry.h(29): message : see declaration of 'TypeID'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\ComponentRegistry.h(29,21): error C2976: 'std::unordered_map': too few template arguments
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\include\unordered_map(67): message : see declaration of 'std::unordered_map'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\ComponentRegistry.h(29,56): error C2955: 'std::unordered_map': use of class template requires template argument list
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\include\unordered_map(67): message : see declaration of 'std::unordered_map'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\ComponentRegistry.h(29,56): error C2512: 'std::unordered_map': no appropriate default constructor available
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\include\unordered_map(67,1): message : see declaration of 'std::unordered_map'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Component.h(21,24): error C3646: 'GetName': unknown override specifier
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Component.h(21,32): error C2059: syntax error: ')'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Component.h(21,33): error C2238: unexpected token(s) preceding ';'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Component.h(22,17): error C3646: 'GetTypeID': unknown override specifier
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Component.h(22,27): error C2059: syntax error: ')'
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-ComponentSystem\Component.h(22,28): error C2238: unexpected token(s) preceding ';'
   Generating Code...
-  Dynamo-ComponentSystem.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-ComponentSystem_Debug.lib
