@@ -30,9 +30,12 @@
 #include "Types.h"
 
 // ComponentSystem
+#include <ComponentRegistry.h>
 #include <ComponentAdmin.h>
 #include <Component.h>
+#include <ComponentDeclaration.hpp>
 #include <GameObject.h>
+
 #include "Components/Transform.h"
 
 // Utils

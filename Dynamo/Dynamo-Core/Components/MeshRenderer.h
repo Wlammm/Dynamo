@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ComponentDeclaration.hpp"
+
 namespace Dynamo
 {
 	class Model;
@@ -8,6 +10,7 @@ namespace Dynamo
 
 	class MeshRenderer : public Component
 	{
+		COMP(MeshRenderer);
 	public:
 		MeshRenderer() = default;
 		~MeshRenderer() = default;

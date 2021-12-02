@@ -65,7 +65,7 @@ namespace Editor
 
 	void EditorManager::InitWindows()
 	{
-		for (int i = 0; i < myWindows.size(); ++i)
+		for (uint i = 0; i < myWindows.size(); ++i)
 		{
 			myWindows[i]->Init();
 		}
@@ -73,7 +73,7 @@ namespace Editor
 
 	void EditorManager::InitSystems()
 	{
-		for (int i = 0; i < mySystems.size(); ++i)
+		for (uint i = 0; i < mySystems.size(); ++i)
 		{
 			mySystems[i]->Init();
 		}

@@ -13,12 +13,6 @@ public:
 	template<typename T, typename... Args>
 	T* AddComponent(const GameObjectID anEntity, Args&&... params)
 	{
-		std::string typeName = typeid(T).name();
-		if (myComponentTypes.find(typeName) == myComponentTypes.end())
-		{
-			RegisterComponent<T>();
-		}
-
 		return GetComponentArray<T>()->InsertData(anEntity, std::forward<Args>(params)...);
 	}
 
@@ -30,12 +24,6 @@ public:
 	template<typename T>
 	const bool HasComponent(const GameObjectID anEntity)
 	{
-		std::string typeName = typeid(T).name();
-		if (myComponentTypes.find(typeName) == myComponentTypes.end())
-		{
-			RegisterComponent<T>();
-		}
-
 		return GetComponentArray<T>()->HasData(anEntity);
 	}
 
@@ -48,12 +36,6 @@ public:
 	template<typename T>
 	std::vector<GameObjectID> GetGameObjectsWithComponent()
 	{
-		std::string typeName = typeid(T).name();
-		if (myComponentTypes.find(typeName) == myComponentTypes.end())
-		{
-			RegisterComponent<T>();
-		}
-
 		return GetComponentArray<T>()->GetGameObjects();
 	}
 
@@ -99,31 +81,44 @@ public:
 		}
 	}
 
+	template<typename T>
+	void RegisterComponent(const std::string& aName)
+	{
+		std::string typeID = typeid(T).name();
+		myTypeNameToNameRegistry[typeID] = aName;
+
+		if (myComponentArrays.find(typeID) == myComponentArrays.end())
+		{
+			myComponentArrays.insert({ typeID, std::make_shared<ComponentArray<T>>() });
+		}
+	}
+
+	template<typename T>
+	const std::string& GetComponentName()
+	{
+		std::string typeID = typeid(T).name();
+		if (myTypeNameToNameRegistry.find(typeID) != myTypeNameToNameRegistry.end())
+		{
+			return myTypeNameToNameRegistry[typeID];
+		}
+
+		return "Unregistered component with typeID: " + typeID;
+	}
+
 private:
-	std::unordered_map<std::string, ComponentType> myComponentTypes{};
 	std::unordered_map<std::string, std::shared_ptr<IComponentArray>> myComponentArrays{};
-	ComponentType myNextComponentType{ 1 };
+	std::unordered_map<std::string, std::string> myTypeNameToNameRegistry;
 
 	template<typename T>
 	std::shared_ptr<ComponentArray<T>> GetComponentArray()
 	{
 		std::string typeName = typeid(T).name();
 
-		assert(myComponentTypes.find(typeName) != myComponentTypes.end() && "Component not registered.");
+		if (myComponentArrays.find(typeName) == myComponentArrays.end())
+		{
+			myComponentArrays.insert({ typeName, std::make_shared<ComponentArray<T>>() });
+		}
 
 		return std::static_pointer_cast<ComponentArray<T>>(myComponentArrays[typeName]);
-	}
-
-	template<typename T>
-	void RegisterComponent()
-	{
-		std::string typeName = typeid(T).name();
-
-		assert(myComponentTypes.find(typeName) == myComponentTypes.end() && "Component type already registered.");
-
-		myComponentTypes.insert({ typeName, myNextComponentType });
-		myComponentArrays.insert({ typeName, std::make_shared<ComponentArray<T>>() });
-
-		++myNextComponentType;
 	}
 };

@@ -73,6 +73,8 @@ public:
 		return gameObjects;
 	}
 
+	ComponentManager& GetComponentManager();
+
 private:
 	std::unordered_set<GameObjectID> myActiveIDS;
 

@@ -1,6 +1,7 @@
 #include "ComponentAdmin.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "ComponentRegistry.h"
 
 ComponentAdmin::~ComponentAdmin()
 {
@@ -18,6 +19,8 @@ void ComponentAdmin::Init()
 		myBase[i].myID = i;
 		myBase[i].myAdmin = this;
 	}
+
+	ComponentRegistry::RegisterToAdmin(*this);
 }
 
 void ComponentAdmin::Update(const float aDeltaTime)
@@ -94,4 +97,9 @@ void ComponentAdmin::RemoveGameObject(GameObject* anObject, const float aTime)
 const std::vector<GameObject*>& ComponentAdmin::GetAllGameObjects() const
 {
 	return myActiveGameObjects;
+}
+
+ComponentManager& ComponentAdmin::GetComponentManager()
+{
+	return myComponentManager;
 }

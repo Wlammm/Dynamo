@@ -63,3 +63,9 @@ void Component::OnTrigger(GameObject* anOther)
 { 
 	anOther;
 }
+
+void Component::RegisterToAdmin(ComponentAdmin& anAdmin)
+{
+	// Component not defines. Use COMP(className) in component header.
+	throw std::exception();
+}

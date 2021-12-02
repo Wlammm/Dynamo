@@ -14,8 +14,6 @@ public:
 
 	GameObject* GetGameObject() const;
 
-	void operator delete(void*) = delete;
-
 	Dynamo::Transform& GetTransform();
 
 protected:
@@ -63,11 +61,14 @@ protected:
 	// Runs every frame this object is inside a trigger.
 	virtual void OnTrigger(GameObject* anOther);
 
+	virtual void RegisterToAdmin(class ComponentAdmin& anAdmin);
+
 private:
 	template<typename T>
 	friend class ComponentArray;
 	friend class ComponentAdmin;
 	friend class GameObject;
+	friend class ComponentRegistry;
 
 	GameObject* myGameObject = nullptr;
 	bool myIsActive = true;

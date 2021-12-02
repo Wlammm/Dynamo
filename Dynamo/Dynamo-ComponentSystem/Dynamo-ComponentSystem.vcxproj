@@ -153,13 +153,16 @@
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentAdmin.cpp" />
+    <ClCompile Include="ComponentRegistry.cpp" />
     <ClCompile Include="GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentAdmin.h" />
     <ClInclude Include="ComponentArray.hpp" />
+    <ClInclude Include="ComponentDeclaration.hpp" />
     <ClInclude Include="ComponentManager.hpp" />
+    <ClInclude Include="ComponentRegistry.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Tag.hpp" />
     <ClInclude Include="Types.h" />
