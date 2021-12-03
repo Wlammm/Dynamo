@@ -23,7 +23,24 @@ namespace Editor
 			return;
 		}
 
-		if (ImGui::CollapsingHeader("Transform"))
+		bool isActive = selectedObject->IsActive();
+		if (ImGui::Checkbox("##inspectoractiveobject", &isActive))
+		{
+			selectedObject->SetActive(isActive);
+		}
+		ImGui::SameLine();
+
+		ImGui::Text("Name: ");
+		ImGui::SameLine();
+		std::string objectName = selectedObject->GetName();
+		if(ImGui::InputText("##inspectorobjectname", &objectName))
+		{
+			selectedObject->SetName(objectName);
+		}
+
+		ImGui::Separator();
+
+		if (ImGui::CollapsingHeader("Transform##inspector"))
 		{
 			selectedObject->GetComponent<Dyn::Transform>()->ExposeValues();
 		}
@@ -39,7 +56,6 @@ namespace Editor
 			
 			if (ImGui::IsItemHovered() && Input::IsKeyDown(MouseButton::Right))
 			{
-				Console::Log("Rightclicked: %s", comp->GetName().c_str());
 				ImGui::OpenPopup(popupID.c_str());
 			}
 
@@ -59,7 +75,6 @@ namespace Editor
 
 				ImGui::EndPopup();
 			}
-
 		}
 
 		AddComponentButton();

@@ -81,5 +81,6 @@ namespace Editor
 		Dyn::MeshRenderer* meshComp = mesh->AddComponent<Dyn::MeshRenderer>();
 		meshComp->SetModel("Assets/Fbx/Chest.fbx");
 		meshComp->ApplyModelMaterial();
+		mesh->SetActive(false);
 	}
 }
