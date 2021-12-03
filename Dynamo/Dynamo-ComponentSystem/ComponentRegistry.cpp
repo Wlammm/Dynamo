@@ -8,3 +8,8 @@ void ComponentRegistry::RegisterToAdmin(ComponentAdmin& anAdmin)
 		myComponentTypes[i]->RegisterToAdmin(anAdmin);
 	}
 }
+
+const std::vector<Component*>& ComponentRegistry::GetComponentTypes()
+{
+	return myComponentTypes;
+}

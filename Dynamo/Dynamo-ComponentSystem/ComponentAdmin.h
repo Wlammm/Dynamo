@@ -40,6 +40,9 @@ public:
 		return comp;
 	}
 
+	void AddComponentWithTypeID(const TypeID& aComponentType, const GameObjectID aID);
+	void RemoveComponentWithTypeID(const TypeID& aComponentType, const GameObjectID aID);
+
 	template<typename T>
 	T* GetComponent(const GameObjectID aID)
 	{
@@ -77,9 +80,6 @@ public:
 	std::vector<Component*> GetAllComponentsOnGameObject(GameObjectID aGO);
 
 	ComponentManager& GetComponentManager();
-
-	// To be removed.
-	//const std::string& GetComponentName(const std::string& aTypeID);
 
 private:
 	std::unordered_set<GameObjectID> myActiveIDS;

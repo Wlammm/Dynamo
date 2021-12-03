@@ -72,6 +72,26 @@ void ComponentAdmin::SetActive(GameObject* ob, const bool aState)
 	myComponentManager.SetActive(ob->GetGameObjectID(), aState);
 }
 
+void ComponentAdmin::AddComponentWithTypeID(const TypeID& aComponentType, const GameObjectID aID)
+{
+	void* ptr = myComponentManager.AddComponentWithTypeID(aComponentType, aID);
+
+	// Component already exists.
+	if (ptr == nullptr)
+		return;
+
+	Component* comp = (Component*)ptr;
+	comp->myGameObject = &myBase[aID];
+	comp->myIsActive = true;
+	comp->myAdmin = this;
+	comp->OnCreate();
+}
+
+void ComponentAdmin::RemoveComponentWithTypeID(const TypeID& aComponentType, const GameObjectID aID)
+{
+	myComponentsToRemove.push_back({ aComponentType, aID });
+}
+
 GameObject* ComponentAdmin::CreateGameObject()
 {
 	assert(myGameObjects.size() > 0 && "All gameobjects in use. Try increasing MAX_GAMEOBJECTS in types.h");

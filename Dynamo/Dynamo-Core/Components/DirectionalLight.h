@@ -6,6 +6,8 @@ namespace Dynamo
 	{
 		COMP(DirectionalLight);
 	public:
+		DirectionalLight();
+
 		void ExposeValues() override;
 
 		void OnCreate() override;

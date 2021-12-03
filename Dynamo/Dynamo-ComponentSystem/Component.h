@@ -7,6 +7,7 @@ class Component
 {
 public:
 	Component() = default;
+	Component(const std::string& aCategory);
 	virtual ~Component() = default;
 
 	void SetActive(const bool aState);
@@ -20,6 +21,7 @@ public:
 
 	virtual ComponentName GetName();
 	virtual TypeID GetTypeID();
+	const std::string& GetCategory() const;
 
 protected:
 	template<typename T, typename... Args>

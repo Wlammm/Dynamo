@@ -16,15 +16,15 @@ namespace Editor
 		{
 			ShowFiles();
 			ShowThemes();
+			ShowDemo();
+			ImGui::EndMenuBar();
 		}
-		ImGui::EndMenuBar();
 	}
 
 	void Toolbar::ShowFiles()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
-
 			ImGui::EndMenu();
 		}
 	}
@@ -45,5 +45,17 @@ namespace Editor
 
 			ImGui::EndMenu();
 		}
+	}
+
+	void Toolbar::ShowDemo()
+	{
+		static bool open = false;
+		if (ImGui::MenuItem("ImGui Demo"))
+		{
+			open = !open;
+		}
+
+		if(open)
+			ImGui::ShowDemoWindow();
 	}
 }

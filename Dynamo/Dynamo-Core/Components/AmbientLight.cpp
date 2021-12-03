@@ -3,6 +3,11 @@
 
 namespace Dynamo
 {
+	AmbientLight::AmbientLight()
+		: Component("Lights")
+	{
+	}
+
 	void AmbientLight::ExposeValues()
 	{
 		ImGui::Text("Intensity");

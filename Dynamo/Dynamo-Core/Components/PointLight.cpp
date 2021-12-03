@@ -3,6 +3,10 @@
 
 namespace Dynamo
 {
+	PointLight::PointLight()
+		: Component("Lights")
+	{
+	}
 	void PointLight::ExposeValues()
 	{
 		ImGui::Text("Intensity");

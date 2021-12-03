@@ -6,6 +6,8 @@ namespace Dynamo
 	{
 		COMP(AmbientLight);
 	public:
+		AmbientLight();
+
 		void ExposeValues() override;
 
 		void OnCreate() override;

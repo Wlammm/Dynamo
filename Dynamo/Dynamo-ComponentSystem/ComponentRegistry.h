@@ -23,6 +23,8 @@ public:
 
 	static void RegisterToAdmin(ComponentAdmin& anAdmin);
 
+	static const std::vector<Component*>& GetComponentTypes();
+
 private:
 	inline static std::vector<Component*> myComponentTypes;
 };

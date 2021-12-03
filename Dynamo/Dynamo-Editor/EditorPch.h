@@ -11,3 +11,4 @@
 using Main = Editor::MainSingleton;
 using Time = Dynamo::Time;
 using Input = Dynamo::Input;
+using Console = Dynamo::Console;

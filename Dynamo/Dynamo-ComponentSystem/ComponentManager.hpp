@@ -16,6 +16,18 @@ public:
 		return GetComponentArray<T>()->InsertData(anEntity, std::forward<Args>(params)...);
 	}
 
+	void* AddComponentWithTypeID(const TypeID& aComponentType, const GameObjectID anEntity)
+	{
+		if (myComponentArrays.find(aComponentType) != myComponentArrays.end())
+		{
+			return myComponentArrays[aComponentType]->InsertDataWithTypeID(anEntity);
+		}
+
+		// Unregistered component.
+		throw std::exception();
+		return nullptr;
+	}
+
 	void RemoveComponent(const std::string& aTypeName, const GameObjectID aID)
 	{
 		myComponentArrays[aTypeName]->RemoveData(aID);

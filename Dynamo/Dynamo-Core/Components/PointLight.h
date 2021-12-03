@@ -6,6 +6,8 @@ namespace Dynamo
 	{
 		COMP(PointLight);
 	public:
+		PointLight();
+
 		void ExposeValues() override;
 
 		void OnCreate() override;

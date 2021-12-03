@@ -3,6 +3,11 @@
 
 namespace Dynamo
 {
+	SpotLight::SpotLight()
+		: Component("Lights")
+	{
+	}
+
 	void SpotLight::ExposeValues()
 	{
 		ImGui::Text("Intensity");

@@ -3,6 +3,10 @@
 
 namespace Dynamo
 {
+	DirectionalLight::DirectionalLight()
+		: Component("Lights")
+	{
+	}
 	void DirectionalLight::ExposeValues()
 	{
 		ImGui::Text("Intensity");

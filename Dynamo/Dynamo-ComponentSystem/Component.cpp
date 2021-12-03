@@ -1,5 +1,10 @@
 #include "Component.h"
 
+Component::Component(const std::string& aCategory)
+{
+	myCategory = aCategory;
+}
+
 void Component::SetActive(const bool aState)
 {
 	if (!aState && myIsActive)
@@ -54,6 +59,11 @@ ComponentName Component::GetName()
 TypeID Component::GetTypeID()
 {
 	return std::string();
+}
+
+const std::string& Component::GetCategory() const
+{
+	return myCategory;
 }
 
 void Component::OnCollision(GameObject* anOther) 

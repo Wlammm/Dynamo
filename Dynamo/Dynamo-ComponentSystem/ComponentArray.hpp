@@ -14,6 +14,7 @@ public:
 	virtual void EditorUpdate() = 0;
 	virtual void SetActive(GameObjectID anEntity, const bool aState) = 0;
 	virtual void RemoveData(GameObjectID anEntity) = 0;
+	virtual void* InsertDataWithTypeID(GameObjectID anEntity) = 0;
 	virtual void* GetComponentOnGameObject(GameObjectID aGo) = 0;
 };
 
@@ -137,6 +138,16 @@ public:
 		}
 
 		return (void*)&myComponentArray[myEntityToIndexMap[aGo]];
+	}
+
+	void* InsertDataWithTypeID(GameObjectID anEntity) override
+	{
+		if (myEntityToIndexMap.find(anEntity) != myEntityToIndexMap.end())
+		{
+			return nullptr;
+		}
+
+		return (void*)InsertData(anEntity);
 	}
 
 private:

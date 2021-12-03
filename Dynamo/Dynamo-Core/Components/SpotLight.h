@@ -6,6 +6,8 @@ namespace Dynamo
 	{
 		COMP(SpotLight);
 	public:
+		SpotLight();
+
 		void ExposeValues() override;
 
 		void OnCreate() override;

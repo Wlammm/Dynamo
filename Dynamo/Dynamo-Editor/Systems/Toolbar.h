@@ -12,5 +12,6 @@ namespace Editor
 	private:
 		void ShowFiles();
 		void ShowThemes();
+		void ShowDemo();
 	};
 }
