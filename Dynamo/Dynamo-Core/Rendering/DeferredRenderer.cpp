@@ -129,7 +129,7 @@ namespace Dynamo
 			}
 
 			myPointLightBufferData.myLights[i].myColor = somePointLights[i]->GetColor();
-			myPointLightBufferData.myLights[i].myIntensity = somePointLights[i]->GetIntensity();
+			myPointLightBufferData.myLights[i].myIntensity = somePointLights[i]->GetIntensity() * globalPointLightIntensityMultiplier;
 			myPointLightBufferData.myLights[i].myPosition = { somePointLights[i]->GetPosition(), 1.0f };
 			myPointLightBufferData.myLights[i].myRange = somePointLights[i]->GetRange();
 		}
@@ -154,7 +154,7 @@ namespace Dynamo
 			mySpotLightBufferData.myLights[i].myPosition = { someSpotLights[i]->GetTransform().GetPosition(),  1.0f};
 			mySpotLightBufferData.myLights[i].myInnerAngle = someSpotLights[i]->GetInnerAngle();
 			mySpotLightBufferData.myLights[i].myOuterAngle = someSpotLights[i]->GetOuterAngle();
-			mySpotLightBufferData.myLights[i].myIntensity = someSpotLights[i]->GetIntensity();
+			mySpotLightBufferData.myLights[i].myIntensity = someSpotLights[i]->GetIntensity() * globalSpotLightIntensityMultiplier;
 			mySpotLightBufferData.myLights[i].myRange = someSpotLights[i]->GetRange();
 		}
 		mySpotLightBufferData.myLightCount = numSpotLights;

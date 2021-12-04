@@ -31,6 +31,6 @@ namespace Dynamo
 
 		Color myColor = { 1, 1, 1, 1 };
 		float myRange = 10000;
-		float myIntensity = 500000;
+		float myIntensity = 10;
 	};
 }

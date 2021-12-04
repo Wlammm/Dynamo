@@ -7,15 +7,16 @@ namespace Dynamo
 		: Component("Lights")
 	{
 	}
+
 	void PointLight::ExposeValues()
 	{
 		ImGui::Text("Intensity");
 		ImGui::SameLine(0.0f, 40);
-		ImGui::DragFloat("##pointlightIntensity", &myIntensity, 0, 1000000);
+		ImGui::DragFloat("##pointlightIntensity", &myIntensity, 0.1f, 0, 1000000);
 
 		ImGui::Text("Range");
 		ImGui::SameLine(0.0f, 50);
-		ImGui::DragFloat("##pointlightRange", &myRange, 0, 1000000);
+		ImGui::DragFloat("##pointlightRange", &myRange, 1, 0, 1000000);
 
 		ImGui::Text("Color");
 		ImGui::SameLine(0.0f, 68);

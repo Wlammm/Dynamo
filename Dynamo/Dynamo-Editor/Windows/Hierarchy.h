@@ -8,5 +8,10 @@ namespace Editor
 		Hierarchy();
 
 		void Update() override;
+
+	private:
+		void UpdateHotkeys();
+		void UpdatePopups();
+		void CreateNewGameObject();
 	};
 }

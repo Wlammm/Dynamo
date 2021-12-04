@@ -38,8 +38,8 @@ namespace Dynamo
 
 		Color myColor = { 1, 1, 1, 1 };
 
-		float myIntensity = 100000;
-		float myRange = 10000;
+		float myIntensity = 10;
+		float myRange = 1000;
 
 		float myInnerAngle = 30.0f;
 		float myOuterAngle = 80.0f;

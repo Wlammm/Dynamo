@@ -6,6 +6,9 @@
 #include "DeferredRenderer.h"
 #include "GBuffer.h"
 
+constexpr float globalPointLightIntensityMultiplier = 10000;
+constexpr float globalSpotLightIntensityMultiplier = 10000;
+
 namespace Dynamo
 {
 	class MeshRenderer;

@@ -19,11 +19,14 @@ namespace Dynamo
 class GameObject
 {
 public:
+	static void Destroy(GameObject* anObject, const float aTime = 0);
+
+public:
 	GameObject() = default;
 	~GameObject() = default;
 
 	void operator delete(void*) = delete;
-	
+
 	void SetActive(bool isActive);
 	const bool IsActive() const;
 

@@ -35,6 +35,11 @@ void GameObject::Reset()
 	myTransform = nullptr;
 }
 
+void GameObject::Destroy(GameObject* anObject, const float aTime)
+{
+	anObject->myAdmin->RemoveGameObject(anObject, aTime);
+}
+
 void GameObject::SetActive(bool isActive)
 {
 	myIsActive = isActive;

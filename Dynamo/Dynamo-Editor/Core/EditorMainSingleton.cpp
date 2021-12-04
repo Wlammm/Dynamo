@@ -10,6 +10,8 @@
 #include <Components/AmbientLight.h>
 #include <Components/Camera.h>
 #include <Components/MeshRenderer.h>
+#include <Components/PointLight.h>
+#include <Components/SpotLight.h>
 
 namespace Editor
 {
@@ -81,6 +83,5 @@ namespace Editor
 		Dyn::MeshRenderer* meshComp = mesh->AddComponent<Dyn::MeshRenderer>();
 		meshComp->SetModel("Assets/Fbx/Chest.fbx");
 		meshComp->ApplyModelMaterial();
-		mesh->SetActive(false);
 	}
 }
