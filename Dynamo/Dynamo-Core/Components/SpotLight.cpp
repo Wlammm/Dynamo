@@ -31,6 +31,32 @@ namespace Dynamo
 		ImGui::ColorEdit3("##spotlightColor", &myColor.r);
 	}
 
+	nlohmann::json SpotLight::Save()
+	{
+		nlohmann::json json;
+
+		json["intensity"] = myIntensity;
+		json["color"]["r"] = myColor.r;
+		json["color"]["g"] = myColor.g;
+		json["color"]["b"] = myColor.b;
+		json["color"]["a"] = myColor.a;
+		json["innerAngle"] = myInnerAngle;
+		json["outerAngle"] = myOuterAngle;
+
+		return json;
+	}
+
+	void SpotLight::Load(nlohmann::json& aJson)
+	{
+		myIntensity = aJson["intensity"];
+		myColor.r = aJson["color"]["r"];
+		myColor.g = aJson["color"]["g"];
+		myColor.b = aJson["color"]["b"];
+		myColor.a = aJson["color"]["a"];
+		myInnerAngle = aJson["innerAngle"];
+		myOuterAngle = aJson["outerAngle"];
+	}
+
 	void SpotLight::OnCreate()
 	{
 		myTransform = GetComponent<Transform>();

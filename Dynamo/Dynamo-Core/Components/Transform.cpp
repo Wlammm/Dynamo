@@ -36,6 +36,55 @@ namespace Dynamo
 		}
 	}
 
+	nlohmann::json Transform::Save()
+	{
+		nlohmann::json json;
+		json["1"]["1"] = myMatrix(1, 1);
+		json["1"]["2"] = myMatrix(1, 2);
+		json["1"]["3"] = myMatrix(1, 3);
+		json["1"]["4"] = myMatrix(1, 4);
+
+		json["2"]["1"] = myMatrix(2, 1);
+		json["2"]["2"] = myMatrix(2, 2);
+		json["2"]["3"] = myMatrix(2, 3);
+		json["2"]["4"] = myMatrix(2, 4);
+
+		json["3"]["1"] = myMatrix(3, 1);
+		json["3"]["2"] = myMatrix(3, 2);
+		json["3"]["3"] = myMatrix(3, 3);
+		json["3"]["4"] = myMatrix(3, 4);
+
+		json["4"]["1"] = myMatrix(4, 1);
+		json["4"]["2"] = myMatrix(4, 2);
+		json["4"]["3"] = myMatrix(4, 3);
+		json["4"]["4"] = myMatrix(4, 4);
+
+		return json;
+	}
+
+	void Transform::Load(nlohmann::json& aJson)
+	{
+		myMatrix(1, 1) = aJson["1"]["1"];
+		myMatrix(1, 2) = aJson["1"]["2"];
+		myMatrix(1, 3) = aJson["1"]["3"];
+		myMatrix(1, 4) = aJson["1"]["4"];
+
+		myMatrix(2, 1) = aJson["2"]["1"];
+		myMatrix(2, 2) = aJson["2"]["2"];
+		myMatrix(2, 3) = aJson["2"]["3"];
+		myMatrix(2, 4) = aJson["2"]["4"];
+
+		myMatrix(3, 1) = aJson["3"]["1"];
+		myMatrix(3, 2) = aJson["3"]["2"];
+		myMatrix(3, 3) = aJson["3"]["3"];
+		myMatrix(3, 4) = aJson["3"]["4"];
+
+		myMatrix(4, 1) = aJson["4"]["1"];
+		myMatrix(4, 2) = aJson["4"]["2"];
+		myMatrix(4, 3) = aJson["4"]["3"];
+		myMatrix(4, 4) = aJson["4"]["4"];
+	}
+
 	void Dynamo::Transform::SetPosition(const Vec3f& aPosition)
 	{
 		myMatrix(4, 1) = aPosition.x;

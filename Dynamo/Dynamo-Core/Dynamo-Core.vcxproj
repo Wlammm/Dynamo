@@ -250,6 +250,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
+    <ClCompile Include="Scene\SceneSerializer.cpp" />
     <ClCompile Include="Utils\ConsoleUtils.cpp" />
     <ClCompile Include="Utils\CrashHandler.cpp" />
     <ClCompile Include="Utils\Debug.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="Rendering\Shader.h" />
     <ClInclude Include="Rendering\Texture.h" />
     <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\SceneSerializer.h" />
     <ClInclude Include="Shaders\SharedDefines.hpp" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="pch.h" />

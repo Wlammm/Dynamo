@@ -23,6 +23,29 @@ namespace Dynamo
 		ImGui::ColorEdit3("##pointlightColor", &myColor.r);
 	}
 
+	nlohmann::json PointLight::Save()
+	{
+		nlohmann::json json;
+		json["intensity"] = myIntensity;
+		json["range"] = myRange;
+		json["color"]["r"] = myColor.r;
+		json["color"]["g"] = myColor.g;
+		json["color"]["b"] = myColor.b;
+		json["color"]["a"] = myColor.a;
+
+		return json;
+	}
+
+	void PointLight::Load(nlohmann::json& aJson)
+	{
+		myIntensity = aJson["intensity"];
+		myRange = aJson["range"];
+		myColor.r = aJson["color"]["r"];
+		myColor.g = aJson["color"]["g"];
+		myColor.b = aJson["color"]["b"];
+		myColor.a = aJson["color"]["a"];
+	}
+
 	void PointLight::OnCreate()
 	{
 		myTransform = GetComponent<Transform>();

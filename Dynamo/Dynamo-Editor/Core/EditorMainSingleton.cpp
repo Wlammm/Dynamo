@@ -13,6 +13,8 @@
 #include <Components/PointLight.h>
 #include <Components/SpotLight.h>
 
+#include "Scene/SceneSerializer.h"
+
 namespace Editor
 {
 	void MainSingleton::Init()
@@ -72,16 +74,20 @@ namespace Editor
 		defaultLights->GetTransform().SetRotationDeg({ -45, -45, -45 });
 		Dyn::AmbientLight* ambLight = defaultLights->AddComponent<Dyn::AmbientLight>();
 		ambLight->SetIntensity(10.f);
-
+		
 		GameObject* camera = Dyn::Main::GetScene()->CreateGameObject();
 		Dyn::Camera* camComp = camera->AddComponent<Dyn::Camera>();
 		camComp->EnableFreeCamera();
 		camera->SetTag(Tag::MainCamera);
 		camera->GetTransform().SetPosition({ 0, 0, -300 });
-
+		
 		GameObject* mesh = Dyn::Main::GetScene()->CreateGameObject();
 		Dyn::MeshRenderer* meshComp = mesh->AddComponent<Dyn::MeshRenderer>();
 		meshComp->SetModel("Assets/Fbx/Chest.fbx");
 		meshComp->ApplyModelMaterial();
+		
+		Dyn::SceneSerializer::SaveScene(Dyn::Main::GetScene(), "Assets/Scenes/DefaultScene.dynscene");
+
+		//Dyn::SceneSerializer::LoadScene(Dyn::Main::GetScene(), "Assets/Scenes/DefaultScene.dynscene");
 	}
 }

@@ -1,0 +1,152 @@
+{
+    "Version": "1.0",
+    "gameObjects": [
+        {
+            "components": [
+                {
+                    "compType": "class Dynamo::Transform",
+                    "data": {
+                        "1": {
+                            "1": 0.8535534143447876,
+                            "2": 0.5,
+                            "3": -0.14644663035869598,
+                            "4": 0.0
+                        },
+                        "2": {
+                            "1": -0.14644663035869598,
+                            "2": 0.5,
+                            "3": 0.8535534143447876,
+                            "4": 0.0
+                        },
+                        "3": {
+                            "1": 0.5,
+                            "2": -0.7071068286895752,
+                            "3": 0.5,
+                            "4": 0.0
+                        },
+                        "4": {
+                            "1": 0.0,
+                            "2": 0.0,
+                            "3": 0.0,
+                            "4": 1.0
+                        }
+                    }
+                },
+                {
+                    "compType": "class Dynamo::DirectionalLight",
+                    "data": {
+                        "color": {
+                            "a": 1.0,
+                            "b": 1.0,
+                            "g": 1.0,
+                            "r": 1.0
+                        },
+                        "intensity": 10.0
+                    }
+                },
+                {
+                    "compType": "class Dynamo::AmbientLight",
+                    "data": {
+                        "intensity": 10.0
+                    }
+                }
+            ],
+            "isActive": true,
+            "name": "Unnamed GameObject",
+            "tag": 0
+        },
+        {
+            "components": [
+                {
+                    "compType": "class Dynamo::Transform",
+                    "data": {
+                        "1": {
+                            "1": 1.0,
+                            "2": 0.0,
+                            "3": 0.0,
+                            "4": 0.0
+                        },
+                        "2": {
+                            "1": 0.0,
+                            "2": 1.0,
+                            "3": 0.0,
+                            "4": 0.0
+                        },
+                        "3": {
+                            "1": 0.0,
+                            "2": 0.0,
+                            "3": 1.0,
+                            "4": 0.0
+                        },
+                        "4": {
+                            "1": 0.0,
+                            "2": 0.0,
+                            "3": -300.0,
+                            "4": 1.0
+                        }
+                    }
+                },
+                {
+                    "compType": "class Dynamo::Camera",
+                    "data": {
+                        "farPlane": 10000.0,
+                        "fov": 90.0,
+                        "freemovement": true,
+                        "nearPlane": 0.009999999776482582
+                    }
+                }
+            ],
+            "isActive": true,
+            "name": "Unnamed GameObject",
+            "tag": 1
+        },
+        {
+            "components": [
+                {
+                    "compType": "class Dynamo::MeshRenderer",
+                    "data": {
+                        "color": {
+                            "a": 1.0,
+                            "b": 1.0,
+                            "g": 1.0,
+                            "r": 1.0
+                        },
+                        "path": "Assets/Fbx/Chest.fbx"
+                    }
+                },
+                {
+                    "compType": "class Dynamo::Transform",
+                    "data": {
+                        "1": {
+                            "1": 1.0,
+                            "2": 0.0,
+                            "3": 0.0,
+                            "4": 0.0
+                        },
+                        "2": {
+                            "1": 0.0,
+                            "2": 1.0,
+                            "3": 0.0,
+                            "4": 0.0
+                        },
+                        "3": {
+                            "1": 0.0,
+                            "2": 0.0,
+                            "3": 1.0,
+                            "4": 0.0
+                        },
+                        "4": {
+                            "1": 0.0,
+                            "2": 0.0,
+                            "3": 0.0,
+                            "4": 1.0
+                        }
+                    }
+                }
+            ],
+            "isActive": true,
+            "name": "Unnamed GameObject",
+            "tag": 0
+        }
+    ]
+}

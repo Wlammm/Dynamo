@@ -27,6 +27,28 @@ namespace Dynamo
 		}
 	}
 
+	nlohmann::json Camera::Save()
+	{
+		nlohmann::json json;
+
+		json["nearPlane"] = myNearPlane;
+		json["farPlane"] = myFarPlane;
+		json["fov"] = myFoV;
+		json["freemovement"] = myEnableFreeMovement;
+
+		return json;
+	}
+
+	void Camera::Load(nlohmann::json& aJson)
+	{
+		myNearPlane = aJson["nearPlane"];
+		myFarPlane = aJson["farPlane"];
+		myFoV = aJson["fov"];
+		myEnableFreeMovement = aJson["freemovement"];
+
+		Init(myFoV, Main::GetWindowResolution().Cast<float>(), myNearPlane, myFarPlane);
+	}
+
 	void Camera::OnCreate()
 	{
 		myIsValid = true;

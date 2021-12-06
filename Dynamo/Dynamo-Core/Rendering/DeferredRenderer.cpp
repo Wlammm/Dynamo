@@ -45,6 +45,9 @@ namespace Dynamo
 			if (!model)
 				return;
 
+			if (!model->IsInitialized())
+				return;
+
 			myObjectBufferData.myToWorld = model->GetTransform().GetMatrix();
 			myObjectBufferData.myUVScale = { 1.0f, 1.0f };
 			myObjectBufferData.myColor = model->GetColor();

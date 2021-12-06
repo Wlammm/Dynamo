@@ -11,6 +11,11 @@
 class GameObject;
 class Component;
 
+namespace Dynamo
+{
+	class SceneSerializer;
+}
+
 class ComponentAdmin
 {
 public:
@@ -40,7 +45,7 @@ public:
 		return comp;
 	}
 
-	void AddComponentWithTypeID(const TypeID& aComponentType, const GameObjectID aID);
+	Component* AddComponentWithTypeID(const TypeID& aComponentType, const GameObjectID aID);
 	void RemoveComponentWithTypeID(const TypeID& aComponentType, const GameObjectID aID);
 
 	template<typename T>
@@ -82,6 +87,8 @@ public:
 	ComponentManager& GetComponentManager();
 
 private:
+	friend Dynamo::SceneSerializer;
+
 	std::unordered_set<GameObjectID> myActiveIDS;
 
 	GameObject* myBase;

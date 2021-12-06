@@ -5,6 +5,8 @@ class GameObject;
 
 namespace Dynamo
 {
+	class SceneSerializer;
+
 	/*
 	* Dont forget to call Internal init!
 	*/
@@ -34,6 +36,7 @@ namespace Dynamo
 		void InternalInit();
 
 	private:
+		friend SceneSerializer;
 		CU::DArray<GameObject*> myGameObjects;
 		std::unique_ptr<ComponentAdmin> myComponentAdmin;
 

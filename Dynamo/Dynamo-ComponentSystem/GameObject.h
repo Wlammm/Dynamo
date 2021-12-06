@@ -14,6 +14,7 @@ namespace Dynamo
 {
 	class Transform;
 	class Scene;
+	class SceneSerializer;
 }
 
 class GameObject
@@ -66,6 +67,7 @@ private:
 	// Used to set private variables.
 	friend class ComponentAdmin;
 	friend Dynamo::Scene;
+	friend Dynamo::SceneSerializer;
 
 	void Reset();
 

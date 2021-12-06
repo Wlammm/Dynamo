@@ -6,6 +6,38 @@
 
 namespace Dynamo
 {
+	void MeshRenderer::ExposeValues()
+	{
+
+	}
+
+	nlohmann::json MeshRenderer::Save()
+	{
+		nlohmann::json json;
+
+		if (!myModel)
+			return json;
+
+		json["path"] = myModel->GetPath();
+		json["color"]["r"] = myColor.r;
+		json["color"]["g"] = myColor.g;
+		json["color"]["b"] = myColor.b;
+		json["color"]["a"] = myColor.a;
+
+		return json;
+	}
+
+	void MeshRenderer::Load(nlohmann::json& aJson)
+	{
+		SetModel(aJson["path"]);
+		ApplyModelMaterial();
+
+		myColor.r = aJson["color"]["r"];
+		myColor.g = aJson["color"]["g"];
+		myColor.b = aJson["color"]["b"];
+		myColor.a = aJson["color"]["a"];
+	}
+
 	void MeshRenderer::OnCreate()
 	{
 		Main::GetRenderManager().AddMesh(this);
@@ -29,11 +61,13 @@ namespace Dynamo
 	void MeshRenderer::SetModel(const std::string& aPath)
 	{
 		myModel = ModelFactory::GetModel(aPath);
+		isInitialized = true;
 	}
 
 	void MeshRenderer::SetModel(Model* aModel)
 	{
 		myModel = aModel;
+		isInitialized = true;
 	}
 
 	void MeshRenderer::AddMaterial(Material* aMaterial)
@@ -67,5 +101,10 @@ namespace Dynamo
 	void MeshRenderer::ApplyModelMaterial()
 	{
 		AddMaterial(MaterialFactory::GetMaterialForModel(myModel->GetPath()));
+	}
+
+	bool MeshRenderer::IsInitialized() const
+	{
+		return isInitialized && myMaterials.size() > 0;
 	}
 }

@@ -51,6 +51,15 @@ void Component::OnDisable() { }
 
 void Component::ExposeValues() { }
 
+nlohmann::json Component::Save()
+{
+	nlohmann::json json;
+	json["INFO"] = "Component::Save() not overriden.";
+	return json;
+}
+
+void Component::Load(nlohmann::json& aJson) { }
+
 ComponentName Component::GetName()
 {
 	return std::string();
@@ -59,6 +68,11 @@ ComponentName Component::GetName()
 TypeID Component::GetTypeID()
 {
 	return std::string();
+}
+
+int Component::GetTypeSize()
+{
+	return 0;
 }
 
 const std::string& Component::GetCategory() const

@@ -13,3 +13,8 @@ const std::vector<Component*>& ComponentRegistry::GetComponentTypes()
 {
 	return myComponentTypes;
 }
+
+Component* ComponentRegistry::GetComponentFromTypeID(const TypeID& aTypeID)
+{
+	return myComponents[aTypeID];
+}

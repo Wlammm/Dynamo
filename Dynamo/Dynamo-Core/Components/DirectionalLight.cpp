@@ -18,6 +18,28 @@ namespace Dynamo
 		ImGui::ColorEdit3("##dirlightColor", &myColor.r);
 	}
 
+	nlohmann::json DirectionalLight::Save()
+	{
+		nlohmann::json json;
+
+		json["intensity"] = myIntensity;
+		json["color"]["r"] = myColor.r;
+		json["color"]["g"] = myColor.g;
+		json["color"]["b"] = myColor.b;
+		json["color"]["a"] = myColor.a;
+
+		return json;
+	}
+
+	void DirectionalLight::Load(nlohmann::json& aJson)
+	{
+		myIntensity = aJson["intensity"];
+		myColor.r = aJson["color"]["r"];
+		myColor.g = aJson["color"]["g"];
+		myColor.b = aJson["color"]["b"];
+		myColor.a = aJson["color"]["a"];
+	}
+
 	void DirectionalLight::OnCreate()
 	{
 		myTransform = GetComponent<Transform>();

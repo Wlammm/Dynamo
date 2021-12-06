@@ -9,6 +9,8 @@ namespace Dynamo
 		COMP(Transform);
 	public:
 		void ExposeValues() override;
+		nlohmann::json Save() override;
+		void Load(nlohmann::json& aJson) override;
 
 		void SetPosition(const Vec3f& aPosition);
 		Vec3f GetPosition();

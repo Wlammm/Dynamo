@@ -15,6 +15,20 @@ namespace Dynamo
 		ImGui::DragFloat("##amblightIntensity", &myIntensity, 0.1f, 0, 1000000);
 	}
 
+	nlohmann::json AmbientLight::Save()
+	{
+		nlohmann::json json;
+
+		json["intensity"] = myIntensity;
+
+		return json;
+	}
+
+	void AmbientLight::Load(nlohmann::json& aJson)
+	{
+		myIntensity = aJson["intensity"];
+	}
+
 	void AmbientLight::OnCreate()
 	{
 		SetCubeMap("Assets/Textures/Default_Cubemap.dds");

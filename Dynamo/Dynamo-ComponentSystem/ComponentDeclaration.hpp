@@ -33,3 +33,8 @@ public:																							  \
 	{																							  \
 		return typeid(className).name();														  \
 	}																							  \
+																								  \
+	int GetTypeSize() override																	  \
+	{																							  \
+		return (int)sizeof(className);															  \
+	}																							  

@@ -72,19 +72,21 @@ void ComponentAdmin::SetActive(GameObject* ob, const bool aState)
 	myComponentManager.SetActive(ob->GetGameObjectID(), aState);
 }
 
-void ComponentAdmin::AddComponentWithTypeID(const TypeID& aComponentType, const GameObjectID aID)
+Component* ComponentAdmin::AddComponentWithTypeID(const TypeID& aComponentType, const GameObjectID aID)
 {
-	void* ptr = myComponentManager.AddComponentWithTypeID(aComponentType, aID);
+	bool outExists = false;
+	void* ptr = myComponentManager.AddComponentWithTypeID(aComponentType, aID, outExists);
 
 	// Component already exists.
-	if (ptr == nullptr)
-		return;
+	if (outExists)
+		return (Component*)ptr;
 
 	Component* comp = (Component*)ptr;
 	comp->myGameObject = &myBase[aID];
 	comp->myIsActive = true;
 	comp->myAdmin = this;
 	comp->OnCreate();
+	return comp;
 }
 
 void ComponentAdmin::RemoveComponentWithTypeID(const TypeID& aComponentType, const GameObjectID aID)

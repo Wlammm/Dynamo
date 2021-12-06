@@ -2,6 +2,7 @@
 
 #include "ComponentAdmin.h"
 #include "GameObject.h"
+#include "../Dynamo-Core/External/Json/json.hpp"
 
 class Component
 {
@@ -18,9 +19,13 @@ public:
 	Dynamo::Transform& GetTransform();
 
 	virtual void ExposeValues();
+	virtual nlohmann::json Save();
+	virtual void Load(nlohmann::json& aJson);
 
 	virtual ComponentName GetName();
 	virtual TypeID GetTypeID();
+	virtual int GetTypeSize();
+
 	const std::string& GetCategory() const;
 
 protected:

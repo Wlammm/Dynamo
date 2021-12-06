@@ -9,6 +9,8 @@ namespace Dynamo
 		PointLight();
 
 		void ExposeValues() override;
+		nlohmann::json Save() override;
+		void Load(nlohmann::json& aJson) override;
 
 		void OnCreate() override;
 		void OnDestroy() override;

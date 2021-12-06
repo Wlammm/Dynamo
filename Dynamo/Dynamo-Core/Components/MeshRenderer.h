@@ -12,6 +12,11 @@ namespace Dynamo
 	{
 		COMP(MeshRenderer);
 	public:
+		void ExposeValues() override;
+		nlohmann::json Save() override;
+		void Load(nlohmann::json& aJson) override;
+
+
 		MeshRenderer() = default;
 		~MeshRenderer() = default;
 
@@ -35,7 +40,10 @@ namespace Dynamo
 
 		void ApplyModelMaterial();
 
+		bool IsInitialized() const;
+
 	private:
+		bool isInitialized = false;
 		Model* myModel = nullptr;
 		Color myColor = { 1, 1, 1, 1 };
 
