@@ -169,7 +169,9 @@
     <ClCompile Include="Core\EditorMainSingleton.cpp" />
     <ClCompile Include="PostMaster\EditorPostMaster.cpp" />
     <ClCompile Include="Systems\Guizmos.cpp" />
+    <ClCompile Include="Systems\SceneSaving.cpp" />
     <ClCompile Include="Utils\ThemeUtils.cpp" />
+    <ClCompile Include="Windows\ContentBrowser.cpp" />
     <ClCompile Include="Windows\Hierarchy.cpp" />
     <ClCompile Include="Windows\Inspector.cpp" />
     <ClCompile Include="Systems\Toolbar.cpp" />
@@ -185,7 +187,9 @@
     <ClInclude Include="Core\EditorMainSingleton.h" />
     <ClInclude Include="PostMaster\EditorPostObserver.h" />
     <ClInclude Include="Systems\Guizmos.h" />
+    <ClInclude Include="Systems\SceneSaving.h" />
     <ClInclude Include="Utils\ThemeUtils.h" />
+    <ClInclude Include="Windows\ContentBrowser.h" />
     <ClInclude Include="Windows\Hierarchy.h" />
     <ClInclude Include="PostMaster\EditorPostMaster.h" />
     <ClInclude Include="Windows\Inspector.h" />

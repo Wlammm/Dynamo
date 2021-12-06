@@ -41,6 +41,16 @@ namespace Dynamo
         return myEmissiveIntensity;
     }
 
+    const std::string& Scene::GetSavePath() const
+    {
+        return mySavePath;
+    }
+
+    void Scene::SetSavePath(const std::string& aPath)
+    {
+        mySavePath = aPath;
+    }
+
     void Scene::InternalInit()
     {
         myComponentAdmin = std::make_unique<ComponentAdmin>();

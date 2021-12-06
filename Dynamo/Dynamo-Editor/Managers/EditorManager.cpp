@@ -10,9 +10,11 @@
 #include "Windows/Viewport.h"
 #include "Windows/Hierarchy.h"
 #include "Windows/Inspector.h"
+#include "Windows/ContentBrowser.h"
 
 #include "Systems/Toolbar.h"
 #include "Systems/Guizmos.h"
+#include "Systems/SceneSaving.h"
 
 /*
 * __pragma(warning(suppress: XXXX))
@@ -55,12 +57,14 @@ namespace Editor
 		AddWindow(new Viewport());
 		AddWindow(new Hierarchy());
 		AddWindow(new Inspector());
+		AddWindow(new ContentBrowser());
 	}
 
 	void EditorManager::CreateSystems()
 	{
 		AddSystem(new Toolbar());
 		AddSystem(new Guizmos());
+		AddSystem(new SceneSaving());
 	}
 
 	void EditorManager::InitWindows()

@@ -20,11 +20,11 @@ namespace Dynamo
 
 		ImGui::Text("Inner Angle");
 		ImGui::SameLine(0.0f, 30);
-		ImGui::DragFloat("##spotlightInnerAngle", &myInnerAngle, 1, 0, 1000000);
+		ImGui::DragFloat("##spotlightInnerAngle", &myInnerAngle, 1, 0, myOuterAngle);
 
 		ImGui::Text("Outer Angle");
 		ImGui::SameLine(0.0f, 30);
-		ImGui::DragFloat("##spotlightOuterAngle", &myOuterAngle, 1, 0, 1000000);
+		ImGui::DragFloat("##spotlightOuterAngle", &myOuterAngle, 1, myInnerAngle, 360);
 
 		ImGui::Text("Color");
 		ImGui::SameLine(0.0f, 68);

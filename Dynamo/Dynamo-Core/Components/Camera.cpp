@@ -197,8 +197,8 @@ namespace Dynamo
 		{
 			Vec2f mouseDelta = Input::GetMouseDeltaNormalized();
 
-			static float yaw = 0.0f;
-			static float pitch = 0.0f;
+			static float yaw = -myTransform->GetRotationRad().y;
+			static float pitch = -myTransform->GetRotationRad().x;
 
 			yaw += mouseDelta.x * myMouseSensitivity;
 			pitch += mouseDelta.y * myMouseSensitivity;

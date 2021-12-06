@@ -155,8 +155,8 @@ namespace Dynamo
 			mySpotLightBufferData.myLights[i].myColor = someSpotLights[i]->GetColor();
 			mySpotLightBufferData.myLights[i].myDirection = { someSpotLights[i]->GetDirection(), 0.0f };
 			mySpotLightBufferData.myLights[i].myPosition = { someSpotLights[i]->GetTransform().GetPosition(),  1.0f};
-			mySpotLightBufferData.myLights[i].myInnerAngle = someSpotLights[i]->GetInnerAngle();
-			mySpotLightBufferData.myLights[i].myOuterAngle = someSpotLights[i]->GetOuterAngle();
+			mySpotLightBufferData.myLights[i].myInnerAngle = someSpotLights[i]->GetInnerAngle() * Deg2Rad;
+			mySpotLightBufferData.myLights[i].myOuterAngle = someSpotLights[i]->GetOuterAngle() * Deg2Rad;
 			mySpotLightBufferData.myLights[i].myIntensity = someSpotLights[i]->GetIntensity() * globalSpotLightIntensityMultiplier;
 			mySpotLightBufferData.myLights[i].myRange = someSpotLights[i]->GetRange();
 		}

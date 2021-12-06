@@ -203,6 +203,7 @@
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="Sphere.hpp" />
     <ClInclude Include="Stack.hpp" />
+    <ClInclude Include="StringUtils.hpp" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Triangle.hpp" />
     <ClInclude Include="Vector.hpp" />

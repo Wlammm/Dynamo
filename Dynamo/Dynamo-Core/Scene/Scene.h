@@ -32,6 +32,9 @@ namespace Dynamo
 		void SetEmissiveIntensity(const float aValue);
 		float GetEmissiveIntensity() const;
 
+		const std::string& GetSavePath() const;
+		void SetSavePath(const std::string& aPath);
+
 	protected:
 		void InternalInit();
 
@@ -41,5 +44,6 @@ namespace Dynamo
 		std::unique_ptr<ComponentAdmin> myComponentAdmin;
 
 		float myEmissiveIntensity = 100;
+		std::string mySavePath = "";
 	};
 }

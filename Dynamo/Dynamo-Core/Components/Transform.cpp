@@ -92,6 +92,11 @@ namespace Dynamo
 		myMatrix(4, 3) = aPosition.z;
 	}
 
+	void Transform::SetPosition(float x, float y, float z)
+	{
+		SetPosition({ x, y, z });
+	}
+
 	Vec3f Transform::GetPosition()
 	{
 		return { myMatrix(4, 1), myMatrix(4, 2), myMatrix(4, 3) };
@@ -114,6 +119,11 @@ namespace Dynamo
 
 		myMatrix = newMatrix;
 		SetScale(scale);
+	}
+
+	void Transform::SetRotationRad(float x, float y, float z)
+	{
+		SetRotationRad({ x, y, z });
 	}
 
 	Vec3f Transform::GetRotationRad() const
@@ -153,6 +163,11 @@ namespace Dynamo
 	void Transform::SetRotationDeg(const Vec3f& aRotation)
 	{
 		SetRotationRad(aRotation * Deg2Rad);
+	}
+
+	void Transform::SetRotationDeg(float x, float y, float z)
+	{
+		SetRotationDeg({ x, y, z });
 	}
 
 	Vec3f Transform::GetRotationDeg() const
@@ -229,6 +244,11 @@ namespace Dynamo
 		myMatrix(3, 3) = z.z;
 	}
 
+	void Transform::SetScale(float x, float y, float z)
+	{
+		SetScale({ x, y, z });
+	}
+
 	Vec3f Transform::GetScale() const
 	{
 		Vec3f scale;
@@ -260,5 +280,9 @@ namespace Dynamo
 		Vec3f pos = GetPosition();
 		pos += aVec;
 		SetPosition(pos);
+	}
+	void Transform::Move(float x, float y, float z)
+	{
+		Move({ x, y, z });
 	}
 }

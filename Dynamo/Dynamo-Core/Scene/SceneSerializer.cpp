@@ -10,6 +10,7 @@ namespace Dynamo
 	{
 		nlohmann::json finalJson;
 		finalJson["Version"] = version;
+		finalJson["ScenePath"] = aPath;
 
 		for (auto ob : aScene->GetAllGameObjects())
 		{
@@ -44,12 +45,13 @@ namespace Dynamo
 
 		DoJsonCheck(json);
 
+		aScene->SetSavePath(json["ScenePath"]);
+
 		for (int i = 0; i < json["gameObjects"].size(); ++i)
 		{
 			nlohmann::json ob = json["gameObjects"][i];
 			GameObject* object = aScene->CreateGameObject();
 			object->SetName(ob["name"].get<std::string>());
-			object->SetActive(ob["isActive"].get<bool>());
 			object->SetTag(ob["tag"].get<Tag>());
 
 			for (int j = 0; j < ob["components"].size(); ++j)
@@ -60,6 +62,8 @@ namespace Dynamo
 				Component* comp = aScene->GetComponentAdmin().AddComponentWithTypeID(type, object->GetGameObjectID());
 				comp->Load(data);
 			}
+
+			object->SetActive(ob["isActive"].get<bool>());
 		}
 	}
 
