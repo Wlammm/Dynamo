@@ -30,4 +30,13 @@ namespace Dynamo
 	{
 		Main::GetContext()->PSSetShaderResources(1, GBufferTexture::COUNT, &mySRVs[0]);
 	}
+
+	void GBuffer::Release()
+	{
+		for (int i = 0; i < GBufferTexture::COUNT; ++i)
+		{
+			myRTVs[i]->Release();
+			myTextures[i]->Release();
+		}
+	}
 }

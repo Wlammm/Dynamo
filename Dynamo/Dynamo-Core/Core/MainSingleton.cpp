@@ -116,14 +116,14 @@ namespace Dynamo
 		return ourInstance->myContext;
 	}
 
-	WindowHandler& MainSingleton::GetWindowHandler()
+	WindowHandler* MainSingleton::GetWindowHandler()
 	{
-		return *ourInstance->myWindowHandler;
+		return ourInstance->myWindowHandler;
 	}
 
-	DirectXFramework& MainSingleton::GetFramework()
+	DirectXFramework* MainSingleton::GetFramework()
 	{
-		return *ourInstance->myFramework;
+		return ourInstance->myFramework;
 	}
 
 	Scene* MainSingleton::GetScene()

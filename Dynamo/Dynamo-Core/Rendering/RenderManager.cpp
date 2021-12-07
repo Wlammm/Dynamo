@@ -14,11 +14,11 @@ namespace Dynamo
 	{
 		RenderUtils::Create();
 
-		CreateTextures();
+		CreateTextures(true);
 
 		myGammaCorrectionShader = ShaderFactory::GetShader("Shaders/FullscreenPS-GammaCorrection.cso", ShaderType::PixelShader);
 
-		myDebugRenderer.Init(&Main::GetFramework());
+		myDebugRenderer.Init(Main::GetFramework());
 
 		AddFullscreenEffect(new Dyn::FXAAEffect(), 1);
 		AddFullscreenEffect(new Dyn::HDREffect(), 10);
@@ -153,6 +153,23 @@ namespace Dynamo
 		return myRenderTexture;
 	}
 
+	void RenderManager::ReleaseAllTextures()
+	{
+		myRenderTexture.Release();
+		myRenderDepth.Release();
+		myBackBuffer.Release();
+		myIntermediateTexture.Release();
+		myGBuffer.Release();
+
+		for (auto entry : myFullscreenEffects)
+		{
+			for (auto val : entry.second)
+			{
+				val->Release();
+			}
+		}
+	}
+
 	void RenderManager::ImGuiRender()
 	{
 		Debug::ImGui("RenderManager", [this]()
@@ -249,10 +266,10 @@ namespace Dynamo
 		myFullscreenRenderer.RenderCopy();
 	}
 
-	void RenderManager::CreateTextures()
+	void RenderManager::CreateTextures(bool isFirstTime)
 	{
 		ID3D11Resource* backBufferResource = nullptr;
-		Main::GetFramework().GetBackBuffer()->GetResource(&backBufferResource);
+		Main::GetFramework()->GetBackBuffer()->GetResource(&backBufferResource);
 		ID3D11Texture2D* backBufferTexture = (ID3D11Texture2D*)backBufferResource;
 		assert(backBufferTexture);
 
@@ -262,6 +279,17 @@ namespace Dynamo
 		myRenderDepth = TextureFactory::CreateDepth(Main::GetWindowResolution(), DXGI_FORMAT_D32_FLOAT);
 
 		myGBuffer = TextureFactory::CreateGBuffer(Main::GetWindowResolution());
+
+		if (isFirstTime)
+			return;
+
+		for (auto entry : myFullscreenEffects)
+		{
+			for (auto val : entry.second)
+			{
+				val->ReInit();
+			}
+		}
 	}
 
 	void RenderManager::ClearTextures()

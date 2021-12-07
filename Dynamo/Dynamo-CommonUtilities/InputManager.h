@@ -155,6 +155,8 @@ namespace CommonUtilities
 			Middle = 0x04,
 			XButton1 = 0x05,
 			XButton2 = 0x06,
+			ScrollForward = 0xb8,
+			ScrollBackwards = 0xb9,
 		};
 
 		// The frame the user pressed the button.

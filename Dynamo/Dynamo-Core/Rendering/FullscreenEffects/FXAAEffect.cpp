@@ -7,7 +7,7 @@ namespace Dynamo
 	FXAAEffect::FXAAEffect()
 	{
 		RenderUtils::CreateBuffer<FXAABuffer>(myBuffer);
-		myIntermediateTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R32G32B32A32_FLOAT);
+		ReInit();
 		myShader = ShaderFactory::GetShader("Shaders/FullscreenPS-FXAA.cso", ShaderType::PixelShader);
 	}
 	
@@ -31,5 +31,14 @@ namespace Dynamo
 		aFinalTarget.SetAsActiveTarget();
 		myIntermediateTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
+	}
+	void FXAAEffect::Release()
+	{
+		myIntermediateTexture.Release();
+	}
+
+	void FXAAEffect::ReInit()
+	{
+		myIntermediateTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R32G32B32A32_FLOAT);
 	}
 }

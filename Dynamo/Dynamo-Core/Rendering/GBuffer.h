@@ -29,6 +29,8 @@ namespace Dynamo
 		void SetAsResourceOnSlot(GBufferTexture aTexture, uint aSlot) const;
 		void SetAllAsResources();
 
+		void Release();
+
 	private:
 		friend class TextureFactory;
 

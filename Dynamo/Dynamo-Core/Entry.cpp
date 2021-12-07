@@ -28,15 +28,15 @@ namespace Dynamo
 				}
 			}
 
-			Main::GetFramework().BeginFrame();
+			Main::GetFramework()->BeginFrame();
 
 			if(myOutsideUpdate != nullptr)
 				myOutsideUpdate();
 
 			Main::Update();
 
-			Main::GetFramework().RenderFrame();
-			Main::GetFramework().EndFrame();
+			Main::GetFramework()->RenderFrame();
+			Main::GetFramework()->EndFrame();
 		}
 
 		Main::Destroy();

@@ -52,6 +52,9 @@ namespace Dynamo
 
 		Texture& GetMainRenderTarget();
 
+		void ReleaseAllTextures();
+		void CreateTextures(bool isFirstTime);
+
 	private:
 		void ImGuiRender();
 		void SetSamplers();
@@ -65,7 +68,6 @@ namespace Dynamo
 
 		void GammaCorrection();
 
-		void CreateTextures();
 		void ClearTextures();
 
 		// TEMP
@@ -92,7 +94,6 @@ namespace Dynamo
 		Texture myRenderTexture;
 		Texture myRenderDepth;
 		Texture myBackBuffer;
-
 		Texture myIntermediateTexture;
 
 		GBuffer myGBuffer = {};

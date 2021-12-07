@@ -9,5 +9,7 @@ namespace Dynamo
 	{
 	public:
 		virtual void Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget) = 0;
+		virtual void Release() = 0;
+		virtual void ReInit() = 0;
 	};
 }

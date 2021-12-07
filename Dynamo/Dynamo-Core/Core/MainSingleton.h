@@ -35,8 +35,8 @@ namespace Dynamo
 		static ID3D11Device* GetDevice();
 		static ID3D11DeviceContext* GetContext();
 
-		static WindowHandler& GetWindowHandler();
-		static DirectXFramework& GetFramework();
+		static WindowHandler* GetWindowHandler();
+		static DirectXFramework* GetFramework();
 
 		static Scene* GetScene();
 		static void SetScene(Scene* aScene);

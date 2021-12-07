@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "WindowHandler.h"
 #include <Windows.h>
+#include "DirectXFramework.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -50,6 +51,27 @@ namespace Dynamo
 		if (uMsg == WM_SIZE)
 		{
 			Main::ourInstance->myWindowResolution = { LOWORD(lParam), HIWORD(lParam) };
+
+			auto framework = Main::GetFramework();
+			if (!framework)
+				return 0;
+
+			auto swapchain = framework->GetSwapChain();
+			if (!swapchain)
+				return 0;
+
+			Main::GetContext()->OMSetRenderTargets(0, 0, 0);
+			framework->GetBackBuffer()->Release();
+			framework->GetDepthBuffer()->Release();
+			Main::GetRenderManager().ReleaseAllTextures();
+
+			HRESULT result = swapchain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, 0);
+			assert(SUCCEEDED(result));
+
+			framework->GenerateTargets();
+
+			Main::GetRenderManager().CreateTextures(false);
+
 			return 0;
 		}
 

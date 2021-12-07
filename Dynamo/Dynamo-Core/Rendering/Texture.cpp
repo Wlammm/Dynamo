@@ -62,4 +62,11 @@ namespace Dynamo
 	{
 		return mySRV;
 	}
+
+	void Texture::Release()
+	{
+		myRenderTarget->Release();
+		myDepth->Release();
+		myTexture->Release();
+	}
 }

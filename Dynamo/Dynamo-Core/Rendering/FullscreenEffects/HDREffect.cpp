@@ -5,7 +5,7 @@ namespace Dynamo
 {
 	HDREffect::HDREffect()
 	{
-		myIntermediateTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R32G32B32A32_FLOAT);
+		ReInit();
 		myHDRShader = ShaderFactory::GetShader("Shaders/FullscreenPS-HDR.cso", ShaderType::PixelShader);
 	}
 
@@ -20,5 +20,14 @@ namespace Dynamo
 		aFinalTarget.SetAsActiveTarget();
 		myIntermediateTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
+	}
+	void HDREffect::Release()
+	{
+		myIntermediateTexture.Release();
+	}
+
+	void HDREffect::ReInit()
+	{
+		myIntermediateTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R32G32B32A32_FLOAT);
 	}
 }

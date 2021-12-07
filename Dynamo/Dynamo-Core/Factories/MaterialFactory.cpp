@@ -21,7 +21,7 @@ namespace Dynamo
 
     Material* MaterialFactory::GetDefaultMaterial()
     {
-        return GetMaterial("Assets/Materials/DefaultMaterial.json");
+        return GetMaterial("Assets/Materials/DefaultMaterial.dynmaterial");
     }
 
     Material* MaterialFactory::GetMaterialForModel(const std::string& aModelPath)

@@ -51,5 +51,6 @@ namespace Dynamo
 		float myMovementSpeed = 100;
 		float myShiftMultiplier = 20;
 		float myMouseSensitivity = 4;
+		float myScrollIncrease = 5;
 	};
 }

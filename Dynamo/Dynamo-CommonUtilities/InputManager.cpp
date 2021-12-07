@@ -116,6 +116,15 @@ bool CommonUtilities::InputManager::UpdateEvents(UINT message, WPARAM wParam, LP
 		detectMessage = true;
 	} break;
 
+	case WM_MOUSEWHEEL:
+	{
+		float delta = GET_WHEEL_DELTA_WPARAM(wParam);
+		if (delta > 0)
+			myKeyState[(int)MouseButton::ScrollForward].myIsDown = true;
+		else
+			myKeyState[(int)MouseButton::ScrollBackwards].myIsDown = true;
+	} break;
+
 	case WM_MOUSEMOVE:
 		POINT p;
 		if (GetCursorPos(&p))

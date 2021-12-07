@@ -17,6 +17,8 @@ namespace Dynamo
 		void ClearDepth(float aClearDepthValue = 1.0f, uint aClearStencilValue = 0);
 		ID3D11ShaderResourceView* GetSRV();
 
+		void Release();
+
 	private:
 		friend class TextureFactory;
 

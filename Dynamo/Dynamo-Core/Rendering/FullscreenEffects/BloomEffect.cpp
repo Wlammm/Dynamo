@@ -11,16 +11,7 @@ namespace Dynamo
 		myGaussianVShader = ShaderFactory::GetShader("Shaders/FullscreenPS-GaussianV.cso", ShaderType::PixelShader);
 		myBloomShader = ShaderFactory::GetShader("Shaders/FullscreenPS-Bloom.cso", ShaderType::PixelShader);
 
-		const Vec2ui& resolution = Main::GetWindowResolution();
-		Vec2ui halfRes = (resolution.Cast<float>() * 0.5f).Cast<uint>();
-		Vec2ui quarterRes = (resolution.Cast<float>() * 0.25f).Cast<uint>();
-
-		myLuminanceTexture = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
-		myHalfSizeTexture = TextureFactory::CreateTexture(halfRes, DXGI_FORMAT_R32G32B32A32_FLOAT);
-		myQuarterSizeTexture = TextureFactory::CreateTexture(quarterRes, DXGI_FORMAT_R32G32B32A32_FLOAT);
-		myBlurTexture1 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
-		myBlurTexture2 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
-		myIntermediateTexture = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		ReInit();
 
 		RenderUtils::CreateBuffer<LuminanceBuffer>(myLuminanceBuffer);
 	}
@@ -85,6 +76,30 @@ namespace Dynamo
 		aFinalTarget.SetAsActiveTarget(FS_TEXTURE_SLOT1);
 		myIntermediateTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
+	}
+
+	void BloomEffect::Release()
+	{
+		myLuminanceTexture.Release();
+		myHalfSizeTexture.Release();
+		myQuarterSizeTexture.Release();
+		myBlurTexture1.Release();
+		myBlurTexture2.Release();
+		myIntermediateTexture.Release();
+	}
+
+	void BloomEffect::ReInit()
+	{
+		const Vec2ui& resolution = Main::GetWindowResolution();
+		Vec2ui halfRes = (resolution.Cast<float>() * 0.5f).Cast<uint>();
+		Vec2ui quarterRes = (resolution.Cast<float>() * 0.25f).Cast<uint>();
+
+		myLuminanceTexture = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myHalfSizeTexture = TextureFactory::CreateTexture(halfRes, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myQuarterSizeTexture = TextureFactory::CreateTexture(quarterRes, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myBlurTexture1 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myBlurTexture2 = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
+		myIntermediateTexture = TextureFactory::CreateTexture(resolution, DXGI_FORMAT_R32G32B32A32_FLOAT);
 	}
 
 	void BloomEffect::SetCutoff(const float aCutoff)

@@ -152,6 +152,18 @@ namespace Dynamo
 
 		CU::Vector3f moveDir;
 
+		if (Input::IsKeyDown(MouseButton::ScrollForward))
+		{
+			myShiftMultiplier += myScrollIncrease;
+		}
+
+		if (Input::IsKeyDown(MouseButton::ScrollBackwards))
+		{
+			myShiftMultiplier -= myScrollIncrease;
+			if (myShiftMultiplier < 0)
+				myShiftMultiplier = 0;
+		}
+
 		if (Input::IsKeyPressed(KeyCode::W))
 		{
 			moveDir += myTransform->GetForward();

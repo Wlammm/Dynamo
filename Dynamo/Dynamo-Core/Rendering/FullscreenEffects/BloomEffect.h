@@ -19,6 +19,9 @@ namespace Dynamo
 
 		void Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget);
 
+		void Release() override;
+		void ReInit() override;
+
 		void SetCutoff(const float aCutoff);
 		float GetCutoff() const;
 

@@ -37,9 +37,8 @@ namespace Editor
 		ImGui::BeginChild("FileWindow");
 
 		UpdateRightClickMenu();
-		float textureSize = 96;
 		float padding = 20;
-		float cellWidth = textureSize + padding;
+		float cellWidth = myTextureSize + padding;
 
 		float panelWidth = ImGui::GetContentRegionAvail().x;
 		int columnCount = static_cast<int>(panelWidth / cellWidth);
@@ -57,7 +56,7 @@ namespace Editor
 				}
 
 				ImGui::PushID(i);
-				if (ImGui::ImageButton(myItems[i].mySRV, { textureSize, textureSize }))
+				if (ImGui::ImageButton(myItems[i].mySRV, { myTextureSize, myTextureSize }))
 				{
 					mySelectedItem = i;
 				}
@@ -72,9 +71,9 @@ namespace Editor
 					if (fs::is_directory(myItems[i].myPath))
 					{
 						LoadDirectory(myItems[i].myPath.string());
+						ImGui::SetScrollHereY(0);
 						ImGui::PopID();
 						ImGui::EndChild();
-						ImGui::End();
 						return;
 					}
 				}
@@ -122,7 +121,7 @@ namespace Editor
 			if (IsExcludedPath(entry.path()))
 				continue;
 
-			myItems.push_back({ entry.path(), GetSRVFromPath(aPath) });
+			myItems.push_back({ entry.path(), GetSRVFromPath(entry.path()) });
 		}
 	}
 
@@ -130,7 +129,8 @@ namespace Editor
 	{
 		for (auto entry : fs::recursive_directory_iterator(aPath))
 		{
-			myDirectories[entry.path().parent_path()].Add(entry.path());
+			if(entry.is_directory())
+				myDirectories[entry.path().parent_path()].Add(entry.path());
 		}
 	}
 
@@ -251,6 +251,19 @@ namespace Editor
 
 	void ContentBrowser::UpdateShortcuts()
 	{
+		if (Input::IsKeyDown(MouseButton::ScrollForward) && Input::IsKeyPressed(KeyCode::LeftControl))
+		{
+			myTextureSize += 4;
+		}
+
+		if (Input::IsKeyDown(MouseButton::ScrollBackwards) && Input::IsKeyPressed(KeyCode::LeftControl))
+		{
+			myTextureSize -= 4;
+
+			if (myTextureSize < 1)
+				myTextureSize = 1;
+		}
+
 		if (Input::IsKeyDown(KeyCode::F5))
 		{
 			LoadDirectory(myCurrentPath);
@@ -267,10 +280,13 @@ namespace Editor
 
 	DXSRV* ContentBrowser::GetSRVFromPath(const std::filesystem::path& aPath)
 	{
-		std::string lowExtension = CU::StringUtils::ToLower(aPath.string());
+		if (std::filesystem::is_directory(aPath))
+			return myFolderIcons[FILETYPE_FOLDER];
+
+		std::string lowExtension = CU::StringUtils::ToLower(aPath.extension().string());
 		if (lowExtension == ".json")
 		{
-			return myFolderIcons[FILETYPE_FOLDER];
+			return myFolderIcons[FILETYPE_JSON];
 		}
 
 		if (lowExtension == ".dds")
@@ -282,6 +298,11 @@ namespace Editor
 		if (lowExtension == ".png")
 		{
 			return myFolderIcons[FILETYPE_PNG];
+		}
+
+		if (lowExtension == ".fbx")
+		{
+			return myFolderIcons[FILETYPE_FBX];
 		}
 
 		if (lowExtension == ".cpp")

@@ -107,7 +107,7 @@ namespace Dynamo
 
         // Print screenshot
         Microsoft::WRL::ComPtr<ID3D11Texture2D> backBuffer;
-        auto swapchain = Main::GetFramework().GetSwapChain();
+        auto swapchain = Main::GetFramework()->GetSwapChain();
         HRESULT hr = swapchain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(backBuffer.GetAddressOf()));
 
         if (SUCCEEDED(hr))

@@ -64,7 +64,9 @@ namespace Editor
 		bool IsExcludedPath(const std::filesystem::path& aPath);
 
 	private:
-		std::filesystem::path myRoot = "Assets/";
+		float myTextureSize = 96;
+
+		std::filesystem::path myRoot = "Assets";
 		std::filesystem::path myCurrentPath = "";
 		std::filesystem::path mySelectedTreePath = "";
 

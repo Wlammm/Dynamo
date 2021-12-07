@@ -11,6 +11,9 @@ namespace Dynamo
 		~FXAAEffect();
 		void Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget) override;
 
+		void Release() override;
+		void ReInit() override;
+
 	private:
 		struct FXAABuffer
 		{

@@ -8,7 +8,22 @@ namespace Dynamo
 {
 	void MeshRenderer::ExposeValues()
 	{
+		ImGui::Text("Model");
+		ImGui::SameLine(0, 40);
 
+		std::string modelPath = "";
+		if (myModel)
+			modelPath = myModel->GetPath();
+
+		ImGui::Button(modelPath.c_str(), ImVec2(500, 20));
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::SetTooltip(modelPath.c_str());
+		}
+
+		ImGui::Text("Color");
+		ImGui::SameLine(0, 40);
+		ImGui::ColorEdit3("##meshrenderercolor", &myColor.r);
 	}
 
 	nlohmann::json MeshRenderer::Save()
