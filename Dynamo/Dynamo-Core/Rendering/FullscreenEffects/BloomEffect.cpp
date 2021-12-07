@@ -69,10 +69,6 @@ namespace Dynamo
 		myHalfSizeTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT2);
 		aFullscreenRenderer.Render(myBloomShader);
 
-		//myIntermediateTexture.SetAsActiveTarget();
-		//myLuminanceTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
-		//aFullscreenRenderer.RenderCopy();
-		//
 		aFinalTarget.SetAsActiveTarget(FS_TEXTURE_SLOT1);
 		myIntermediateTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		aFullscreenRenderer.RenderCopy();
