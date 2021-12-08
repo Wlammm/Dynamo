@@ -169,7 +169,7 @@ namespace Dynamo
 		myEmissiveShader->Bind();
 		myEmissiveBufferData.myIntensity = Main::GetScene()->GetEmissiveIntensity();
 		RenderUtils::MapBuffer<EmissiveBuffer>(myEmissiveBufferData, myEmissiveBuffer);
-		Main::GetContext()->PSSetConstantBuffers(CUSTOM_BUFFER_SLOT, 1, &myEmissiveBuffer);
+		Main::GetContext()->PSSetConstantBuffers(EMISSIVE_BUFFER_SLOT, 1, &myEmissiveBuffer);
 
 		Main::GetContext()->Draw(3, 0);
 	}

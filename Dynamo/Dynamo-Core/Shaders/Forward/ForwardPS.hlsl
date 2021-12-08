@@ -115,7 +115,7 @@ PixelOutput main(VertexOutput input)
             toEye.xyz, input.myWorldPosition.xyz);
     }
     
-    float3 emissive = albedo * emissiveData;
+    float3 emissive = albedo * emissiveData * myEmissiveBuffer.myIntensity;
     float3 radiance = ambience + dirLight + pointLights + spotLights + emissive;
     
     PixelOutput output;

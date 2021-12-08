@@ -37,6 +37,7 @@ namespace Dynamo
 		void MapAmbLightBuffer(const std::vector<AmbientLight*>& someAmbLights);
 		void MapPointLightBuffer(const std::vector<PointLight*>& somePointLights);
 		void MapSpotLightBuffer(const std::vector<SpotLight*>& someSpotLights);
+		void MapEmissiveLightBuffer();
 
 	private:
 		Material* myDefaultMaterial = nullptr;

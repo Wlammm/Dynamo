@@ -96,6 +96,15 @@ cbuffer AmbientLightBuffer : register(b5)
     } myAmbientLightBuffer;
 }
 
+cbuffer EmissiveBuffer : register(b9)
+{
+    struct EmissiveBuffer
+    {
+        float myIntensity;
+        float3 padding;
+    } myEmissiveBuffer;
+}
+
 struct FullscreenVertexToPixel
 {
     float4 myPosition : SV_POSITION;

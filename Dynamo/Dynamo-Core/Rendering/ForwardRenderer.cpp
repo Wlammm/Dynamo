@@ -159,7 +159,7 @@ namespace Dynamo
 	{
 		if (!someDirLights.empty())
 		{
-			myDirLightBufferData.myToLight = { someDirLights.front()->GetToLight(), 0.0f };
+			myDirLightBufferData.myToLight = { someDirLights.front()->GetDirection() * -1.0f, 0.0f};
 			myDirLightBufferData.myColor = someDirLights.front()->GetColor();
 			myDirLightBufferData.myIntensity = someDirLights.front()->GetIntensity();
 		}
@@ -193,7 +193,7 @@ namespace Dynamo
 			}
 
 			myPointLightBufferData.myPointLights[i].myColor = somePointLights[i]->GetColor();
-			myPointLightBufferData.myPointLights[i].myIntensity = somePointLights[i]->GetIntensity();
+			myPointLightBufferData.myPointLights[i].myIntensity = somePointLights[i]->GetIntensity() * globalPointLightIntensityMultiplier;
 			myPointLightBufferData.myPointLights[i].myRange = somePointLights[i]->GetRange();
 			myPointLightBufferData.myPointLights[i].myPosition = { somePointLights[i]->GetPosition(), 1.0f };
 		}
@@ -219,7 +219,7 @@ namespace Dynamo
 			mySpotLightBufferData.myLights[i].myColor = someSpotLights[i]->GetColor();
 			mySpotLightBufferData.myLights[i].myDirection = { someSpotLights[i]->GetDirection(), 0.0f };
 			mySpotLightBufferData.myLights[i].myPosition = { someSpotLights[i]->GetTransform().GetPosition(), 1.0f };
-			mySpotLightBufferData.myLights[i].myIntensity = someSpotLights[i]->GetIntensity();
+			mySpotLightBufferData.myLights[i].myIntensity = someSpotLights[i]->GetIntensity() * globalSpotLightIntensityMultiplier;
 			mySpotLightBufferData.myLights[i].myRange = someSpotLights[i]->GetRange();
 			mySpotLightBufferData.myLights[i].myInnerAngle = someSpotLights[i]->GetInnerAngle() * Deg2Rad;
 			mySpotLightBufferData.myLights[i].myOuterAngle = someSpotLights[i]->GetOuterAngle() * Deg2Rad;
@@ -230,5 +230,9 @@ namespace Dynamo
 		RenderUtils::MapBuffer<ForwardSpotLightBuffer>(mySpotLightBufferData, mySpotLightBuffer);
 
 		Main::GetContext()->PSSetConstantBuffers(SPOT_LIGHT_BUFFER_SLOT, 1, &mySpotLightBuffer);
+	}
+
+	void ForwardRenderer::MapEmissiveLightBuffer()
+	{
 	}
 }

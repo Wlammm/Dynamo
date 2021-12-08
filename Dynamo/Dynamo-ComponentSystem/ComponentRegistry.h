@@ -21,7 +21,8 @@ public:
 		}
 		T* ptr = new T;
 		myComponentTypes.push_back(ptr);
-		myComponents[typeid(T).name()] = ptr;
+		std::string typeID = typeid(T).name();
+		myComponents[typeID] = ptr;
 	}
 
 	static void RegisterToAdmin(ComponentAdmin& anAdmin);
