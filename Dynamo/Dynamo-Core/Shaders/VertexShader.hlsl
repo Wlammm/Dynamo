@@ -4,6 +4,8 @@ VertexOutput main(VertexInput input)
 {
     VertexOutput returnValue;
 
+    float4x4 view = myFrameBuffer.myToProjection;
+
     float4 vertexObjectPos = input.myPosition.xyzw;
     float4 vertexWorldPos = mul(myObjectBuffer.myToWorld, vertexObjectPos);
     float4 vertexViewPos = mul(myFrameBuffer.myToCamera, vertexWorldPos);

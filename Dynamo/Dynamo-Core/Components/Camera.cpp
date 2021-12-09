@@ -154,14 +154,14 @@ namespace Dynamo
 
 		if (Input::IsKeyDown(MouseButton::ScrollForward))
 		{
-			myShiftMultiplier += myScrollIncrease;
+			myMovementSpeed += myScrollIncrease;
 		}
 
 		if (Input::IsKeyDown(MouseButton::ScrollBackwards))
 		{
-			myShiftMultiplier -= myScrollIncrease;
-			if (myShiftMultiplier < 0)
-				myShiftMultiplier = 0;
+			myMovementSpeed -= myScrollIncrease;
+			if (myMovementSpeed < 0)
+				myMovementSpeed = 0;
 		}
 
 		if (Input::IsKeyPressed(KeyCode::W))
