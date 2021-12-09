@@ -43,7 +43,7 @@ namespace Dynamo
 		CU::DArray<GameObject*> myGameObjects;
 		std::unique_ptr<ComponentAdmin> myComponentAdmin;
 
-		float myEmissiveIntensity = 100;
+		float myEmissiveIntensity = 1000;
 		std::string mySavePath = "";
 	};
 }

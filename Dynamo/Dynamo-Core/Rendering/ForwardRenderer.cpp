@@ -41,6 +41,7 @@ namespace Dynamo
 		MapFrameBuffer(camera);
 		MapDirLightBuffer(someDirLights.AsVector());
 		MapAmbLightBuffer(someAmbLights.AsVector());
+		MapEmissiveBuffer();
 		
 		for (MeshRenderer* model : someModels.AsVector())
 		{
@@ -85,6 +86,7 @@ namespace Dynamo
 		RenderUtils::CreateBuffer<AmbientLightBuffer>(myAmbLightBuffer);
 		RenderUtils::CreateBuffer<ForwardPointLightBuffer>(myPointLightBuffer);
 		RenderUtils::CreateBuffer<ForwardSpotLightBuffer>(mySpotLightBuffer);
+		RenderUtils::CreateBuffer<EmissiveBuffer>(myEmissiveBuffer);
 	}
 
 	void ForwardRenderer::CreateRSStates()
@@ -232,7 +234,10 @@ namespace Dynamo
 		Main::GetContext()->PSSetConstantBuffers(SPOT_LIGHT_BUFFER_SLOT, 1, &mySpotLightBuffer);
 	}
 
-	void ForwardRenderer::MapEmissiveLightBuffer()
+	void ForwardRenderer::MapEmissiveBuffer()
 	{
+		myEmissiveBufferData.myIntensity = Main::GetScene()->GetEmissiveIntensity();
+		RenderUtils::MapBuffer<EmissiveBuffer>(myEmissiveBufferData, myEmissiveBuffer);
+		Main::GetContext()->PSSetConstantBuffers(EMISSIVE_BUFFER_SLOT, 1, &myEmissiveBuffer);
 	}
 }

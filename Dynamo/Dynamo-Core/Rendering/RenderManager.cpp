@@ -8,6 +8,11 @@
 #include "FullscreenEffects/BloomEffect.h"
 #include "FullscreenEffects/FXAAEffect.h"
 
+/*
+* PBR Demo
+* https://github.com/jjuiddong/Introduction-to-3D-Game-Programming-With-DirectX11/blob/master/Chapter%207%20Lighting/Lighting/FX/Lighting.fx
+*/
+
 namespace Dynamo
 {
 	RenderManager::RenderManager()
@@ -257,6 +262,7 @@ namespace Dynamo
 
 	void RenderManager::GammaCorrection()
 	{
+		RenderUtils::SetBlendState(RenderUtils::BLENDSTATE_DISABLE);
 		myIntermediateTexture.SetAsActiveTarget();
 		myRenderTexture.SetAsResourceOnSlot(FS_TEXTURE_SLOT1);
 		myFullscreenRenderer.Render(myGammaCorrectionShader);

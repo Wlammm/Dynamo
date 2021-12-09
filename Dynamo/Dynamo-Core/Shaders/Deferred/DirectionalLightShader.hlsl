@@ -15,7 +15,7 @@ PixelOutput main(FullscreenVertexToPixel input)
     float4 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV);
     
     float metalness = material.r;
-    float roughness = PerceptualRoughnessFromRoughness(material.g);
+    float roughness = material.g;
     
     float ao = myAmbientOcclusionTexture.Sample(myDefaultSampler, input.myUV).r;
     float depth = myDepthTexture.Sample(myDefaultSampler, input.myUV).r;

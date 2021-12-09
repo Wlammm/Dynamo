@@ -2,47 +2,17 @@
 #include "../PBRFunctions.hlsli"
 #include "../SharedDefines.hpp"
 
-float3 GetAlbedo(VertexOutput input)
-{
-    float3 albedo = myAlbedoTexture.Sample(myDefaultSampler, input.myUV0).rgb;
-    return GammaToLinear(albedo);
-}
-
 float3 GetNormal(VertexOutput input)
 {
-    float3 normal = float3(myNormalTexture.Sample(myDefaultSampler, input.myUV0).wy, 0);
-    normal = 2.0f * normal - 1.0f;
-    normal.z = sqrt(1.0f - saturate(normal.x * normal.x + normal.y * normal.y));
-
-    float3x3 TBN = float3x3(
-        normalize(input.myTangent.xyz),
-        normalize(input.myBinormal.xyz),
-        normalize(input.myNormal.xyz));
+    float3 normal = myNormalTexture.Sample(myWrapSampler, input.myUV0).wyz;
     
-    normal = mul(normal.xyz, TBN);
+    normal = 2.0f * normal - 1.0f;
+    normal.z = sqrt(1 - saturate(normal.x * normal.x + normal.y * normal.y));
     normal = normalize(normal);
     
-    return normal;
-}
-
-float GetAO(VertexOutput input)
-{
-    return myNormalTexture.Sample(myDefaultSampler, input.myUV0).b;
-}
-
-float GetMetalness(VertexOutput input)
-{
-    return myMaterialTexture.Sample(myDefaultSampler, input.myUV0).r;
-}
-
-float GetPRoughness(VertexOutput input)
-{
-    return myMaterialTexture.Sample(myDefaultSampler, input.myUV0).g;
-}
-
-float GetEmissive(VertexOutput input)
-{
-    return myMaterialTexture.Sample(myDefaultSampler, input.myUV0).b;
+    float3x3 TBN = float3x3(normalize(input.myTangent.xyz), normalize(input.myBinormal.xyz), normalize(input.myNormal.xyz));
+    TBN = transpose(TBN);
+    return normalize(mul(TBN, normal));
 }
 
 cbuffer PointLightBuffer : register(b6)
@@ -87,12 +57,13 @@ cbuffer SpotLightBuffer : register(b7)
 PixelOutput main(VertexOutput input)
 {
     float3 toEye = normalize(myFrameBuffer.myCameraPosition.xyz - input.myWorldPosition.xyz);
-    float3 albedo = GetAlbedo(input);
+    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myDefaultSampler, input.myUV0).rgb);
     float3 normal = GetNormal(input);
-    float ao = GetAO(input);
-    float metalness = GetMetalness(input);
-    float pRoughness = GetPRoughness(input);
-    float emissiveData = GetEmissive(input);
+    float3 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV0);
+    float ao = myNormalTexture.Sample(myDefaultSampler, input.myUV0).b;
+    float metalness = myMaterialTexture.Sample(myDefaultSampler, input.myUV0).r;
+    float pRoughness = myMaterialTexture.Sample(myDefaultSampler, input.myUV0).g;
+    float emissiveData = myMaterialTexture.Sample(myDefaultSampler, input.myUV0).b;
     
     float3 specColor = lerp((float3) 0.04f, albedo, metalness);
     float3 difColor = lerp((float3) 0.0f, albedo, 1.0f - metalness);

@@ -58,7 +58,8 @@ namespace Dynamo
 
 		myContext->OMSetRenderTargets(1, &myBackBuffer, myDepthBuffer);
 
-		myContext->ClearRenderTargetView(myBackBuffer, &Main::GetClearColor().r);
+		const float clearColor[4] = { 0, 0, 0, 0 };
+		myContext->ClearRenderTargetView(myBackBuffer, clearColor);
 		myContext->ClearDepthStencilView(myDepthBuffer, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	}
 
