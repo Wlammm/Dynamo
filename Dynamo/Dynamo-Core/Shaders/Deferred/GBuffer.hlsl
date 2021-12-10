@@ -26,8 +26,8 @@ GBufferOutput main(VertexOutput input)
     
     float3x3 TBN = float3x3(normalize(input.myTangent.xyz), normalize(input.myBinormal.xyz), normalize(input.myNormal.xyz));
     TBN = transpose(TBN);
-    
     float3 pixelNormal = normalize(mul(TBN, normal));
+    
     float3 material = myMaterialTexture.Sample(myWrapSampler, scaledUV).rgb;
     
     float4 outputPos = input.myWorldPosition;

@@ -60,10 +60,10 @@ namespace Dynamo
         FbxScene* scene = FbxScene::Create(manager, "Scene");
 
         FbxAxisSystem axisSystem(FbxAxisSystem::eDirectX);
-        axisSystem.DeepConvertScene(scene);
 
         if (importer->Import(scene))
         {
+            axisSystem.DeepConvertScene(scene);
             FbxGeometryConverter converter(manager);
             converter.Triangulate(scene, true);
 

@@ -139,7 +139,8 @@ namespace Dynamo
 
 		RenderDebug();
 
-		RenderDeferredPass();
+		if(myRenderDeferred)
+			RenderDeferredPass();
 		RenderToBackBuffer();
 	}
 

@@ -20,7 +20,7 @@ PixelOutput main(FullscreenVertexToPixel input)
     
     float ao = myAmbientOcclusionTexture.Sample(myDefaultSampler, input.myUV).r;
     
-    float toEye = normalize(myFrameBuffer.myCameraPosition.xyz - worldPosition.xyz);
+    float3 toEye = normalize(myFrameBuffer.myCameraPosition.xyz - worldPosition.xyz);
 
     float3 specColor = lerp((float3) 0.04f, albedo, metalness);
     float3 diffColor = lerp((float3) 0.00f, albedo, 1 - metalness);

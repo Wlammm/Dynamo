@@ -59,6 +59,12 @@ PixelOutput main(VertexOutput input)
     float3 toEye = normalize(myFrameBuffer.myCameraPosition.xyz - input.myWorldPosition.xyz);
     float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myDefaultSampler, input.myUV0).rgb);
     float3 normal = GetNormal(input);
+
+   //PixelOutput o;
+   //o.myColor.rgb = normal;
+   //o.myColor.a = 1;
+   //return o;
+
     float3 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV0);
     float ao = myNormalTexture.Sample(myDefaultSampler, input.myUV0).b;
     float metalness = myMaterialTexture.Sample(myDefaultSampler, input.myUV0).r;
