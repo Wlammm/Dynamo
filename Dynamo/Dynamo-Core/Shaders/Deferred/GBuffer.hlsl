@@ -14,10 +14,9 @@ struct GBufferOutput
 
 GBufferOutput main(VertexOutput input)
 {
-    float2 scaledUV = input.myUV0 * 1;
-    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myWrapSampler, scaledUV).rgb);
+    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myWrapSampler, input.myUV0).rgb);
     
-    float3 normal = myNormalTexture.Sample(myWrapSampler, scaledUV).wyz;
+    float3 normal = myNormalTexture.Sample(myWrapSampler, input.myUV0).wyz;
     float ao = normal.b;
     
     normal = 2.0f * normal - 1.0f;
@@ -28,7 +27,7 @@ GBufferOutput main(VertexOutput input)
     TBN = transpose(TBN);
     float3 pixelNormal = normalize(mul(TBN, normal));
     
-    float3 material = myMaterialTexture.Sample(myWrapSampler, scaledUV).rgb;
+    float3 material = myMaterialTexture.Sample(myWrapSampler, input.myUV0).rgb;
     
     float4 outputPos = input.myWorldPosition;
     

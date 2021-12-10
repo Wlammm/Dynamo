@@ -159,6 +159,7 @@ namespace Dynamo
 
 	void ForwardRenderer::MapDirLightBuffer(const std::vector<DirectionalLight*>& someDirLights)
 	{
+		myDirLightBufferData.myIntensity = 0;
 		if (!someDirLights.empty())
 		{
 			myDirLightBufferData.myToLight = { someDirLights.front()->GetDirection() * -1.0f, 0.0f};
@@ -172,6 +173,7 @@ namespace Dynamo
 	
 	void ForwardRenderer::MapAmbLightBuffer(const std::vector<AmbientLight*>& someAmbLights)
 	{
+		myAmbLightBufferData.myIntensity = 0;
 		if (!someAmbLights.empty())
 		{
 			myAmbLightBufferData.myIntensity = someAmbLights.front()->GetIntensity();

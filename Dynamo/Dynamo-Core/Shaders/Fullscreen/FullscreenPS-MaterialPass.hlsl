@@ -71,7 +71,7 @@ PixelOutput main(VertexToPixel input)
     if (myPass == 6)
     {
         float val = myFullscreenTexture2.Sample(myDefaultSampler, input.myUV).b;
-        output.myColor.rgb = (val, val, val);
+        output.myColor.rgb = float3(val, val, val);
         output.myColor.a = 1.0f;
         return output;
     }

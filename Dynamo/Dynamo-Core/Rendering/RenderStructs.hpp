@@ -32,90 +32,90 @@ namespace Dynamo
 {
 	struct FrameBuffer
 	{
-		Mat4f myToCamera;
-		Mat4f myToProjection;
-		Vec4f myCameraPosition;
+		Mat4f myToCamera{};
+		Mat4f myToProjection{};
+		Vec4f myCameraPosition{};
 	};
 
 	struct ObjectBuffer
 	{
-		Mat4f myToWorld;
-		Color myColor;
-		Vec2f myUVScale;
+		Mat4f myToWorld{};
+		Color myColor{};
+		Vec2f myUVScale{};
 
-		Vec2f padding;
+		Vec2f padding{};
 	};
 
 	struct DirectionalLightBuffer
 	{
-		Vec4f myToLight;
-		Color myColor;
-		float myIntensity;
+		Vec4f myToLight{};
+		Color myColor{};
+		float myIntensity = 0;
 
-		Vec3f padding;
+		Vec3f padding{};
 	};
 
 	// Use custom buffer slot.
 	struct EmissiveBuffer
 	{
-		float myIntensity;
+		float myIntensity = 0;
 
-		Vec3f padding;
+		Vec3f padding{};
 	};
 
 	struct AmbientLightBuffer
 	{
-		float myIntensity;
+		float myIntensity = 0;
 
-		Vec3f padding;
+		Vec3f padding{};
 	};
 
 	struct ForwardPointLightBuffer
 	{
 		struct Buffer
 		{
-			Vec4f myPosition;
-			Color myColor;
-			float myIntensity;
-			float myRange;
+			Vec4f myPosition{};
+			Color myColor{};
+			float myIntensity = 0;
+			float myRange = 0;
 
-			Vec2f padding;
+			Vec2f padding{};
 		};
 		std::array<Buffer, FORWARD_POINT_LIGHT_COUNT> myPointLights;
 
-		uint myNumPointLights;
-		Vec3ui padding;
+		uint myNumPointLights = 0;
+		Vec3ui padding{};
 	};
 
 	struct ForwardSpotLightBuffer
 	{
 		struct Buffer
 		{
-			Vec4f myPosition;
-			Vec4f myDirection;
-			Color myColor;
+			Vec4f myPosition{};
+			Vec4f myDirection{};
+			Color myColor{};
 
-			float myIntensity;
-			float myRange;
-			float myInnerAngle;
-			float myOuterAngle;
+			float myIntensity = 0;
+			float myRange = 0;
+			float myInnerAngle = 0;
+			float myOuterAngle = 0;
 		};
 
 		std::array<Buffer, FORWARD_SPOT_LIGHT_COUNT> myLights;
 
-		uint myNumSpotLights;
-		Vec3ui padding;
+		uint myNumSpotLights = 0;
+		Vec3ui padding{};
 	};
 
 	struct DeferredPointLightBuffer
 	{
 		struct Buffer
 		{
-			Vec4f myPosition;
-			Color myColor;
-			float myIntensity;
-			float myRange;
-			Vec2f padding;
+			Vec4f myPosition{};
+			Color myColor{};
+			float myIntensity = 0;
+			float myRange = 0;
+			Vec2f padding{};
 		};
 		std::array<Buffer, DEFERRED_POINT_LIGHT_COUNT> myLights;
 
@@ -127,17 +127,17 @@ namespace Dynamo
 	{
 		struct Buffer
 		{
-			Vec4f myPosition;
-			Vec4f myDirection;
-			Color myColor;
-			float myIntensity;
-			float myRange;
-			float myInnerAngle;
-			float myOuterAngle;
+			Vec4f myPosition{};
+			Vec4f myDirection{};
+			Color myColor{};
+			float myIntensity = 0;
+			float myRange = 0;
+			float myInnerAngle = 0;
+			float myOuterAngle = 0;
 		};
 		std::array<Buffer, DEFERRED_SPOT_LIGHT_COUNT> myLights;
 
-		uint myLightCount;
-		Vec3ui padding;
+		uint myLightCount = 0;
+		Vec3ui padding{};
 	};
 }

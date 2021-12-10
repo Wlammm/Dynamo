@@ -26,7 +26,7 @@ PixelOutput main(FullscreenVertexToPixel input)
     float3 diffColor = lerp((float3) 0.00f, albedo, 1 - metalness);
     
     float3 ambience = EvaluateAmbience(myCubeMap, normal, vertexNormal, toEye, roughness, ao, diffColor, specColor);
-    
+
     PixelOutput output;
     output.myColor.rgb = ambience * myAmbientLightBuffer.myIntensity;
     output.myColor.a = 1.0f;
