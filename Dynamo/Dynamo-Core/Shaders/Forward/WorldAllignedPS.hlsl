@@ -57,14 +57,17 @@ cbuffer SpotLightBuffer : register(b7)
 PixelOutput main(VertexOutput input)
 {
     float3 toEye = normalize(myFrameBuffer.myCameraPosition.xyz - input.myWorldPosition.xyz);
-    float val = input.myWorldPosition.x + input.myWorldPosition.y + input.myWorldPosition.z;
-    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myWrapSampler, input.myUV0 * val * 0.0000001f).rgb);
+    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myWrapSampler, input.myUV0 + input.myPosition.xz).rgb);
+    PixelOutput outp;
+    outp.myColor.rgb = albedo * 10;
+    outp.myColor.a = 1.0f;
+    return outp;
     float3 normal = GetNormal(input);
-    
+
     float3 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV0);
     material.r = lerp(myMaterialBuffer.myMetalnessConstant, material.r, myMaterialBuffer.myMetalnessInterp);
     material.g = lerp(myMaterialBuffer.myRoughnessConstant, material.g, myMaterialBuffer.myRoughnessInterp);
-    
+
     float ao = myNormalTexture.Sample(myDefaultSampler, input.myUV0).b;
     float metalness = material.r;
     float pRoughness = material.g;
@@ -75,7 +78,7 @@ PixelOutput main(VertexOutput input)
     
     float3 ambience = EvaluateAmbience(myCubeMap, normal, input.myNormal.xyz, toEye, pRoughness, ao, difColor, specColor) * myAmbientLightBuffer.myIntensity;
     float3 dirLight = EvaluateDirectionalLight(difColor, specColor, normal, pRoughness, myDirectionalLightBuffer.myColor.rgb, myDirectionalLightBuffer.myToLight.xyz, toEye.xyz) * myDirectionalLightBuffer.myIntensity;
-    
+
     float3 pointLights = 0;
     for (uint i = 0; i < myPointLightBuffer.myLightCount; ++i)
     {
@@ -95,7 +98,7 @@ PixelOutput main(VertexOutput input)
     float3 radiance = ambience + dirLight + pointLights + spotLights + emissive;
     
     PixelOutput output;
-    output.myColor.rgb = radiance;
+    output.myColor.rgb = LinearToGamma(radiance);
     output.myColor.a = 1.0f;
     return output;
 }

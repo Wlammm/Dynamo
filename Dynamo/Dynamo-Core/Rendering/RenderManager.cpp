@@ -119,6 +119,7 @@ namespace Dynamo
 
 	void RenderManager::Render()
 	{
+		SetSamplers();
 		ImGuiRender();
 
 		ClearTextures();
