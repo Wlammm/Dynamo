@@ -101,7 +101,8 @@ namespace Dynamo
             DXGI_FORMAT_R32G32B32A32_FLOAT,     // POSITION
             DXGI_FORMAT_R16G16B16A16_SNORM,     // VERTEXNORMAL
             DXGI_FORMAT_R8_UNORM,               // AMBIENTOCCLUSION
-            DXGI_FORMAT_R16_UNORM               // DEPTH,
+            DXGI_FORMAT_R16_UNORM,              // DEPTH,
+            DXGI_FORMAT_R8G8B8A8_UNORM          // NORMAL TEXTURE,
         };
 
         GBuffer returnBuffer = {};

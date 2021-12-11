@@ -1,3 +1,7 @@
 ﻿  Main.cpp
-  LINK : C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\..\Bin\Dynamo_ Debug.exe not found or not built by the last incremental link; performing full link
-  Dynamo.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Dynamo_ Debug.exe
+  Generating code
+  75 of 7662 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
+    6 functions were new in current compilation
+    53 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Dynamo.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Dynamo_ Release.exe

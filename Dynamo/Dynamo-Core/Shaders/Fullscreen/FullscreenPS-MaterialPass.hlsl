@@ -15,6 +15,7 @@
     4. Metalness
     5. Ao
     6. Emissive
+    7. NormalTexture
 
     // Den heliga bilden på Tga Standard.
     https://cdn.discordapp.com/attachments/789538022134644807/912792323233030164/unknown.png
@@ -76,6 +77,13 @@ PixelOutput main(VertexToPixel input)
         return output;
     }
 
-    output.myColor = 0;
+    if (myPass == 7)
+    {
+        output.myColor.rgb = myFullscreenTexture5.Sample(myDefaultSampler, input.myUV).rgb;
+        output.myColor.a = 1.0f;
+        return output;
+    }
+
+        output.myColor = 0;
     return output;
 }

@@ -110,7 +110,7 @@ namespace Dynamo
 		{
 			myRenderPass++;
 
-			if (myRenderPass > 6)
+			if (myRenderPass > 7)
 			{
 				myRenderPass = 0;
 			}
@@ -250,6 +250,7 @@ namespace Dynamo
 			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::MATERIAL, 1);
 			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::NORMAL, 2);
 			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::AMBIENTOCCLUSION, 3);
+			myGBuffer.SetAsResourceOnSlot(GBuffer::GBufferTexture::NORMALTEXTURE, 4);
 			myDeferredRenderer.DrawRenderPass(myRenderPass);
 		}
 	}

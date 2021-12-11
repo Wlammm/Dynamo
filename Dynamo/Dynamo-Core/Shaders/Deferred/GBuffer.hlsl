@@ -10,6 +10,7 @@ struct GBufferOutput
     float4 myVertexNormal : SV_TARGET4;
     float4 myAmbientOcclusion : SV_TARGET5;
     float myDepth : SV_TARGET6;
+    float4 myNormalTexture : SV_TARGET7;
 };
 
 GBufferOutput main(VertexOutput input)
@@ -43,5 +44,6 @@ GBufferOutput main(VertexOutput input)
     output.myVertexNormal = float4(input.myNormal.xyz, 1);
     output.myAmbientOcclusion = float4(ao, ao, ao, 1.0f);
     output.myDepth = 1.0f;
+    output.myNormalTexture = myNormalTexture.Sample(myWrapSampler, input.myUV0);
     return output;
 }

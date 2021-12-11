@@ -210,6 +210,10 @@ namespace Dynamo
 		case 6:
 			Console::Log("RenderPass: Emissive");
 			break;
+
+		case 7:
+			Console::Log("RenderPass: NormalTexture");
+			break;
 		}
 
 		myPassBufferData.myPass = aPass;

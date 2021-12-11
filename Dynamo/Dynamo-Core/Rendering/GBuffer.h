@@ -16,6 +16,7 @@ namespace Dynamo
 			VERTEXNORMAL,
 			AMBIENTOCCLUSION,
 			DEPTH,
+			NORMALTEXTURE,
 			COUNT
 		};
 
