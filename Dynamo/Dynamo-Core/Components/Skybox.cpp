@@ -18,11 +18,10 @@ namespace Dynamo
 
 	void Skybox::OnCreate()
 	{
-		GameObject* ob = Main::GetScene()->CreateGameObject();
-		mySphere = ob->AddComponent<MeshRenderer>();
-		mySphere->SetModel("Assets/Fbx/SkyboxSphere.fbx");
-		mySphere->AddMaterial(MaterialFactory::GetMaterial("Assets/MaterialS/Skybox.dynmaterial"));
-		myTransform = &ob->GetTransform();
+		mySphere = AddComponent<MeshRenderer>();
+		mySphere->SetModel("Assets/Fbx/Primitives/SkyboxSphere.fbx");
+		mySphere->SetMaterial(MaterialFactory::GetMaterial("Assets/Materials/Skybox.dynmaterial"));
+		myTransform = &GetGameObject()->GetTransform();
 	}
 
 	void Skybox::Update()
@@ -32,6 +31,12 @@ namespace Dynamo
 			return;
 
 		float farPlane = cam->GetFarPlane();
-		myTransform->SetScale(farPlane, farPlane, farPlane);
+		myTransform->SetScale(farPlane * 0.495f, farPlane * 0.495f, farPlane * 0.495f);
+		myTransform->SetPosition(cam->GetTransform()->GetPosition());
+	}
+
+	void Skybox::EditorUpdate()
+	{
+		Update();
 	}
 }

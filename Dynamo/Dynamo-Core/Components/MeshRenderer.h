@@ -29,6 +29,7 @@ namespace Dynamo
 		void SetModel(const std::string& aPath);
 		void SetModel(Model* aModel);
 
+		void SetMaterial(Material* aMaterial);
 		void AddMaterial(Material* aMaterial);
 
 		const std::vector<Mesh>& GetMeshes() const;

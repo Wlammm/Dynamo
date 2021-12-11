@@ -37,6 +37,11 @@ public:
 		GameObject* toLookFor = &myBase[aID];
 		assert(std::find(myActiveGameObjects.begin(), myActiveGameObjects.end(), toLookFor) != myActiveGameObjects.end() && "Trying to add component to non active gameobject.");
 
+		if (T* ptr = myComponentManager.GetComponent<T>(aID))
+		{
+			return ptr;
+		}
+
 		T* comp =  myComponentManager.AddComponent<T>(aID, std::forward<Args>(params)...);
 		comp->myGameObject = &myBase[aID];
 		comp->myIsActive = true;

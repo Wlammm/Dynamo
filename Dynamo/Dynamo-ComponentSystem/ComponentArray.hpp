@@ -59,7 +59,10 @@ public:
 
 	T* GetData(GameObjectID anEntity)
 	{
-		assert(myEntityToIndexMap.find(anEntity) != myEntityToIndexMap.end() && "Component does not exist on gameobject.");
+		if (myEntityToIndexMap.find(anEntity) == myEntityToIndexMap.end())
+		{
+			return nullptr;
+		}
 
 		return &myComponentArray[myEntityToIndexMap[anEntity]];
 	}

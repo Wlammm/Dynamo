@@ -14,6 +14,7 @@ namespace Dynamo
 		void OnCreate() override;
 
 		void Update() override;
+		void EditorUpdate() override;
 
 	private:
 		MeshRenderer* mySphere = nullptr;

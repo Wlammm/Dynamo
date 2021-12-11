@@ -115,6 +115,12 @@ namespace Dynamo
 		isInitialized = true;
 	}
 
+	void MeshRenderer::SetMaterial(Material* aMaterial)
+	{
+		myMaterials.clear();
+		myMaterials.push_back(aMaterial);
+	}
+
 	void MeshRenderer::AddMaterial(Material* aMaterial)
 	{
 		myMaterials.push_back(aMaterial);

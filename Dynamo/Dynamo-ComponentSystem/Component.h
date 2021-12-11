@@ -32,7 +32,7 @@ protected:
 	template<typename T, typename... Args>
 	T* AddComponent(Args&&... params)
 	{
-		return myAdmin->AddComponent<T>(myGameObject->GetGameObjectID(), params);
+		return myAdmin->AddComponent<T>(myGameObject->GetGameObjectID(), std::forward<Args>(params)...);
 	}
 
 	template<typename T>
