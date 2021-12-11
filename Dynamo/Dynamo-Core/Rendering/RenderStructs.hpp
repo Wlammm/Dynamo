@@ -12,6 +12,7 @@
 #define SPOT_LIGHT_BUFFER_SLOT 7
 #define CUSTOM_BUFFER_SLOT 8
 #define EMISSIVE_BUFFER_SLOT 9
+#define MATERIAL_BUFFER_SLOT 10
 
 #define CUBEMAP_TEXTURE_SLOT 0
 #define ALBEDO_TEXTURE_SLOT 1
@@ -139,5 +140,13 @@ namespace Dynamo
 
 		uint myLightCount = 0;
 		Vec3ui padding{};
+	};
+
+	struct MaterialBuffer
+	{
+		float myRoughnessConstant = 0;
+		float myRoughnessInterp = 1;
+		float myMetalnessConstant = 0;
+		float myMetalnessInterp = 1;
 	};
 }

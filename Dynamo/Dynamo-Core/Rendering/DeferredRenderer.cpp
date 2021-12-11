@@ -59,11 +59,20 @@ namespace Dynamo
 			Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model->GetMaterial()->myAlbedo);
 
 			myMeshVertexShader->Bind();
+			myMaterialBufferData.myRoughnessInterp = 1;
+			myMaterialBufferData.myMetalnessInterp = 1;
 			if (Material* mat = model->GetMaterial())
 			{
 				if (mat->myVertexShader)
 					mat->myVertexShader->Bind();
+
+				myMaterialBufferData.myRoughnessConstant = mat->myRoughnessConstant;
+				myMaterialBufferData.myRoughnessInterp = mat->myRoughnessInterpolation;
+				myMaterialBufferData.myMetalnessConstant = mat->myMetalnessConstant;
+				myMaterialBufferData.myMetalnessInterp = mat->myMetalnessInterpolation;
 			}
+			RenderUtils::MapBuffer<MaterialBuffer>(myMaterialBufferData, myMaterialBuffer);
+			Main::GetContext()->PSSetConstantBuffers(MATERIAL_BUFFER_SLOT, 1, &myMaterialBuffer);
 
 			for (const Mesh& mesh : model->GetMeshes())
 			{
@@ -220,6 +229,7 @@ namespace Dynamo
 		RenderUtils::CreateBuffer<DeferredPointLightBuffer>(myPointLightBuffer);
 		RenderUtils::CreateBuffer<DeferredSpotLightBuffer>(mySpotLightBuffer);
 		RenderUtils::CreateBuffer<EmissiveBuffer>(myEmissiveBuffer);
+		RenderUtils::CreateBuffer<MaterialBuffer>(myMaterialBuffer);
 	}
 
 	void DeferredRenderer::CreateShaders()

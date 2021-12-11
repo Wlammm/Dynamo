@@ -48,6 +48,8 @@ namespace Dynamo
 			MapPointLightBuffer(GetSortedPointLights(somePointLights.AsVector(), model));
 			MapSpotLightBuffer(GetSortedSpotLights(someSpotLights.AsVector(), model));
 
+			MapMaterialBuffer(model->GetMaterial());
+
 			for (auto& mesh : model->GetMeshes())
 			{
 				MapObjectBuffer(model);
@@ -87,6 +89,7 @@ namespace Dynamo
 		RenderUtils::CreateBuffer<ForwardPointLightBuffer>(myPointLightBuffer);
 		RenderUtils::CreateBuffer<ForwardSpotLightBuffer>(mySpotLightBuffer);
 		RenderUtils::CreateBuffer<EmissiveBuffer>(myEmissiveBuffer);
+		RenderUtils::CreateBuffer<MaterialBuffer>(myMaterialBuffer);
 	}
 
 	void ForwardRenderer::CreateRSStates()
@@ -241,5 +244,22 @@ namespace Dynamo
 		myEmissiveBufferData.myIntensity = Main::GetScene()->GetEmissiveIntensity();
 		RenderUtils::MapBuffer<EmissiveBuffer>(myEmissiveBufferData, myEmissiveBuffer);
 		Main::GetContext()->PSSetConstantBuffers(EMISSIVE_BUFFER_SLOT, 1, &myEmissiveBuffer);
+	}
+
+	void ForwardRenderer::MapMaterialBuffer(Material* aMaterial)
+	{
+		myMaterialBufferData.myMetalnessInterp = 1;
+		myMaterialBufferData.myRoughnessInterp = 1;
+
+		if (aMaterial)
+		{
+			myMaterialBufferData.myRoughnessConstant = aMaterial->myRoughnessConstant;
+			myMaterialBufferData.myRoughnessInterp = aMaterial->myRoughnessInterpolation;
+			myMaterialBufferData.myMetalnessConstant = aMaterial->myMetalnessConstant;
+			myMaterialBufferData.myMetalnessInterp = aMaterial->myMetalnessInterpolation;
+		}
+
+		RenderUtils::MapBuffer<MaterialBuffer>(myMaterialBufferData, myMaterialBuffer);
+		Main::GetContext()->PSSetConstantBuffers(MATERIAL_BUFFER_SLOT, 1, &myMaterialBuffer);
 	}
 }

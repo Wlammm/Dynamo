@@ -15,5 +15,11 @@ namespace Dynamo
 		Shader* myVertexShader = nullptr;
 
 		std::array<ID3D11ShaderResourceView*, 4> myCustomTextures = { nullptr, nullptr, nullptr, nullptr };
+
+		float myRoughnessConstant = 0;
+		float myRoughnessInterpolation = 1;
+
+		float myMetalnessConstant = 0;
+		float myMetalnessInterpolation = 1;
 	};
 }

@@ -105,6 +105,17 @@ cbuffer EmissiveBuffer : register(b9)
     } myEmissiveBuffer;
 }
 
+cbuffer MaterialBuffer : register(b10)
+{
+    struct MaterialBuffer
+    {
+        float myRoughnessConstant;
+        float myRoughnessInterp;
+        float myMetalnessConstant;
+        float myMetalnessInterp;
+    } myMaterialBuffer;
+}
+
 struct FullscreenVertexToPixel
 {
     float4 myPosition : SV_POSITION;

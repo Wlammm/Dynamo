@@ -38,6 +38,7 @@ namespace Dynamo
 		void MapPointLightBuffer(const std::vector<PointLight*>& somePointLights);
 		void MapSpotLightBuffer(const std::vector<SpotLight*>& someSpotLights);
 		void MapEmissiveBuffer();
+		void MapMaterialBuffer(Material* aMaterial);
 
 	private:
 		Material* myDefaultMaterial = nullptr;
@@ -64,6 +65,9 @@ namespace Dynamo
 
 		EmissiveBuffer myEmissiveBufferData;
 		ID3D11Buffer* myEmissiveBuffer = nullptr;
+
+		MaterialBuffer myMaterialBufferData;
+		ID3D11Buffer* myMaterialBuffer = nullptr;
 
 		ID3D11RasterizerState* myRSState;
 	};

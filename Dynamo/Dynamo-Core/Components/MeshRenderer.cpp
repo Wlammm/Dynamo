@@ -3,6 +3,7 @@
 #include "Factories/ModelFactory.h"
 #include "Rendering/Model.h"
 #include "Rendering/RenderManager.h"
+#include "Rendering/Material.h"
 
 namespace Dynamo
 {
@@ -24,6 +25,35 @@ namespace Dynamo
 		ImGui::Text("Color");
 		ImGui::SameLine(0, 40);
 		ImGui::ColorEdit3("##meshrenderercolor", &myColor.r);
+
+		ImGui::Text("Materials:");
+		for (int i = 0; i < myMaterials.size(); ++i)
+		{
+			std::string name = "Material " + i;
+			name += "##meshrenderer";
+			if(ImGui::CollapsingHeader(name.c_str(), ImGuiTreeNodeFlags_Framed))
+			{
+				ImGui::Text("Roughness constant");
+				ImGui::SameLine(0.0f, 75);
+				ImGui::DragFloat("##meshrendererroughnessconstnat" + i, &myMaterials[i]->myRoughnessConstant, 0.01f, 0, 1);
+
+				ImGui::Text("Roughness interpolation");
+				if(ImGui::IsItemHovered())
+					ImGui::SetTooltip("Interpolates between material texture and Roughness Constant \n A value of 1 = Material Texture\n A value of 0 = Roughness constant");
+				ImGui::SameLine(0.0f, 40);
+				ImGui::DragFloat("##meshrendererroughnessinterpolation" + i, &myMaterials[i]->myRoughnessInterpolation, 0.01f, 0, 1);
+
+				ImGui::Text("Metalness constant");
+				ImGui::SameLine(0.0f, 75);
+				ImGui::DragFloat("##meshrenderermetalnessconstnat" + i, &myMaterials[i]->myMetalnessConstant, 0.01f, 0, 1);
+
+				ImGui::Text("Metalness interpolation");
+				if(ImGui::IsItemHovered())
+					ImGui::SetTooltip("Interpolates between material texture and Metalness Constant \n A value of 1 = Material Texture\n A value of 0 = Metalness constant");
+				ImGui::SameLine(0.0f, 40);
+				ImGui::DragFloat("##meshrenderermetalnessinterpolation" + i, &myMaterials[i]->myMetalnessInterpolation, 0.01f, 0 ,1);
+			}
+		}
 	}
 
 	nlohmann::json MeshRenderer::Save()

@@ -29,6 +29,9 @@ GBufferOutput main(VertexOutput input)
     
     float3 material = myMaterialTexture.Sample(myWrapSampler, input.myUV0).rgb;
     
+    material.r = lerp(myMaterialBuffer.myMetalnessConstant, material.r, myMaterialBuffer.myMetalnessInterp);
+    material.g = lerp(myMaterialBuffer.myRoughnessConstant, material.g, myMaterialBuffer.myRoughnessInterp);
+
     float4 outputPos = input.myWorldPosition;
     
     GBufferOutput output;

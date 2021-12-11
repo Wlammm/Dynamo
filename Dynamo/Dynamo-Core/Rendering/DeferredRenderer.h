@@ -57,6 +57,9 @@ namespace Dynamo
 		EmissiveBuffer myEmissiveBufferData;
 		ID3D11Buffer* myEmissiveBuffer = nullptr;
 
+		MaterialBuffer myMaterialBufferData;
+		ID3D11Buffer* myMaterialBuffer = nullptr;
+
 		Shader* myFSVertexShader = nullptr;
 		Shader* myMeshVertexShader = nullptr;
 		Shader* myMaterialPassShader = nullptr;
