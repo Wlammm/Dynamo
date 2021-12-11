@@ -1,8 +1,4 @@
-﻿  Camera.cpp
-  Skybox.cpp
-  MainSingleton.cpp
-  DebugRenderer.cpp
-  DeferredRenderer.cpp
-  ForwardRenderer.cpp
-  Generating Code...
+﻿C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedPS.hlsl(64,12-77): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\WorldAllignedPS.cso
   Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Debug.lib

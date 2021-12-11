@@ -346,6 +346,7 @@
     <FxCompile Include="Shaders\Deferred\EmissiveShader.hlsl" />
     <FxCompile Include="Shaders\Fullscreen\FullscreenPS-HDR.hlsl" />
     <FxCompile Include="Shaders\Forward\SkyboxPS.hlsl" />
+    <FxCompile Include="Shaders\Forward\WorldAllignedPS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ShaderStructs.hlsli" />
