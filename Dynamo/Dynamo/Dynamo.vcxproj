@@ -131,6 +131,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Libs\;$(SolutionDir)External\FBXSDK\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Dynamo-Core_$(Configuration).lib;Dynamo-CommonUtilities_$(Configuration).lib;Dynamo-ComponentSystem_$(Configuration).lib;Dynamo-Game_$(Configuration).lib;Dynamo-ImGui_$(Configuration).lib;libfbxsdk_release.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/WHOLEARCHIVE:Dynamo-Core_$(Configuration) /WHOLEARCHIVE:Dynamo-Game_$(Configuration) %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

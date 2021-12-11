@@ -8,16 +8,21 @@ namespace Dynamo
 {
 	Skybox::Skybox()
 	{
-		GameObject* ob = Main::GetScene()->CreateGameObject();
-		mySphere = ob->AddComponent<MeshRenderer>();
-		mySphere->SetModel("Assets/Fbx/SkyboxSphere.fbx");
-		mySphere->AddMaterial(MaterialFactory::GetMaterial("Assets/MaterialS/Skybox.dynmaterial"));
-		myTransform = &ob->GetTransform();
+
 	}
 
 	Skybox::~Skybox()
 	{
 
+	}
+
+	void Skybox::OnCreate()
+	{
+		GameObject* ob = Main::GetScene()->CreateGameObject();
+		mySphere = ob->AddComponent<MeshRenderer>();
+		mySphere->SetModel("Assets/Fbx/SkyboxSphere.fbx");
+		mySphere->AddMaterial(MaterialFactory::GetMaterial("Assets/MaterialS/Skybox.dynmaterial"));
+		myTransform = &ob->GetTransform();
 	}
 
 	void Skybox::Update()

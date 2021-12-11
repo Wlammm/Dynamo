@@ -11,6 +11,8 @@ namespace Dynamo
 		Skybox();
 		~Skybox();
 
+		void OnCreate() override;
+
 		void Update() override;
 
 	private:
