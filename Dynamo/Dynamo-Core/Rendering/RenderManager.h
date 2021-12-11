@@ -49,6 +49,7 @@ namespace Dynamo
 
 		FullscreenRenderer& GetFullscreenRenderer();
 		DebugRenderer& GetDebugRenderer();
+		ForwardRenderer& GetForwardRenderer();
 
 		Texture& GetMainRenderTarget();
 

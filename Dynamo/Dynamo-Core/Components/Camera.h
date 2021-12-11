@@ -32,6 +32,9 @@ namespace Dynamo
 		void EnableFreeCamera();
 		void DisableFreeCamera();
 
+		float GetNearPlane() const;
+		float GetFarPlane() const;
+
 	private:
 		void CameraMovement();
 		void CameraRotation();

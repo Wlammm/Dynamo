@@ -154,6 +154,11 @@ namespace Dynamo
 		return myDebugRenderer;
 	}
 
+	ForwardRenderer& RenderManager::GetForwardRenderer()
+	{
+		return myForwardRenderer;
+	}
+
 	Texture& RenderManager::GetMainRenderTarget()
 	{
 		return myRenderTexture;

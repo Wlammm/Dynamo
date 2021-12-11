@@ -237,6 +237,10 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
+    <FxCompile Include="Shaders\Forward\SkyboxPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\Fullscreen\FullscreenPS-FXAA.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
@@ -251,6 +255,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <ClCompile Include="Scene\SceneSerializer.cpp" />
+    <ClCompile Include="Components\Skybox.cpp" />
     <ClCompile Include="Utils\ConsoleUtils.cpp" />
     <ClCompile Include="Utils\CrashHandler.cpp" />
     <ClCompile Include="Utils\Debug.cpp" />
@@ -304,6 +309,7 @@
     <ClInclude Include="Rendering\Texture.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneSerializer.h" />
+    <ClInclude Include="Components\Skybox.h" />
     <ClInclude Include="Shaders\SharedDefines.hpp" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="pch.h" />

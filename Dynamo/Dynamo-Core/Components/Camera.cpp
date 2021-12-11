@@ -145,6 +145,16 @@ namespace Dynamo
 		myEnableFreeMovement = false;
 	}
 
+	float Camera::GetNearPlane() const
+	{
+		return myNearPlane;
+	}
+
+	float Camera::GetFarPlane() const
+	{
+		return myFarPlane;
+	}
+
 	void Camera::CameraMovement()
 	{
 		if (!Input::IsKeyPressed(MouseButton::Right))
