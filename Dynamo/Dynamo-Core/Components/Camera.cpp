@@ -164,14 +164,14 @@ namespace Dynamo
 
 		if (Input::IsKeyDown(MouseButton::ScrollForward))
 		{
-			myMovementSpeed += myScrollIncrease;
+			myMovementMultiplier += myScrollIncrease;
 		}
 
 		if (Input::IsKeyDown(MouseButton::ScrollBackwards))
 		{
-			myMovementSpeed -= myScrollIncrease;
-			if (myMovementSpeed < 0)
-				myMovementSpeed = 0;
+			myMovementMultiplier -= myScrollIncrease;
+			if (myMovementMultiplier < 0)
+				myMovementMultiplier = 0;
 		}
 
 		if (Input::IsKeyPressed(KeyCode::W))
@@ -204,10 +204,10 @@ namespace Dynamo
 			moveDir -= myTransform->GetUp();
 		}
 
-		float multiplier = 1;
+		float multiplier = myMovementMultiplier;
 		if (Input::IsKeyPressed(KeyCode::LeftShift))
 		{
-			multiplier = myShiftMultiplier;
+			multiplier *= myShiftMultiplier;
 		}
 
 		myTransform->Move(moveDir * myMovementSpeed * multiplier * Time::GetUnscaledDeltaTime());
