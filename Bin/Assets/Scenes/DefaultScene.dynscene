@@ -160,7 +160,7 @@
                             "g": 1.0,
                             "r": 1.0
                         },
-                        "path": "Assets/Fbx/DefaultAssets/Fan.fbx"
+                        "path": "Assets/Fbx/Primitives/Sphere.fbx"
                     }
                 },
                 {
