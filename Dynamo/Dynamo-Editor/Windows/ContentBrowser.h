@@ -60,6 +60,8 @@ namespace Editor
 		void UpdateRenaming();
 		void UpdateShortcuts();
 
+		std::string GetPayloadType(const std::filesystem::path& aPath);
+
 		DXSRV* GetSRVFromPath(const std::filesystem::path& aPath);
 		bool IsExcludedPath(const std::filesystem::path& aPath);
 
@@ -81,5 +83,7 @@ namespace Editor
 		int myRenamingItem = -1;
 		bool myRenamingInProgress = false;
 		std::string myNewFileName = "";
+
+		std::string myDragDropPath = "";
 	};
 }

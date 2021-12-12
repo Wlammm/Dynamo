@@ -26,22 +26,16 @@ namespace Dynamo
 		void SetModel(const std::string& aPath);
 		void SetModel(Model* aModel);
 
-		void SetMaterial(Material* aMaterial);
-		void AddMaterial(Material* aMaterial);
-
 		const std::vector<Mesh>& GetMeshes() const;
 
 		void SetColor(const Color& aColor);
 		const Color& GetColor() const;
 
-		Material* GetMaterial() const;
-
 		void ApplyModelMaterial();
 
-		bool IsInitialized() const;
+		void SetMaterialOnAllMeshes(Material* aMat);
 
 	private:
-		bool isInitialized = false;
 		Model* myModel = nullptr;
 		Color myColor = { 1, 1, 1, 1 };
 

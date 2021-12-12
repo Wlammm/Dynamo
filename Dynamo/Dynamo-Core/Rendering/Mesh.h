@@ -11,8 +11,6 @@ namespace Dynamo
 		uint myStride = 0;
 		uint myOffset = 0;
 
-		uint myMaterialIndex = 0;
-
 		ID3D11Buffer* myVertexBuffer = nullptr;
 		ID3D11Buffer* myIndexBuffer = nullptr;
 

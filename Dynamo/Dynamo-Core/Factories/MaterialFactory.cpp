@@ -2,6 +2,7 @@
 #include "MaterialFactory.h"
 #include "Rendering/Material.h"
 #include "Utils/FileUtils.h"
+#include <filesystem>
 
 namespace Dynamo
 {
@@ -53,6 +54,8 @@ namespace Dynamo
 
         mat.myReceiveShadows = json["ReceiveShadows"].get<bool>();
         mat.mySurfaceType = json["SurfaceType"].get<SurfaceType>();
+
+        mat.myMaterialPath = aPath;
 
         myMaterials[aPath] = mat;
     }

@@ -9,51 +9,48 @@ namespace Dynamo
 {
 	void MeshRenderer::ExposeValues()
 	{
+		ImGui::Columns(2, 0, false);
+		ImGui::SetColumnWidth(0, 100);
+
 		ImGui::Text("Model");
-		ImGui::SameLine(0, 40);
-
-		std::string modelPath = "";
-		if (myModel)
-			modelPath = myModel->GetPath();
-
-		ImGui::Button(modelPath.c_str(), ImVec2(500, 20));
+		ImGui::NextColumn();
+		std::string buttonName = myModel->GetPath() + "##meshrenderermodel";
+		ImGui::Button(buttonName.c_str(), ImVec2(340, 20));
 		if (ImGui::IsItemHovered())
 		{
-			ImGui::SetTooltip(modelPath.c_str());
+			ImGui::SetTooltip(myModel->GetPath().c_str());
+		}
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".fbx"))
+			{
+				std::string filePath = *(std::string*)payload->Data;
+				SetModel(filePath);
+			}
+
+			ImGui::EndDragDropTarget();
 		}
 
-		ImGui::Text("Color");
-		ImGui::SameLine(0, 40);
-		ImGui::ColorEdit3("##meshrenderercolor", &myColor.r);
 
-		ImGui::Text("Materials:");
+		ImGui::NextColumn();
+		ImGui::Text("Color");
+		ImGui::NextColumn();
+		ImGui::ColorEdit3("##meshrenderercolor", &myColor.x);
+
+		ImGui::Separator();
+
 		for (int i = 0; i < myMaterials.size(); ++i)
 		{
-			std::string name = "Material " + i;
-			name += "##meshrenderer";
-			if(ImGui::CollapsingHeader(name.c_str(), ImGuiTreeNodeFlags_Framed))
-			{
-				ImGui::Text("Roughness constant");
-				ImGui::SameLine(0.0f, 75);
-				ImGui::DragFloat("##meshrendererroughnessconstnat" + i, &myMaterials[i]->myRoughnessConstant, 0.01f, 0, 1);
-
-				ImGui::Text("Roughness interpolation");
-				if(ImGui::IsItemHovered())
-					ImGui::SetTooltip("Interpolates between material texture and Roughness Constant \n A value of 1 = Material Texture\n A value of 0 = Roughness constant");
-				ImGui::SameLine(0.0f, 40);
-				ImGui::DragFloat("##meshrendererroughnessinterpolation" + i, &myMaterials[i]->myRoughnessInterpolation, 0.01f, 0, 1);
-
-				ImGui::Text("Metalness constant");
-				ImGui::SameLine(0.0f, 75);
-				ImGui::DragFloat("##meshrenderermetalnessconstnat" + i, &myMaterials[i]->myMetalnessConstant, 0.01f, 0, 1);
-
-				ImGui::Text("Metalness interpolation");
-				if(ImGui::IsItemHovered())
-					ImGui::SetTooltip("Interpolates between material texture and Metalness Constant \n A value of 1 = Material Texture\n A value of 0 = Metalness constant");
-				ImGui::SameLine(0.0f, 40);
-				ImGui::DragFloat("##meshrenderermetalnessinterpolation" + i, &myMaterials[i]->myMetalnessInterpolation, 0.01f, 0 ,1);
-			}
+			ImGui::NextColumn();
+			std::string matName = "Material " + std::to_string(i);
+			ImGui::Text(matName.c_str());
+			ImGui::NextColumn();
+			std::string name = myMaterials[i]->myMaterialPath + "##meshrenderermaterial";
+			name += i;
+			ImGui::Button(name.c_str(), ImVec2(340, 20));
 		}
+
+		ImGui::Columns(1);
 	}
 
 	nlohmann::json MeshRenderer::Save()
@@ -85,15 +82,13 @@ namespace Dynamo
 
 	void MeshRenderer::Update()
 	{
-		for(const auto& mesh : myModel->GetMeshes())
+		for(int i = 0; i < myModel->GetMeshes().size(); ++i)
 		{
 			MeshCommand command;
-			command.myMesh = &mesh;
+			command.myMesh = &myModel->GetMeshes()[i];
 			command.myColor = myColor;
-			if (!myMaterials.empty())
-				command.myMaterial = myMaterials.front();
-			
 			command.myMatrix = GetTransform().GetMatrix();
+			command.myMaterial = myMaterials[i];
 
 			Main::GetRenderManager().AddMesh(command);
 		}
@@ -107,24 +102,13 @@ namespace Dynamo
 	void MeshRenderer::SetModel(const std::string& aPath)
 	{
 		myModel = ModelFactory::GetModel(aPath);
-		isInitialized = true;
+		ApplyModelMaterial();
 	}
 
 	void MeshRenderer::SetModel(Model* aModel)
 	{
 		myModel = aModel;
-		isInitialized = true;
-	}
-
-	void MeshRenderer::SetMaterial(Material* aMaterial)
-	{
-		myMaterials.clear();
-		myMaterials.push_back(aMaterial);
-	}
-
-	void MeshRenderer::AddMaterial(Material* aMaterial)
-	{
-		myMaterials.push_back(aMaterial);
+		ApplyModelMaterial();
 	}
 
 	const std::vector<Mesh>& MeshRenderer::GetMeshes() const
@@ -142,21 +126,19 @@ namespace Dynamo
 		return myColor;
 	}
 
-	Material* MeshRenderer::GetMaterial() const
-	{
-		if (myMaterials.size() > 0)
-			return myMaterials.front();
-
-		return nullptr;
-	}
-
 	void MeshRenderer::ApplyModelMaterial()
 	{
-		AddMaterial(MaterialFactory::GetMaterialForModel(myModel->GetPath()));
+		myMaterials.clear();
+		for (int i = 0; i < myModel->GetMeshes().size(); ++i)
+		{
+			myMaterials.push_back(MaterialFactory::GetMaterialForModel(myModel->GetPath()));
+		}
 	}
-
-	bool MeshRenderer::IsInitialized() const
+	void MeshRenderer::SetMaterialOnAllMeshes(Material* aMat)
 	{
-		return isInitialized && myMaterials.size() > 0;
+		for (int i = 0; i < myMaterials.size(); ++i)
+		{
+			myMaterials[i] = aMat;
+		}
 	}
 }

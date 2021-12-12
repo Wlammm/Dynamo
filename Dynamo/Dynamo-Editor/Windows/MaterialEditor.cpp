@@ -16,6 +16,25 @@ namespace Editor
 		ImGui::Columns(2, 0, false);
 		ImGui::SetColumnWidth(0, 150);
 
+		ImGui::Text("Surface Type");
+		ImGui::NextColumn();
+		const char* surfaceTypes[2] = {"Opaque", "Transparent"};
+		static int selectedSurfaceType = 0;
+		if (ImGui::BeginCombo("##materialeditorsurfacetype", surfaceTypes[selectedSurfaceType]))
+		{
+			for (int i = 0; i < 2; ++i)
+			{
+				if (ImGui::Selectable(surfaceTypes[i], i == selectedSurfaceType))
+				{
+					selectedSurfaceType = i;
+				}
+			}
+			ImGui::EndCombo();
+		}
+		ImGui::NextColumn();
+
+		ImGui::Separator();
+
 		ImGui::Text("Pixel Shader");
 		ImGui::NextColumn();
 		ImGui::Button("ForwardPS.cso##materialeditorpixelshader", ImVec2(450, 20));

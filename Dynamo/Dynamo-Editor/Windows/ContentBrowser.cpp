@@ -77,6 +77,18 @@ namespace Editor
 						return;
 					}
 				}
+
+				if (!std::filesystem::is_directory(myItems[i].myPath))
+				{
+					if (ImGui::BeginDragDropSource())
+					{
+						ImGui::Text(myItems[i].myPath.string().c_str());
+						myDragDropPath = myItems[i].myPath.string();
+						ImGui::SetDragDropPayload(GetPayloadType(myItems[i].myPath).c_str(), &myDragDropPath, sizeof(myDragDropPath));
+						ImGui::EndDragDropSource();
+					}
+				}
+
 				ImGui::PopID();
 
 				ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10);
@@ -276,6 +288,11 @@ namespace Editor
 				BeginRenaming();
 			}
 		}
+	}
+
+	std::string ContentBrowser::GetPayloadType(const std::filesystem::path& aPath)
+	{
+		return CU::StringUtils::ToLower(aPath.extension().string());
 	}
 
 	DXSRV* ContentBrowser::GetSRVFromPath(const std::filesystem::path& aPath)

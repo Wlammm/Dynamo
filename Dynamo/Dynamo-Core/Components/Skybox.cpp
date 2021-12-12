@@ -20,7 +20,7 @@ namespace Dynamo
 	{
 		mySphere = AddComponent<MeshRenderer>();
 		mySphere->SetModel("Assets/Fbx/Primitives/SkyboxSphere.fbx");
-		mySphere->SetMaterial(MaterialFactory::GetMaterial("Assets/Materials/Skybox.dynmaterial"));
+		mySphere->SetMaterialOnAllMeshes(MaterialFactory::GetMaterial("Assets/Materials/Skybox.dynmaterial"));
 		myTransform = &GetGameObject()->GetTransform();
 	}
 
