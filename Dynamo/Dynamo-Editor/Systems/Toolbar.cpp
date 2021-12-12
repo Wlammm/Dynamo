@@ -4,6 +4,7 @@
 #include "Utils/ThemeUtils.h"
 
 #include "Windows/MaterialEditor.h"
+#include "Windows/NodeEditor.h"
 
 namespace Editor
 {
@@ -57,6 +58,11 @@ namespace Editor
 			if (ImGui::MenuItem("Material Editor"))
 			{
 				Main::GetEditorManager()->AddWindow(new MaterialEditor());
+			}
+
+			if (ImGui::MenuItem("Node Editor"))
+			{
+				Main::GetEditorManager()->AddWindow(new NodeEditor());
 			}
 
 			ImGui::EndMenu();
