@@ -177,6 +177,8 @@
     <ClCompile Include="Windows\Hierarchy.cpp" />
     <ClCompile Include="Windows\Inspector.cpp" />
     <ClCompile Include="Systems\Toolbar.cpp" />
+    <ClCompile Include="Windows\MaterialEditor.cpp" />
+    <ClCompile Include="Windows\NodeEditor.cpp" />
     <ClCompile Include="Windows\Viewport.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +199,8 @@
     <ClInclude Include="PostMaster\EditorPostMaster.h" />
     <ClInclude Include="Windows\Inspector.h" />
     <ClInclude Include="Systems\Toolbar.h" />
+    <ClInclude Include="Windows\MaterialEditor.h" />
+    <ClInclude Include="Windows\NodeEditor.h" />
     <ClInclude Include="Windows\Viewport.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

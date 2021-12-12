@@ -63,7 +63,10 @@
     <ClCompile Include="Windows\ContentBrowser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Windows\GraphNodeEditor.cpp">
+    <ClCompile Include="Windows\MaterialEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\NodeEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,7 +122,10 @@
     <ClInclude Include="Windows\ContentBrowser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Windows\GraphNodeEditor.h">
+    <ClInclude Include="Windows\MaterialEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\NodeEditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

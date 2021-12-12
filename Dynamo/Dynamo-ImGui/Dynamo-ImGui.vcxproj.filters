@@ -51,6 +51,24 @@
     <ClInclude Include="imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="imgui_node_editor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_canvas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_bezier_math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_node_editor_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_extra_math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="crude_json.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Dynamo-ImGui.cpp">
@@ -83,5 +101,28 @@
     <ClCompile Include="ImGuizmo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="imgui_canvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_node_editor_api.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_node_editor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="crude_json.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui_bezier_math.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="imgui_node_editor_internal.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="imgui_extra_math.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

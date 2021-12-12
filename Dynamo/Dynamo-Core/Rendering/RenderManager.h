@@ -5,6 +5,7 @@
 #include "DebugRenderer.h"
 #include "DeferredRenderer.h"
 #include "GBuffer.h"
+#include "RenderCommands.hpp"
 
 constexpr float globalPointLightIntensityMultiplier = 10000;
 constexpr float globalSpotLightIntensityMultiplier = 10000;
@@ -24,20 +25,11 @@ namespace Dynamo
 		RenderManager();
 		~RenderManager();
 
-		void AddMesh(MeshRenderer* aMeshRenderer);
-		void RemoveMesh(MeshRenderer* aMeshRenderer);
-
-		void AddDirectionalLight(DirectionalLight* aDirLight);
-		void RemoveDirectionalLight(DirectionalLight* aDirLight);
-
-		void AddAmbientLight(AmbientLight* anAmbLight);
-		void RemoveAmbientLight(AmbientLight* anAmbLight);
-
-		void AddPointLight(PointLight* aPointLight);
-		void RemovePointLight(PointLight* aPointLight);
-
-		void AddSpotLight(SpotLight* aSpotLight);
-		void RemoveSpotLight(SpotLight* aSpotLight);
+		void AddMesh(const MeshCommand& aMesh);
+		void AddDirectionalLight(const DirectionalLightCommand& aDirLight);
+		void AddAmbientLight(const AmbientLightCommand& anAmbLight);
+		void AddPointLight(const PointLightCommand& aPointLight);
+		void AddSpotLight(const SpotLightCommand& aSpotLight);
 
 		void AddFullscreenEffect(FullscreenEffect* anEffect, const int aLayer = 0);
 		void RemoveFullscreenEffect(FullscreenEffect* anEffect);
@@ -70,8 +62,8 @@ namespace Dynamo
 		void GammaCorrection();
 
 		void ClearTextures();
+		void ClearCommands();
 
-		// TEMP
 	private:
 		bool myRenderDeferred = true;
 		bool myRenderEffects = true;
@@ -79,11 +71,11 @@ namespace Dynamo
 		int myRenderPass = 0;
 
 	private:
-		CU::DArray<MeshRenderer*> myModels;
-		CU::DArray<DirectionalLight*> myDirLights;
-		CU::DArray<AmbientLight*> myAmbLights;
-		CU::DArray<PointLight*> myPointLights;
-		CU::DArray<SpotLight*> mySpotLights;
+		CU::DArray<MeshCommand> myMeshes;
+		CU::DArray<DirectionalLightCommand> myDirLights;
+		CU::DArray<AmbientLightCommand> myAmbLights;
+		CU::DArray<PointLightCommand> myPointLights;
+		CU::DArray<SpotLightCommand> mySpotLights;
 
 		std::map<int, std::vector<FullscreenEffect*>> myFullscreenEffects;
 

@@ -57,16 +57,27 @@ namespace Dynamo
 		myOuterAngle = aJson["outerAngle"];
 	}
 
+	void SpotLight::Update()
+	{
+		SpotLightCommand command;
+		command.myColor = myColor;
+		command.myInnerAngle = myInnerAngle;
+		command.myOuterAngle = myOuterAngle;
+		command.myIntensity = myIntensity;
+		command.myDirection = GetDirection();
+		command.myPosition = myTransform->GetPosition();
+		command.myRange = myRange;
+		Main::GetRenderManager().AddSpotLight(command);
+	}
+
+	void SpotLight::EditorUpdate()
+	{
+		Update();
+	}
+
 	void SpotLight::OnCreate()
 	{
 		myTransform = GetComponent<Transform>();
-
-		Main::GetRenderManager().AddSpotLight(this);
-	}
-
-	void SpotLight::OnDisable()
-	{
-		Main::GetRenderManager().RemoveSpotLight(this);
 	}
 
 	void SpotLight::SetColor(const Color& aColor)
@@ -122,15 +133,5 @@ namespace Dynamo
 	Vec3f SpotLight::GetDirection() const
 	{
 		return myTransform->GetForward();
-	}
-
-	void SpotLight::OnEnable()
-	{
-		Main::GetRenderManager().AddSpotLight(this);
-	}
-
-	void SpotLight::OnDestroy()
-	{
-		Main::GetRenderManager().RemoveSpotLight(this);
 	}
 }

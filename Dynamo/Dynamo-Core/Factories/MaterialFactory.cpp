@@ -51,6 +51,9 @@ namespace Dynamo
         mat.myCustomTextures[2] = ResourceFactory::GetSRV(json["CustomTexture3"].get<std::string>());
         mat.myCustomTextures[3] = ResourceFactory::GetSRV(json["CustomTexture4"].get<std::string>());
 
+        mat.myReceiveShadows = json["ReceiveShadows"].get<bool>();
+        mat.mySurfaceType = json["SurfaceType"].get<SurfaceType>();
+
         myMaterials[aPath] = mat;
     }
 

@@ -83,24 +83,25 @@ namespace Dynamo
 		myColor.a = aJson["color"]["a"];
 	}
 
-	void MeshRenderer::OnCreate()
+	void MeshRenderer::Update()
 	{
-		Main::GetRenderManager().AddMesh(this);
+		for(const auto& mesh : myModel->GetMeshes())
+		{
+			MeshCommand command;
+			command.myMesh = &mesh;
+			command.myColor = myColor;
+			if (!myMaterials.empty())
+				command.myMaterial = myMaterials.front();
+			
+			command.myMatrix = GetTransform().GetMatrix();
+
+			Main::GetRenderManager().AddMesh(command);
+		}
 	}
 
-	void MeshRenderer::OnEnable()
+	void MeshRenderer::EditorUpdate()
 	{
-		Main::GetRenderManager().AddMesh(this);
-	}
-
-	void MeshRenderer::OnDestroy()
-	{
-		Main::GetRenderManager().RemoveMesh(this);
-	}
-
-	void MeshRenderer::OnDisable()
-	{
-		Main::GetRenderManager().RemoveMesh(this);
+		Update();
 	}
 
 	void MeshRenderer::SetModel(const std::string& aPath)
