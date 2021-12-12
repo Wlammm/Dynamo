@@ -339,3 +339,6 @@
 		someData = dataPin.Data;
 		outType = dataPin.DataType;
 	}
+
+
+	// Custom node
