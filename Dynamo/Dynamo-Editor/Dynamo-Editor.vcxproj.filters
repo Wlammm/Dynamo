@@ -69,33 +69,6 @@
     <ClCompile Include="Windows\NodeEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NodeEditor\Nodes\GraphNodeBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\BaseLibrary\GraphNodeInstance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\BaseLibrary\GraphNodePin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\BaseLibrary\GraphVariable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\BaseLibrary\NodeTypes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\GraphManager\GraphManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\GraphManager\GraphNodeRegistry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\GraphManager\UID.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\Nodes\VariableNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EditorPch.h">
@@ -153,33 +126,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Windows\NodeEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Nodes\GraphNodeBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\BaseLibrary\GraphNodeInstance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\BaseLibrary\GraphNodePin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\BaseLibrary\GraphVariable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\BaseLibrary\NodeTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\GraphManager\GraphManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\GraphManager\GraphNodeRegistry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\GraphManager\UID.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Nodes\VariableNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

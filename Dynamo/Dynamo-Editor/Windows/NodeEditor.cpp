@@ -1,6 +1,5 @@
 #include "EditorPch.h"
 #include "NodeEditor.h"
-#include "NodeEditor/GraphManager/GraphManager.h"
 
 namespace Editor
 {

@@ -159,13 +159,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\EditorSystem.cpp" />
-    <ClCompile Include="NodeEditor\GraphManager\GraphNodeRegistry.cpp" />
-    <ClCompile Include="NodeEditor\GraphManager\GraphManager.cpp" />
-    <ClCompile Include="NodeEditor\BaseLibrary\GraphVariable.cpp" />
-    <ClCompile Include="NodeEditor\BaseLibrary\GraphNodePin.cpp" />
-    <ClCompile Include="NodeEditor\BaseLibrary\GraphNodeInstance.cpp" />
-    <ClCompile Include="NodeEditor\Nodes\GraphNodeBase.cpp" />
-    <ClCompile Include="NodeEditor\BaseLibrary\NodeTypes.cpp" />
     <ClCompile Include="Scene\EditorScene.cpp" />
     <ClCompile Include="Core\EditorWindow.cpp" />
     <ClCompile Include="Managers\EditorManager.cpp" />
@@ -178,9 +171,7 @@
     <ClCompile Include="PostMaster\EditorPostMaster.cpp" />
     <ClCompile Include="Systems\Guizmos.cpp" />
     <ClCompile Include="Systems\SceneSaving.cpp" />
-    <ClCompile Include="NodeEditor\GraphManager\UID.cpp" />
     <ClCompile Include="Utils\ThemeUtils.cpp" />
-    <ClCompile Include="NodeEditor\Nodes\VariableNode.cpp" />
     <ClCompile Include="Windows\ContentBrowser.cpp" />
     <ClCompile Include="Windows\Hierarchy.cpp" />
     <ClCompile Include="Windows\Inspector.cpp" />
@@ -190,13 +181,6 @@
     <ClCompile Include="Windows\Viewport.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NodeEditor\GraphManager\GraphNodeRegistry.h" />
-    <ClInclude Include="NodeEditor\GraphManager\GraphManager.h" />
-    <ClInclude Include="NodeEditor\BaseLibrary\GraphVariable.h" />
-    <ClInclude Include="NodeEditor\BaseLibrary\GraphNodePin.h" />
-    <ClInclude Include="NodeEditor\BaseLibrary\GraphNodeInstance.h" />
-    <ClInclude Include="NodeEditor\Nodes\GraphNodeBase.h" />
-    <ClInclude Include="NodeEditor\BaseLibrary\NodeTypes.h" />
     <ClInclude Include="Scene\EditorScene.h" />
     <ClInclude Include="Core\EditorSystem.h" />
     <ClInclude Include="Core\EditorWindow.h" />
@@ -207,9 +191,7 @@
     <ClInclude Include="PostMaster\EditorPostObserver.h" />
     <ClInclude Include="Systems\Guizmos.h" />
     <ClInclude Include="Systems\SceneSaving.h" />
-    <ClInclude Include="NodeEditor\GraphManager\UID.h" />
     <ClInclude Include="Utils\ThemeUtils.h" />
-    <ClInclude Include="NodeEditor\Nodes\VariableNode.h" />
     <ClInclude Include="Windows\ContentBrowser.h" />
     <ClInclude Include="Windows\Hierarchy.h" />
     <ClInclude Include="PostMaster\EditorPostMaster.h" />
