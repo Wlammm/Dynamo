@@ -5,6 +5,12 @@
 
 namespace Dynamo
 {
+	enum class SurfaceType
+	{
+		Opaque,
+		Transparent
+	};
+
 	struct Material
 	{
 		ID3D11ShaderResourceView* myAlbedo = nullptr;
@@ -21,5 +27,8 @@ namespace Dynamo
 
 		float myMetalnessConstant = 0;
 		float myMetalnessInterpolation = 1;
+
+		bool myReceiveShadows = true;
+		SurfaceType mySurfaceType = SurfaceType::Opaque;
 	};
 }

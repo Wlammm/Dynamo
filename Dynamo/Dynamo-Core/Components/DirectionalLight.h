@@ -24,7 +24,6 @@ namespace Dynamo
 		const Color& GetColor() const;
 
 		Vec3f GetDirection() const;
-		Vec3f GetToLight() const;
 
 	private:
 		Transform* myTransform = nullptr;

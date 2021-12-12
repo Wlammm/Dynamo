@@ -3,6 +3,8 @@
 
 #include "Utils/ThemeUtils.h"
 
+#include "Windows/MaterialEditor.h"
+
 namespace Editor
 {
 	Toolbar::Toolbar()
@@ -16,6 +18,7 @@ namespace Editor
 		{
 			ShowFiles();
 			ShowThemes();
+			ShowWindows();
 			ShowDemo();
 			ImGui::EndMenuBar();
 		}
@@ -41,6 +44,19 @@ namespace Editor
 			if (ImGui::MenuItem("Theme 1"))
 			{
 				Themes::ApplyTheme1();
+			}
+
+			ImGui::EndMenu();
+		}
+	}
+
+	void Toolbar::ShowWindows()
+	{
+		if (ImGui::BeginMenu("Windows"))
+		{
+			if (ImGui::MenuItem("Material Editor"))
+			{
+				Main::GetEditorManager()->AddWindow(new MaterialEditor());
 			}
 
 			ImGui::EndMenu();

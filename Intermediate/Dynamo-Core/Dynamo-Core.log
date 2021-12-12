@@ -1,11 +1,8 @@
-﻿  AmbientLight.cpp
-  DirectionalLight.cpp
-  MeshRenderer.cpp
-  PointLight.cpp
+﻿  MeshRenderer.cpp
   Skybox.cpp
-  SpotLight.cpp
+  MaterialFactory.cpp
+  ModelFactory.cpp
   DeferredRenderer.cpp
   ForwardRenderer.cpp
-  RenderManager.cpp
   Generating Code...
   Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Debug.lib

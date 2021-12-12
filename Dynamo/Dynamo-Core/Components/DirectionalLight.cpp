@@ -83,9 +83,4 @@ namespace Dynamo
 	{
 		return myTransform->GetForward();
 	}
-
-	Vec3f DirectionalLight::GetToLight() const
-	{
-		return myTransform->GetForward() * -1.0f;
-	}
 }

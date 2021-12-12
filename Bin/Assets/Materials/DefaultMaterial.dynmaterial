@@ -7,5 +7,7 @@
 	"CustomTexture1": "",
 	"CustomTexture2": "",
 	"CustomTexture3": "",
-	"CustomTexture4": ""
+	"CustomTexture4": "",
+	"ReceiveShadows": true,
+	"SurfaceType": 0
 }
