@@ -46,26 +46,24 @@ namespace Dynamo
 		myColor.a = aJson["color"]["a"];
 	}
 
+	void PointLight::Update()
+	{
+		PointLightCommand command;
+		command.myColor = myColor;
+		command.myIntensity = myIntensity;
+		command.myRange = myRange;
+		command.myPosition = myTransform->GetPosition();
+		Main::GetRenderManager().AddPointLight(command);
+	}
+
+	void PointLight::EditorUpdate()
+	{
+		Update();
+	}
+
 	void PointLight::OnCreate()
 	{
 		myTransform = GetComponent<Transform>();
-
-		Main::GetRenderManager().AddPointLight(this);
-	}
-
-	void PointLight::OnDestroy()
-	{
-		Main::GetRenderManager().RemovePointLight(this);
-	}
-
-	void PointLight::OnEnable()
-	{
-		Main::GetRenderManager().AddPointLight(this);
-	}
-
-	void PointLight::OnDisable()
-	{
-		Main::GetRenderManager().RemovePointLight(this);
 	}
 
 	void PointLight::SetColor(const Color& aColor)

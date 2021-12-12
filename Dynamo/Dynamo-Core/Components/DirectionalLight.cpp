@@ -40,26 +40,23 @@ namespace Dynamo
 		myColor.a = aJson["color"]["a"];
 	}
 
+	void DirectionalLight::Update()
+	{
+		DirectionalLightCommand command;
+		command.myColor = myColor;
+		command.myIntensity = myIntensity;
+		command.myDirection = GetDirection();
+		Main::GetRenderManager().AddDirectionalLight(command);
+	}
+
+	void DirectionalLight::EditorUpdate()
+	{
+		Update();
+	}
+
 	void DirectionalLight::OnCreate()
 	{
 		myTransform = GetComponent<Transform>();
-
-		Main::GetRenderManager().AddDirectionalLight(this);
-	}
-
-	void DirectionalLight::OnDestroy()
-	{
-		Main::GetRenderManager().RemoveDirectionalLight(this);
-	}
-
-	void DirectionalLight::OnEnable()
-	{
-		Main::GetRenderManager().AddDirectionalLight(this);
-	}
-
-	void DirectionalLight::OnDisable()
-	{
-		Main::GetRenderManager().RemoveDirectionalLight(this);
 	}
 
 	void DirectionalLight::SetIntensity(const float aIntensity)

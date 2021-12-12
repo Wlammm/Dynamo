@@ -8,11 +8,6 @@
 #include "FullscreenEffects/BloomEffect.h"
 #include "FullscreenEffects/FXAAEffect.h"
 
-/*
-* PBR Demo
-* https://github.com/jjuiddong/Introduction-to-3D-Game-Programming-With-DirectX11/blob/master/Chapter%207%20Lighting/Lighting/FX/Lighting.fx
-*/
-
 namespace Dynamo
 {
 	RenderManager::RenderManager()
@@ -27,6 +22,8 @@ namespace Dynamo
 
 		AddFullscreenEffect(new Dyn::FXAAEffect(), 1);
 		AddFullscreenEffect(new Dyn::HDREffect(), 10);
+
+		myMeshes.Reserve(2000);
 	}
 	
 	RenderManager::~RenderManager()
@@ -34,54 +31,29 @@ namespace Dynamo
 		RenderUtils::Destroy();
 	}
 
-	void RenderManager::AddMesh(MeshRenderer* aMeshRenderer)
+	void RenderManager::AddMesh(const MeshCommand& aMeshRenderer)
 	{
-		myModels.Add(aMeshRenderer);
+		myMeshes.Add(aMeshRenderer);
 	}
 
-	void RenderManager::RemoveMesh(MeshRenderer* aMeshRenderer)
-	{
-		myModels.TryRemove(aMeshRenderer);
-	}
-
-	void RenderManager::AddDirectionalLight(DirectionalLight* aDirLight)
+	void RenderManager::AddDirectionalLight(const DirectionalLightCommand& aDirLight)
 	{
 		myDirLights.Add(aDirLight);
 	}
 
-	void RenderManager::RemoveDirectionalLight(DirectionalLight* aDirLight)
-	{
-		myDirLights.TryRemove(aDirLight);
-	}
-
-	void RenderManager::AddAmbientLight(AmbientLight* anAmbLight)
+	void RenderManager::AddAmbientLight(const AmbientLightCommand& anAmbLight)
 	{
 		myAmbLights.Add(anAmbLight);
 	}
 
-	void RenderManager::RemoveAmbientLight(AmbientLight* anAmbLight)
-	{
-		myAmbLights.TryRemove(anAmbLight);
-	}
-
-	void RenderManager::AddPointLight(PointLight* aPointLight)
+	void RenderManager::AddPointLight(const PointLightCommand& aPointLight)
 	{
 		myPointLights.Add(aPointLight);
 	}
 
-	void RenderManager::RemovePointLight(PointLight* aPointLight)
-	{
-		myPointLights.TryRemove(aPointLight);
-	}
-
-	void RenderManager::AddSpotLight(SpotLight* aSpotLight)
+	void RenderManager::AddSpotLight(const SpotLightCommand& aSpotLight)
 	{
 		mySpotLights.Add(aSpotLight);
-	}
-
-	void RenderManager::RemoveSpotLight(SpotLight* aSpotLight)
-	{
-		mySpotLights.TryRemove(aSpotLight);
 	}
 
 	void RenderManager::AddFullscreenEffect(FullscreenEffect* anEffect, const int aLayer)
@@ -143,6 +115,8 @@ namespace Dynamo
 		if(myRenderDeferred)
 			RenderDeferredPass();
 		RenderToBackBuffer();
+
+		ClearCommands();
 	}
 
 	FullscreenRenderer& RenderManager::GetFullscreenRenderer()
@@ -204,7 +178,7 @@ namespace Dynamo
 		RenderUtils::SetBlendState(RenderUtils::BlendState::BLENDSTATE_DISABLE);
 		
 		myGBuffer.SetAsActiveTarget(&myRenderDepth);
-		myDeferredRenderer.GenerateGBuffer(myModels);
+		myDeferredRenderer.GenerateGBuffer(myMeshes);
 		
 		RenderUtils::SetBlendState(RenderUtils::BlendState::BLENDSTATE_ADDITIVE);
 		myRenderTexture.SetAsActiveTarget();
@@ -217,7 +191,7 @@ namespace Dynamo
 		RenderUtils::SetBlendState(RenderUtils::BlendState::BLENDSTATE_DISABLE);
 
 		myRenderTexture.SetAsActiveTarget(&myRenderDepth);
-		myForwardRenderer.Render(myModels, myDirLights, myAmbLights, myPointLights, mySpotLights);
+		myForwardRenderer.Render(myMeshes, myDirLights, myAmbLights, myPointLights, mySpotLights);
 	}
 
 	void RenderManager::RenderDebug()
@@ -313,5 +287,14 @@ namespace Dynamo
 		myBackBuffer.ClearTexture();
 		myGBuffer.ClearTextures();
 		myIntermediateTexture.ClearTexture();
+	}
+
+	void RenderManager::ClearCommands()
+	{
+		myMeshes.clear();
+		myDirLights.clear();
+		myAmbLights.clear();
+		myPointLights.clear();
+		mySpotLights.clear();
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RenderStructs.hpp"
+#include "RenderCommands.hpp"
 
 namespace Dynamo
 {
@@ -19,24 +20,24 @@ namespace Dynamo
 		ForwardRenderer();
 		~ForwardRenderer();
 
-		void Render(const CU::DArray<MeshRenderer*>& someModels, const CU::DArray<DirectionalLight*>& someDirLights, const CU::DArray<AmbientLight*>& someAmbLights,
-			const CU::DArray<PointLight*>& somePointLights, const CU::DArray<SpotLight*>& someSpotLights);
+		void Render(const CU::DArray<MeshCommand>& someModels, const CU::DArray<DirectionalLightCommand>& someDirLights, const CU::DArray<AmbientLightCommand>& someAmbLights,
+			const CU::DArray<PointLightCommand>& somePointLights, const CU::DArray<SpotLightCommand>& someSpotLights);
 
 	private:
 		void CreateBuffers();
 		void CreateRSStates();
 
-		std::vector<PointLight*> GetSortedPointLights(const std::vector<PointLight*>& someInData, MeshRenderer* aInstance);
-		std::vector<SpotLight*> GetSortedSpotLights(const std::vector<SpotLight*>& someInData, MeshRenderer* aInstance);
+		std::vector<PointLightCommand> GetSortedPointLights(const std::vector<PointLightCommand>& someInData, const MeshCommand& aInstance);
+		std::vector<SpotLightCommand> GetSortedSpotLights(const std::vector<SpotLightCommand>& someInData, const MeshCommand& aInstance);
 
 		void MapFrameBuffer(Camera* aCamera);
-		void MapObjectBuffer(MeshRenderer* aModel);
+		void MapObjectBuffer(const MeshCommand& aMesh);
 		void SetMeshSettings(const Mesh& aMesh);
 
-		void MapDirLightBuffer(const std::vector<DirectionalLight*>& someDirLights);
-		void MapAmbLightBuffer(const std::vector<AmbientLight*>& someAmbLights);
-		void MapPointLightBuffer(const std::vector<PointLight*>& somePointLights);
-		void MapSpotLightBuffer(const std::vector<SpotLight*>& someSpotLights);
+		void MapDirLightBuffer(const std::vector<DirectionalLightCommand>& someDirLights);
+		void MapAmbLightBuffer(const std::vector<AmbientLightCommand>& someAmbLights);
+		void MapPointLightBuffer(const std::vector<PointLightCommand>& somePointLights);
+		void MapSpotLightBuffer(const std::vector<SpotLightCommand>& someSpotLights);
 		void MapEmissiveBuffer();
 		void MapMaterialBuffer(Material* aMaterial);
 

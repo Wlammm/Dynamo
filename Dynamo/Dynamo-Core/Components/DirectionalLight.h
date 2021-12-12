@@ -13,10 +13,9 @@ namespace Dynamo
 		void Load(nlohmann::json& aJson) override;
 
 		void OnCreate() override;
-		void OnDestroy() override;
 
-		void OnEnable() override;
-		void OnDisable() override;
+		void Update() override;
+		void EditorUpdate() override;
 
 		void SetIntensity(const float aIntensity);
 		float GetIntensity() const;

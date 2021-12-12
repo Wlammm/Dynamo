@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RenderStructs.hpp"
+#include "RenderCommands.hpp"
 
 namespace Dynamo
 {
@@ -17,10 +18,10 @@ namespace Dynamo
 		DeferredRenderer();
 		~DeferredRenderer();
 
-		void GenerateGBuffer(const CU::DArray<MeshRenderer*>& someModels);
+		void GenerateGBuffer(const CU::DArray<MeshCommand>& someModels);
 
-		void Render(const CU::DArray<DirectionalLight*>& someDirLights, const CU::DArray<AmbientLight*>& someAmbLights,
-			const CU::DArray<PointLight*>& somePointLights, const CU::DArray<SpotLight*>& someSpotLights);
+		void Render(const CU::DArray<DirectionalLightCommand>& someDirLights, const CU::DArray<AmbientLightCommand>& someAmbLights,
+			const CU::DArray<PointLightCommand>& somePointLights, const CU::DArray<SpotLightCommand>& someSpotLights);
 
 		void DrawRenderPass(const int aPass);
 

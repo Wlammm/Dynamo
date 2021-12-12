@@ -31,8 +31,8 @@ namespace Dynamo
 		//myRSState->Release();
 	}
 
-	void ForwardRenderer::Render(const CU::DArray<MeshRenderer*>& someModels, const CU::DArray<DirectionalLight*>& someDirLights, const CU::DArray<AmbientLight*>& someAmbLights,
-		const CU::DArray<PointLight*>& somePointLights, const CU::DArray<SpotLight*>& someSpotLights)
+	void ForwardRenderer::Render(const CU::DArray<MeshCommand>& someModels, const CU::DArray<DirectionalLightCommand>& someDirLights, const CU::DArray<AmbientLightCommand>& someAmbLights,
+		const CU::DArray<PointLightCommand>& somePointLights, const CU::DArray<SpotLightCommand>& someSpotLights)
 	{
 		Camera* camera = Main::GetMainCamera();
 		if (!camera)
@@ -43,40 +43,37 @@ namespace Dynamo
 		MapAmbLightBuffer(someAmbLights.AsVector());
 		MapEmissiveBuffer();
 		
-		for (MeshRenderer* model : someModels.AsVector())
+		for (const MeshCommand& model : someModels.AsVector())
 		{
 			MapPointLightBuffer(GetSortedPointLights(somePointLights.AsVector(), model));
 			MapSpotLightBuffer(GetSortedSpotLights(someSpotLights.AsVector(), model));
 
-			MapMaterialBuffer(model->GetMaterial());
+			MapMaterialBuffer(model.myMaterial);
 
-			for (auto& mesh : model->GetMeshes())
+			MapObjectBuffer(model);
+			SetMeshSettings(*model.myMesh);
+
+			if (model.myMaterial)
 			{
-				MapObjectBuffer(model);
-				SetMeshSettings(mesh);
+				Main::GetContext()->VSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model.myMaterial->myAlbedo);
+				Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model.myMaterial->myAlbedo);
 
-				if (model->GetMaterial())
-				{
-					Main::GetContext()->VSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model->GetMaterial()->myAlbedo);
-					Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model->GetMaterial()->myAlbedo);
+				Shader* vs = model.myMaterial->myVertexShader;
+				vs ? vs->Bind() : myDefaultVertexShader->Bind();
 
-					Shader* vs = model->GetMaterial()->myVertexShader;
-					vs ? vs->Bind() : myDefaultVertexShader->Bind();
-
-					Shader* ps = model->GetMaterial()->myPixelShader;
-					ps ? ps->Bind() : myDefaultPixelShader->Bind();
-				}
-				else
-				{
-					Main::GetContext()->VSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &myDefaultMaterial->myAlbedo);
-					Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &myDefaultMaterial->myAlbedo);
-
-					myDefaultPixelShader->Bind();
-					myDefaultVertexShader->Bind();
-				}
-
-				Main::GetContext()->DrawIndexed(mesh.myNumIndicies, 0, 0);
+				Shader* ps = model.myMaterial->myPixelShader;
+				ps ? ps->Bind() : myDefaultPixelShader->Bind();
 			}
+			else
+			{
+				Main::GetContext()->VSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &myDefaultMaterial->myAlbedo);
+				Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &myDefaultMaterial->myAlbedo);
+
+				myDefaultPixelShader->Bind();
+				myDefaultVertexShader->Bind();
+			}
+
+			Main::GetContext()->DrawIndexed(model.myMesh->myNumIndicies, 0, 0);
 		}
 	}
 
@@ -102,28 +99,38 @@ namespace Dynamo
 		assert(SUCCEEDED(result));
 	}
 
-	std::vector<PointLight*> ForwardRenderer::GetSortedPointLights(const std::vector<PointLight*>& someInData, MeshRenderer* aInstance)
+	std::vector<PointLightCommand> ForwardRenderer::GetSortedPointLights(const std::vector<PointLightCommand>& someInData, const MeshCommand& aInstance)
 	{
-		std::vector<PointLight*> lights = someInData;
+		std::vector<PointLightCommand> lights = someInData;
 
-		std::sort(lights.begin(), lights.end(), [aInstance](PointLight* aFirst, PointLight* aSecond)
+		Vec3f pos;
+		pos.x = aInstance.myMatrix(4, 1);
+		pos.y = aInstance.myMatrix(4, 2);
+		pos.z = aInstance.myMatrix(4, 3);
+
+		std::sort(lights.begin(), lights.end(), [aInstance, pos](PointLightCommand aFirst, PointLightCommand aSecond)
 			{
-				float firstDist = (aFirst->GetPosition() - aInstance->GetGameObject()->GetTransform().GetPosition()).LengthSqr();
-				float secondDist = (aSecond->GetPosition() - aInstance->GetGameObject()->GetTransform().GetPosition()).LengthSqr();
+				float firstDist = (aFirst.myPosition - pos).LengthSqr();
+				float secondDist = (aSecond.myPosition - pos).LengthSqr();
 				return firstDist < secondDist;
 			});
 
 		return lights;
 	}
 
-	std::vector<SpotLight*> ForwardRenderer::GetSortedSpotLights(const std::vector<SpotLight*>& someInData, MeshRenderer* aInstance)
+	std::vector<SpotLightCommand> ForwardRenderer::GetSortedSpotLights(const std::vector<SpotLightCommand>& someInData, const MeshCommand& aInstance)
 	{
-		std::vector<SpotLight*> lights = someInData;
+		std::vector<SpotLightCommand> lights = someInData;
 
-		std::sort(lights.begin(), lights.end(), [aInstance](SpotLight* aFirst, SpotLight* aSecond)
+		Vec3f pos;
+		pos.x = aInstance.myMatrix(4, 1);
+		pos.y = aInstance.myMatrix(4, 2);
+		pos.z = aInstance.myMatrix(4, 3);
+		
+		std::sort(lights.begin(), lights.end(), [aInstance, pos](SpotLightCommand aFirst, SpotLightCommand aSecond)
 			{
-				float firstDist = (aFirst->GetGameObject()->GetTransform().GetPosition() - aInstance->GetGameObject()->GetTransform().GetPosition()).LengthSqr();
-				float secondDist = (aSecond->GetGameObject()->GetTransform().GetPosition() - aInstance->GetGameObject()->GetTransform().GetPosition()).LengthSqr();
+				float firstDist = (aFirst.myPosition - pos).LengthSqr();
+				float secondDist = (aSecond.myPosition - pos).LengthSqr();
 				return firstDist < secondDist;
 			});
 
@@ -141,11 +148,11 @@ namespace Dynamo
 		Main::GetContext()->PSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
 	}
 
-	void ForwardRenderer::MapObjectBuffer(MeshRenderer* aModel)
+	void ForwardRenderer::MapObjectBuffer(const MeshCommand& aMesh)
 	{
-		myObjectBufferData.myToWorld = aModel->GetTransform().GetMatrix();
+		myObjectBufferData.myToWorld = aMesh.myMatrix;
 		myObjectBufferData.myUVScale = { 1.0f, 1.0f };
-		myObjectBufferData.myColor = aModel->GetColor();
+		myObjectBufferData.myColor = aMesh.myColor;
 		RenderUtils::MapBuffer<ObjectBuffer>(myObjectBufferData, myObjectBuffer);
 
 		Main::GetContext()->VSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
@@ -160,27 +167,27 @@ namespace Dynamo
 		Main::GetContext()->IASetIndexBuffer(aMesh.myIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	}
 
-	void ForwardRenderer::MapDirLightBuffer(const std::vector<DirectionalLight*>& someDirLights)
+	void ForwardRenderer::MapDirLightBuffer(const std::vector<DirectionalLightCommand>& someDirLights)
 	{
 		myDirLightBufferData.myIntensity = 0;
 		if (!someDirLights.empty())
 		{
-			myDirLightBufferData.myToLight = { someDirLights.front()->GetDirection() * -1.0f, 0.0f};
-			myDirLightBufferData.myColor = someDirLights.front()->GetColor();
-			myDirLightBufferData.myIntensity = someDirLights.front()->GetIntensity();
+			myDirLightBufferData.myToLight = { someDirLights.front().myDirection * -1.0f, 0.0f};
+			myDirLightBufferData.myColor = someDirLights.front().myColor;
+			myDirLightBufferData.myIntensity = someDirLights.front().myIntensity;
 		}
 		RenderUtils::MapBuffer<DirectionalLightBuffer>(myDirLightBufferData, myDirLightBuffer);
 
 		Main::GetContext()->PSSetConstantBuffers(DIRECTIONAL_LIGHT_BUFFER_SLOT, 1, &myDirLightBuffer);
 	}
 	
-	void ForwardRenderer::MapAmbLightBuffer(const std::vector<AmbientLight*>& someAmbLights)
+	void ForwardRenderer::MapAmbLightBuffer(const std::vector<AmbientLightCommand>& someAmbLights)
 	{
 		myAmbLightBufferData.myIntensity = 0;
 		if (!someAmbLights.empty())
 		{
-			myAmbLightBufferData.myIntensity = someAmbLights.front()->GetIntensity();
-			Main::GetContext()->PSSetShaderResources(CUBEMAP_TEXTURE_SLOT, 1, someAmbLights.front()->GetCubeMapConst());
+			myAmbLightBufferData.myIntensity = someAmbLights.front().myIntensity;
+			Main::GetContext()->PSSetShaderResources(CUBEMAP_TEXTURE_SLOT, 1, someAmbLights.front().myCubeMap);
 		}
 
 		RenderUtils::MapBuffer<AmbientLightBuffer>(myAmbLightBufferData, myAmbLightBuffer);
@@ -188,7 +195,7 @@ namespace Dynamo
 		Main::GetContext()->PSSetConstantBuffers(AMBIENT_LIGHT_BUFFER_SLOT, 1, &myAmbLightBuffer);
 	}
 
-	void ForwardRenderer::MapPointLightBuffer(const std::vector<PointLight*>& somePointLights)
+	void ForwardRenderer::MapPointLightBuffer(const std::vector<PointLightCommand>& somePointLights)
 	{
 		uint numPointLights = FORWARD_POINT_LIGHT_COUNT;
 		for (uint i = 0; i < FORWARD_POINT_LIGHT_COUNT; ++i)
@@ -199,10 +206,10 @@ namespace Dynamo
 				break;
 			}
 
-			myPointLightBufferData.myPointLights[i].myColor = somePointLights[i]->GetColor();
-			myPointLightBufferData.myPointLights[i].myIntensity = somePointLights[i]->GetIntensity() * globalPointLightIntensityMultiplier;
-			myPointLightBufferData.myPointLights[i].myRange = somePointLights[i]->GetRange();
-			myPointLightBufferData.myPointLights[i].myPosition = { somePointLights[i]->GetPosition(), 1.0f };
+			myPointLightBufferData.myPointLights[i].myColor = somePointLights[i].myColor;
+			myPointLightBufferData.myPointLights[i].myIntensity = somePointLights[i].myIntensity * globalPointLightIntensityMultiplier;
+			myPointLightBufferData.myPointLights[i].myRange = somePointLights[i].myRange;
+			myPointLightBufferData.myPointLights[i].myPosition = { somePointLights[i].myPosition, 1.0f };
 		}
 
 		myPointLightBufferData.myNumPointLights = numPointLights;
@@ -212,7 +219,7 @@ namespace Dynamo
 		Main::GetContext()->PSSetConstantBuffers(POINT_LIGHT_BUFFER_SLOT, 1, &myPointLightBuffer);
 	}
 
-	void ForwardRenderer::MapSpotLightBuffer(const std::vector<SpotLight*>& someSpotLights)
+	void ForwardRenderer::MapSpotLightBuffer(const std::vector<SpotLightCommand>& someSpotLights)
 	{
 		uint numSpotLights = FORWARD_SPOT_LIGHT_COUNT;
 		for (uint i = 0; i < FORWARD_SPOT_LIGHT_COUNT; ++i)
@@ -223,13 +230,13 @@ namespace Dynamo
 				break;
 			}
 
-			mySpotLightBufferData.myLights[i].myColor = someSpotLights[i]->GetColor();
-			mySpotLightBufferData.myLights[i].myDirection = { someSpotLights[i]->GetDirection(), 0.0f };
-			mySpotLightBufferData.myLights[i].myPosition = { someSpotLights[i]->GetTransform().GetPosition(), 1.0f };
-			mySpotLightBufferData.myLights[i].myIntensity = someSpotLights[i]->GetIntensity() * globalSpotLightIntensityMultiplier;
-			mySpotLightBufferData.myLights[i].myRange = someSpotLights[i]->GetRange();
-			mySpotLightBufferData.myLights[i].myInnerAngle = someSpotLights[i]->GetInnerAngle() * Deg2Rad;
-			mySpotLightBufferData.myLights[i].myOuterAngle = someSpotLights[i]->GetOuterAngle() * Deg2Rad;
+			mySpotLightBufferData.myLights[i].myColor = someSpotLights[i].myColor;
+			mySpotLightBufferData.myLights[i].myDirection = { someSpotLights[i].myDirection, 0.0f };
+			mySpotLightBufferData.myLights[i].myPosition = { someSpotLights[i].myPosition, 1.0f };
+			mySpotLightBufferData.myLights[i].myIntensity = someSpotLights[i].myIntensity * globalSpotLightIntensityMultiplier;
+			mySpotLightBufferData.myLights[i].myRange = someSpotLights[i].myRange;
+			mySpotLightBufferData.myLights[i].myInnerAngle = someSpotLights[i].myInnerAngle * Deg2Rad;
+			mySpotLightBufferData.myLights[i].myOuterAngle = someSpotLights[i].myOuterAngle * Deg2Rad;
 		}
 
 		mySpotLightBufferData.myNumSpotLights = numSpotLights;

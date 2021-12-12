@@ -310,6 +310,7 @@
     <ClInclude Include="Rendering\Material.h" />
     <ClInclude Include="Rendering\Mesh.h" />
     <ClInclude Include="Rendering\Model.h" />
+    <ClInclude Include="Rendering\RenderCommands.hpp" />
     <ClInclude Include="Rendering\RenderManager.h" />
     <ClInclude Include="Rendering\RenderStructs.hpp" />
     <ClInclude Include="Rendering\Shader.h" />

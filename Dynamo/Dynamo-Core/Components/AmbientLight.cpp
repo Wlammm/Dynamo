@@ -29,26 +29,22 @@ namespace Dynamo
 		myIntensity = aJson["intensity"];
 	}
 
+	void AmbientLight::Update()
+	{
+		AmbientLightCommand command;
+		command.myCubeMap = &myCubeMap;
+		command.myIntensity = myIntensity;
+		Main::GetRenderManager().AddAmbientLight(command);
+	}
+
+	void AmbientLight::EditorUpdate()
+	{
+		Update();
+	}
+
 	void AmbientLight::OnCreate()
 	{
 		SetCubeMap("Assets/Textures/Default_Cubemap.dds");
-
-		Main::GetRenderManager().AddAmbientLight(this);
-	}
-
-	void AmbientLight::OnDestroy()
-	{
-		Main::GetRenderManager().RemoveAmbientLight(this);
-	}
-
-	void AmbientLight::OnEnable()
-	{
-		Main::GetRenderManager().AddAmbientLight(this);
-	}
-
-	void AmbientLight::OnDisable()
-	{
-		Main::GetRenderManager().RemoveAmbientLight(this);
 	}
 
 	void AmbientLight::SetIntensity(const float aIntensity)
