@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\EditorSystem.cpp" />
+    <ClCompile Include="Windows\GraphNodeEditor.cpp" />
     <ClCompile Include="Scene\EditorScene.cpp" />
     <ClCompile Include="Core\EditorWindow.cpp" />
     <ClCompile Include="Managers\EditorManager.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Windows\Viewport.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Windows\GraphNodeEditor.h" />
     <ClInclude Include="Scene\EditorScene.h" />
     <ClInclude Include="Core\EditorSystem.h" />
     <ClInclude Include="Core\EditorWindow.h" />
