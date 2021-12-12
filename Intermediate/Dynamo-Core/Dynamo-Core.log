@@ -1,37 +1,52 @@
-﻿  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\AmbientLightShader.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\DirectionalLightShader.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\GBuffer.cso
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Deferred\PointLightShader.hlsl(52,21-54): warning X3203: signed/unsigned mismatch, unsigned assumed
+﻿  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\DebugLine3DVertexShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\DebugLinePixelShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\DebugLineVertexShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\AmbientLightShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\DirectionalLightShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\EmissiveShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\GBuffer.cso
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Deferred\PointLightShader.hlsl(52,21-54): warning X3203: signed/unsigned mismatch, unsigned assumed
   
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\PointLightShader.cso
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Deferred\SpotLightShader.hlsl(54,21-57): warning X3203: signed/unsigned mismatch, unsigned assumed
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\PointLightShader.cso
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Deferred\SpotLightShader.hlsl(54,21-57): warning X3203: signed/unsigned mismatch, unsigned assumed
   
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\SpotLightShader.cso
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\SkyboxPS.hlsl(8,12-71): warning X3206: implicit truncation of vector type
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\SkyboxPS.hlsl(9,26-114): warning X3206: 'LinearToGamma': implicit truncation of vector type
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\SpotLightShader.cso
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\SkyboxPS.hlsl(8,12-71): warning X3206: implicit truncation of vector type
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\SkyboxPS.hlsl(9,26-114): warning X3206: 'LinearToGamma': implicit truncation of vector type
   
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\SkyboxPS.cso
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedPS.hlsl(67,12-77): warning X3206: implicit truncation of vector type
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\SkyboxPS.cso
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedPS.hlsl(67,12-77): warning X3206: implicit truncation of vector type
   
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\WorldAllignedPS.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-GammaCorrection.cso
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\ForwardPS.hlsl(63,12-77): warning X3206: implicit truncation of vector type
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\WorldAllignedPS.cso
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(22,16-37): warning X3578: Output value 'main' is not completely initialized
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(139,37-86): warning X3570: gradient instruction used in a loop with varying iteration, attempting to unroll the loop
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(22,16-37): warning X3578: Output value 'main' is not completely initialized
   
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\ForwardPS.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Shaders\FullscreenPS-MaterialPass.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\FullscreenPS-FXAA.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\FullscreenPS-GammaCorrection.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\FullscreenPS-GaussianV.cso
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\ForwardPS.hlsl(63,12-77): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\ForwardPS.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\FullscreenPS-Bloom.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\FullscreenPS-Copy.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\FullscreenPS-GaussianH.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\FullscreenPS-HDR.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\FullscreenPS-Luminance.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\FullscreenPS-MaterialPass.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\FullscreenVS.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Shaders\VertexShader.cso
   pch.cpp
   AmbientLight.cpp
   Camera.cpp
   DirectionalLight.cpp
   MeshRenderer.cpp
   PointLight.cpp
-  Skybox.cpp
   SpotLight.cpp
   Transform.cpp
   DirectXFramework.cpp
   MainSingleton.cpp
   WindowHandler.cpp
-  Entry.cpp
   DDSTextureLoader.cpp
   ScreenGrab.cpp
   WICTextureLoader.cpp
@@ -40,9 +55,10 @@ C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward
   ModelFactory.cpp
   ResourceFactory.cpp
   ShaderFactory.cpp
+  TextureFactory.cpp
+  Entry.cpp
   Generating Code...
   Compiling...
-  TextureFactory.cpp
   DebugRenderer.cpp
   DeferredRenderer.cpp
   ForwardRenderer.cpp
@@ -57,6 +73,7 @@ C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward
   Texture.cpp
   Scene.cpp
   SceneSerializer.cpp
+  Skybox.cpp
   ConsoleUtils.cpp
   CrashHandler.cpp
   Debug.cpp
@@ -69,4 +86,4 @@ C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward
   ScopeTimer.cpp
   Time.cpp
   Generating Code...
-  Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Debug.lib
+  Dynamo-Core.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-Core_Debug.lib

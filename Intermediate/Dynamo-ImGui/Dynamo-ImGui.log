@@ -1,4 +1,16 @@
-﻿  imgui_node_editor.cpp
+﻿  crude_json.cpp
+  Dynamo-ImGui.cpp
+  imgui.cpp
+  ImGuizmo.cpp
+  imgui_canvas.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_dx11.cpp
+  imgui_impl_win32.cpp
+  imgui_node_editor.cpp
   imgui_node_editor_api.cpp
+  imgui_stdlib.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
   Generating Code...
   Dynamo-ImGui.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-ImGui_Debug.lib
