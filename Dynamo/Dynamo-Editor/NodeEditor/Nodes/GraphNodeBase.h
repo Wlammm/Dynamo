@@ -1,11 +1,11 @@
 #pragma once
 #include "NodeEditor/BaseLibrary/NodeTypes.h"
-#include "NodeEditor/BaseLibrary/GraphNodePin.h"
-#include "NodeEditor/BaseLibrary/GraphNodeInstance.h"
 #include "NodeEditor/GraphManager/UID.h"
+#include "NodeEditor/BaseLibrary/GraphNodePin.h"
 
 
 	class GraphNodeRegistry;
+	class GraphNodeInstance;
 
 	/**
 	 * Base class for all graph nodes regardless of type.

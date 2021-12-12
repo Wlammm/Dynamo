@@ -1,18 +1,18 @@
 #include "EditorPch.h"
 #include "GraphManager.h"
 
+#include "NodeEditor/BaseLibrary/GraphNodeInstance.h"
+#include "NodeEditor/Nodes/GraphNodeBase.h"
+
 #include "BlueprintUtilities/Include/ax/Drawing.h"
 #include "BlueprintUtilities/Include/ax/Widgets.h"
 #include "BlueprintUtilities/Include/Interop.h"
 
-#include "NodeEditor/BaseLibrary/GraphNodeInstance.h"
-#include "NodeEditor/BaseLibrary/GraphNodePin.h"
 #include "NodeEditor/BaseLibrary/NodeTypes.h"
 
-#include "NodeEditor/Nodes/GraphNodeBase.h"
-#include "NodeEditor/Nodes/VariableNode.h"
-
+#include "NodeEditor/BaseLibrary/GraphNodePin.h"
 #include "GraphNodeRegistry.h"
+#include "NodeEditor/Nodes/VariableNode.h"
 
 namespace ed = ax::NodeEditor;
 
