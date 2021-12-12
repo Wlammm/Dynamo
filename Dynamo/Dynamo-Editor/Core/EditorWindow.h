@@ -6,6 +6,7 @@ namespace Editor
 	{
 	public:
 		EditorWindow(const std::string& aWindowName);
+		virtual ~EditorWindow() {};
 
 		virtual void Init();
 

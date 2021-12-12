@@ -9,6 +9,12 @@ namespace Editor
 	{
 	}
 
+	MaterialEditor::~MaterialEditor()
+	{
+		if (myMaterial)
+			Dyn::MaterialFactory::SaveMaterial(myMaterial);
+	}
+
 	void MaterialEditor::Update()
 	{
 		if (!myMaterial)
@@ -16,6 +22,8 @@ namespace Editor
 			ImGui::Text("Double-click a material to edit it here.");
 			return;
 		}
+
+		Save();
 
 		ImGui::Text(myMaterial->myMaterialPath.filename().string().c_str());
 		ImGui::Separator();
@@ -231,6 +239,22 @@ namespace Editor
 
 	void MaterialEditor::SetSelectedMaterial(Dyn::Material* aMaterial)
 	{
+		if (myMaterial)
+		{
+			Dyn::MaterialFactory::SaveMaterial(myMaterial);
+		}
+
 		myMaterial = aMaterial;
+	}
+
+	void MaterialEditor::Save()
+	{
+		mySaveProgress += Time::GetDeltaTime();
+
+		if (mySaveProgress > mySaveDuration)
+		{
+			mySaveProgress = 0;
+			Dyn::MaterialFactory::SaveMaterial(myMaterial);
+		}
 	}
 }

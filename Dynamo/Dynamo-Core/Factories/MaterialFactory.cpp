@@ -3,6 +3,7 @@
 #include "Rendering/Material.h"
 #include "Utils/FileUtils.h"
 #include <filesystem>
+#include <fstream>
 
 namespace Dynamo
 {
@@ -38,7 +39,49 @@ namespace Dynamo
 
     void MaterialFactory::SaveMaterial(const Material* aMaterial)
     {
+        nlohmann::json json;
+        json["AlbedoTexture"] = aMaterial->myAlbedo->GetPath().string();
+        json["NormalTexture"] = aMaterial->myNormal->GetPath().string();
+        json["MaterialTexture"] = aMaterial->myMaterial->GetPath().string();
+        json["PixelShader"] = aMaterial->myPixelShader->GetPath().string();
+        json["VertexShader"] = aMaterial->myVertexShader->GetPath().string();
 
+        std::string customTex1 = "";
+        if (aMaterial->myCustomTextures[0])
+            customTex1 = aMaterial->myCustomTextures[0]->GetPath().string();
+        json["CustomTexture1"] = customTex1;
+
+        std::string customTex2 = "";
+        if (aMaterial->myCustomTextures[1])
+            customTex2 = aMaterial->myCustomTextures[1]->GetPath().string();
+        json["CustomTexture2"] = customTex2;
+
+        std::string customTex3 = "";
+        if (aMaterial->myCustomTextures[2])
+            customTex3 = aMaterial->myCustomTextures[2]->GetPath().string();
+        json["CustomTexture3"] = customTex3;
+
+        std::string customTex4 = "";
+        if (aMaterial->myCustomTextures[3])
+            customTex4 = aMaterial->myCustomTextures[3]->GetPath().string();
+        json["CustomTexture4"] = customTex4;
+
+        json["ReceiveShadows"] = aMaterial->myReceiveShadows;
+        json["SurfaceType"] = aMaterial->mySurfaceType;
+
+        json["CustomValue1"] = aMaterial->myCustomValues[0];
+        json["CustomValue2"] = aMaterial->myCustomValues[1];
+        json["CustomValue3"] = aMaterial->myCustomValues[2];
+        json["CustomValue4"] = aMaterial->myCustomValues[3];
+
+        json["MetalnessInterp"] = aMaterial->myMetalnessInterpolation;
+        json["Metalness"] = aMaterial->myMetalnessConstant;
+        json["RoughnessInterp"] = aMaterial->myRoughnessInterpolation;
+        json["Roughness"] = aMaterial->myRoughnessConstant;
+
+        std::ofstream stream(aMaterial->myMaterialPath);
+        stream << json.dump(4);
+        stream.close();
     }
 
     void MaterialFactory::LoadMaterial(const std::string& aPath)
@@ -59,6 +102,16 @@ namespace Dynamo
 
         mat.myReceiveShadows = json["ReceiveShadows"].get<bool>();
         mat.mySurfaceType = json["SurfaceType"].get<SurfaceType>();
+
+        mat.myCustomValues[0] = json["CustomValue1"];
+        mat.myCustomValues[1] = json["CustomValue2"];
+        mat.myCustomValues[2] = json["CustomValue3"];
+        mat.myCustomValues[3] = json["CustomValue4"];
+
+        mat.myMetalnessInterpolation = json["MetalnessInterp"];
+        mat.myMetalnessConstant = json["Metalness"];
+        mat.myRoughnessInterpolation = json["RoughnessInterp"];
+        mat.myRoughnessConstant = json["Roughness"];
 
         mat.myMaterialPath = aPath;
 
