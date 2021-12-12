@@ -45,9 +45,19 @@ namespace Dynamo
 			std::string matName = "Material " + std::to_string(i);
 			ImGui::Text(matName.c_str());
 			ImGui::NextColumn();
-			std::string name = myMaterials[i]->myMaterialPath + "##meshrenderermaterial";
+			std::string name = myMaterials[i]->myMaterialPath.string() + "##meshrenderermaterial";
 			name += i;
 			ImGui::Button(name.c_str(), ImVec2(340, 20));
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".dynmaterial"))
+				{
+					std::string filePath = *(std::string*)payload->Data;
+					myMaterials[i] = MaterialFactory::GetMaterial(filePath);
+				}
+
+				ImGui::EndDragDropTarget();
+			}
 		}
 
 		ImGui::Columns(1);
@@ -66,6 +76,11 @@ namespace Dynamo
 		json["color"]["b"] = myColor.b;
 		json["color"]["a"] = myColor.a;
 
+		for (int i = 0; i < myMaterials.size(); ++i)
+		{
+			json["materials"].push_back(myMaterials[i]->myMaterialPath.string());
+		}
+
 		return json;
 	}
 
@@ -78,6 +93,19 @@ namespace Dynamo
 		myColor.g = aJson["color"]["g"];
 		myColor.b = aJson["color"]["b"];
 		myColor.a = aJson["color"]["a"];
+
+		for (int i = 0; i < aJson["materials"].size(); ++i)
+		{
+			if (i > myMaterials.size())
+			{
+				Console::ErrorLog("Model & Scene mesh count missmatch");
+				return;
+			}
+
+			std::string path = aJson["materials"][i];
+			if(path != "")
+				myMaterials[i] = MaterialFactory::GetMaterial(path);
+		}
 	}
 
 	void MeshRenderer::Update()

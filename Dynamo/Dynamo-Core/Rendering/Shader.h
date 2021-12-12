@@ -24,6 +24,8 @@ namespace Dynamo
 
 		const std::string& GetData() const;
 
+		const std::filesystem::path& GetPath() const;
+
 	private:
 		void LoadPixelShader(const std::string& aPath);
 		void LoadVertexShader(const std::string& aPath);
@@ -31,6 +33,7 @@ namespace Dynamo
 
 	private:
 		std::string myData;
+		std::filesystem::path myPath = "";
 		ShaderType myShaderType;
 		ID3D11PixelShader* myPixelShader = nullptr;
 		ID3D11VertexShader* myVertexShader = nullptr;

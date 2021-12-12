@@ -55,8 +55,9 @@ namespace Dynamo
 
 			if (model.myMaterial)
 			{
-				Main::GetContext()->VSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model.myMaterial->myAlbedo);
-				Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model.myMaterial->myAlbedo);
+				model.myMaterial->myAlbedo->Bind(ALBEDO_TEXTURE_SLOT);
+				model.myMaterial->myNormal->Bind(NORMAL_TEXTURE_SLOT);
+				model.myMaterial->myMaterial->Bind(MATERIAL_TEXTURE_SLOT);
 
 				Shader* vs = model.myMaterial->myVertexShader;
 				vs ? vs->Bind() : myDefaultVertexShader->Bind();
@@ -66,8 +67,9 @@ namespace Dynamo
 			}
 			else
 			{
-				Main::GetContext()->VSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &myDefaultMaterial->myAlbedo);
-				Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &myDefaultMaterial->myAlbedo);
+				myDefaultMaterial->myAlbedo->Bind(ALBEDO_TEXTURE_SLOT);
+				myDefaultMaterial->myNormal->Bind(NORMAL_TEXTURE_SLOT);
+				myDefaultMaterial->myMaterial->Bind(MATERIAL_TEXTURE_SLOT);
 
 				myDefaultPixelShader->Bind();
 				myDefaultVertexShader->Bind();
@@ -187,7 +189,7 @@ namespace Dynamo
 		if (!someAmbLights.empty())
 		{
 			myAmbLightBufferData.myIntensity = someAmbLights.front().myIntensity;
-			Main::GetContext()->PSSetShaderResources(CUBEMAP_TEXTURE_SLOT, 1, someAmbLights.front().myCubeMap);
+			someAmbLights.front().myCubeMap->Bind(CUBEMAP_TEXTURE_SLOT);
 		}
 
 		RenderUtils::MapBuffer<AmbientLightBuffer>(myAmbLightBufferData, myAmbLightBuffer);

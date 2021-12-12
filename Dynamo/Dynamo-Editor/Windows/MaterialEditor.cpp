@@ -1,5 +1,6 @@
 #include "EditorPch.h"
 #include "MaterialEditor.h"
+#include "Rendering/Material.h"
 
 namespace Editor
 {
@@ -10,7 +11,13 @@ namespace Editor
 
 	void MaterialEditor::Update()
 	{
-		ImGui::Text("Material name");
+		if (!myMaterial)
+		{
+			ImGui::Text("Double-click a material to edit it here.");
+			return;
+		}
+
+		ImGui::Text(myMaterial->myMaterialPath.filename().string().c_str());
 		ImGui::Separator();
 
 		ImGui::Columns(2, 0, false);
@@ -18,15 +25,13 @@ namespace Editor
 
 		ImGui::Text("Surface Type");
 		ImGui::NextColumn();
-		const char* surfaceTypes[2] = {"Opaque", "Transparent"};
-		static int selectedSurfaceType = 0;
-		if (ImGui::BeginCombo("##materialeditorsurfacetype", surfaceTypes[selectedSurfaceType]))
+		if (ImGui::BeginCombo("##materialeditorsurfacetype", mySurfaceTypes[(int)myMaterial->mySurfaceType].c_str()))
 		{
 			for (int i = 0; i < 2; ++i)
 			{
-				if (ImGui::Selectable(surfaceTypes[i], i == selectedSurfaceType))
+				if (ImGui::Selectable(mySurfaceTypes[i].c_str(), i == (int)myMaterial->mySurfaceType))
 				{
-					selectedSurfaceType = i;
+					myMaterial->mySurfaceType = (Dyn::SurfaceType)i;
 				}
 			}
 			ImGui::EndCombo();
@@ -35,21 +40,40 @@ namespace Editor
 
 		ImGui::Separator();
 
-		ImGui::Text("Pixel Shader");
-		ImGui::NextColumn();
-		ImGui::Button("ForwardPS.cso##materialeditorpixelshader", ImVec2(450, 20));
-		if (ImGui::IsItemHovered())
+		if (myMaterial->mySurfaceType == Dyn::SurfaceType::Transparent)
 		{
-			ImGui::SetTooltip("ForwardPS.cso");
+			ImGui::Text("Pixel Shader");
+			ImGui::NextColumn();
+			Dyn::Shader* pixelShader = myMaterial->myPixelShader;
+			std::string psName = "";
+			if (pixelShader)
+			{
+				psName = pixelShader->GetPath().filename().string();
+			}
+			psName += "##materialeditorpixelshader";
+
+			ImGui::Button(psName.c_str(), ImVec2(450, 20));
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::SetTooltip(psName.c_str());
+			}
+			ImGui::NextColumn();
 		}
 
-		ImGui::NextColumn();
 		ImGui::Text("Vertex Shader");
 		ImGui::NextColumn();
-		ImGui::Button("VertexShader.cso##materialeditorvertexshader", ImVec2(450, 20));
+		Dyn::Shader* vertexShader = myMaterial->myVertexShader;
+		std::string vsName = "";
+		if (vertexShader)
+		{
+			vsName = vertexShader->GetPath().filename().string();
+		}
+		vsName += "##materialeditorvertexshader";
+
+		ImGui::Button(vsName.c_str(), ImVec2(450, 20));
 		if (ImGui::IsItemHovered())
 		{
-			ImGui::SetTooltip("VertexShader.cso");
+			ImGui::SetTooltip(vsName.c_str());
 		}
 
 		ImGui::Separator();
@@ -57,7 +81,11 @@ namespace Editor
 		ImGui::NextColumn();
 		ImGui::Text("Albedo");
 		ImGui::NextColumn();
-		ImGui::Image(Dyn::ResourceFactory::GetSRV("Assets/Textures/Default_C.dds"), ImVec2(16, 16));
+		Dyn::SRV* albedoSRV = Dyn::ResourceFactory::GetSRV("Assets/Textures/Default_C.dds");
+		if (myMaterial->myAlbedo)
+			albedoSRV = myMaterial->myAlbedo;
+
+		ImGui::Image(albedoSRV->Get(), ImVec2(16, 16));
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::SetTooltip("Assets/Textures/Default_C.dds");
@@ -66,7 +94,11 @@ namespace Editor
 		ImGui::NextColumn();
 		ImGui::Text("Normal");
 		ImGui::NextColumn();
-		ImGui::Image(Dyn::ResourceFactory::GetSRV("Assets/Textures/Default_N.dds"), ImVec2(16, 16));
+		Dyn::SRV* normalSRV = Dyn::ResourceFactory::GetSRV("Assets/Textures/Default_N.dds");
+		if (myMaterial->myNormal)
+			normalSRV = myMaterial->myNormal;
+
+		ImGui::Image(normalSRV->Get(), ImVec2(16, 16));
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::SetTooltip("Assets/Textures/Default_N.dds");
@@ -75,7 +107,11 @@ namespace Editor
 		ImGui::NextColumn();
 		ImGui::Text("Material");
 		ImGui::NextColumn();
-		ImGui::Image(Dyn::ResourceFactory::GetSRV("Assets/Textures/Default_M.dds"), ImVec2(16, 16));
+		Dyn::SRV* materialSRV = Dyn::ResourceFactory::GetSRV("Assets/Textures/Default_M.dds");
+		if (myMaterial->myMaterial)
+			materialSRV = myMaterial->myMaterial;
+
+		ImGui::Image(materialSRV->Get(), ImVec2(16, 16));
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::SetTooltip("Assets/Textures/Default_M.dds");
@@ -92,11 +128,11 @@ namespace Editor
 
 		ImGui::NextColumn();
 		static float test = 0;
-		ImGui::DragFloat("##materialeditorroughnessinterp", &test, 0.01f, 0, 1);
+		ImGui::DragFloat("##materialeditorroughnessinterp", &myMaterial->myRoughnessInterpolation, 0.01f, 0, 1);
 		ImGui::NextColumn();
 		ImGui::Text("Roughness");
 		ImGui::NextColumn();
-		ImGui::DragFloat("##materialeditorroughness", &test, 0.01f, 0, 1);
+		ImGui::DragFloat("##materialeditorroughness", &myMaterial->myRoughnessConstant, 0.01f, 0, 1);
 
 		ImGui::Spacing();
 
@@ -108,11 +144,11 @@ namespace Editor
 		}
 
 		ImGui::NextColumn();
-		ImGui::DragFloat("##materialeditormetalnessinterp", &test, 0.01f, 0, 1);
+		ImGui::DragFloat("##materialeditormetalnessinterp", &myMaterial->myMetalnessInterpolation, 0.01f, 0, 1);
 		ImGui::NextColumn();
 		ImGui::Text("Metalness");
 		ImGui::NextColumn();
-		ImGui::DragFloat("##materialeditormetalness", &test, 0.01f, 0, 1);
+		ImGui::DragFloat("##materialeditormetalness", &myMaterial->myMetalnessConstant, 0.01f, 0, 1);
 
 		ImGui::Separator();
 
@@ -122,7 +158,11 @@ namespace Editor
 			ImGui::Columns(2, 0, false);
 			ImGui::Text("Custom Texture 1");
 			ImGui::NextColumn();
-			ImGui::Image(Dyn::ResourceFactory::GetSRV("Assets/Textures/NoImage.dds"), ImVec2(16, 16));
+			Dyn::SRV* customSRV1 = Dyn::ResourceFactory::GetSRV("Assets/Textures/NoImage.dds");
+			if (myMaterial->myCustomTextures[0])
+				customSRV1 = myMaterial->myCustomTextures[0];
+
+			ImGui::Image(customSRV1->Get(), ImVec2(16, 16));
 			if (ImGui::IsItemHovered())
 			{
 				ImGui::SetTooltip("No image");
@@ -131,7 +171,10 @@ namespace Editor
 			ImGui::NextColumn();
 			ImGui::Text("Custom Texture 2");
 			ImGui::NextColumn();
-			ImGui::Image(Dyn::ResourceFactory::GetSRV("Assets/Textures/NoImage.dds"), ImVec2(16, 16));
+			Dyn::SRV* customSRV2 = Dyn::ResourceFactory::GetSRV("Assets/Textures/NoImage.dds");
+			if (myMaterial->myCustomTextures[1])
+				customSRV2 = myMaterial->myCustomTextures[2];
+			ImGui::Image(customSRV2->Get(), ImVec2(16, 16));
 			if (ImGui::IsItemHovered())
 			{
 				ImGui::SetTooltip("No image");
@@ -140,7 +183,10 @@ namespace Editor
 			ImGui::NextColumn();
 			ImGui::Text("Custom Texture 3");
 			ImGui::NextColumn();
-			ImGui::Image(Dyn::ResourceFactory::GetSRV("Assets/Textures/NoImage.dds"), ImVec2(16, 16));
+			Dyn::SRV* customSRV3 = Dyn::ResourceFactory::GetSRV("Assets/Textures/NoImage.dds");
+			if (myMaterial->myCustomTextures[2])
+				customSRV3 = myMaterial->myCustomTextures[2];
+			ImGui::Image(customSRV3->Get(), ImVec2(16, 16));
 			if (ImGui::IsItemHovered())
 			{
 				ImGui::SetTooltip("No image");
@@ -149,7 +195,11 @@ namespace Editor
 			ImGui::NextColumn();
 			ImGui::Text("Custom Texture 4");
 			ImGui::NextColumn();
-			ImGui::Image(Dyn::ResourceFactory::GetSRV("Assets/Textures/NoImage.dds"), ImVec2(16, 16));
+			Dyn::SRV* customSRV4 = Dyn::ResourceFactory::GetSRV("Assets/Textures/NoImage.dds");
+			if (myMaterial->myCustomTextures[3])
+				customSRV4 = myMaterial->myCustomTextures[3];
+
+			ImGui::Image(customSRV4->Get(), ImVec2(16, 16));
 			if (ImGui::IsItemHovered())
 			{
 				ImGui::SetTooltip("No image");
@@ -160,22 +210,27 @@ namespace Editor
 			ImGui::NextColumn();
 			ImGui::Text("Custom Value 1");
 			ImGui::NextColumn();
-			ImGui::InputFloat("##materialeditorcustomvalue1", &test);
+			ImGui::InputFloat("##materialeditorcustomvalue1", &myMaterial->myCustomValues[0]);
 
 			ImGui::NextColumn();
 			ImGui::Text("Custom Value 2");
 			ImGui::NextColumn();
-			ImGui::InputFloat("##materialeditorcustomvalue2", &test);
+			ImGui::InputFloat("##materialeditorcustomvalue2", &myMaterial->myCustomValues[1]);
 
 			ImGui::NextColumn();
 			ImGui::Text("Custom Value 3");
 			ImGui::NextColumn();
-			ImGui::InputFloat("##materialeditorcustomvalue3", &test);
+			ImGui::InputFloat("##materialeditorcustomvalue3", &myMaterial->myCustomValues[2]);
 
 			ImGui::NextColumn();
 			ImGui::Text("Custom Value 4");
 			ImGui::NextColumn();
-			ImGui::InputFloat("##materialeditorcustomvalue4", &test);
+			ImGui::InputFloat("##materialeditorcustomvalue4", &myMaterial->myCustomValues[3]);
 		}
+	}
+
+	void MaterialEditor::SetSelectedMaterial(Dyn::Material* aMaterial)
+	{
+		myMaterial = aMaterial;
 	}
 }

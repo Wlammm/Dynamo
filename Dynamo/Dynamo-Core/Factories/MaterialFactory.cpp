@@ -36,6 +36,11 @@ namespace Dynamo
         return &myModelMaterials[aModelPath];
     }
 
+    void MaterialFactory::SaveMaterial(const Material* aMaterial)
+    {
+
+    }
+
     void MaterialFactory::LoadMaterial(const std::string& aPath)
     {
         nlohmann::json json = JsonFactory::GetJson(aPath);

@@ -16,7 +16,6 @@ namespace Dynamo
 		nlohmann::json Save() override;
 		void Load(nlohmann::json& aJson) override;
 
-
 		MeshRenderer() = default;
 		~MeshRenderer() = default;
 

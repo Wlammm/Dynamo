@@ -9,5 +9,9 @@
 	"CustomTexture3": "",
 	"CustomTexture4": "",
 	"ReceiveShadows": false,
-	"SurfaceType": 0
+	"SurfaceType": 1,
+	"CustomValue1": 0,
+	"CustomValue2": 0,
+	"CustomValue3": 0,
+	"CustomValue4": 0
 }

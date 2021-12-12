@@ -1,6 +1,7 @@
 #include "EditorPch.h"
 #include "ContentBrowser.h"
 #include "StringUtils.hpp"
+#include "MaterialEditor.h"
 
 namespace fs = std::filesystem;
 
@@ -56,7 +57,7 @@ namespace Editor
 				}
 
 				ImGui::PushID(i);
-				if (ImGui::ImageButton(myItems[i].mySRV, { myTextureSize, myTextureSize }))
+				if (ImGui::ImageButton(myItems[i].mySRV->Get(), {myTextureSize, myTextureSize}))
 				{
 					mySelectedItem = i;
 				}
@@ -76,6 +77,8 @@ namespace Editor
 						ImGui::EndChild();
 						return;
 					}
+
+					HandleDoubleClick(myItems[i]);
 				}
 
 				if (!std::filesystem::is_directory(myItems[i].myPath))
@@ -290,12 +293,27 @@ namespace Editor
 		}
 	}
 
+	void ContentBrowser::HandleDoubleClick(const ContentBrowserItem& aClickedItem)
+	{
+		std::string extension = CU::StringUtils::ToLower(aClickedItem.myPath.extension().string());
+		if (extension == ".dynmaterial")
+		{
+			MaterialEditor* matEditor = nullptr;
+			if (!(matEditor = Main::GetEditorManager()->GetWindow<MaterialEditor>()))
+			{
+				matEditor = Main::GetEditorManager()->AddWindow(new MaterialEditor());
+			}
+
+			matEditor->SetSelectedMaterial(Dyn::MaterialFactory::GetMaterial(aClickedItem.myPath.string()));
+		}
+	}
+
 	std::string ContentBrowser::GetPayloadType(const std::filesystem::path& aPath)
 	{
 		return CU::StringUtils::ToLower(aPath.extension().string());
 	}
 
-	DXSRV* ContentBrowser::GetSRVFromPath(const std::filesystem::path& aPath)
+	Dyn::SRV* ContentBrowser::GetSRVFromPath(const std::filesystem::path& aPath)
 	{
 		if (std::filesystem::is_directory(aPath))
 			return myFolderIcons[FILETYPE_FOLDER];
@@ -308,7 +326,7 @@ namespace Editor
 
 		if (lowExtension == ".dds")
 		{
-			DXSRV* srv = Dyn::ResourceFactory::GetSRV(aPath.string());
+			Dyn::SRV* srv = Dyn::ResourceFactory::GetSRV(aPath.string());
 			return srv;
 		}
 

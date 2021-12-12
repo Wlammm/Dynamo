@@ -43,6 +43,6 @@ namespace Dynamo
 	struct AmbientLightCommand
 	{
 		float myIntensity = 0;
-		DXSRV* const* myCubeMap = nullptr;
+		SRV* myCubeMap = nullptr;
 	};
 }

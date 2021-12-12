@@ -50,7 +50,9 @@ namespace Dynamo
 			Main::GetContext()->VSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
 			Main::GetContext()->PSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
 
-			Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model.myMaterial->myAlbedo);
+			model.myMaterial->myAlbedo->Bind(ALBEDO_TEXTURE_SLOT);
+			model.myMaterial->myNormal->Bind(NORMAL_TEXTURE_SLOT);
+			model.myMaterial->myMaterial->Bind(MATERIAL_TEXTURE_SLOT);
 
 			myMeshVertexShader->Bind();
 			myMaterialBufferData.myRoughnessInterp = 1;
@@ -116,7 +118,7 @@ namespace Dynamo
 			RenderUtils::MapBuffer<AmbientLightBuffer>(myAmbLightBufferData, myAmbLightBuffer);
 			Main::GetContext()->PSSetConstantBuffers(AMBIENT_LIGHT_BUFFER_SLOT, 1, &myAmbLightBuffer);
 
-			Main::GetContext()->PSSetShaderResources(CUBEMAP_TEXTURE_SLOT, 1, ambLight.myCubeMap);
+			ambLight.myCubeMap->Bind(CUBEMAP_TEXTURE_SLOT);
 
 			Main::GetContext()->Draw(3, 0);
 		}

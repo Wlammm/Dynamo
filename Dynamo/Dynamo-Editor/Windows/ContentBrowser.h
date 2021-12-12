@@ -21,14 +21,14 @@ namespace Editor
 
 	struct ContentBrowserItem
 	{
-		ContentBrowserItem(const std::filesystem::path& aPath, DXSRV* aSRV)
+		ContentBrowserItem(const std::filesystem::path& aPath, Dyn::SRV* aSRV)
 		{
 			mySRV = aSRV;
 			myPath = aPath;
 		}
 
 		std::filesystem::path myPath;
-		DXSRV* mySRV;
+		Dyn::SRV* mySRV;
 		bool myIsSelected = false;
 	};
 
@@ -59,10 +59,11 @@ namespace Editor
 		void BeginRenaming();
 		void UpdateRenaming();
 		void UpdateShortcuts();
+		void HandleDoubleClick(const ContentBrowserItem& aClickedItem);
 
 		std::string GetPayloadType(const std::filesystem::path& aPath);
 
-		DXSRV* GetSRVFromPath(const std::filesystem::path& aPath);
+		Dyn::SRV* GetSRVFromPath(const std::filesystem::path& aPath);
 		bool IsExcludedPath(const std::filesystem::path& aPath);
 
 	private:
@@ -72,7 +73,7 @@ namespace Editor
 		std::filesystem::path myCurrentPath = "";
 		std::filesystem::path mySelectedTreePath = "";
 
-		std::array<ID3D11ShaderResourceView*, eFileType::FILETYPE_COUNT> myFolderIcons;
+		std::array<Dyn::SRV*, eFileType::FILETYPE_COUNT> myFolderIcons;
 
 		CU::DArray<std::string> myExcludedExtensions = { ".dll", ".exe", ".pdb", ".ini" };
 		CU::DArray<ContentBrowserItem> myItems;

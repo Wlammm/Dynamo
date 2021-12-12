@@ -32,7 +32,7 @@ namespace Dynamo
 	void AmbientLight::Update()
 	{
 		AmbientLightCommand command;
-		command.myCubeMap = &myCubeMap;
+		command.myCubeMap = myCubeMap;
 		command.myIntensity = myIntensity;
 		Main::GetRenderManager().AddAmbientLight(command);
 	}
@@ -62,12 +62,12 @@ namespace Dynamo
 		myCubeMap = ResourceFactory::GetSRV(aCubeMapPath);
 	}
 
-	DXSRV* AmbientLight::GetCubeMap()
+	SRV* AmbientLight::GetCubeMap()
 	{
 		return myCubeMap;
 	}
 
-	DXSRV* const* AmbientLight::GetCubeMapConst()
+	SRV* const* AmbientLight::GetCubeMapConst()
 	{
 		return &myCubeMap;
 	}

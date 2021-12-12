@@ -100,14 +100,6 @@ namespace Editor
 		ImGui::End();
 	}
 
-	EditorWindow* EditorManager::AddWindow(EditorWindow* aWindow)
-	{
-		myWindows.Add(aWindow);
-		aWindow->myWindowID = myNextID++;
-		aWindow->myWindowName = aWindow->myWindowName + "##" + std::to_string(aWindow->myWindowID);
-		return aWindow;
-	}
-
 	void EditorManager::RemoveWindow(EditorWindow* aWindow)
 	{
 		myWindows.Remove(aWindow);

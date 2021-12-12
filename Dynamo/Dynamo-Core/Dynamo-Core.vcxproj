@@ -203,6 +203,7 @@
     <ClCompile Include="Rendering\Model.cpp" />
     <ClCompile Include="Rendering\RenderManager.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />
+    <ClCompile Include="Rendering\SRV.cpp" />
     <ClCompile Include="Rendering\Texture.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <FxCompile Include="Shaders\Debug\DebugLine3DVertexShader.hlsl">
@@ -314,6 +315,7 @@
     <ClInclude Include="Rendering\RenderManager.h" />
     <ClInclude Include="Rendering\RenderStructs.hpp" />
     <ClInclude Include="Rendering\Shader.h" />
+    <ClInclude Include="Rendering\SRV.h" />
     <ClInclude Include="Rendering\Texture.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneSerializer.h" />

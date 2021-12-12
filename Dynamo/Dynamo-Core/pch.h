@@ -11,11 +11,6 @@
 #include "ImGuizmo.h"
 #include "imgui_node_editor.h"
 
-namespace ImGui
-{
-	namespace NodeEditor = ax::NodeEditor;
-}
-
 // Standard Library
 #include <vector>
 #include <array>
@@ -24,6 +19,7 @@ namespace ImGui
 #include <string>
 #include <unordered_set>
 #include <utility>
+#include <filesystem>
 
 #include "External/Json/json.hpp"
 
@@ -59,6 +55,9 @@ namespace ImGui
 #include "Factories/MaterialFactory.h"
 #include "Factories/ShaderFactory.h"
 #include "Factories/TextureFactory.h"
+
+#include "Rendering/Shader.h"
+#include "Rendering/SRV.h"
 
 #include "Core/MainSingleton.h"
 
