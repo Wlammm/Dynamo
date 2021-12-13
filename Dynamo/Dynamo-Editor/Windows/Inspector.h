@@ -14,6 +14,8 @@ namespace Editor
 	private:
 		void AddComponentButton();
 
+		void UpdateHotkeys();
+
 		void InitCategorizedComponents();
 		std::map<std::string, std::vector<Component*>> myCategorizedComponents;
 	};

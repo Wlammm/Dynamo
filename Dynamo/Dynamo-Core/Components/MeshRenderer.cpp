@@ -14,12 +14,17 @@ namespace Dynamo
 
 		ImGui::Text("Model");
 		ImGui::NextColumn();
-		std::string buttonName = myModel->GetPath() + "##meshrenderermodel";
+
+		std::string buttonName = "Unassigned";
+		if(myModel)
+			buttonName = myModel->GetPath() + "##meshrenderermodel";
+
 		ImGui::Button(buttonName.c_str(), ImVec2(340, 20));
-		if (ImGui::IsItemHovered())
+		if (ImGui::IsItemHovered() && myModel)
 		{
 			ImGui::SetTooltip(myModel->GetPath().c_str());
 		}
+
 		if (ImGui::BeginDragDropTarget())
 		{
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".fbx"))
@@ -30,7 +35,6 @@ namespace Dynamo
 
 			ImGui::EndDragDropTarget();
 		}
-
 
 		ImGui::NextColumn();
 		ImGui::Text("Color");
@@ -110,6 +114,9 @@ namespace Dynamo
 
 	void MeshRenderer::Update()
 	{
+		if (!myModel)
+			return;
+
 		for(int i = 0; i < myModel->GetMeshes().size(); ++i)
 		{
 			MeshCommand command;
@@ -159,7 +166,12 @@ namespace Dynamo
 		myMaterials.clear();
 		for (int i = 0; i < myModel->GetMeshes().size(); ++i)
 		{
-			myMaterials.push_back(MaterialFactory::GetMaterialForModel(myModel->GetPath()));
+			std::filesystem::path path = myModel->GetPath();
+			path.replace_extension(".dynmaterial");
+			myMaterials.push_back(MaterialFactory::GetMaterial(path.string()));
+
+			// Still works. Will apply materials to model using paths.
+			//myMaterials.push_back(MaterialFactory::GetMaterialForModel(myModel->GetPath()));
 		}
 	}
 	void MeshRenderer::SetMaterialOnAllMeshes(Material* aMat)

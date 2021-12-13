@@ -12,11 +12,14 @@ namespace Editor
 
 		void DoUpdate();
 
+		void SetFocus();
+
 	protected:
 		virtual void Update() = 0;
 
 		friend class EditorManager;
 		std::string myWindowName;
+		bool myShouldSetFocus = false;
 		int myWindowID = -1;
 	};
 }

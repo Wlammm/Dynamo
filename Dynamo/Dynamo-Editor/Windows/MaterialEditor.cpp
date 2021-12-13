@@ -31,61 +31,57 @@ namespace Editor
 		ImGui::Columns(2, 0, false);
 		ImGui::SetColumnWidth(0, 150);
 
-		ImGui::Text("Surface Type");
-		ImGui::NextColumn();
-		if (ImGui::BeginCombo("##materialeditorsurfacetype", mySurfaceTypes[(int)myMaterial->mySurfaceType].c_str()))
-		{
-			for (int i = 0; i < 2; ++i)
-			{
-				if (ImGui::Selectable(mySurfaceTypes[i].c_str(), i == (int)myMaterial->mySurfaceType))
-				{
-					myMaterial->mySurfaceType = (Dyn::SurfaceType)i;
-				}
-			}
-			ImGui::EndCombo();
-		}
+		DrawSurfaceTypes();
+
 		ImGui::NextColumn();
 
 		ImGui::Separator();
 
-		if (myMaterial->mySurfaceType == Dyn::SurfaceType::Transparent)
-		{
-			ImGui::Text("Pixel Shader");
-			ImGui::NextColumn();
-			Dyn::Shader* pixelShader = myMaterial->myPixelShader;
-			std::string psName = "";
-			if (pixelShader)
-			{
-				psName = pixelShader->GetPath().filename().string();
-			}
-			psName += "##materialeditorpixelshader";
+		DrawShaderPart();
 
-			ImGui::Button(psName.c_str(), ImVec2(450, 20));
-			if (ImGui::IsItemHovered())
-			{
-				ImGui::SetTooltip(psName.c_str());
-			}
-			ImGui::NextColumn();
-		}
+		ImGui::Separator();
+		DrawAlbedoTexture();
 
-		ImGui::Text("Vertex Shader");
 		ImGui::NextColumn();
-		Dyn::Shader* vertexShader = myMaterial->myVertexShader;
-		std::string vsName = "";
-		if (vertexShader)
-		{
-			vsName = vertexShader->GetPath().filename().string();
-		}
-		vsName += "##materialeditorvertexshader";
+		DrawNormalTexture();
 
-		ImGui::Button(vsName.c_str(), ImVec2(450, 20));
-		if (ImGui::IsItemHovered())
-		{
-			ImGui::SetTooltip(vsName.c_str());
-		}
+		ImGui::NextColumn();
+		DrawMaterialTexture();
 
 		ImGui::Separator();
 
+		ImGui::NextColumn();
+		
+		DrawCustomMatrial();
+
+		ImGui::Separator();
+
+		DrawCustomPart();
+	}
+
+	void MaterialEditor::SetSelectedMaterial(Dyn::Material* aMaterial)
+	{
+		SetFocus();
+		if (myMaterial)
+		{
+			Dyn::MaterialFactory::SaveMaterial(myMaterial);
+		}
+
+		myMaterial = aMaterial;
+	}
+
+	void MaterialEditor::Save()
+	{
+		mySaveProgress += Time::GetDeltaTime();
+
+		if (mySaveProgress > mySaveDuration)
+		{
+			mySaveProgress = 0;
+			Dyn::MaterialFactory::SaveMaterial(myMaterial);
+		}
+	}
+	void MaterialEditor::DrawAlbedoTexture()
+	{
 		ImGui::NextColumn();
 		ImGui::Text("Albedo");
 		ImGui::NextColumn();
@@ -94,12 +90,26 @@ namespace Editor
 			albedoSRV = myMaterial->myAlbedo;
 
 		ImGui::Image(albedoSRV->Get(), ImVec2(16, 16));
+
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::SetTooltip("Assets/Textures/Default_C.dds");
 		}
 
-		ImGui::NextColumn();
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".dds"))
+			{
+				std::string path = *(std::string*)payload->Data;
+				myMaterial->myAlbedo = Dyn::ResourceFactory::GetSRV(path);
+			}
+
+			ImGui::EndDragDropTarget();
+		}
+	}
+
+	void MaterialEditor::DrawNormalTexture()
+	{
 		ImGui::Text("Normal");
 		ImGui::NextColumn();
 		Dyn::SRV* normalSRV = Dyn::ResourceFactory::GetSRV("Assets/Textures/Default_N.dds");
@@ -112,7 +122,20 @@ namespace Editor
 			ImGui::SetTooltip("Assets/Textures/Default_N.dds");
 		}
 
-		ImGui::NextColumn();
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".dds"))
+			{
+				std::string path = *(std::string*)payload->Data;
+				myMaterial->myNormal = Dyn::ResourceFactory::GetSRV(path);
+			}
+
+			ImGui::EndDragDropTarget();
+		}
+	}
+
+	void MaterialEditor::DrawMaterialTexture()
+	{
 		ImGui::Text("Material");
 		ImGui::NextColumn();
 		Dyn::SRV* materialSRV = Dyn::ResourceFactory::GetSRV("Assets/Textures/Default_M.dds");
@@ -125,41 +148,20 @@ namespace Editor
 			ImGui::SetTooltip("Assets/Textures/Default_M.dds");
 		}
 
-		ImGui::Separator();
-
-		ImGui::NextColumn();
-		ImGui::Text("Roughness Interp");
-		if (ImGui::IsItemHovered())
+		if (ImGui::BeginDragDropTarget())
 		{
-			ImGui::SetTooltip("Interpolation between material roughness and roughness. \n0 = roughness\n1 = material roughness");
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".dds"))
+			{
+				std::string path = *(std::string*)payload->Data;
+				myMaterial->myMaterial = Dyn::ResourceFactory::GetSRV(path);
+			}
+
+			ImGui::EndDragDropTarget();
 		}
+	}
 
-		ImGui::NextColumn();
-		static float test = 0;
-		ImGui::DragFloat("##materialeditorroughnessinterp", &myMaterial->myRoughnessInterpolation, 0.01f, 0, 1);
-		ImGui::NextColumn();
-		ImGui::Text("Roughness");
-		ImGui::NextColumn();
-		ImGui::DragFloat("##materialeditorroughness", &myMaterial->myRoughnessConstant, 0.01f, 0, 1);
-
-		ImGui::Spacing();
-
-		ImGui::NextColumn();
-		ImGui::Text("Metalness Interp");
-		if (ImGui::IsItemHovered())
-		{
-			ImGui::SetTooltip("Interpolation between material metalness and metalness. \n0 = metalness\n1 = material metalness");
-		}
-
-		ImGui::NextColumn();
-		ImGui::DragFloat("##materialeditormetalnessinterp", &myMaterial->myMetalnessInterpolation, 0.01f, 0, 1);
-		ImGui::NextColumn();
-		ImGui::Text("Metalness");
-		ImGui::NextColumn();
-		ImGui::DragFloat("##materialeditormetalness", &myMaterial->myMetalnessConstant, 0.01f, 0, 1);
-
-		ImGui::Separator();
-
+	void MaterialEditor::DrawCustomPart()
+	{
 		ImGui::Columns(1);
 		if (ImGui::CollapsingHeader("Custom##materialeditorcustom"))
 		{
@@ -237,24 +239,92 @@ namespace Editor
 		}
 	}
 
-	void MaterialEditor::SetSelectedMaterial(Dyn::Material* aMaterial)
+	void MaterialEditor::DrawShaderPart()
 	{
-		if (myMaterial)
+		if (myMaterial->mySurfaceType == Dyn::SurfaceType::Transparent)
 		{
-			Dyn::MaterialFactory::SaveMaterial(myMaterial);
+			ImGui::Text("Pixel Shader");
+			ImGui::NextColumn();
+			Dyn::Shader* pixelShader = myMaterial->myPixelShader;
+			std::string psName = "";
+			if (pixelShader)
+			{
+				psName = pixelShader->GetPath().filename().string();
+			}
+			psName += "##materialeditorpixelshader";
+
+			ImGui::Button(psName.c_str(), ImVec2(450, 20));
+			if (ImGui::IsItemHovered())
+			{
+				ImGui::SetTooltip(psName.c_str());
+			}
+			ImGui::NextColumn();
 		}
 
-		myMaterial = aMaterial;
+		ImGui::Text("Vertex Shader");
+		ImGui::NextColumn();
+		Dyn::Shader* vertexShader = myMaterial->myVertexShader;
+		std::string vsName = "";
+		if (vertexShader)
+		{
+			vsName = vertexShader->GetPath().filename().string();
+		}
+		vsName += "##materialeditorvertexshader";
+
+		ImGui::Button(vsName.c_str(), ImVec2(450, 20));
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::SetTooltip(vsName.c_str());
+		}
 	}
 
-	void MaterialEditor::Save()
+	void MaterialEditor::DrawCustomMatrial()
 	{
-		mySaveProgress += Time::GetDeltaTime();
-
-		if (mySaveProgress > mySaveDuration)
+		ImGui::Text("Roughness Interp");
+		if (ImGui::IsItemHovered())
 		{
-			mySaveProgress = 0;
-			Dyn::MaterialFactory::SaveMaterial(myMaterial);
+			ImGui::SetTooltip("Interpolation between material roughness and roughness. \n0 = roughness\n1 = material roughness");
+		}
+
+		ImGui::NextColumn();
+		static float test = 0;
+		ImGui::DragFloat("##materialeditorroughnessinterp", &myMaterial->myRoughnessInterpolation, 0.01f, 0, 1);
+		ImGui::NextColumn();
+		ImGui::Text("Roughness");
+		ImGui::NextColumn();
+		ImGui::DragFloat("##materialeditorroughness", &myMaterial->myRoughnessConstant, 0.01f, 0, 1);
+
+		ImGui::Spacing();
+
+		ImGui::NextColumn();
+		ImGui::Text("Metalness Interp");
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::SetTooltip("Interpolation between material metalness and metalness. \n0 = metalness\n1 = material metalness");
+		}
+
+		ImGui::NextColumn();
+		ImGui::DragFloat("##materialeditormetalnessinterp", &myMaterial->myMetalnessInterpolation, 0.01f, 0, 1);
+		ImGui::NextColumn();
+		ImGui::Text("Metalness");
+		ImGui::NextColumn();
+		ImGui::DragFloat("##materialeditormetalness", &myMaterial->myMetalnessConstant, 0.01f, 0, 1);
+	}
+
+	void MaterialEditor::DrawSurfaceTypes()
+	{
+		ImGui::Text("Surface Type");
+		ImGui::NextColumn();
+		if (ImGui::BeginCombo("##materialeditorsurfacetype", mySurfaceTypes[(int)myMaterial->mySurfaceType].c_str()))
+		{
+			for (int i = 0; i < 2; ++i)
+			{
+				if (ImGui::Selectable(mySurfaceTypes[i].c_str(), i == (int)myMaterial->mySurfaceType))
+				{
+					myMaterial->mySurfaceType = (Dyn::SurfaceType)i;
+				}
+			}
+			ImGui::EndCombo();
 		}
 	}
 }

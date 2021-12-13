@@ -2,6 +2,8 @@
 #include "ContentBrowser.h"
 #include "StringUtils.hpp"
 #include "MaterialEditor.h"
+#include <fstream>
+#include "Utils/FileUtils.h"
 
 namespace fs = std::filesystem;
 
@@ -190,6 +192,32 @@ namespace Editor
 
 		if (ImGui::BeginPopup("ContentBrowserPopup"))
 		{
+			if (ImGui::BeginMenu("New"))
+			{
+				if (ImGui::MenuItem("Material"))
+				{
+					fs::path matPath = myCurrentPath;
+					matPath.append("unnamedmaterial.dynmaterial");
+					matPath = Dyn::FileUtils::GetFreePath(matPath);
+
+					Dyn::MaterialFactory::CreateMaterial(matPath);
+					LoadDirectory(myCurrentPath);
+					for (int i = 0; i < myItems.sizeI(); ++i)
+					{
+						if (myItems[i].myPath == matPath)
+						{
+							mySelectedItem = i;
+							BeginRenaming();
+							break;
+						}
+					}
+				}
+
+				ImGui::EndMenu();
+			}
+
+			ImGui::Separator();
+
 			if (ImGui::MenuItem("Open In File Explorer"))
 			{
 				ShellExecuteA(NULL, "open", std::filesystem::absolute(myCurrentPath).string().c_str(), NULL, NULL, SW_SHOWDEFAULT);
@@ -205,7 +233,7 @@ namespace Editor
 			if (ImGui::MenuItem("New Folder"))
 			{
 				fs::path dirPath = myCurrentPath;
-				dirPath.append("unnamed");
+				dirPath.append("unnamed.dynmaterial");
 				fs::create_directory(dirPath);
 				LoadDirectory(myCurrentPath);
 

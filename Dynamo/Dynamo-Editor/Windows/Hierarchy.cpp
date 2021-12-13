@@ -2,6 +2,7 @@
 #include "Hierarchy.h"
 
 #include <Components/Camera.h>
+#include "Inspector.h"
 
 namespace Editor
 {
@@ -20,6 +21,7 @@ namespace Editor
 			std::string nameID = ob->GetName() + "##" + std::to_string(i);
 			if (ImGui::Selectable(nameID.c_str(), ob == Main::GetSelectedGameObject()))
 			{
+				Main::GetEditorManager()->GetWindow<Inspector>()->SetFocus();
 				Main::SetSelectedGameObject(ob);
 				Main::GetPostMaster()->PostCommand(PostCommand(CommandType::GameObjectSelected, ob));
 			}

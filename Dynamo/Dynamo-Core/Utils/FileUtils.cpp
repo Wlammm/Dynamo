@@ -15,4 +15,18 @@ namespace Dynamo
 	{
 		return std::filesystem::exists(aPath);
 	}
+
+	std::filesystem::path FileUtils::GetFreePath(const std::filesystem::path& aPath)
+	{
+		std::filesystem::path possibleName{ aPath };
+		auto stem = possibleName.stem().string();
+		auto ext = possibleName.extension().string();
+		for (int i = 1; std::filesystem::exists(possibleName); ++i)
+		{
+			std::ostringstream fn;
+			fn << stem << "(" << i << ")" << ext;
+			possibleName.replace_filename(fn.str());
+		}
+		return possibleName;
+	}
 }

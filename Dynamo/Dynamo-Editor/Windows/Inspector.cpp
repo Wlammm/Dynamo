@@ -23,6 +23,8 @@ namespace Editor
 			return;
 		}
 
+		UpdateHotkeys();
+
 		bool isActive = selectedObject->IsActive();
 		if (ImGui::Checkbox("##inspectoractiveobject", &isActive))
 		{
@@ -123,6 +125,15 @@ namespace Editor
 			}
 
 			ImGui::EndPopup();
+		}
+	}
+
+	void Inspector::UpdateHotkeys()
+	{
+		if (Input::IsKeyDown(KeyCode::Delete))
+		{
+			GameObject::Destroy(Main::GetSelectedGameObject(), 0);
+			Main::SetSelectedGameObject(nullptr);
 		}
 	}
 

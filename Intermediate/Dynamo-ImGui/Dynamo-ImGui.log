@@ -12,4 +12,4 @@
   imgui_stdlib.cpp
   imgui_tables.cpp
   imgui_widgets.cpp
-  Dynamo-ImGui.vcxproj -> C:\Users\william.arnback\Documents\GitHub\Dynamo\Libs\Dynamo-ImGui_Release.lib
+  Dynamo-ImGui.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-ImGui_Release.lib

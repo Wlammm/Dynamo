@@ -15,6 +15,14 @@ namespace Editor
 	private:
 		void Save();
 
+		void DrawAlbedoTexture();
+		void DrawNormalTexture();
+		void DrawMaterialTexture();
+		void DrawCustomPart();
+		void DrawShaderPart();
+		void DrawCustomMatrial();
+		void DrawSurfaceTypes();
+
 	private:
 		float mySaveDuration = 2;
 		float mySaveProgress = 0;

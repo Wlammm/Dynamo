@@ -10,10 +10,12 @@ namespace Dynamo
 		static Material* GetMaterial(const std::string& aPath);
 
 		static Material* GetDefaultMaterial();
+		static Material* GetMissingMaterial();
 
 		static Material* GetMaterialForModel(const std::string& aModelPath);
 
 		static void SaveMaterial(const Material* aMaterial);
+		static Material* CreateMaterial(const std::filesystem::path& aPath);
 
 	private:
 		static void LoadMaterial(const std::string& aPath);

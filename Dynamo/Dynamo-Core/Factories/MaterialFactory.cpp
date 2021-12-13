@@ -17,13 +17,23 @@ namespace Dynamo
             return &myMaterials[aPath];
         }
 
+        if (!std::filesystem::exists(aPath))
+        {
+            return GetMissingMaterial();
+        }
+
         LoadMaterial(aPath);
         return &myMaterials[aPath];
     }
 
     Material* MaterialFactory::GetDefaultMaterial()
     {
-        return GetMaterial("Assets/Materials/DefaultMaterial.dynmaterial");
+        return GetMaterial("Assets/Materials/DefaultMaterials/DefaultMaterial.dynmaterial");
+    }
+
+    Material* MaterialFactory::GetMissingMaterial()
+    {
+        return GetMaterial("Assets/Materials/DefaultMaterials/MissingMaterial.dynmaterial");
     }
 
     Material* MaterialFactory::GetMaterialForModel(const std::string& aModelPath)
@@ -82,6 +92,15 @@ namespace Dynamo
         std::ofstream stream(aMaterial->myMaterialPath);
         stream << json.dump(4);
         stream.close();
+    }
+
+    Material* MaterialFactory::CreateMaterial(const std::filesystem::path& aPath)
+    {
+        Material mat = *GetDefaultMaterial();
+        mat.myMaterialPath = aPath;
+        myMaterials[aPath.string()] = mat;
+        SaveMaterial(&mat);
+        return &myMaterials[aPath.string()];
     }
 
     void MaterialFactory::LoadMaterial(const std::string& aPath)
