@@ -14,7 +14,7 @@
     "NormalTexture": "Assets/Textures/Default_N.dds",
     "PixelShader": "Shaders/ForwardPS.cso",
     "ReceiveShadows": true,
-    "Roughness": 0.0,
+    "Roughness": 0.2199999988079071,
     "RoughnessInterp": 0.0,
     "SurfaceType": 0,
     "VertexShader": "Shaders/VertexShader.cso"
