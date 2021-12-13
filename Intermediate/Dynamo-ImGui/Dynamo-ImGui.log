@@ -1,4 +1,6 @@
-﻿  crude_json.cpp
+﻿  Builders.cpp
+  crude_json.cpp
+  Drawing.cpp
   Dynamo-ImGui.cpp
   imgui.cpp
   ImGuizmo.cpp
@@ -12,5 +14,6 @@
   imgui_stdlib.cpp
   imgui_tables.cpp
   imgui_widgets.cpp
+  Widgets.cpp
   Generating Code...
   Dynamo-ImGui.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-ImGui_Debug.lib

@@ -159,7 +159,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Builders.h" />
     <ClInclude Include="crude_json.h" />
+    <ClInclude Include="Drawing.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
@@ -176,10 +178,16 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="Interop.h" />
+    <ClInclude Include="Math2D.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Widgets.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Builders.cpp" />
     <ClCompile Include="crude_json.cpp" />
+    <ClCompile Include="Drawing.cpp" />
     <ClCompile Include="Dynamo-ImGui.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="ImGuizmo.cpp" />
@@ -193,11 +201,13 @@
     <ClCompile Include="imgui_stdlib.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="Widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui_bezier_math.inl" />
     <None Include="imgui_extra_math.inl" />
     <None Include="imgui_node_editor_internal.inl" />
+    <None Include="Math2D.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

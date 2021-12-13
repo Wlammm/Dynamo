@@ -1,25 +1,32 @@
 #include "EditorPch.h"
 #include "NodeEditor.h"
 
+#include "NodeEditor/Manager/NodeEditorManager.h"
+
+#include "NodeEditor/Manager/NodeRegistry.h"
+
 namespace Editor
 {
 	NodeEditor::NodeEditor()
 		: EditorWindow("Node Editor")
+	{ 
+		NodeEditorManager::Create();
+	}
+
+	NodeEditor::~NodeEditor()
 	{
-		ImGui::NodeEditor::Config config;
-		config.SettingsFile = "Assets/Editor/NodeEditor/NodeEditorSettings.json";
-		myEditorContext = ImGui::NodeEditor::CreateEditor(&config);
+		NodeEditorManager::Destroy();
+	}
+
+	void NodeEditor::Init()
+	{
+		NodeEditorManager::Load();
 	}
 
 	void NodeEditor::Update()
 	{
-		ImGui::NodeEditor::SetCurrentEditor(myEditorContext);
-		ImGui::NodeEditor::Begin("NodeEditor");
-
-
-		ImGui::NodeEditor::End();
+		NodeEditorManager::BeginFrame();
+		NodeEditorManager::Update();
+		NodeEditorManager::EndFrame();
 	}
 }
-
-
-// HEllo!

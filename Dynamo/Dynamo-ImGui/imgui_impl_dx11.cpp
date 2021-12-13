@@ -628,7 +628,7 @@ void ImGui_ImplDX11_NewFrame()
 extern "C" {
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_STATIC
-#include "stb_image/stb_image.h"
+#include "stb_image.h"
 }
 
 ImTextureID ImGui_LoadTexture(const char* path)

@@ -6,10 +6,12 @@ namespace Editor
 	{
 	public:
 		NodeEditor();
+		~NodeEditor();
 
+		void Init() override;
 		void Update() override;
 
 	private:
-		ImGui::NodeEditor::EditorContext* myEditorContext = nullptr;
+
 	};
 }
