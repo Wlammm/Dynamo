@@ -1,52 +1,16 @@
-﻿  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\DebugLine3DVertexShader.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\DebugLinePixelShader.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\DebugLineVertexShader.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\AmbientLightShader.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\DirectionalLightShader.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\EmissiveShader.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\GBuffer.cso
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Deferred\PointLightShader.hlsl(52,21-54): warning X3203: signed/unsigned mismatch, unsigned assumed
-  
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\PointLightShader.cso
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Deferred\SpotLightShader.hlsl(54,21-57): warning X3203: signed/unsigned mismatch, unsigned assumed
-  
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\SpotLightShader.cso
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\SkyboxPS.hlsl(8,12-71): warning X3206: implicit truncation of vector type
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\SkyboxPS.hlsl(9,26-114): warning X3206: 'LinearToGamma': implicit truncation of vector type
-  
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\SkyboxPS.cso
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedPS.hlsl(67,12-77): warning X3206: implicit truncation of vector type
-  
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\WorldAllignedPS.cso
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(22,16-37): warning X3578: Output value 'main' is not completely initialized
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(139,37-86): warning X3570: gradient instruction used in a loop with varying iteration, attempting to unroll the loop
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(22,16-37): warning X3578: Output value 'main' is not completely initialized
-  
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-FXAA.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-GammaCorrection.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-GaussianV.cso
-C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\ForwardPS.hlsl(63,12-77): warning X3206: implicit truncation of vector type
-  
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\ForwardPS.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-Bloom.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-Copy.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-GaussianH.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-HDR.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-Luminance.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenPS-MaterialPass.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\FullscreenVS.cso
-  compilation object save succeeded; see C:\Users\william.arnback\Documents\GitHub\Dynamo\Bin\Shaders\VertexShader.cso
-  pch.cpp
+﻿  pch.cpp
   AmbientLight.cpp
   Camera.cpp
   DirectionalLight.cpp
   MeshRenderer.cpp
   PointLight.cpp
+  Skybox.cpp
   SpotLight.cpp
   Transform.cpp
   DirectXFramework.cpp
   MainSingleton.cpp
   WindowHandler.cpp
+  Entry.cpp
   DDSTextureLoader.cpp
   ScreenGrab.cpp
   WICTextureLoader.cpp
@@ -55,9 +19,8 @@ C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Forw
   ModelFactory.cpp
   ResourceFactory.cpp
   ShaderFactory.cpp
-  TextureFactory.cpp
-  Entry.cpp
   Compiling...
+  TextureFactory.cpp
   DebugRenderer.cpp
   DeferredRenderer.cpp
   ForwardRenderer.cpp
@@ -68,12 +31,11 @@ C:\Users\william.arnback\Documents\GitHub\Dynamo\Dynamo\Dynamo-Core\Shaders\Forw
   GBuffer.cpp
   Model.cpp
   RenderManager.cpp
-  Shader.cpp
   SRV.cpp
+  Shader.cpp
   Texture.cpp
   Scene.cpp
   SceneSerializer.cpp
-  Skybox.cpp
   ConsoleUtils.cpp
   CrashHandler.cpp
   Debug.cpp
