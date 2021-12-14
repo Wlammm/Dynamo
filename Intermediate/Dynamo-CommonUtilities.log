@@ -1,7 +1,0 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\..\Intermediate\) contains files shared from another project (Dynamo-ComponentSystem.vcxproj, Dynamo-Core.vcxproj, Dynamo-Game.vcxproj, Dynamo.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Dynamo-CommonUtilities.cpp
-  InputManager.cpp
-  Point.cpp
-  Timer.cpp
-  Generating Code...
-  Dynamo-CommonUtilities.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-CommonUtilities_Debug.lib
