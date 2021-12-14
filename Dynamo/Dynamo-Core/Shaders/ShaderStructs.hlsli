@@ -68,6 +68,7 @@ cbuffer ObjectBuffer : register(b1)
     {
         float4x4 myToWorld;
         float4 myColor;
+        float4 myAdditiveColor;
         float2 myUVScale;
         
         float2 padding;

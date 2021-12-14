@@ -32,6 +32,8 @@ namespace Dynamo
 		bool myReceiveShadows = true;
 		SurfaceType mySurfaceType = SurfaceType::Opaque;
 
+		bool myIsDepthTested = true;
+
 		std::filesystem::path myMaterialPath = "";
 	};
 }

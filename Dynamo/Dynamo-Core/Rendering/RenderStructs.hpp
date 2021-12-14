@@ -42,6 +42,7 @@ namespace Dynamo
 	{
 		Mat4f myToWorld{};
 		Color myColor{};
+		Color myAdditiveColor{};
 		Vec2f myUVScale{};
 
 		Vec2f padding{};

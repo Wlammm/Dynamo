@@ -4,6 +4,8 @@
 #include "FullscreenEffects/FullscreenEffect.h"
 #include "Core/DirectXFramework.h"
 
+#include "Material.h"
+
 #include "FullscreenEffects/HDREffect.h"
 #include "FullscreenEffects/BloomEffect.h"
 #include "FullscreenEffects/FXAAEffect.h"
@@ -23,7 +25,9 @@ namespace Dynamo
 		AddFullscreenEffect(new Dyn::FXAAEffect(), 1);
 		AddFullscreenEffect(new Dyn::HDREffect(), 10);
 
-		myMeshes.Reserve(2000);
+		myDeferredMeshes.Reserve(1000);
+		myForwardMeshes.Reserve(1000);
+		myNonDepthTestedMeshes.Reserve(200);
 	}
 	
 	RenderManager::~RenderManager()
@@ -31,9 +35,21 @@ namespace Dynamo
 		RenderUtils::Destroy();
 	}
 
-	void RenderManager::AddMesh(const MeshCommand& aMeshRenderer)
+	void RenderManager::AddMesh(const MeshCommand& aMesh)
 	{
-		myMeshes.Add(aMeshRenderer);
+		if (!aMesh.myMaterial->myIsDepthTested)
+		{
+			myNonDepthTestedMeshes.push_back(aMesh);
+			return;
+		}
+
+		if (aMesh.myMaterial->mySurfaceType == SurfaceType::Opaque)
+		{
+			myDeferredMeshes.push_back(aMesh);
+			return;
+		}
+
+		myForwardMeshes.push_back(aMesh);
 	}
 
 	void RenderManager::AddDirectionalLight(const DirectionalLightCommand& aDirLight)
@@ -97,15 +113,9 @@ namespace Dynamo
 		ClearTextures();
 		SetSamplers();
 
-		if (myRenderDeferred)
-		{
-			RenderDeferred();
-			GammaCorrection();
-		}
-		else
-		{
-			RenderForward();
-		}
+		RenderDeferred();
+		GammaCorrection();
+		RenderForward();
 
 		if(myRenderEffects)
 			RenderFullscreenEffects();
@@ -178,7 +188,7 @@ namespace Dynamo
 		RenderUtils::SetBlendState(RenderUtils::BlendState::BLENDSTATE_DISABLE);
 		
 		myGBuffer.SetAsActiveTarget(&myRenderDepth);
-		myDeferredRenderer.GenerateGBuffer(myMeshes);
+		myDeferredRenderer.GenerateGBuffer(myDeferredMeshes);
 		
 		RenderUtils::SetBlendState(RenderUtils::BlendState::BLENDSTATE_ADDITIVE);
 		myRenderTexture.SetAsActiveTarget();
@@ -188,10 +198,14 @@ namespace Dynamo
 
 	void RenderManager::RenderForward()
 	{
-		RenderUtils::SetBlendState(RenderUtils::BlendState::BLENDSTATE_DISABLE);
+		RenderUtils::SetBlendState(RenderUtils::BlendState::BLENDSTATE_ALPHABLEND);
 
 		myRenderTexture.SetAsActiveTarget(&myRenderDepth);
-		myForwardRenderer.Render(myMeshes, myDirLights, myAmbLights, myPointLights, mySpotLights);
+		myForwardRenderer.Render(myForwardMeshes, myDirLights, myAmbLights, myPointLights, mySpotLights);
+
+		RenderUtils::SetDepthState(RenderUtils::DEPTHSTATE_READONLY);
+		myForwardRenderer.Render(myNonDepthTestedMeshes, myDirLights, myAmbLights, myPointLights, mySpotLights);
+		RenderUtils::SetDepthState(RenderUtils::DEPTHSTATE_DEFUALT);
 	}
 
 	void RenderManager::RenderDebug()
@@ -280,6 +294,11 @@ namespace Dynamo
 		}
 	}
 
+	const Texture& RenderManager::GetDepthTexture() const
+	{
+		return myRenderDepth;
+	}
+
 	void RenderManager::ClearTextures()
 	{
 		myRenderTexture.ClearTexture();
@@ -291,7 +310,9 @@ namespace Dynamo
 
 	void RenderManager::ClearCommands()
 	{
-		myMeshes.clear();
+		myDeferredMeshes.clear();
+		myForwardMeshes.clear();
+		myNonDepthTestedMeshes.clear();
 		myDirLights.clear();
 		myAmbLights.clear();
 		myPointLights.clear();

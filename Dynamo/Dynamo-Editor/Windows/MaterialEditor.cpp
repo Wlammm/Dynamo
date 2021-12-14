@@ -49,6 +49,11 @@ namespace Editor
 		DrawMaterialTexture();
 
 		ImGui::Separator();
+		ImGui::NextColumn();
+
+		DrawMaterialSettings();
+
+		ImGui::Separator();
 
 		ImGui::NextColumn();
 		
@@ -326,5 +331,16 @@ namespace Editor
 			}
 			ImGui::EndCombo();
 		}
+	}
+
+	void MaterialEditor::DrawMaterialSettings()
+	{
+		ImGui::Text("Receive Shadows");
+		ImGui::NextColumn();
+		ImGui::Checkbox("##materialeditorreceiveshadows", &myMaterial->myReceiveShadows);
+		ImGui::NextColumn();
+		ImGui::Text("Depth Tested");
+		ImGui::NextColumn();
+		ImGui::Checkbox("##materialeditordepthtested", &myMaterial->myIsDepthTested);
 	}
 }

@@ -39,7 +39,11 @@ namespace Dynamo
 		ImGui::NextColumn();
 		ImGui::Text("Color");
 		ImGui::NextColumn();
-		ImGui::ColorEdit3("##meshrenderercolor", &myColor.x);
+		ImGui::ColorEdit4("##meshrenderercolor", &myColor.x);
+		ImGui::NextColumn();
+		ImGui::Text("Additive Color");
+		ImGui::NextColumn();
+		ImGui::ColorEdit4("##meshrendereradditivecolor", &myAdditiveColor.x);
 
 		ImGui::Separator();
 
@@ -79,6 +83,10 @@ namespace Dynamo
 		json["color"]["g"] = myColor.g;
 		json["color"]["b"] = myColor.b;
 		json["color"]["a"] = myColor.a;
+		json["additiveColor"]["r"] = myAdditiveColor.r;
+		json["additiveColor"]["g"] = myAdditiveColor.g;
+		json["additiveColor"]["b"] = myAdditiveColor.b;
+		json["additiveColor"]["a"] = myAdditiveColor.a;
 
 		for (int i = 0; i < myMaterials.size(); ++i)
 		{
@@ -97,6 +105,11 @@ namespace Dynamo
 		myColor.g = aJson["color"]["g"];
 		myColor.b = aJson["color"]["b"];
 		myColor.a = aJson["color"]["a"];
+
+		myAdditiveColor.r = aJson["additiveColor"]["r"];
+		myAdditiveColor.g = aJson["additiveColor"]["g"];
+		myAdditiveColor.b = aJson["additiveColor"]["b"];
+		myAdditiveColor.a = aJson["additiveColor"]["a"];
 
 		for (int i = 0; i < aJson["materials"].size(); ++i)
 		{
@@ -122,6 +135,7 @@ namespace Dynamo
 			MeshCommand command;
 			command.myMesh = &myModel->GetMeshes()[i];
 			command.myColor = myColor;
+			command.myAdditiveColor = myAdditiveColor;
 			command.myMatrix = GetTransform().GetMatrix();
 			command.myMaterial = myMaterials[i];
 

@@ -23,12 +23,20 @@ namespace Dynamo
 			SAMPLERSTATE_COUNT
 		};
 
+		enum DepthState
+		{
+			DEPTHSTATE_DEFUALT,
+			DEPTHSTATE_READONLY,
+			DEPTHSTATE_COUNT
+		};
+
 	public:
 		static void Create();
 		static void Destroy();
 
 		static void SetSamplerState(SamplerState aState, uint aSlot);
 		static void SetBlendState(BlendState aState);
+		static void SetDepthState(DepthState aState);
 
 		template<typename T>
 		static void MapBuffer(T& aBufferData, ID3D11Buffer* aBuffer)
@@ -58,9 +66,11 @@ namespace Dynamo
 	private:
 		static void CreateBlendStates();
 		static void CreateSamplerStates();
+		static void CreateDepthStates();
 
 	private:
-		static std::array<ID3D11BlendState*, BLENDSTATE_COUNT> myBlendStates;
-		static std::array<ID3D11SamplerState*, SAMPLERSTATE_COUNT> mySamplerStates;
+		inline static std::array<ID3D11BlendState*, BLENDSTATE_COUNT> myBlendStates;
+		inline static std::array<ID3D11SamplerState*, SAMPLERSTATE_COUNT> mySamplerStates;
+		inline static std::array<ID3D11DepthStencilState*, DEPTHSTATE_COUNT> myDepthStates;
 	};
 }

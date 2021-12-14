@@ -45,6 +45,7 @@ namespace Dynamo
 			myObjectBufferData.myToWorld = model.myMatrix;
 			myObjectBufferData.myUVScale = { 1.0f, 1.0f };
 			myObjectBufferData.myColor = model.myColor;
+			myObjectBufferData.myAdditiveColor = model.myAdditiveColor;
 			RenderUtils::MapBuffer<ObjectBuffer>(myObjectBufferData, myObjectBuffer);
 
 			Main::GetContext()->VSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);

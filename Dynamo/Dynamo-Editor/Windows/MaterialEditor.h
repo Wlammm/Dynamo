@@ -22,6 +22,7 @@ namespace Editor
 		void DrawShaderPart();
 		void DrawCustomMatrial();
 		void DrawSurfaceTypes();
+		void DrawMaterialSettings();
 
 	private:
 		float mySaveDuration = 2;

@@ -10,6 +10,7 @@ namespace Dynamo
 	{
 		Mat4f myMatrix{};
 		Color myColor{};
+		Color myAdditiveColor{};
 		Mesh const* myMesh = nullptr;
 		Material* myMaterial = nullptr;
 	};

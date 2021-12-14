@@ -38,3 +38,8 @@ Each mesh has its own material. (Can drag material on top of mesh)
 srv wrapper
 drag drop textures to materials
 click on material to move content browser to file
+
+ImNotifications:
+https://github.com/patrickcjk/imgui-notify
+
+https://github.com/ocornut/imgui/wiki/Useful-Extensions#text-editors

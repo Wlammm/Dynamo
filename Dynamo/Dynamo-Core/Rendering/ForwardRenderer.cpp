@@ -155,6 +155,7 @@ namespace Dynamo
 		myObjectBufferData.myToWorld = aMesh.myMatrix;
 		myObjectBufferData.myUVScale = { 1.0f, 1.0f };
 		myObjectBufferData.myColor = aMesh.myColor;
+		myObjectBufferData.myAdditiveColor = aMesh.myAdditiveColor;
 		RenderUtils::MapBuffer<ObjectBuffer>(myObjectBufferData, myObjectBuffer);
 
 		Main::GetContext()->VSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);

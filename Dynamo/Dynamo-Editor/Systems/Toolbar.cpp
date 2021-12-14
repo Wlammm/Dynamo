@@ -5,6 +5,7 @@
 
 #include "Windows/MaterialEditor.h"
 #include "Windows/NodeEditor.h"
+#include "Windows/RenderDebugger.h"
 
 namespace Editor
 {
@@ -63,6 +64,11 @@ namespace Editor
 			if (ImGui::MenuItem("Node Editor"))
 			{
 				Main::GetEditorManager()->AddWindow(new NodeEditor());
+			}
+
+			if (ImGui::MenuItem("Render Debugger"))
+			{
+				Main::GetEditorManager()->AddWindow(new RenderDebugger());
 			}
 
 			ImGui::EndMenu();

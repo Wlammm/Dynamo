@@ -16,6 +16,6 @@
     "ReceiveShadows": true,
     "Roughness": 0.0,
     "RoughnessInterp": 1.0,
-    "SurfaceType": 0,
+    "SurfaceType": 1,
     "VertexShader": "Shaders/VertexShader.cso"
 }

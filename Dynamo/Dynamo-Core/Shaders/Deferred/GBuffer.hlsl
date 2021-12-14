@@ -15,7 +15,7 @@ struct GBufferOutput
 
 GBufferOutput main(VertexOutput input)
 {
-    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myWrapSampler, input.myUV0).rgb);
+    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myWrapSampler, input.myUV0).rgb * myObjectBuffer.myColor.rgb + myObjectBuffer.myAdditiveColor.rgb);
     
     float3 normal = myNormalTexture.Sample(myWrapSampler, input.myUV0).wyz;
     float ao = normal.b;
