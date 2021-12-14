@@ -43,12 +43,15 @@ namespace Dynamo
             Vec4f myNormals;
             Vec4f myTangents;
             Vec4f myBinormals;
+            Vec4ui myBoneIDs;
+            Vec4f myBoneWeights;
 
             bool operator==(const Vertex& lhs)
             {
                 return !memcmp(this, &lhs, sizeof(Vertex));
             }
         };
+
 
         FbxManager* manager = FbxManager::Create();
         FbxImporter* importer = FbxImporter::Create(manager, "Scene");
@@ -59,7 +62,11 @@ namespace Dynamo
 
         FbxScene* scene = FbxScene::Create(manager, "Scene");
 
+        Skeleton skeleton;
+        bool hasBones = false;
         FbxAxisSystem axisSystem(FbxAxisSystem::eDirectX);
+
+        std::unordered_multimap<unsigned int, std::pair<uint, float>> controlPointWeights;
 
         if (importer->Import(scene))
         {
@@ -70,12 +77,55 @@ namespace Dynamo
             std::vector<FbxNode*> meshNodes;
             GatherMeshNodes(scene->GetRootNode(), meshNodes);
 
+            hasBones = GatherSkeletonData(scene->GetRootNode(), skeleton, 0, 0);
+
             for (FbxNode* node : meshNodes)
             {
                 std::vector<Vertex> vertices;
                 std::vector<uint> indicies;
 
                 FbxMesh* fbxMesh = node->GetMesh();
+
+                if (hasBones)
+                {
+                    const FbxVector4 fbxTranslation = node->GetGeometricTranslation(FbxNode::eSourcePivot);
+                    const FbxVector4 fbxRotation = node->GetGeometricRotation(FbxNode::eSourcePivot);
+                    const FbxVector4 fbxScale = node->GetGeometricScaling(FbxNode::eSourcePivot);
+                    const FbxAMatrix rootTransform = FbxAMatrix(fbxTranslation, fbxRotation, fbxScale);
+
+                    for (int deformIdx = 0; deformIdx < fbxMesh->GetDeformerCount(); ++deformIdx)
+                    {
+                        FbxSkin* fbxSkin = (FbxSkin*)fbxMesh->GetDeformer(deformIdx, FbxDeformer::eSkin);
+
+                        if (!fbxSkin)
+                            continue;
+
+                        for (int clusterIdx = 0; clusterIdx < fbxSkin->GetClusterCount(); ++clusterIdx)
+                        {
+                            FbxCluster* fbxCluster = fbxSkin->GetCluster(clusterIdx);
+
+                            FbxAMatrix meshBindTransform;
+                            fbxCluster->GetTransformMatrix(meshBindTransform);
+
+                            FbxAMatrix linkTransform;
+                            fbxCluster->GetTransformLinkMatrix(linkTransform);
+
+                            FbxAMatrix bindPoseInverse = linkTransform.Inverse() * meshBindTransform * rootTransform;
+                            bindPoseInverse = bindPoseInverse.Transpose();
+
+                            uint jointIndex = skeleton.myJointNameToIndex[fbxCluster->GetLink()->GetName()];
+                            skeleton.myJoints[jointIndex].myBindPoseInverse = GetMatrix(bindPoseInverse);
+
+                            for (int i = 0; i < fbxCluster->GetControlPointIndicesCount(); ++i)
+                            {
+                                uint c = fbxCluster->GetControlPointIndices()[i];
+                                float w = (float)fbxCluster->GetControlPointWeights()[i];
+
+                                controlPointWeights.insert({ c, {jointIndex, w} });
+                            }
+                        }
+                    }
+                }
 
                 if (fbxMesh->GetElementBinormalCount() == 0 || fbxMesh->GetElementTangentCount() == 0)
                 {
@@ -125,6 +175,24 @@ namespace Dynamo
                             fbxColors[col] = colorElement->GetDirectArray().GetAt(polygonIndex);
                         }
 
+                        Vec4ui boneIDS = { 0, 0, 0, 0 };
+                        Vec4f boneWeights = { 0, 0, 0, 0 };
+                        if (hasBones)
+                        {
+                            typedef std::unordered_multimap<uint, std::pair<uint, float>>::iterator MMIter;
+
+                            std::pair<MMIter, MMIter> values = controlPointWeights.equal_range(controlPointIndex);
+
+                            int idx = 0;
+                            for (MMIter it = values.first; it != values.second && idx < 4; ++it)
+                            {
+                                std::pair<uint, float> boneAndWeight = it->second;
+                                boneIDS[idx] = boneAndWeight.first;
+                                boneWeights[idx] = boneAndWeight.second;
+                                idx++;
+                            }
+                        }
+
                         Vertex vertex;
                         vertex.myPosition = Vec4d{ vertexPos[0], vertexPos[1], vertexPos[2], 1 }.Cast<float>();
                         vertex.myVertexColor1 = Vec4d{ fbxColors[0][0], fbxColors[0][1], fbxColors[0][2], fbxColors[0][3] }.Cast<float>();
@@ -138,6 +206,8 @@ namespace Dynamo
                         vertex.myNormals = Vec4d{ normal[0], normal[1], normal[2], normal[3] }.Cast<float>();
                         vertex.myTangents = Vec4d{ tangent[0], tangent[1], tangent[2], tangent[3] }.Cast<float>();
                         vertex.myBinormals = Vec4d{ binormal[0], binormal[1], binormal[2], binormal[3] }.Cast<float>();
+                        vertex.myBoneIDs = boneIDS;
+                        vertex.myBoneWeights = boneWeights;
 
                         bool alreadyExists = false;
                         for (int i = 0; i < vertices.size(); ++i)
@@ -197,7 +267,9 @@ namespace Dynamo
                     { "UV", 3, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
                     { "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
                     { "TANGENT", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-                    { "BINORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+                    { "BINORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "BONEIDS", 0, DXGI_FORMAT_R32G32B32A32_UINT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+                    { "BONEWEIGHTS", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
                 };
 
                 ID3D11InputLayout* inputLayout;
@@ -214,6 +286,7 @@ namespace Dynamo
                 mesh.myPrimitiveTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
                 mesh.myOffset = 0;
                 mesh.myStride = sizeof(Vertex);
+                mesh.myHasBones = hasBones;
 
                 model->AddMesh(mesh);
             }
@@ -248,5 +321,49 @@ namespace Dynamo
                 }
             }
         }
+    }
+
+    bool ModelFactory::GatherSkeletonData(fbxsdk::FbxNode* aNode, Skeleton& outSkeleton, uint anIndex, uint someParentIndex)
+    {
+        if (aNode->GetNodeAttribute() && aNode->GetNodeAttribute()->GetAttributeType() && aNode->GetNodeAttribute()->GetAttributeType() == FbxNodeAttribute::eSkeleton)
+        {
+            Skeleton::Joint joint;
+            joint.myParentIndex = someParentIndex;
+            joint.myName = aNode->GetName();
+            outSkeleton.myJoints.push_back(joint);
+            outSkeleton.myJointNameToIndex.insert({ joint.myName, (uint)outSkeleton.myJoints.size() - 1 });
+        }
+
+        for (int i = 0; i < aNode->GetChildCount(); ++i)
+        {
+            GatherSkeletonData(aNode->GetChild(i), outSkeleton, (uint)outSkeleton.myJoints.size(), anIndex);
+        }
+
+        return outSkeleton.myJoints.size() > 0;
+    }
+    Mat4f ModelFactory::GetMatrix(fbxsdk::FbxAMatrix& aMat)
+    {
+        Mat4f mat{};
+        mat(1, 1) = (float)aMat.Get(1, 1);
+        mat(1, 2) = (float)aMat.Get(1, 2);
+        mat(1, 3) = (float)aMat.Get(1, 3);
+        mat(1, 4) = (float)aMat.Get(1, 4);
+
+        mat(2, 1) = (float)aMat.Get(2, 1);
+        mat(2, 2) = (float)aMat.Get(2, 2);
+        mat(2, 3) = (float)aMat.Get(2, 3);
+        mat(2, 4) = (float)aMat.Get(2, 4);
+
+        mat(3, 1) = (float)aMat.Get(3, 1);
+        mat(3, 2) = (float)aMat.Get(3, 2);
+        mat(3, 3) = (float)aMat.Get(3, 3);
+        mat(3, 4) = (float)aMat.Get(3, 4);
+
+        mat(4, 1) = (float)aMat.Get(4, 1);
+        mat(4, 2) = (float)aMat.Get(4, 2);
+        mat(4, 3) = (float)aMat.Get(4, 3);
+        mat(4, 4) = (float)aMat.Get(4, 4);
+
+        return mat;
     }
 }

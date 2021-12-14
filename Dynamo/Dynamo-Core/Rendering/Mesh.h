@@ -16,5 +16,7 @@ namespace Dynamo
 
 		ID3D11InputLayout* myInputLayout = nullptr;
 		D3D11_PRIMITIVE_TOPOLOGY myPrimitiveTopology = {};
+
+		bool myHasBones = false;
 	};
 }

@@ -139,6 +139,11 @@ namespace Dynamo
 		return myDebugRenderer;
 	}
 
+	const Texture& RenderManager::GetDepthTexture() const
+	{
+		return myRenderDepth;
+	}
+
 	ForwardRenderer& RenderManager::GetForwardRenderer()
 	{
 		return myForwardRenderer;
@@ -292,11 +297,6 @@ namespace Dynamo
 				val->ReInit();
 			}
 		}
-	}
-
-	const Texture& RenderManager::GetDepthTexture() const
-	{
-		return myRenderDepth;
 	}
 
 	void RenderManager::ClearTextures()

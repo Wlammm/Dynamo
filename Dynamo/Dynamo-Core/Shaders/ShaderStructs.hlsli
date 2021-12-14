@@ -27,6 +27,8 @@ struct VertexInput
     float4 myNormal : NORMAL;
     float4 myTangent : TANGENT;
     float4 myBinormal : BINORMAL;
+    uint4 myBoneIDs : BONEIDS;
+    float4 myBoneWeights : BONEWEIGHTS;
 };
 
 struct VertexOutput
