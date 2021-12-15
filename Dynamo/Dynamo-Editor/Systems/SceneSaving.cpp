@@ -19,6 +19,7 @@ namespace Editor
 			{
 				Dyn::SceneSerializer::SaveScene(scene, scene->GetSavePath());
 				Console::Log("Scene saved.");
+				ImGui::NotifySuccess("Scene", "Saved successfully!");
 			}
 		}
 	}

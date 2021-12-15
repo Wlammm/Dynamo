@@ -81,6 +81,9 @@
     <ClInclude Include="tahoma.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ImGui_Wrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Dynamo-ImGui.cpp">

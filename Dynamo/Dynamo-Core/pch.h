@@ -11,6 +11,7 @@
 #include "ImGuizmo.h"
 #include "imgui_node_editor.h"
 #include "imgui_notify.h"
+#include "ImGui_Wrapper.h"
 
 // Standard Library
 #include <vector>

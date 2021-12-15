@@ -1,5 +1,2 @@
-﻿C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedPS.hlsl(11,12-39): warning X3206: implicit truncation of vector type
-  
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\WorldAllignedPS.cso
-  ImGuiManager.cpp
+﻿  ImGuiManager.cpp
   Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Debug.lib

@@ -15,11 +15,11 @@ namespace Dynamo
 		ImGui_ImplWin32_Init(Main::GetHWND());
 		ImGui_ImplDX11_Init(Main::GetDevice(), Main::GetContext());
 
-		//ImGuiIO* io = &ImGui::GetIO();
-		//ImFontConfig fontConfig;
-		//fontConfig.FontDataOwnedByAtlas = false;
-		//io->Fonts->AddFontFromMemoryTTF((void*)tahoma, sizeof(tahoma), 17.f, &fontConfig);
-		//ImGui::MergeIconsWithLatestFont(16.f, false);
+		ImGuiIO* io = &ImGui::GetIO();
+		ImFontConfig fontConfig;
+		fontConfig.FontDataOwnedByAtlas = false;
+		io->Fonts->AddFontFromMemoryTTF((void*)tahoma, sizeof(tahoma), 16.0f, &fontConfig);
+		ImGui::MergeIconsWithLatestFont(12.f, false);
 	}
 
 	void ImGuiManager::BeginFrame()
