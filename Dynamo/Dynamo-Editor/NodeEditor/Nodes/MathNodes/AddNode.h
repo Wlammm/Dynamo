@@ -1,15 +1,15 @@
 #pragma once
-#include "../BaseNode.h"
+#include "../GraphNodeBase.h"
+#include "NodeEditor/BaseTypes/NodeTypes.h"
 
-namespace Editor
+class AddNode : GraphNodeBase
 {
-	class AddNode : public BaseNode
-	{
-	public:
-		AddNode();
+public:
+	AddNode();
 
-		int Enter(NodeInstance* aNodeInstance) override;
+	int OnExec(class GraphNodeInstance* aNodeInstance) override;
 
-	};
-}
+	virtual std::string GetNodeName() const override { return "Add"; }
+	virtual std::string GetNodeTypeCategory() const override { return "Math"; }
+};
 

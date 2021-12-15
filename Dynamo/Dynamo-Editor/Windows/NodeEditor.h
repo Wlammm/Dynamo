@@ -1,5 +1,7 @@
 #pragma once
 
+class GraphManager;
+
 namespace Editor
 {
 	class NodeEditor : public EditorWindow
@@ -12,6 +14,7 @@ namespace Editor
 		void Update() override;
 
 	private:
+		GraphManager* myGraphManager = nullptr;
 
 	};
 }

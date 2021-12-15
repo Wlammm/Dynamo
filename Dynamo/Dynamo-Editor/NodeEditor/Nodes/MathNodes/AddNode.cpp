@@ -1,19 +1,27 @@
 #include "EditorPch.h"
 #include "AddNode.h"
+#include "NodeEditor/BaseTypes/GraphNodeInstance.h"
 
-Editor::AddNode::AddNode()
+AddNode::AddNode()
 {
-	CreatePin("In", PinType::In, PinData::None);
-	CreatePin("Value 1", PinType::In, PinData::Float);
-	CreatePin("Value 2", PinType::In, PinData::Float);
-	CreatePin("Out", PinType::In, PinData::None);
-
-	SetNodeName("Add");
+	CreatePin("A", PinDirection::PinDirection_IN, DataType::Float);
+	CreatePin("B", PinDirection::PinDirection_IN, DataType::Float);
+	CreatePin("Result", PinDirection::PinDirection_OUT, DataType::Float);
 }
 
-int Editor::AddNode::Enter(NodeInstance* aNodeInstance)
+int AddNode::OnExec(GraphNodeInstance* aNodeInstance)
 {
-	aNodeInstance;
+	// Get data on pin index 0, this index is relative to what you push in the constructor
+	const float input1 = GetPinData<float>(aNodeInstance, 0);
 
-	return -1;
+	// Get data on pin index 1, this index is relative to what you push in the constructor
+	const float input2 = GetPinData<float>(aNodeInstance, 1);
+
+	// Perform the Add operation we're supposed to do.
+	const float result = input1 + input2;
+
+	// Set the result we calculated to the data property on the Result pin.
+	SetPinData(aNodeInstance, 2, result);
+
+	return -1; // If the node doesn't have a flow, return -1 see the print node for reference
 }

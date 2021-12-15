@@ -1,32 +1,30 @@
 #include "EditorPch.h"
 #include "NodeEditor.h"
-
-#include "NodeEditor/Manager/NodeEditorManager.h"
-
-#include "NodeEditor/Manager/NodeRegistry.h"
+#include "NodeEditor/Manager/GraphManager.h"
 
 namespace Editor
 {
 	NodeEditor::NodeEditor()
 		: EditorWindow("Node Editor")
 	{ 
-		NodeEditorManager::Create();
+		myGraphManager = new GraphManager();
 	}
 
 	NodeEditor::~NodeEditor()
 	{
-		NodeEditorManager::Destroy();
+		delete myGraphManager;
+		myGraphManager = nullptr;
 	}
 
 	void NodeEditor::Init()
 	{
-		NodeEditorManager::Load();
+		myGraphManager->Load();
 	}
 
 	void NodeEditor::Update()
 	{
-		NodeEditorManager::BeginFrame();
-		NodeEditorManager::Update();
-		NodeEditorManager::EndFrame();
+		myGraphManager->PreFrame(Time::GetUnscaledDeltaTime());
+		myGraphManager->ConstructEditorTreeAndConnectLinks();
+		myGraphManager->PostFram();
 	}
 }
