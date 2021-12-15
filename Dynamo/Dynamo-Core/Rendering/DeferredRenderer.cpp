@@ -42,17 +42,31 @@ namespace Dynamo
 		myGBufferShader->Bind();
 		for (MeshCommand model : someModels.AsVector())
 		{
+			myObjectBufferData.myIsAnimated = 0;
+			if (model.myIsAnimated)
+			{
+				myBoneBufferData.myBoneTransforms = model.myBoneTransforms;
+				RenderUtils::MapBuffer<BoneBuffer>(myBoneBufferData, myBoneBuffer);
+				Main::GetContext()->VSSetConstantBuffers(BONE_BUFFER_SLOT, 1, &myBoneBuffer);
+
+				myObjectBufferData.myIsAnimated = 1;
+			}
+
 			myObjectBufferData.myToWorld = model.myMatrix;
 			myObjectBufferData.myUVScale = { 1.0f, 1.0f };
 			myObjectBufferData.myColor = model.myColor;
+			myObjectBufferData.myAdditiveColor = model.myAdditiveColor;
 			RenderUtils::MapBuffer<ObjectBuffer>(myObjectBufferData, myObjectBuffer);
 
 			Main::GetContext()->VSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
 			Main::GetContext()->PSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
 
-			Main::GetContext()->PSSetShaderResources(ALBEDO_TEXTURE_SLOT, 3, &model.myMaterial->myAlbedo);
+			model.myMaterial->myAlbedo->Bind(ALBEDO_TEXTURE_SLOT);
+			model.myMaterial->myNormal->Bind(NORMAL_TEXTURE_SLOT);
+			model.myMaterial->myMaterial->Bind(MATERIAL_TEXTURE_SLOT);
 
 			myMeshVertexShader->Bind();
+
 			myMaterialBufferData.myRoughnessInterp = 1;
 			myMaterialBufferData.myMetalnessInterp = 1;
 			if (Material* mat = model.myMaterial)
@@ -116,7 +130,7 @@ namespace Dynamo
 			RenderUtils::MapBuffer<AmbientLightBuffer>(myAmbLightBufferData, myAmbLightBuffer);
 			Main::GetContext()->PSSetConstantBuffers(AMBIENT_LIGHT_BUFFER_SLOT, 1, &myAmbLightBuffer);
 
-			Main::GetContext()->PSSetShaderResources(CUBEMAP_TEXTURE_SLOT, 1, ambLight.myCubeMap);
+			ambLight.myCubeMap->Bind(CUBEMAP_TEXTURE_SLOT);
 
 			Main::GetContext()->Draw(3, 0);
 		}
@@ -225,6 +239,7 @@ namespace Dynamo
 		RenderUtils::CreateBuffer<DeferredSpotLightBuffer>(mySpotLightBuffer);
 		RenderUtils::CreateBuffer<EmissiveBuffer>(myEmissiveBuffer);
 		RenderUtils::CreateBuffer<MaterialBuffer>(myMaterialBuffer);
+		RenderUtils::CreateBuffer<BoneBuffer>(myBoneBuffer);
 	}
 
 	void DeferredRenderer::CreateShaders()

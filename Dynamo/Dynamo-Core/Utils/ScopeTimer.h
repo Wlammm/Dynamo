@@ -18,6 +18,5 @@ namespace Dynamo
 		std::chrono::time_point<std::chrono::high_resolution_clock> myStartTime;
 		std::string myName;
 		bool myShouldPrint = false;
-
 	};
 }

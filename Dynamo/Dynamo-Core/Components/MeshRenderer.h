@@ -16,7 +16,6 @@ namespace Dynamo
 		nlohmann::json Save() override;
 		void Load(nlohmann::json& aJson) override;
 
-
 		MeshRenderer() = default;
 		~MeshRenderer() = default;
 
@@ -26,25 +25,24 @@ namespace Dynamo
 		void SetModel(const std::string& aPath);
 		void SetModel(Model* aModel);
 
-		void SetMaterial(Material* aMaterial);
-		void AddMaterial(Material* aMaterial);
-
 		const std::vector<Mesh>& GetMeshes() const;
 
 		void SetColor(const Color& aColor);
 		const Color& GetColor() const;
 
-		Material* GetMaterial() const;
-
 		void ApplyModelMaterial();
 
-		bool IsInitialized() const;
+		void SetMaterialOnAllMeshes(Material* aMat);
 
-	private:
-		bool isInitialized = false;
+		void SetBoneTransforms(std::array<Mat4f, 128>* someTransforms);
+
+	protected:
 		Model* myModel = nullptr;
 		Color myColor = { 1, 1, 1, 1 };
+		Color myAdditiveColor = { 0, 0, 0, 0 };
 
 		std::vector<Material*> myMaterials;
+
+		std::array<Mat4f, 128>* myBoneTransforms = nullptr;
 	};
 }

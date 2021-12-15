@@ -1,6 +1,9 @@
 #include "EditorPch.h"
 #include "ContentBrowser.h"
 #include "StringUtils.hpp"
+#include "MaterialEditor.h"
+#include <fstream>
+#include "Utils/FileUtils.h"
 
 namespace fs = std::filesystem;
 
@@ -56,7 +59,7 @@ namespace Editor
 				}
 
 				ImGui::PushID(i);
-				if (ImGui::ImageButton(myItems[i].mySRV, { myTextureSize, myTextureSize }))
+				if (ImGui::ImageButton(myItems[i].mySRV->Get(), {myTextureSize, myTextureSize}))
 				{
 					mySelectedItem = i;
 				}
@@ -76,7 +79,21 @@ namespace Editor
 						ImGui::EndChild();
 						return;
 					}
+
+					HandleDoubleClick(myItems[i]);
 				}
+
+				if (!std::filesystem::is_directory(myItems[i].myPath))
+				{
+					if (ImGui::BeginDragDropSource())
+					{
+						ImGui::Text(myItems[i].myPath.string().c_str());
+						myDragDropPath = myItems[i].myPath.string();
+						ImGui::SetDragDropPayload(GetPayloadType(myItems[i].myPath).c_str(), &myDragDropPath, sizeof(myDragDropPath));
+						ImGui::EndDragDropSource();
+					}
+				}
+
 				ImGui::PopID();
 
 				ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10);
@@ -175,6 +192,32 @@ namespace Editor
 
 		if (ImGui::BeginPopup("ContentBrowserPopup"))
 		{
+			if (ImGui::BeginMenu("New"))
+			{
+				if (ImGui::MenuItem("Material"))
+				{
+					fs::path matPath = myCurrentPath;
+					matPath.append("unnamedmaterial.dynmaterial");
+					matPath = Dyn::FileUtils::GetFreePath(matPath);
+
+					Dyn::MaterialFactory::CreateMaterial(matPath);
+					LoadDirectory(myCurrentPath);
+					for (int i = 0; i < myItems.sizeI(); ++i)
+					{
+						if (myItems[i].myPath == matPath)
+						{
+							mySelectedItem = i;
+							BeginRenaming();
+							break;
+						}
+					}
+				}
+
+				ImGui::EndMenu();
+			}
+
+			ImGui::Separator();
+
 			if (ImGui::MenuItem("Open In File Explorer"))
 			{
 				ShellExecuteA(NULL, "open", std::filesystem::absolute(myCurrentPath).string().c_str(), NULL, NULL, SW_SHOWDEFAULT);
@@ -190,7 +233,7 @@ namespace Editor
 			if (ImGui::MenuItem("New Folder"))
 			{
 				fs::path dirPath = myCurrentPath;
-				dirPath.append("unnamed");
+				dirPath.append("unnamed.dynmaterial");
 				fs::create_directory(dirPath);
 				LoadDirectory(myCurrentPath);
 
@@ -278,7 +321,27 @@ namespace Editor
 		}
 	}
 
-	DXSRV* ContentBrowser::GetSRVFromPath(const std::filesystem::path& aPath)
+	void ContentBrowser::HandleDoubleClick(const ContentBrowserItem& aClickedItem)
+	{
+		std::string extension = CU::StringUtils::ToLower(aClickedItem.myPath.extension().string());
+		if (extension == ".dynmaterial")
+		{
+			MaterialEditor* matEditor = nullptr;
+			if (!(matEditor = Main::GetEditorManager()->GetWindow<MaterialEditor>()))
+			{
+				matEditor = Main::GetEditorManager()->AddWindow(new MaterialEditor());
+			}
+
+			matEditor->SetSelectedMaterial(Dyn::MaterialFactory::GetMaterial(aClickedItem.myPath.string()));
+		}
+	}
+
+	std::string ContentBrowser::GetPayloadType(const std::filesystem::path& aPath)
+	{
+		return CU::StringUtils::ToLower(aPath.extension().string());
+	}
+
+	Dyn::SRV* ContentBrowser::GetSRVFromPath(const std::filesystem::path& aPath)
 	{
 		if (std::filesystem::is_directory(aPath))
 			return myFolderIcons[FILETYPE_FOLDER];
@@ -291,7 +354,7 @@ namespace Editor
 
 		if (lowExtension == ".dds")
 		{
-			DXSRV* srv = Dyn::ResourceFactory::GetSRV(aPath.string());
+			Dyn::SRV* srv = Dyn::ResourceFactory::GetSRV(aPath.string());
 			return srv;
 		}
 

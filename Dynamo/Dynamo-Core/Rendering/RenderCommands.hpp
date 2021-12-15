@@ -10,8 +10,12 @@ namespace Dynamo
 	{
 		Mat4f myMatrix{};
 		Color myColor{};
+		Color myAdditiveColor{};
 		Mesh const* myMesh = nullptr;
 		Material* myMaterial = nullptr;
+
+		bool myIsAnimated = false;
+		std::array<Mat4f, 128> myBoneTransforms;
 	};
 
 	struct PointLightCommand
@@ -43,6 +47,6 @@ namespace Dynamo
 	struct AmbientLightCommand
 	{
 		float myIntensity = 0;
-		DXSRV* const* myCubeMap = nullptr;
+		SRV* myCubeMap = nullptr;
 	};
 }

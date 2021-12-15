@@ -57,10 +57,10 @@ cbuffer SpotLightBuffer : register(b7)
 PixelOutput main(VertexOutput input)
 {
     float3 toEye = normalize(myFrameBuffer.myCameraPosition.xyz - input.myWorldPosition.xyz);
-    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myDefaultSampler, input.myUV0).rgb);
+    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myDefaultSampler, input.myUV0).rgb * myObjectBuffer.myColor.rgb + myObjectBuffer.myAdditiveColor.rgb);
     float3 normal = GetNormal(input);
 
-    float3 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV0);
+    float3 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV0).rgb;
     material.r = lerp(myMaterialBuffer.myMetalnessConstant, material.r, myMaterialBuffer.myMetalnessInterp);
     material.g = lerp(myMaterialBuffer.myRoughnessConstant, material.g, myMaterialBuffer.myRoughnessInterp);
 
@@ -95,6 +95,6 @@ PixelOutput main(VertexOutput input)
     
     PixelOutput output;
     output.myColor.rgb = LinearToGamma(radiance);
-    output.myColor.a = 1.0f;
+    output.myColor.a = 1.0f * myObjectBuffer.myColor.a;
     return output;
 }

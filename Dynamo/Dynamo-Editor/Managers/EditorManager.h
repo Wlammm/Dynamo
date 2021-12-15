@@ -29,7 +29,16 @@ namespace Editor
 
 			return nullptr;
 		}
-		EditorWindow* AddWindow(EditorWindow* aWindow);
+
+		template<typename T>
+		T* AddWindow(T* aWindow)
+		{
+			myWindows.Add(aWindow);
+			aWindow->myWindowID = myNextID++;
+			aWindow->myWindowName = aWindow->myWindowName + "##" + std::to_string(aWindow->myWindowID);
+			return aWindow;
+		}
+
 		void RemoveWindow(EditorWindow* aWindow);
 
 		template<typename T>

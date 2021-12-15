@@ -9,51 +9,66 @@ namespace Dynamo
 {
 	void MeshRenderer::ExposeValues()
 	{
+		ImGui::Columns(2, 0, false);
+		ImGui::SetColumnWidth(0, 100);
+
 		ImGui::Text("Model");
-		ImGui::SameLine(0, 40);
+		ImGui::NextColumn();
 
-		std::string modelPath = "";
-		if (myModel)
-			modelPath = myModel->GetPath();
+		std::string buttonName = "Unassigned";
+		if(myModel)
+			buttonName = myModel->GetPath() + "##meshrenderermodel";
 
-		ImGui::Button(modelPath.c_str(), ImVec2(500, 20));
-		if (ImGui::IsItemHovered())
+		ImGui::Button(buttonName.c_str(), ImVec2(340, 20));
+		if (ImGui::IsItemHovered() && myModel)
 		{
-			ImGui::SetTooltip(modelPath.c_str());
+			ImGui::SetTooltip(myModel->GetPath().c_str());
 		}
 
-		ImGui::Text("Color");
-		ImGui::SameLine(0, 40);
-		ImGui::ColorEdit3("##meshrenderercolor", &myColor.r);
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".fbx"))
+			{
+				std::string filePath = *(std::string*)payload->Data;
+				SetModel(filePath);
+			}
 
-		ImGui::Text("Materials:");
+			ImGui::EndDragDropTarget();
+		}
+
+		ImGui::NextColumn();
+		ImGui::Text("Color");
+		ImGui::NextColumn();
+		ImGui::ColorEdit4("##meshrenderercolor", &myColor.x);
+		ImGui::NextColumn();
+		ImGui::Text("Additive Color");
+		ImGui::NextColumn();
+		ImGui::ColorEdit4("##meshrendereradditivecolor", &myAdditiveColor.x);
+
+		ImGui::Separator();
+
 		for (int i = 0; i < myMaterials.size(); ++i)
 		{
-			std::string name = "Material " + i;
-			name += "##meshrenderer";
-			if(ImGui::CollapsingHeader(name.c_str(), ImGuiTreeNodeFlags_Framed))
+			ImGui::NextColumn();
+			std::string matName = "Material " + std::to_string(i);
+			ImGui::Text(matName.c_str());
+			ImGui::NextColumn();
+			std::string name = myMaterials[i]->myMaterialPath.string() + "##meshrenderermaterial";
+			name += i;
+			ImGui::Button(name.c_str(), ImVec2(340, 20));
+			if (ImGui::BeginDragDropTarget())
 			{
-				ImGui::Text("Roughness constant");
-				ImGui::SameLine(0.0f, 75);
-				ImGui::DragFloat("##meshrendererroughnessconstnat" + i, &myMaterials[i]->myRoughnessConstant, 0.01f, 0, 1);
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".dynmaterial"))
+				{
+					std::string filePath = *(std::string*)payload->Data;
+					myMaterials[i] = MaterialFactory::GetMaterial(filePath);
+				}
 
-				ImGui::Text("Roughness interpolation");
-				if(ImGui::IsItemHovered())
-					ImGui::SetTooltip("Interpolates between material texture and Roughness Constant \n A value of 1 = Material Texture\n A value of 0 = Roughness constant");
-				ImGui::SameLine(0.0f, 40);
-				ImGui::DragFloat("##meshrendererroughnessinterpolation" + i, &myMaterials[i]->myRoughnessInterpolation, 0.01f, 0, 1);
-
-				ImGui::Text("Metalness constant");
-				ImGui::SameLine(0.0f, 75);
-				ImGui::DragFloat("##meshrenderermetalnessconstnat" + i, &myMaterials[i]->myMetalnessConstant, 0.01f, 0, 1);
-
-				ImGui::Text("Metalness interpolation");
-				if(ImGui::IsItemHovered())
-					ImGui::SetTooltip("Interpolates between material texture and Metalness Constant \n A value of 1 = Material Texture\n A value of 0 = Metalness constant");
-				ImGui::SameLine(0.0f, 40);
-				ImGui::DragFloat("##meshrenderermetalnessinterpolation" + i, &myMaterials[i]->myMetalnessInterpolation, 0.01f, 0 ,1);
+				ImGui::EndDragDropTarget();
 			}
 		}
+
+		ImGui::Columns(1);
 	}
 
 	nlohmann::json MeshRenderer::Save()
@@ -68,6 +83,15 @@ namespace Dynamo
 		json["color"]["g"] = myColor.g;
 		json["color"]["b"] = myColor.b;
 		json["color"]["a"] = myColor.a;
+		json["additiveColor"]["r"] = myAdditiveColor.r;
+		json["additiveColor"]["g"] = myAdditiveColor.g;
+		json["additiveColor"]["b"] = myAdditiveColor.b;
+		json["additiveColor"]["a"] = myAdditiveColor.a;
+
+		for (int i = 0; i < myMaterials.size(); ++i)
+		{
+			json["materials"].push_back(myMaterials[i]->myMaterialPath.string());
+		}
 
 		return json;
 	}
@@ -81,19 +105,45 @@ namespace Dynamo
 		myColor.g = aJson["color"]["g"];
 		myColor.b = aJson["color"]["b"];
 		myColor.a = aJson["color"]["a"];
+
+		myAdditiveColor.r = aJson["additiveColor"]["r"];
+		myAdditiveColor.g = aJson["additiveColor"]["g"];
+		myAdditiveColor.b = aJson["additiveColor"]["b"];
+		myAdditiveColor.a = aJson["additiveColor"]["a"];
+
+		for (int i = 0; i < aJson["materials"].size(); ++i)
+		{
+			if (i > myMaterials.size())
+			{
+				Console::ErrorLog("Model & Scene mesh count missmatch");
+				return;
+			}
+
+			std::string path = aJson["materials"][i];
+			if(path != "")
+				myMaterials[i] = MaterialFactory::GetMaterial(path);
+		}
 	}
 
 	void MeshRenderer::Update()
 	{
-		for(const auto& mesh : myModel->GetMeshes())
+		if (!myModel)
+			return;
+
+		for(int i = 0; i < myModel->GetMeshes().size(); ++i)
 		{
 			MeshCommand command;
-			command.myMesh = &mesh;
+			command.myMesh = &myModel->GetMeshes()[i];
 			command.myColor = myColor;
-			if (!myMaterials.empty())
-				command.myMaterial = myMaterials.front();
-			
+			command.myAdditiveColor = myAdditiveColor;
 			command.myMatrix = GetTransform().GetMatrix();
+			command.myMaterial = myMaterials[i];
+
+			if (myBoneTransforms)
+			{
+				command.myBoneTransforms = *myBoneTransforms;
+				command.myIsAnimated = true;
+			}
 
 			Main::GetRenderManager().AddMesh(command);
 		}
@@ -107,24 +157,13 @@ namespace Dynamo
 	void MeshRenderer::SetModel(const std::string& aPath)
 	{
 		myModel = ModelFactory::GetModel(aPath);
-		isInitialized = true;
+		ApplyModelMaterial();
 	}
 
 	void MeshRenderer::SetModel(Model* aModel)
 	{
 		myModel = aModel;
-		isInitialized = true;
-	}
-
-	void MeshRenderer::SetMaterial(Material* aMaterial)
-	{
-		myMaterials.clear();
-		myMaterials.push_back(aMaterial);
-	}
-
-	void MeshRenderer::AddMaterial(Material* aMaterial)
-	{
-		myMaterials.push_back(aMaterial);
+		ApplyModelMaterial();
 	}
 
 	const std::vector<Mesh>& MeshRenderer::GetMeshes() const
@@ -142,21 +181,29 @@ namespace Dynamo
 		return myColor;
 	}
 
-	Material* MeshRenderer::GetMaterial() const
-	{
-		if (myMaterials.size() > 0)
-			return myMaterials.front();
-
-		return nullptr;
-	}
-
 	void MeshRenderer::ApplyModelMaterial()
 	{
-		AddMaterial(MaterialFactory::GetMaterialForModel(myModel->GetPath()));
+		myMaterials.clear();
+		for (int i = 0; i < myModel->GetMeshes().size(); ++i)
+		{
+			std::filesystem::path path = myModel->GetPath();
+			path.replace_extension(".dynmaterial");
+			myMaterials.push_back(MaterialFactory::GetMaterial(path.string()));
+
+			// Still works. Will apply materials to model using paths.
+			//myMaterials.push_back(MaterialFactory::GetMaterialForModel(myModel->GetPath()));
+		}
+	}
+	void MeshRenderer::SetMaterialOnAllMeshes(Material* aMat)
+	{
+		for (int i = 0; i < myMaterials.size(); ++i)
+		{
+			myMaterials[i] = aMat;
+		}
 	}
 
-	bool MeshRenderer::IsInitialized() const
+	void MeshRenderer::SetBoneTransforms(std::array<Mat4f, 128>* someTransforms)
 	{
-		return isInitialized && myMaterials.size() > 0;
+		myBoneTransforms = someTransforms;
 	}
 }

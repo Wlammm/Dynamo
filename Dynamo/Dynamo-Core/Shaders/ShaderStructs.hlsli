@@ -27,6 +27,8 @@ struct VertexInput
     float4 myNormal : NORMAL;
     float4 myTangent : TANGENT;
     float4 myBinormal : BINORMAL;
+    uint4 myBoneIDs : BONEIDS;
+    float4 myBoneWeights : BONEWEIGHTS;
 };
 
 struct VertexOutput
@@ -68,10 +70,20 @@ cbuffer ObjectBuffer : register(b1)
     {
         float4x4 myToWorld;
         float4 myColor;
+        float4 myAdditiveColor;
         float2 myUVScale;
-        
-        float2 padding;
+        int myIsAnimated;
+
+        float padding;
     } myObjectBuffer;
+}
+
+cbuffer BoneBuffer : register(b3)
+{
+    struct BoneBuffer
+    {
+        float4x4 myBoneTransforms[128];
+    } myBoneBuffer;
 }
 
 cbuffer DirectionalLightBuffer : register(b4)

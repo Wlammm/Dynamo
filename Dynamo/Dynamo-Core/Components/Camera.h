@@ -53,7 +53,7 @@ namespace Dynamo
 		bool myEnableFreeMovement = false;
 		float myMovementSpeed = 100;
 		float myMovementMultiplier = 1;
-		float myShiftMultiplier = 20;
+		float myShiftMultiplier = 5;
 		float myMouseSensitivity = 4;
 		float myScrollIncrease = 0.5f;
 	};

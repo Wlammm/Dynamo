@@ -1,11 +1,13 @@
 #pragma once
 
+#include "Rendering/SRV.h"
+
 namespace Dynamo
 {
 	class ResourceFactory
 	{
 	public:
-		static ID3D11ShaderResourceView* GetSRV(const std::string& aPath);
+		static SRV* GetSRV(const std::string& aPath);
 
 		static void ReleaseAll();
 
@@ -13,6 +15,6 @@ namespace Dynamo
 		static void LoadSRV(const std::string& aPath);
 
 	private:
-		static std::unordered_map<std::string, ID3D11ShaderResourceView*> mySRVs;
+		static std::unordered_map<std::string, SRV*> mySRVs;
 	};
 }

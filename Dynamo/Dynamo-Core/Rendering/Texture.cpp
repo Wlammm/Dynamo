@@ -63,6 +63,11 @@ namespace Dynamo
 		return mySRV;
 	}
 
+	ID3D11ShaderResourceView* Texture::GetSRV() const
+	{
+		return mySRV;
+	}
+
 	void Texture::Release()
 	{
 		myRenderTarget->Release();

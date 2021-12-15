@@ -44,9 +44,11 @@ namespace Dynamo
 		ForwardRenderer& GetForwardRenderer();
 
 		Texture& GetMainRenderTarget();
+		const Texture& GetDepthTexture() const;
 
 		void ReleaseAllTextures();
 		void CreateTextures(bool isFirstTime);
+
 
 	private:
 		void ImGuiRender();
@@ -71,7 +73,10 @@ namespace Dynamo
 		int myRenderPass = 0;
 
 	private:
-		CU::DArray<MeshCommand> myMeshes;
+		CU::DArray<MeshCommand> myDeferredMeshes;
+		CU::DArray<MeshCommand> myForwardMeshes;
+		CU::DArray<MeshCommand> myNonDepthTestedMeshes;
+
 		CU::DArray<DirectionalLightCommand> myDirLights;
 		CU::DArray<AmbientLightCommand> myAmbLights;
 		CU::DArray<PointLightCommand> myPointLights;

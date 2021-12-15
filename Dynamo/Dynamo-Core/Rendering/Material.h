@@ -13,14 +13,15 @@ namespace Dynamo
 
 	struct Material
 	{
-		ID3D11ShaderResourceView* myAlbedo = nullptr;
-		ID3D11ShaderResourceView* myNormal = nullptr;
-		ID3D11ShaderResourceView* myMaterial = nullptr;
+		Dyn::SRV* myAlbedo = nullptr;
+		Dyn::SRV* myNormal = nullptr;
+		Dyn::SRV* myMaterial = nullptr;
 
 		Shader* myPixelShader = nullptr;
 		Shader* myVertexShader = nullptr;
 
-		std::array<ID3D11ShaderResourceView*, 4> myCustomTextures = { nullptr, nullptr, nullptr, nullptr };
+		std::array<Dyn::SRV*, 4> myCustomTextures = { nullptr, nullptr, nullptr, nullptr };
+		std::array<float, 4> myCustomValues = { 0, 0, 0, 0 };
 
 		float myRoughnessConstant = 0;
 		float myRoughnessInterpolation = 1;
@@ -30,5 +31,9 @@ namespace Dynamo
 
 		bool myReceiveShadows = true;
 		SurfaceType mySurfaceType = SurfaceType::Opaque;
+
+		bool myIsDepthTested = true;
+
+		std::filesystem::path myMaterialPath = "";
 	};
 }

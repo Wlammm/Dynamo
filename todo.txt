@@ -1,0 +1,45 @@
+Window scaling with ImGui
+
+Profiler with past session information
+
+Better spotlight culling in forwardrendering
+
+Set tags in editor (Custom enum)
+Light guizmos
+Editor camera not showing up in hierarchy
+ObjectSelection in viewport
+
+inspector search functionality
+hierarchy search functionality
+
+Unreal prefab quick access
+
+Gridsnapping
+- different modes (1, 10, 50, 100, 500, 1000, custom) (Scale, rotate, translation)
+
+- ContentBrowser:
+Search
+Back & forth with mouse button
+Breadcrumbs
+Drop to folder (Move)
+Drag drop to import to content browser
+Scroll to top when opening folder - Implemented (Needs verify)
+
+When selecting object in viewport, scroll to item in hierarchy
+
+Editor camera speed
+F to focus selected object
+- Alt left to rotate around focused object
+
+Lerp editor camera movement
+
+Each mesh has its own material. (Can drag material on top of mesh)
+
+srv wrapper
+drag drop textures to materials
+click on material to move content browser to file
+
+ImNotifications:
+https://github.com/patrickcjk/imgui-notify
+
+https://github.com/ocornut/imgui/wiki/Useful-Extensions#text-editors

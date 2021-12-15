@@ -4,9 +4,9 @@
 
 namespace Dynamo
 {
-	std::unordered_map<std::string, ID3D11ShaderResourceView*> ResourceFactory::mySRVs;
+	std::unordered_map<std::string, SRV*> ResourceFactory::mySRVs;
 
-	ID3D11ShaderResourceView* Dynamo::ResourceFactory::GetSRV(const std::string& aPath)
+	SRV* ResourceFactory::GetSRV(const std::string& aPath)
 	{
 		if (aPath == "")
 			return nullptr;
@@ -25,17 +25,22 @@ namespace Dynamo
 		for (auto val : mySRVs)
 		{
 			val.second->Release();
+			delete val.second;
 		}
 		mySRVs.clear();
 	}
 
-	void Dynamo::ResourceFactory::LoadSRV(const std::string& aPath)
+	void ResourceFactory::LoadSRV(const std::string& aPath)
 	{
-		ID3D11ShaderResourceView* srv;
+		ID3D11ShaderResourceView* resource;
 		std::wstring wPath = { aPath.begin(), aPath.end() };
 
-		HRESULT result = DirectX::CreateDDSTextureFromFile(Main::GetDevice(), wPath.c_str(), nullptr, &srv);
+		HRESULT result = DirectX::CreateDDSTextureFromFile(Main::GetDevice(), wPath.c_str(), nullptr, &resource);
 		assert(SUCCEEDED(result));
+
+		SRV* srv = new SRV();
+		srv->mySRV = resource;
+		srv->myPath = aPath;
 
 		mySRVs[aPath] = srv;
 	}

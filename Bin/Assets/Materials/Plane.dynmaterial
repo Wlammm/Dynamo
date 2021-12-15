@@ -1,0 +1,21 @@
+{
+    "AlbedoTexture": "Assets\\Fbx\\DefaultAssets\\plane_c.dds",
+    "CustomTexture1": "",
+    "CustomTexture2": "",
+    "CustomTexture3": "",
+    "CustomTexture4": "",
+    "CustomValue1": 0.0,
+    "CustomValue2": 0.0,
+    "CustomValue3": 0.0,
+    "CustomValue4": 0.0,
+    "MaterialTexture": "Assets\\Fbx\\DefaultAssets\\plane_m.dds",
+    "Metalness": 0.0,
+    "MetalnessInterp": 1.0,
+    "NormalTexture": "Assets\\Fbx\\DefaultAssets\\plane_n.dds",
+    "PixelShader": "Shaders/ForwardPS.cso",
+    "ReceiveShadows": true,
+    "Roughness": 0.0,
+    "RoughnessInterp": 1.0,
+    "SurfaceType": 0,
+    "VertexShader": "Shaders/VertexShader.cso"
+}

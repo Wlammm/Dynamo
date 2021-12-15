@@ -22,12 +22,12 @@ namespace Dynamo
 
 		void SetCubeMap(const std::string& aCubeMapPath);
 
-		DXSRV* GetCubeMap();
-		DXSRV* const* GetCubeMapConst();
+		SRV* GetCubeMap();
+		SRV* const* GetCubeMapConst();
 
 	private:
 		float myIntensity = 1.0f;
 
-		DXSRV* myCubeMap = nullptr;
+		SRV* myCubeMap = nullptr;
 	};
 }

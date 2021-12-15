@@ -49,7 +49,7 @@ PixelOutput main(FullscreenVertexToPixel input)
 
     float3 pointLight = 0;
     
-    for (int i = 0; i < myPointLightBuffer.myNumLights; ++i)
+    for (uint i = 0; i < myPointLightBuffer.myNumLights; ++i)
     {
         pointLight = EvaluatePointLight(diffColor, specColor, normal, roughness, myPointLightBuffer.lights[i].myColor.rgb, myPointLightBuffer.lights[i].myIntensity, myPointLightBuffer.lights[i].myRange,
             myPointLightBuffer.lights[i].myPosition.xyz, toEye.xyz, worldPosition.xyz);

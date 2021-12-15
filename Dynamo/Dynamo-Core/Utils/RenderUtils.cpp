@@ -3,13 +3,11 @@
 
 namespace Dynamo
 {
-	std::array<ID3D11BlendState*, RenderUtils::BLENDSTATE_COUNT> RenderUtils::myBlendStates;
-	std::array<ID3D11SamplerState*, RenderUtils::SAMPLERSTATE_COUNT> RenderUtils::mySamplerStates;
-
 	void RenderUtils::Create()
 	{
 		CreateBlendStates();
 		CreateSamplerStates();
+		CreateDepthStates();
 	}
 
 	void RenderUtils::Destroy()
@@ -35,9 +33,14 @@ namespace Dynamo
 	void RenderUtils::SetBlendState(BlendState aState)
 	{
 		// TODO: Should this be 0.5 maybe?
-		float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		float blendFactor[4] = { 0.5f, 0.5f, 0.5f, 0.5f };
 		UINT sampleMask = 0xffffffff;
 		Main::GetContext()->OMSetBlendState(myBlendStates[aState], blendFactor, sampleMask);
+	}
+
+	void RenderUtils::SetDepthState(DepthState aState)
+	{
+		Main::GetContext()->OMSetDepthStencilState(myDepthStates[aState], 1);
 	}
 
 	void RenderUtils::CreateBlendStates()
@@ -115,5 +118,21 @@ namespace Dynamo
 		assert(SUCCEEDED(result));
 
 		mySamplerStates[SAMPLERSTATE_TRILINEAR] = nullptr;
+	}
+
+	void RenderUtils::CreateDepthStates()
+	{
+		HRESULT result;
+
+		D3D11_DEPTH_STENCIL_DESC readonlyDesc = {};
+		readonlyDesc.DepthEnable = true;
+		readonlyDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		readonlyDesc.DepthFunc = D3D11_COMPARISON_LESS;
+		readonlyDesc.StencilEnable = false;
+
+		result = Main::GetDevice()->CreateDepthStencilState(&readonlyDesc, &myDepthStates[DEPTHSTATE_READONLY]);
+		assert(SUCCEEDED(result));
+
+		myDepthStates[DEPTHSTATE_DEFUALT] = nullptr;
 	}
 }

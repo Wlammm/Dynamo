@@ -157,6 +157,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Libs\;$(SolutionDir)External\FBXSDK\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Dynamo-Core_$(Configuration).lib;Dynamo-CommonUtilities_$(Configuration).lib;Dynamo-ComponentSystem_$(Configuration).lib;Dynamo-ImGui_$(Configuration).lib;libfbxsdk_release.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/WHOLEARCHIVE:Dynamo-Core_$(Configuration) /WHOLEARCHIVE:Dynamo-Game_$(Configuration) %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -191,6 +192,7 @@
     <ClCompile Include="Systems\Toolbar.cpp" />
     <ClCompile Include="Windows\MaterialEditor.cpp" />
     <ClCompile Include="Windows\NodeEditor.cpp" />
+    <ClCompile Include="Windows\RenderDebugger.cpp" />
     <ClCompile Include="Windows\Viewport.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +226,9 @@
     <ClInclude Include="Windows\MaterialEditor.h" />
     <ClInclude Include="Windows\NodeEditor.h" />
     <ClInclude Include="Windows\Viewport.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Windows\RenderDebugger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

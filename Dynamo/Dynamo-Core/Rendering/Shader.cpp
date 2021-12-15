@@ -6,6 +6,8 @@ namespace Dynamo
 {
 	Shader::Shader(const std::string& aPath, const ShaderType aShaderType)
 	{
+		myPath = aPath;
+
 		myShaderType = aShaderType;
 
 		if (aShaderType == ShaderType::PixelShader)
@@ -75,6 +77,11 @@ namespace Dynamo
 	const std::string& Shader::GetData() const
 	{
 		return myData;
+	}
+
+	const std::filesystem::path& Shader::GetPath() const
+	{
+		return myPath;
 	}
 
 	void Shader::LoadPixelShader(const std::string& aPath)

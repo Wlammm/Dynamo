@@ -84,6 +84,6 @@ PixelOutput main(VertexToPixel input)
         return output;
     }
 
-        output.myColor = 0;
+    output.myColor = 0;
     return output;
 }

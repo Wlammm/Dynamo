@@ -42,9 +42,16 @@ namespace Dynamo
 	{
 		Mat4f myToWorld{};
 		Color myColor{};
+		Color myAdditiveColor{};
 		Vec2f myUVScale{};
+		int myIsAnimated = 0;
 
-		Vec2f padding{};
+		float padding = 0;
+	};
+
+	struct BoneBuffer
+	{
+		std::array<Mat4f, 128> myBoneTransforms;
 	};
 
 	struct DirectionalLightBuffer
@@ -56,7 +63,6 @@ namespace Dynamo
 		Vec3f padding{};
 	};
 
-	// Use custom buffer slot.
 	struct EmissiveBuffer
 	{
 		float myIntensity = 0;
