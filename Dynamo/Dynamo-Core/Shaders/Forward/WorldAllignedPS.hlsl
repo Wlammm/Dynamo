@@ -2,9 +2,37 @@
 #include "../PBRFunctions.hlsli"
 #include "../SharedDefines.hpp"
 
+float2 worldUV(VertexOutput input)
+{
+    float3 worldPos = input.myWorldPosition.xyz;
+    //float3 worldPosScale = worldPos / myShaderBuffer.myCustomValue1;
+    float3 worldPosScale = worldPos / 1500;
+    
+    float3 worldNormal = input.myNormal;
+    float3 worldNormalAbs = abs(worldNormal);
+    
+    
+    float2 worldPosUV;
+    
+    if (worldNormalAbs.x > 0.5f)
+    {
+        worldPosUV = worldPosScale.zy;
+    }
+    else if (worldNormalAbs.y > 0.5f)
+    {
+        worldPosUV = worldPosScale.xz;
+    }
+    else
+    {
+        worldPosUV = worldPosScale.xy;
+    }
+    
+    return worldPosUV;
+}
+
 float3 GetNormal(VertexOutput input)
 {
-    float3 normal = myNormalTexture.Sample(myWrapSampler, input.myUV0).wyz;
+    float3 normal = myNormalTexture.Sample(myWrapSampler, worldUV(input)).wyz;
     
     normal = 2.0f * normal - 1.0f;
     normal.z = sqrt(1 - saturate(normal.x * normal.x + normal.y * normal.y));
@@ -57,18 +85,18 @@ cbuffer SpotLightBuffer : register(b7)
 PixelOutput main(VertexOutput input)
 {
     float3 toEye = normalize(myFrameBuffer.myCameraPosition.xyz - input.myWorldPosition.xyz);
-    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myWrapSampler, input.myUV0 + input.myPosition.xz).rgb);
+    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myWrapSampler, worldUV(input) + input.myPosition.xz).rgb);
     PixelOutput outp;
     outp.myColor.rgb = albedo * 10;
     outp.myColor.a = 1.0f;
     return outp;
     float3 normal = GetNormal(input);
 
-    float3 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV0).rgb;
+    float3 material = myMaterialTexture.Sample(myDefaultSampler, worldUV(input)).rgb;
     material.r = lerp(myMaterialBuffer.myMetalnessConstant, material.r, myMaterialBuffer.myMetalnessInterp);
     material.g = lerp(myMaterialBuffer.myRoughnessConstant, material.g, myMaterialBuffer.myRoughnessInterp);
 
-    float ao = myNormalTexture.Sample(myDefaultSampler, input.myUV0).b;
+    float ao = myNormalTexture.Sample(myDefaultSampler, worldUV(input)).b;
     float metalness = material.r;
     float pRoughness = material.g;
     float emissiveData = material.b;

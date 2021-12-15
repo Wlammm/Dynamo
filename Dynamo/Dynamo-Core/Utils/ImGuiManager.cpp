@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "ImGuiManager.h"
+#include "tahoma.h"
 
 namespace Dynamo
 {
@@ -13,6 +14,12 @@ namespace Dynamo
 
 		ImGui_ImplWin32_Init(Main::GetHWND());
 		ImGui_ImplDX11_Init(Main::GetDevice(), Main::GetContext());
+
+		//ImGuiIO* io = &ImGui::GetIO();
+		//ImFontConfig fontConfig;
+		//fontConfig.FontDataOwnedByAtlas = false;
+		//io->Fonts->AddFontFromMemoryTTF((void*)tahoma, sizeof(tahoma), 17.f, &fontConfig);
+		//ImGui::MergeIconsWithLatestFont(16.f, false);
 	}
 
 	void ImGuiManager::BeginFrame()
@@ -26,9 +33,17 @@ namespace Dynamo
 
 	void ImGuiManager::Render()
 	{
+		// ImGui Notify.
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.f); 
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(43.f / 255.f, 43.f / 255.f, 43.f / 255.f, 100.f / 255.f)); 
+		ImGui::RenderNotifications(); 
+		ImGui::PopStyleVar(1); 
+		ImGui::PopStyleColor(1);
+
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 		ImGui::GetIO().DisplaySize = ImGui::GetMainViewport()->WorkSize;
+
 
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();

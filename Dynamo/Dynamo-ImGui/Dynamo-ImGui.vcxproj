@@ -160,6 +160,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="crude_json.h" />
+    <ClInclude Include="fa_solid_900.h" />
+    <ClInclude Include="font_awesome_5.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
@@ -172,11 +174,13 @@
     <ClInclude Include="imgui_internal.h" />
     <ClInclude Include="imgui_node_editor.h" />
     <ClInclude Include="imgui_node_editor_internal.h" />
+    <ClInclude Include="imgui_notify.h" />
     <ClInclude Include="imgui_stdlib.h" />
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="tahoma.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="crude_json.cpp" />
