@@ -34,11 +34,15 @@ namespace Dynamo
 
 		void SetMaterialOnAllMeshes(Material* aMat);
 
+		void SetBoneTransforms(std::array<Mat4f, 128>* someTransforms);
+
 	protected:
 		Model* myModel = nullptr;
 		Color myColor = { 1, 1, 1, 1 };
 		Color myAdditiveColor = { 0, 0, 0, 0 };
 
 		std::vector<Material*> myMaterials;
+
+		std::array<Mat4f, 128>* myBoneTransforms = nullptr;
 	};
 }

@@ -8,7 +8,7 @@ VertexOutput main(VertexInput input)
 
     float4 vertexObjectPos = input.myPosition.xyzw;
 
-    if (myObjectBuffer.myIsAnimated)
+    if (myObjectBuffer.myIsAnimated == 1)
     {
         float4 boneWeights = input.myBoneWeights;
         uint4 boneIDS = input.myBoneIDs;

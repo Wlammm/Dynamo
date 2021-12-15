@@ -169,7 +169,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Components\AmbientLight.cpp" />
-    <ClCompile Include="Components\AnimatedMeshRenderer.cpp" />
+    <ClCompile Include="Components\Animator.cpp" />
     <ClCompile Include="Components\Camera.cpp" />
     <ClCompile Include="Components\DirectionalLight.cpp" />
     <ClCompile Include="Components\MeshRenderer.cpp" />
@@ -279,7 +279,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\AmbientLight.h" />
-    <ClInclude Include="Components\AnimatedMeshRenderer.h" />
+    <ClInclude Include="Components\Animator.h" />
     <ClInclude Include="Components\Camera.h" />
     <ClInclude Include="Components\DirectionalLight.h" />
     <ClInclude Include="Components\MeshRenderer.h" />

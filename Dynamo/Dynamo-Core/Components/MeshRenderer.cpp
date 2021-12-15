@@ -139,6 +139,12 @@ namespace Dynamo
 			command.myMatrix = GetTransform().GetMatrix();
 			command.myMaterial = myMaterials[i];
 
+			if (myBoneTransforms)
+			{
+				command.myBoneTransforms = *myBoneTransforms;
+				command.myIsAnimated = true;
+			}
+
 			Main::GetRenderManager().AddMesh(command);
 		}
 	}
@@ -194,5 +200,10 @@ namespace Dynamo
 		{
 			myMaterials[i] = aMat;
 		}
+	}
+
+	void MeshRenderer::SetBoneTransforms(std::array<Mat4f, 128>* someTransforms)
+	{
+		myBoneTransforms = someTransforms;
 	}
 }

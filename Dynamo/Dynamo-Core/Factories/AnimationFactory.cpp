@@ -68,6 +68,15 @@ namespace Dynamo
                 {
                     FbxCluster* cluster = skin->GetCluster(clusterIdx);
 
+                    FbxAMatrix meshBindTransform;
+                    cluster->GetTransformMatrix(meshBindTransform);
+
+                    FbxAMatrix linkTransform;
+                    cluster->GetTransformLinkMatrix(linkTransform);
+
+                    FbxAMatrix bindPoseInverse = linkTransform.Inverse() * meshBindTransform * rootTransform;
+                    bindPoseInverse = bindPoseInverse.Transpose();
+
                     uint jointIndex = skeleton.myJointNameToIndex[cluster->GetLink()->GetName()];
 
                     FbxAnimStack* animStack = scene->GetSrcObject<FbxAnimStack>(0);
@@ -80,22 +89,27 @@ namespace Dynamo
                         FbxTime start = takeInfo->mLocalTimeSpan.GetStart();
                         FbxTime end = takeInfo->mLocalTimeSpan.GetStop();
 
-                        FbxLongLong animTime = end.GetFrameCount(FbxTime::eFrames24) - start.GetFrameCount(FbxTime::eFrames24) + 1;
+                        FbxLongLong animTime = end.GetFrameCount(FbxTime::eFrames30) - start.GetFrameCount(FbxTime::eFrames30) + 1;
 
                         anim->myFrameCount = (uint)animTime;
                         anim->myBoneTransforms[jointIndex].resize(animTime + 1);
 
-                        for (FbxLongLong t = start.GetFrameCount(FbxTime::eFrames24); t <= end.GetFrameCount(FbxTime::eFrames24); ++t)
+                        for (FbxLongLong t = start.GetFrameCount(FbxTime::eFrames30); t <= end.GetFrameCount(FbxTime::eFrames30); ++t)
                         {
                             FbxTime time;
-                            time.SetFrame(t, FbxTime::eFrames24);
+                            time.SetFrame(t, FbxTime::eFrames30);
 
                             FbxAMatrix nodeTransform = node->EvaluateGlobalTransform(time) * rootTransform;
                             FbxAMatrix frameTransform = nodeTransform.Inverse() * cluster->GetLink()->EvaluateGlobalTransform(time);
 
                             frameTransform = frameTransform.Transpose();
 
-                            anim->myBoneTransforms[jointIndex][t] = ModelFactory::GetMatrix(frameTransform);
+                            frameTransform = frameTransform;
+
+                            Mat4f engFrameTransform = ModelFactory::GetMatrix(frameTransform);
+                            Mat4f engInverseBind = ModelFactory::GetMatrix(bindPoseInverse);
+
+                            anim->myBoneTransforms[jointIndex][t] = engFrameTransform * engInverseBind;
                         }
                     }
                 }
@@ -104,5 +118,31 @@ namespace Dynamo
 
         anim->myPath = aPath;
         myAnimations[aPath] = anim;
+    }
+
+    void AnimationFactory::GatherNodes(FbxNode* aNode, std::vector<FbxNode*>& outVector)
+    {
+        for (int i = 0; i < aNode->GetChildCount(); ++i)
+        {
+            FbxNode* childNode = aNode->GetChild(i);
+            FbxNodeAttribute* attribute = childNode->GetNodeAttribute();
+
+            if (!attribute)
+                GatherNodes(childNode, outVector);
+            else
+            {
+                FbxNodeAttribute::EType childType = attribute->GetAttributeType();
+                if (childType != FbxNodeAttribute::eSkeleton)
+                {
+                    GatherNodes(childNode, outVector);
+                }
+                else
+                {
+                    outVector.push_back(childNode);
+                    GatherNodes(childNode, outVector);
+                }
+            }
+
+        }
     }
 }

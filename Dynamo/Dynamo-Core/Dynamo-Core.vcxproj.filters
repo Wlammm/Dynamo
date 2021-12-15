@@ -153,7 +153,7 @@
     <ClCompile Include="Rendering\SRV.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\AnimatedMeshRenderer.cpp">
+    <ClCompile Include="Components\Animator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Factories\AnimationFactory.cpp">
@@ -335,7 +335,7 @@
     <ClInclude Include="Rendering\SRV.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\AnimatedMeshRenderer.h">
+    <ClInclude Include="Components\Animator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Factories\AnimationFactory.h">
