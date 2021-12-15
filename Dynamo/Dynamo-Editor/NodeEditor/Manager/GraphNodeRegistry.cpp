@@ -5,15 +5,18 @@
 
 #include "NodeEditor/Nodes/MathNodes/AddNode.h"
 
+#include "NodeEditor/BaseTypes/TemplateHelper.h"
+
 void GraphNodeRegistry::PopulateTypes()
 {
 	// Variable Nodes
-	RegisterType<SetNode>();
-	RegisterType<GetNode>();
+	TemplateHelper::RegisterType<SetNode>();
+	TemplateHelper::RegisterType<GetNode>();
 
 	// Math
-	RegisterType<AddNode>();
+	TemplateHelper::RegisterType<AddNode>();
 }
+
 
 GraphNodeBase* GraphNodeRegistry::myTypes[128];
 unsigned short GraphNodeRegistry::myTypeCounter = 0;

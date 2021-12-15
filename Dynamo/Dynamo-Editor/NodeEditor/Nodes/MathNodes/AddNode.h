@@ -1,6 +1,5 @@
 #pragma once
 #include "../GraphNodeBase.h"
-#include "NodeEditor/BaseTypes/NodeTypes.h"
 
 class AddNode : GraphNodeBase
 {

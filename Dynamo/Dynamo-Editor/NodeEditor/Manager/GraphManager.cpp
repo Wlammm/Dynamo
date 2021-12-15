@@ -1,20 +1,12 @@
 #include "EditorPch.h"
 #include "GraphManager.h"
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include "NodeEditor/BaseTypes/GraphNodeInstance.h"
-#include "NodeEditor/Nodes/GraphNodeBase.h"
-#include "imgui_internal.h"
 #include "Drawing.h"
 #include "Widgets.h"
 #include "Interop.h"
-#include "NodeEditor/BaseTypes/NodeTypes.h"
-#include <imgui_impl_dx11.h>
 
-#include "NodeEditor/BaseTypes/GraphNodePin.h"
 #include "GraphNodeRegistry.h"
+#include "NodeEditor/BaseTypes/GraphNodeInstance.h"
 #include "NodeEditor/Nodes/Variable/VariableNode.h"
 
 namespace ed = ax::NodeEditor;

@@ -1,7 +1,4 @@
 #pragma once
-#include <typeinfo>
-
-#include "NodeEditor/Nodes/GraphNodeBase.h"
 
 class GraphNodeBase;
 
@@ -13,6 +10,7 @@ public:
 	{
 		return myTypes[aClassID]; // 1:1 to nodetype enum
 	}
+
 	template<class T>
 	static int GetIdFromType()
 	{
@@ -54,13 +52,6 @@ public:
 	static unsigned short GetNodeTypeCount()
 	{
 		return 	myTypeCounter; // 1:1 to nodetype enum
-	}
-	template <class T>
-	static void RegisterType()
-	{
-		myTypes[myTypeCounter] = new T;
-		myTypes[myTypeCounter]->myID = myTypeCounter;
-		myTypeCounter++;
 	}
 
 	static void Destroy()

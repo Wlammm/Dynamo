@@ -1,7 +1,7 @@
 #pragma once
 #include "NodeTypes.h"
-#include "NodeEditor/Nodes/GraphNodeBase.h"
 #include "NodeEditor/Manager/UID.h"
+#include "NodeEditor/Nodes/GraphNodeBase.h"
 
 #define UNDEFINED_PIN_ID INT_MAX
 
@@ -34,10 +34,10 @@ struct GraphNodeEdge
 class GraphNodeInstance
 {
 	friend class GraphManager;
-	friend class GraphNodeBase;
+	friend GraphNodeBase;
 
-	class GraphNodeBase* myNodeType;
 	class GraphManager* myGraph;
+	GraphNodeBase* myNodeType;
 	UID myUID;
 
 	// We have a lot of private things here accessed by the Graph Manager
@@ -52,8 +52,7 @@ class GraphNodeInstance
 	bool myShouldTriggerAgain = false;
 	std::unordered_map<std::string, std::any> myMetaData;
 	std::vector<GraphNodeEdge> myLinks;
-	std::vector<GraphNodePin> myPins;
-	GraphVariable* myVariable = nullptr;
+	
 	float myEnteredTimer = 0.0f;
 
 	void ChangePinTypes(DataType aType);
@@ -161,14 +160,13 @@ class GraphNodeInstance
 
 	void DebugUpdate();
 	void VisualUpdate(float aTimeDelta);
-	bool FetchData(unsigned int aPinIndex, DataPtr& aResult);
 	void FetchDataRaw(DataType& outType, DataPtr& someData, size_t& outSize, unsigned int aPinToFetchFrom);
 
 	virtual int GetColor()
 	{
 		if (myEnteredTimer > 0.0f)
 		{
-			return COL32(0, min(myEnteredTimer * 255, 255), 0, 255);
+			return COL32(0, CU::Min(myEnteredTimer * 255.f, 255.f), 0, 255);
 		}
 		if (myNodeType->IsStartNode())
 		{
@@ -183,6 +181,9 @@ class GraphNodeInstance
 
 public:
 
+	GraphVariable* myVariable = nullptr;
+	std::vector<GraphNodePin> myPins;
+
 	GraphNodeInstance(GraphManager* aGraphManager, bool aCreateNewUID = true);
 	virtual ~GraphNodeInstance();
 
@@ -192,11 +193,7 @@ public:
 
 	FORCEINLINE const GraphVariable* GetVariable() const { return myVariable; };
 
-	template<typename T>
-	void SetVariable(T someData)
-	{
-		myVariable->Set(someData);
-	}
+	bool FetchData(unsigned int aPinIndex, DataPtr& aResult);
 
 	void SetVariable(DataType someType, DataPtr aDataPtr);
 

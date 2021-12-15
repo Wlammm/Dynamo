@@ -1,9 +1,10 @@
 #pragma once
 #include "../GraphNodeBase.h"
 
+class GraphNodeInstance;
+
 class SetNode : public GraphNodeBase
 {
-
 public:
 	SetNode();
 

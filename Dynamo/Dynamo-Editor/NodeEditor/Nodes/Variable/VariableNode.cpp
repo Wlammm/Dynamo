@@ -1,5 +1,6 @@
 #include "EditorPch.h"
 #include "VariableNode.h"
+
 #include "NodeEditor/BaseTypes/GraphNodeInstance.h"
 #include "NodeEditor/BaseTypes/GraphVariable.h"
 

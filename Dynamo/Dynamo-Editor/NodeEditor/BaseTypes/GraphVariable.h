@@ -101,6 +101,8 @@ public:
 	template<typename Writer>
 	void Serialize(Writer& writer) const
 	{
+		writer;
+		/*
 		writer.StartObject();
 		writer.Key("UID");
 		writer.Int(myUID.ToUInt());
@@ -119,5 +121,6 @@ public:
 		writer.Uint((unsigned int)myType);
 
 		writer.EndObject();
+		*/
 	}
 };

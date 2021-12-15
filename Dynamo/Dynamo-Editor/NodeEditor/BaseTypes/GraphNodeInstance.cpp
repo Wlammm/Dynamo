@@ -1,8 +1,8 @@
 #include "EditorPch.h"
 #include "GraphNodeInstance.h"
-#include "NodeEditor/Nodes/GraphNodeBase.h"
 
 #include "NodeEditor/Manager/GraphManager.h"
+#include "NodeEditor/BaseTypes/GraphVariable.h"
 
 GraphNodeInstance::GraphNodeInstance(GraphManager* aGraphManager, bool aCreateNewUID)
 	:myGraph(aGraphManager), myUID(aCreateNewUID)

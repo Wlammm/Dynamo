@@ -1,9 +1,7 @@
 #pragma once
-#include <imgui_node_editor.h>
-
+#include "NodeEditor/BaseTypes/NodeTypes.h"
 #include "NodeEditor/BaseTypes/GraphVariable.h"
 
-namespace ed = ax::NodeEditor;
 class GraphManager
 {
 public:
@@ -34,9 +32,9 @@ private:
 
 	struct EditorLinkInfo
 	{
-		ed::LinkId Id;
-		ed::PinId  InputId;
-		ed::PinId  OutputId;
+		ax::NodeEditor::LinkId Id;
+		ax::NodeEditor::PinId  InputId;
+		ax::NodeEditor::PinId  OutputId;
 	};
 
 	ImVector<EditorLinkInfo> myLinks;

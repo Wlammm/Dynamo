@@ -6,7 +6,6 @@
 std::vector<unsigned int> UID::myAllUIDs;
 unsigned int UID::myGlobalUID = 0;
 
-
 int GraphNodeBase::OnExec(GraphNodeInstance*)
 {
 	return -1;

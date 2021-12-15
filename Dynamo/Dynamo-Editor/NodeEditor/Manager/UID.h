@@ -1,5 +1,4 @@
 #pragma once
-#include <cassert>
 
 /**
  * Simple Unique ID for Graph Nodes

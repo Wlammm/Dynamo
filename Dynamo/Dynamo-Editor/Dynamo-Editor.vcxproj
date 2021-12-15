@@ -126,7 +126,7 @@
       <PrecompiledHeaderFile>EditorPch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)Dynamo-Core\;$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;$(SolutionDir)Dynamo-ImGui\;$(SolutionDir)External\FBXSDK\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <ShowIncludes>true</ShowIncludes>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,7 +148,7 @@
       <PrecompiledHeaderFile>EditorPch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)Dynamo-Core\;$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;$(SolutionDir)Dynamo-ImGui\;$(SolutionDir)External\FBXSDK\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <ShowIncludes>true</ShowIncludes>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -182,6 +182,7 @@
     <ClCompile Include="Systems\Guizmos.cpp" />
     <ClCompile Include="Systems\SceneSaving.cpp" />
     <ClCompile Include="NodeEditor\Manager\UID.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\TemplateHelper.cpp" />
     <ClCompile Include="Utils\ThemeUtils.cpp" />
     <ClCompile Include="NodeEditor\Nodes\Variable\VariableNode.cpp" />
     <ClCompile Include="Windows\ContentBrowser.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="Systems\Guizmos.h" />
     <ClInclude Include="Systems\SceneSaving.h" />
     <ClInclude Include="NodeEditor\Manager\UID.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\TemplateHelper.h" />
     <ClInclude Include="Utils\ThemeUtils.h" />
     <ClInclude Include="NodeEditor\Nodes\Variable\VariableNode.h" />
     <ClInclude Include="Windows\ContentBrowser.h" />

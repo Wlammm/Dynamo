@@ -99,6 +99,9 @@
     <ClCompile Include="NodeEditor\Nodes\MathNodes\AddNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NodeEditor\BaseTypes\TemplateHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EditorPch.h">
@@ -186,6 +189,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NodeEditor\Nodes\MathNodes\AddNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeEditor\BaseTypes\TemplateHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

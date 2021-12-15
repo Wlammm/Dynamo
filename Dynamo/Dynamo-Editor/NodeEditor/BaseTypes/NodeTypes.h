@@ -260,8 +260,8 @@ struct DataPtr
 	friend class GraphVariable;
 	friend struct Payload;
 
-private:
 	void* Ptr = nullptr;
+private:
 	size_t Size = 0;
 	DataType Type = DataType::Unknown;
 };
