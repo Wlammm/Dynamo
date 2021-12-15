@@ -8,6 +8,12 @@ namespace Dynamo
 
     Shader* Dynamo::ShaderFactory::GetShader(const std::string& aPath, const ShaderType aShaderType)
     {
+        if (!std::filesystem::exists(aPath))
+        {
+            Console::ErrorLog("Missing shader: %s", aPath.c_str());
+            return nullptr;
+        }
+
         if (aPath == "")
             return nullptr;
 

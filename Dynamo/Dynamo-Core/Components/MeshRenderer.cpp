@@ -113,9 +113,9 @@ namespace Dynamo
 
 		for (int i = 0; i < aJson["materials"].size(); ++i)
 		{
-			if (i > myMaterials.size())
+			if (i > myMaterials.size() || !myModel)
 			{
-				Console::ErrorLog("Model & Scene mesh count missmatch");
+				Console::ErrorLog("MeshRenderer settings corrupt.");
 				return;
 			}
 
@@ -183,6 +183,9 @@ namespace Dynamo
 
 	void MeshRenderer::ApplyModelMaterial()
 	{
+		if (!myModel)
+			return;
+
 		myMaterials.clear();
 		for (int i = 0; i < myModel->GetMeshes().size(); ++i)
 		{

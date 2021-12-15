@@ -261,6 +261,17 @@ namespace Editor
 		{
 			ImGui::SetTooltip(psName.c_str());
 		}
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".cso"))
+			{
+				std::string path = *(std::string*)payload->Data;
+				myMaterial->myPixelShader = Dyn::ShaderFactory::GetShader(path, Dyn::ShaderType::PixelShader);
+			}
+			ImGui::EndDragDropTarget();
+		}
+
 		ImGui::NextColumn();
 
 		ImGui::Text("Vertex Shader");
@@ -277,6 +288,17 @@ namespace Editor
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::SetTooltip(vsName.c_str());
+		}
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".cso"))
+			{
+				std::string path = *(std::string*)payload->Data;
+				myMaterial->myVertexShader = Dyn::ShaderFactory::GetShader(path, Dyn::ShaderType::VertexShader);
+			}
+
+			ImGui::EndDragDropTarget();
 		}
 	}
 

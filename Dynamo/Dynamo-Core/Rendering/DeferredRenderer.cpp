@@ -39,9 +39,13 @@ namespace Dynamo
 		Main::GetContext()->VSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
 		Main::GetContext()->PSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
 
-		myGBufferShader->Bind();
 		for (MeshCommand model : someModels.AsVector())
 		{
+			if (model.myMaterial->myPixelShader)
+				model.myMaterial->myPixelShader->Bind();
+			else
+				myGBufferShader->Bind();
+
 			myObjectBufferData.myIsAnimated = 0;
 			if (model.myIsAnimated)
 			{

@@ -17,5 +17,5 @@
     "Renderer": 0,
     "Roughness": 0.0,
     "RoughnessInterp": 1.0,
-    "VertexShader": "Shaders/VertexShader.cso"
+    "VertexShader": "Assets/Shaders/VertexShader.cso"
 }
