@@ -42,6 +42,16 @@ namespace Dynamo
 		myGBufferShader->Bind();
 		for (MeshCommand model : someModels.AsVector())
 		{
+			myObjectBufferData.myIsAnimated = 0;
+			if (model.myIsAnimated)
+			{
+				myBoneBufferData.myBoneTransforms = model.myBoneTransforms;
+				RenderUtils::MapBuffer<BoneBuffer>(myBoneBufferData, myBoneBuffer);
+				Main::GetContext()->VSSetConstantBuffers(BONE_BUFFER_SLOT, 1, &myBoneBuffer);
+
+				myObjectBufferData.myIsAnimated = 1;
+			}
+
 			myObjectBufferData.myToWorld = model.myMatrix;
 			myObjectBufferData.myUVScale = { 1.0f, 1.0f };
 			myObjectBufferData.myColor = model.myColor;
@@ -56,6 +66,7 @@ namespace Dynamo
 			model.myMaterial->myMaterial->Bind(MATERIAL_TEXTURE_SLOT);
 
 			myMeshVertexShader->Bind();
+
 			myMaterialBufferData.myRoughnessInterp = 1;
 			myMaterialBufferData.myMetalnessInterp = 1;
 			if (Material* mat = model.myMaterial)
@@ -228,6 +239,7 @@ namespace Dynamo
 		RenderUtils::CreateBuffer<DeferredSpotLightBuffer>(mySpotLightBuffer);
 		RenderUtils::CreateBuffer<EmissiveBuffer>(myEmissiveBuffer);
 		RenderUtils::CreateBuffer<MaterialBuffer>(myMaterialBuffer);
+		RenderUtils::CreateBuffer<BoneBuffer>(myBoneBuffer);
 	}
 
 	void DeferredRenderer::CreateShaders()

@@ -182,6 +182,7 @@
     <ClCompile Include="External\DirectXTK\DDSTextureLoader.cpp" />
     <ClCompile Include="External\DirectXTK\ScreenGrab.cpp" />
     <ClCompile Include="External\DirectXTK\WICTextureLoader.cpp" />
+    <ClCompile Include="Factories\AnimationFactory.cpp" />
     <ClCompile Include="Factories\JsonFactory.cpp" />
     <ClCompile Include="Factories\MaterialFactory.cpp" />
     <ClCompile Include="Factories\ModelFactory.cpp" />
@@ -296,12 +297,14 @@
     <ClInclude Include="External\DirectXTK\ScreenGrab.h" />
     <ClInclude Include="External\DirectXTK\WICTextureLoader.h" />
     <ClInclude Include="External\Json\json.hpp" />
+    <ClInclude Include="Factories\AnimationFactory.h" />
     <ClInclude Include="Factories\JsonFactory.h" />
     <ClInclude Include="Factories\MaterialFactory.h" />
     <ClInclude Include="Factories\ModelFactory.h" />
     <ClInclude Include="Factories\ResourceFactory.h" />
     <ClInclude Include="Factories\ShaderFactory.h" />
     <ClInclude Include="Factories\TextureFactory.h" />
+    <ClInclude Include="Rendering\Animation.h" />
     <ClInclude Include="Rendering\DebugRenderer.h" />
     <ClInclude Include="Rendering\DeferredRenderer.h" />
     <ClInclude Include="Rendering\ForwardRenderer.h" />

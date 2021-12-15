@@ -7,6 +7,22 @@ VertexOutput main(VertexInput input)
     float4x4 view = myFrameBuffer.myToProjection;
 
     float4 vertexObjectPos = input.myPosition.xyzw;
+
+    if (myObjectBuffer.myIsAnimated)
+    {
+        float4 boneWeights = input.myBoneWeights;
+        uint4 boneIDS = input.myBoneIDs;
+
+        float4 skinnedPos = 0;
+
+        skinnedPos += boneWeights.x * mul(input.myPosition, myBoneBuffer.myBoneTransforms[boneIDS.x]);
+        skinnedPos += boneWeights.y * mul(input.myPosition, myBoneBuffer.myBoneTransforms[boneIDS.y]);
+        skinnedPos += boneWeights.z * mul(input.myPosition, myBoneBuffer.myBoneTransforms[boneIDS.z]);
+        skinnedPos += boneWeights.w * mul(input.myPosition, myBoneBuffer.myBoneTransforms[boneIDS.w]);
+
+        vertexObjectPos = skinnedPos;
+    }
+
     float4 vertexWorldPos = mul(myObjectBuffer.myToWorld, vertexObjectPos);
     float4 vertexViewPos = mul(myFrameBuffer.myToCamera, vertexWorldPos);
     float4 vertexProjectionPos = mul(myFrameBuffer.myToProjection, vertexViewPos);

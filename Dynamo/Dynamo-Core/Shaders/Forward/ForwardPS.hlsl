@@ -60,7 +60,7 @@ PixelOutput main(VertexOutput input)
     float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myDefaultSampler, input.myUV0).rgb * myObjectBuffer.myColor.rgb + myObjectBuffer.myAdditiveColor.rgb);
     float3 normal = GetNormal(input);
 
-    float3 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV0);
+    float3 material = myMaterialTexture.Sample(myDefaultSampler, input.myUV0).rgb;
     material.r = lerp(myMaterialBuffer.myMetalnessConstant, material.r, myMaterialBuffer.myMetalnessInterp);
     material.g = lerp(myMaterialBuffer.myRoughnessConstant, material.g, myMaterialBuffer.myRoughnessInterp);
 

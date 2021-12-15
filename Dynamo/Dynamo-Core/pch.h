@@ -55,6 +55,7 @@
 #include "Factories/MaterialFactory.h"
 #include "Factories/ShaderFactory.h"
 #include "Factories/TextureFactory.h"
+#include "Factories/AnimationFactory.h"
 
 #include "Rendering/Shader.h"
 #include "Rendering/SRV.h"

@@ -61,6 +61,9 @@ namespace Dynamo
 		MaterialBuffer myMaterialBufferData;
 		ID3D11Buffer* myMaterialBuffer = nullptr;
 
+		BoneBuffer myBoneBufferData;
+		ID3D11Buffer* myBoneBuffer = nullptr;
+
 		Shader* myFSVertexShader = nullptr;
 		Shader* myMeshVertexShader = nullptr;
 		Shader* myMaterialPassShader = nullptr;

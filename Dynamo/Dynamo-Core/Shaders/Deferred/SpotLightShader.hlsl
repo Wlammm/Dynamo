@@ -51,7 +51,7 @@ PixelOutput main(FullscreenVertexToPixel input)
 
     float3 spotLight = 0;
 
-    for (int i = 0; i < mySpotLightBuffer.myNumSpotLights; ++i)
+    for (uint i = 0; i < mySpotLightBuffer.myNumSpotLights; ++i)
     {
         spotLight += EvaluateSpotLight(diffColor, specColor, normal, roughness, mySpotLightBuffer.myLights[i].myColor.rgb, mySpotLightBuffer.myLights[i].myIntensity,
             mySpotLightBuffer.myLights[i].myRange, mySpotLightBuffer.myLights[i].myPosition.xyz, mySpotLightBuffer.myLights[i].myDirection.xyz,

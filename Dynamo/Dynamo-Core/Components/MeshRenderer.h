@@ -34,7 +34,7 @@ namespace Dynamo
 
 		void SetMaterialOnAllMeshes(Material* aMat);
 
-	private:
+	protected:
 		Model* myModel = nullptr;
 		Color myColor = { 1, 1, 1, 1 };
 		Color myAdditiveColor = { 0, 0, 0, 0 };

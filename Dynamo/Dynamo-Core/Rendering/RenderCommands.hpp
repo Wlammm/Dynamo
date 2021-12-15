@@ -13,6 +13,9 @@ namespace Dynamo
 		Color myAdditiveColor{};
 		Mesh const* myMesh = nullptr;
 		Material* myMaterial = nullptr;
+
+		bool myIsAnimated = false;
+		std::array<Mat4f, 128> myBoneTransforms;
 	};
 
 	struct PointLightCommand

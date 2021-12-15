@@ -36,6 +36,8 @@ namespace Dynamo
 		static bool GatherSkeletonData(fbxsdk::FbxNode* aNode, Skeleton& outSkeleton, uint anIndex, uint someParentIndex);
 		static Mat4f GetMatrix(fbxsdk::FbxAMatrix& aMat);
 
+		friend class AnimationFactory;
+
 	private:
 		static std::unordered_map<std::string, std::unique_ptr<Model>> myModels;
 	};
