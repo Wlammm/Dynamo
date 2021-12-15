@@ -5,8 +5,8 @@ namespace Dynamo
 {
 	FullscreenRenderer::FullscreenRenderer()
 	{
-		myVertexShader = ShaderFactory::GetShader("Shaders/FullscreenVS.cso", ShaderType::VertexShader);
-		myCopyShader = ShaderFactory::GetShader("Shaders/FullscreenPS-Copy.cso", ShaderType::PixelShader);
+		myVertexShader = ShaderFactory::GetShader("Assets/Shaders/FullscreenVS.cso", ShaderType::VertexShader);
+		myCopyShader = ShaderFactory::GetShader("Assets/Shaders/FullscreenPS-Copy.cso", ShaderType::PixelShader);
 	}
 
 	void FullscreenRenderer::Render(Shader* aShader)

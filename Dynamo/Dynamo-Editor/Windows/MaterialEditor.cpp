@@ -349,11 +349,11 @@ namespace Editor
 
 					if (myMaterial->myRenderer == Dyn::Renderer::Deferred)
 					{
-						myMaterial->myPixelShader = Dyn::ShaderFactory::GetShader("Shaders/GBuffer.cso", Dyn::ShaderType::PixelShader);
+						myMaterial->myPixelShader = Dyn::ShaderFactory::GetShader("Assets/Shaders/GBuffer.cso", Dyn::ShaderType::PixelShader);
 					}
 					else
 					{
-						myMaterial->myPixelShader = Dyn::ShaderFactory::GetShader("Shaders/ForwardPS.cso", Dyn::ShaderType::PixelShader);
+						myMaterial->myPixelShader = Dyn::ShaderFactory::GetShader("Assets/Shaders/ForwardPS.cso", Dyn::ShaderType::PixelShader);
 					}
 				}
 			}

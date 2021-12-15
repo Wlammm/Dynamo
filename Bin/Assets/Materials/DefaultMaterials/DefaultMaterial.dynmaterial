@@ -12,7 +12,7 @@
     "Metalness": 0.0,
     "MetalnessInterp": 1.0,
     "NormalTexture": "Assets/Textures/Default_N.dds",
-    "PixelShader": "Shaders/GBuffer.cso",
+    "PixelShader": "Assets/Shaders/GBuffer.cso",
     "ReceiveShadows": true,
     "Renderer": 0,
     "Roughness": 0.0,

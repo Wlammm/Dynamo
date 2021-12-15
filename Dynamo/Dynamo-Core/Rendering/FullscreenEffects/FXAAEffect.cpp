@@ -8,7 +8,7 @@ namespace Dynamo
 	{
 		RenderUtils::CreateBuffer<FXAABuffer>(myBuffer);
 		ReInit();
-		myShader = ShaderFactory::GetShader("Shaders/FullscreenPS-FXAA.cso", ShaderType::PixelShader);
+		myShader = ShaderFactory::GetShader("Assets/Shaders/FullscreenPS-FXAA.cso", ShaderType::PixelShader);
 	}
 	
 	FXAAEffect::~FXAAEffect()

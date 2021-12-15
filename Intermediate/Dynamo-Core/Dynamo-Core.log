@@ -1,4 +1,2 @@
-﻿  AnimationFactory.cpp
-  ShaderFactory.cpp
-  Generating Code...
+﻿  DeferredRenderer.cpp
   Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Debug.lib

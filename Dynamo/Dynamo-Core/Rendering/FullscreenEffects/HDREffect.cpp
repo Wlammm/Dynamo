@@ -6,7 +6,7 @@ namespace Dynamo
 	HDREffect::HDREffect()
 	{
 		ReInit();
-		myHDRShader = ShaderFactory::GetShader("Shaders/FullscreenPS-HDR.cso", ShaderType::PixelShader);
+		myHDRShader = ShaderFactory::GetShader("Assets/Shaders/FullscreenPS-HDR.cso", ShaderType::PixelShader);
 	}
 
 	void HDREffect::Render(FullscreenRenderer& aFullscreenRenderer, Texture& aFinalTarget)

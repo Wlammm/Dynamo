@@ -17,8 +17,8 @@ namespace Dynamo
 {
 	ForwardRenderer::ForwardRenderer()
 	{
-		myDefaultPixelShader = ShaderFactory::GetShader("Shaders/ForwardPS.cso", ShaderType::PixelShader);
-		myDefaultVertexShader = ShaderFactory::GetShader("Shaders/VertexShader.cso", ShaderType::VertexShader);
+		myDefaultPixelShader = ShaderFactory::GetShader("Assets/Shaders/ForwardPS.cso", ShaderType::PixelShader);
+		myDefaultVertexShader = ShaderFactory::GetShader("Assets/Shaders/VertexShader.cso", ShaderType::VertexShader);
 		myDefaultMaterial = MaterialFactory::GetDefaultMaterial();
 		
 		CreateBuffers();
