@@ -16,6 +16,8 @@ namespace Editor
 	private:
 		const ImVec2 ClampToAspectRatio(const ImVec2& aSize, const ImVec2& anAspectRatio) const;
 
+		void HandleDragDrop();
+
 	private:
 		Guizmos* myGuizmos = nullptr;
 	};
