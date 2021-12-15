@@ -80,7 +80,7 @@ namespace Dynamo
 			}
 		}
 
-		for (auto entry : myAnimation->myBoneTransforms)
+		for (auto& entry : myAnimation->myBoneTransforms)
 		{
 			myBoneTransforms[entry.first] = entry.second[myCurrentFrameIndex];
 		}
