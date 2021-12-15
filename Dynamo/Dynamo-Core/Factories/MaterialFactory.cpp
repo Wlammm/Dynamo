@@ -77,7 +77,7 @@ namespace Dynamo
         json["CustomTexture4"] = customTex4;
 
         json["ReceiveShadows"] = aMaterial->myReceiveShadows;
-        json["SurfaceType"] = aMaterial->mySurfaceType;
+        json["Renderer"] = aMaterial->myRenderer;
 
         json["CustomValue1"] = aMaterial->myCustomValues[0];
         json["CustomValue2"] = aMaterial->myCustomValues[1];
@@ -120,7 +120,7 @@ namespace Dynamo
         mat.myCustomTextures[3] = ResourceFactory::GetSRV(json["CustomTexture4"].get<std::string>());
 
         mat.myReceiveShadows = json["ReceiveShadows"].get<bool>();
-        mat.mySurfaceType = json["SurfaceType"].get<SurfaceType>();
+        mat.myRenderer = json["Renderer"].get<Renderer>();
 
         mat.myCustomValues[0] = json["CustomValue1"];
         mat.myCustomValues[1] = json["CustomValue2"];

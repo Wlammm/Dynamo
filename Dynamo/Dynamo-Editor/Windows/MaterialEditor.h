@@ -21,14 +21,14 @@ namespace Editor
 		void DrawCustomPart();
 		void DrawShaderPart();
 		void DrawCustomMatrial();
-		void DrawSurfaceTypes();
+		void DrawRenderers();
 		void DrawMaterialSettings();
 
 	private:
 		float mySaveDuration = 2;
 		float mySaveProgress = 0;
 
-		std::array<std::string, 2> mySurfaceTypes = { "Opaque", "Transparent" };
+		std::array<std::string, 2> myRendererTypes = { "Deferred", "Forward" };
 
 		Dyn::Material* myMaterial = nullptr;
 	};
