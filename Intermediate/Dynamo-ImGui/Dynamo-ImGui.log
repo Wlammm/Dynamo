@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-﻿  imgui_draw.cpp
+﻿  Builders.cpp
+  Drawing.cpp
+  Widgets.cpp
+  Generating Code...
   Dynamo-ImGui.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-ImGui_Debug.lib
-=======
-﻿  Dynamo-ImGui.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-ImGui_Debug.lib
->>>>>>> main
