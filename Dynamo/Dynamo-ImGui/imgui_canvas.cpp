@@ -319,8 +319,27 @@ void ImGuiEx::Canvas::RestoreInputState()
     ImGui::GetCurrentWindow()->DC.CursorMaxPos = m_WindowCursorMaxBackup;
 }
 
+ImVec2 m_ViewportPosBackup;
+ImVec2 m_ViewportSizeBackup;
+
 void ImGuiEx::Canvas::EnterLocalSpace()
 {
+    auto pViewport = ImGui::GetWindowViewport();
+
+    m_ViewportPosBackup = pViewport->Pos;
+    m_ViewportSizeBackup = pViewport->Size;
+
+    ImVec2 rMin = pViewport->Pos;
+    ImVec2 rMax = pViewport->Pos + pViewport->Size;
+
+    rMin.x = (rMin.x - m_ViewTransformPosition.x) * m_View.InvScale;
+    rMin.y = (rMin.y - m_ViewTransformPosition.y) * m_View.InvScale;
+    rMax.x = (rMax.x - m_ViewTransformPosition.x) * m_View.InvScale;
+    rMax.y = (rMax.y - m_ViewTransformPosition.y) * m_View.InvScale;
+
+    pViewport->Pos = rMin;
+    pViewport->Size = rMax - rMin;
+
     // Prepare ImDrawList for drawing in local coordinate system:
     //   - determine visible part of the canvas
     //   - start unique draw command
@@ -383,6 +402,12 @@ void ImGuiEx::Canvas::EnterLocalSpace()
 
 void ImGuiEx::Canvas::LeaveLocalSpace()
 {
+    auto pViewport = ImGui::GetWindowViewport();
+
+    pViewport->Pos = m_ViewportPosBackup;
+    pViewport->Size = m_ViewportSizeBackup;
+
+
     IM_ASSERT(m_DrawList->_Splitter._Current == m_ExpectedChannel);
 
 # if IMGUI_EX_CANVAS_DEFERED()

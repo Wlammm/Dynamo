@@ -641,18 +641,11 @@ void GraphManager::PreFrame(float aTimeDelta)
 		break;
 	}
 
-	//ImGui::SetNextWindowPos(ImVec2(0, 0));
-	//ImGui::SetNextWindowSize({ io.DisplaySize.x / 2,  io.DisplaySize.y });
-	//ImGui::Begin("Content", nullptr,
-	//	ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-	//	ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoSavedSettings |
-	//	ImGuiWindowFlags_NoBringToFrontOnFocus);
-
 	// Modal Dialog for handling variables
 	{
-		//ImVec2 pos(io.DisplaySize.x / 2.0f, io.DisplaySize.y / 2.0f);
-		//ImGui::SetNextWindowPos(pos, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-		if (ImGui::BeginPopupModal("Manage Variables", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings))
+		ImGui::SetNextWindowSize(ImVec2(400, 275), ImGuiCond_Always);
+		
+		if (ImGui::BeginPopupModal("Manage Variables", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar/*, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings*/))
 		{
 			// Adding a new variable
 			{
@@ -660,34 +653,88 @@ void GraphManager::PreFrame(float aTimeDelta)
 				ImGui::SameLine();
 				ImGui::Dummy({ 5, 0 });
 				ImGui::SameLine();
-				ImGui::PushItemWidth(120.0f);
+				ImGui::PushItemWidth(180.0f);
 				ImGui::InputText("##varName", myNewVarName, 255);
 				ImGui::PopItemWidth();
 
 				ImGui::Text("Type");
 				ImGui::SameLine();
-				ImGui::Dummy({ 15, 0 });
+				ImGui::Dummy({ 10, 0 });
 				ImGui::SameLine();
-				if (ImGui::BeginCombo("##varType", myNewVarTypeLabel.c_str()))
+				if (ImGui::Button("Boolean", ImVec2(60, 0)))
 				{
-					if (ImGui::Selectable("Boolean", myNewVarType == DataType::Bool))
+					myNewVarType = DataType::Bool;
+				}
+				ImGui::SameLine();
+				if (ImGui::Button("Int", ImVec2(60, 0)))
+				{
+					myNewVarType = DataType::Int;
+				}
+				ImGui::SameLine();
+				if (ImGui::Button("Float", ImVec2(60, 0)))
+				{
+					myNewVarType = DataType::Float;
+				}
+				ImGui::SameLine();
+				if (ImGui::Button("String", ImVec2(60, 0)))
+				{
+					myNewVarType = DataType::String;
+				}
+
+				/* 
+				Selectable doesn't work?
+				I want to use this instead of buttons, bror
+
+				ImGui::Text("Type");
+				ImGui::SameLine();
+				ImGui::Dummy({ 10, 0 });
+				ImGui::SameLine();
+				if (ImGui::BeginCombo("##variableCombo", myNewVarTypeLabel.c_str()))
+				{
+					ax::Widgets::Icon(ImVec2(18, 18), IconType::Circle, true, DataTypeColor::Get(DataType::Bool), ImColor(32, 32, 32, 128));
+					ImGui::SameLine();
+					if (ImGui::Selectable("Boolean##variable", myNewVarType == DataType::Bool))
 					{
 						myNewVarType = DataType::Bool;
 					}
-					if (ImGui::Selectable("Integer", myNewVarType == DataType::Int))
+					ax::Widgets::Icon(ImVec2(18, 18), IconType::Circle, true, DataTypeColor::Get(DataType::Int), ImColor(32, 32, 32, 128));
+					ImGui::SameLine();
+					if (ImGui::Selectable("Int##variable", myNewVarType == DataType::Int))
 					{
 						myNewVarType = DataType::Int;
 					}
-					if (ImGui::Selectable("Float", myNewVarType == DataType::Float))
+					ax::Widgets::Icon(ImVec2(18, 18), IconType::Circle, true, DataTypeColor::Get(DataType::Float), ImColor(32, 32, 32, 128));
+					ImGui::SameLine();
+					if (ImGui::Selectable("Float##variable", myNewVarType == DataType::Float))
 					{
 						myNewVarType = DataType::Float;
 					}
-					if (ImGui::Selectable("String", myNewVarType == DataType::String))
+					ax::Widgets::Icon(ImVec2(18, 18), IconType::Circle, true, DataTypeColor::Get(DataType::String), ImColor(32, 32, 32, 128));
+					ImGui::SameLine();
+					if (ImGui::Selectable("String##variable", myNewVarType == DataType::String))
 					{
 						myNewVarType = DataType::String;
 					}
 					ImGui::EndCombo();
 				}
+				*/
+
+				ImGui::Text("Type");
+				ImGui::SameLine();
+				ImGui::Dummy({ 15, 0 });
+				ImGui::SameLine();
+				if (myNewVarType != DataType::Unknown)
+				{
+					ImGui::Dummy({ -10, 0 });
+					ImGui::SameLine();
+					ax::Widgets::Icon(ImVec2(18, 18), IconType::Circle, true, DataTypeColor::Get(myNewVarType), ImColor(32, 32, 32, 128));
+					ImGui::SameLine();
+				}
+				ImGui::Text(myNewVarTypeLabel.c_str());
+
+				ImGui::SameLine();
+				ImGui::Dummy({ 15, 0 });
+				ImGui::SameLine();
 
 				const float itemSpacing = ImGui::GetStyle().ItemSpacing.x;
 
@@ -748,7 +795,7 @@ void GraphManager::PreFrame(float aTimeDelta)
 					{
 						auto& var = myGraphVariables[v];
 
-						ax::Widgets::Icon(ImVec2(24, 24), IconType::Circle, true, DataTypeColor::Get(var.GetType()), ImColor(32, 32, 32, 128));
+						ax::Widgets::Icon(ImVec2(18, 18), IconType::Circle, true, DataTypeColor::Get(var.GetType()), ImColor(32, 32, 32, 128));
 						ImGui::SameLine();
 						if (ImGui::Selectable(var.GetName().c_str(), v == mySelectedVariableIndex))
 						{
@@ -822,7 +869,6 @@ void GraphManager::PreFrame(float aTimeDelta)
 		}
 	}
 
-
 	if (ImGui::Button("Retrigger"))
 	{
 		ReTriggerTree("Start");
@@ -854,6 +900,7 @@ void GraphManager::PreFrame(float aTimeDelta)
 	for (auto& nodeInstance : myNodeInstancesInGraph)
 	{
 		nodeInstance->DebugUpdate();
+
 		nodeInstance->VisualUpdate(aTimeDelta);
 	}
 
@@ -866,7 +913,7 @@ void GraphManager::PreFrame(float aTimeDelta)
 	}
 
 	ed::SetCurrentEditor(g_Context);
-	ed::Begin("My Editor", ImVec2(0.0, 0.0f));
+	ed::Begin("NodeEditor##GraphManager");
 }
 
 bool ArePinTypesCompatible(GraphNodePin& aFirst, GraphNodePin& aSecond)
@@ -1083,6 +1130,14 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 					//ImGui::SameLine(to_imvec(ImGui_GetItemRect().bottom_right() - ImGui_GetItemRect().top_left()).x);
 					ImGui::Dummy({ pinPaddingSize * .835f, 0 });
 					ImGui::SameLine();
+
+					//const float itemSpacing = ImGui::GetStyle().ItemSpacing.x;
+					//
+					//float buttonWidth = 100.0f;
+					//ImVec2 cursor = ImGui::GetCursorPos();
+					//cursor.x = ImGui::GetWindowWidth() - (buttonWidth + itemSpacing);
+					//ImGui::SetCursorPos(cursor);
+					//ImGui::PushItemWidth(buttonWidth);
 				}
 
 				GraphNodePin* pin = OutputPins[row];
@@ -1364,7 +1419,6 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 
 		if (myMenuSeachField[0] != '\0')
 		{
-
 			std::vector<SDistBestResult> distanceResults;
 			for (int i = 0; i < noOfTypes; i++)
 			{
@@ -1397,7 +1451,6 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 					break;
 				}
 			}
-
 		}
 		else
 		{
@@ -1481,8 +1534,6 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 
 	ImGui::PopStyleVar();
 	ed::Resume();
-
-
 }
 
 void GraphManager::PostFram()
