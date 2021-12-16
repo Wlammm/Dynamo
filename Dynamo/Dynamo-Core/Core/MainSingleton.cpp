@@ -57,7 +57,7 @@ namespace Dynamo
 
 		if (Input::IsKeyDown(KeyCode::Y))
 		{
-			ImGui::InsertNotification(ImGuiToast(ImGuiToastType_Info, 3000, "Hej jag en ankadsadsadsadsakjldsakldsajksaödsjkalödjsaklödjskalöjköl\nfjsdklfjdksfjdsklfjdasköljdsaföl"));
+			DYN_ASSERT(false && "hej hej");
 		}
 
 		if (GetScene() != nullptr)

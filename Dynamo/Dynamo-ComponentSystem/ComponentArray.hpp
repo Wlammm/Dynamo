@@ -3,6 +3,7 @@
 #include <array>
 #include <unordered_map>
 #include "Types.h"
+#include "compassert.h"
 
 class IComponentArray
 {
@@ -25,7 +26,7 @@ public:
 	template<typename... Args>
 	T* InsertData(GameObjectID anEntity, Args&&... params)
 	{
-		assert(myEntityToIndexMap.find(anEntity) == myEntityToIndexMap.end() && "Component already exists on gameobject.");
+		comp_assert(myEntityToIndexMap.find(anEntity) == myEntityToIndexMap.end() && "Component already exists on gameobject.");
 
 		T aComponent = T(std::forward<Args>(params)...);
 
@@ -40,7 +41,7 @@ public:
 
 	void RemoveData(GameObjectID anEntity) override
 	{
-		assert(myEntityToIndexMap.find(anEntity) != myEntityToIndexMap.end() && "GameObjectID does not exists.");
+		comp_assert(myEntityToIndexMap.find(anEntity) != myEntityToIndexMap.end() && "GameObjectID does not exists.");
 
 		int indexOfRemovedGameObjectID  = myEntityToIndexMap[anEntity];
 		int indexOfLastElement = mySize - 1;

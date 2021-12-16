@@ -7,6 +7,7 @@
 #include "ComponentManager.hpp"
 #include <queue>
 #include <unordered_set>
+#include "compassert.h"
 
 class GameObject;
 class Component;
@@ -35,7 +36,7 @@ public:
 	T* AddComponent(const GameObjectID aID, Args&&... params)
 	{
 		GameObject* toLookFor = &myBase[aID];
-		assert(std::find(myActiveGameObjects.begin(), myActiveGameObjects.end(), toLookFor) != myActiveGameObjects.end() && "Trying to add component to non active gameobject.");
+		comp_assert(std::find(myActiveGameObjects.begin(), myActiveGameObjects.end(), toLookFor) != myActiveGameObjects.end() && "Trying to add component to non active gameobject.");
 
 		if (T* ptr = myComponentManager.GetComponent<T>(aID))
 		{
@@ -56,7 +57,7 @@ public:
 	template<typename T>
 	T* GetComponent(const GameObjectID aID)
 	{
-		assert(myActiveIDS.count(aID) != 0 && "GameObject is not currently active.");
+		comp_assert(myActiveIDS.count(aID) != 0 && "GameObject is not currently active.");
 
 		return myComponentManager.GetComponent<T>(aID);
 	}

@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentRegistry.h"
+#include "compassert.h"
 
 ComponentAdmin::~ComponentAdmin()
 {
@@ -96,7 +97,7 @@ void ComponentAdmin::RemoveComponentWithTypeID(const TypeID& aComponentType, con
 
 GameObject* ComponentAdmin::CreateGameObject()
 {
-	assert(myGameObjects.size() > 0 && "All gameobjects in use. Try increasing MAX_GAMEOBJECTS in types.h");
+	comp_assert(myGameObjects.size() > 0 && "All gameobjects in use. Try increasing MAX_GAMEOBJECTS in types.h");
 
 	GameObject* object = myGameObjects.front();
 	myGameObjects.pop();
@@ -111,7 +112,7 @@ GameObject* ComponentAdmin::CreateGameObject()
 
 void ComponentAdmin::RemoveGameObject(GameObject* anObject, const float aTime)
 {
-	assert(std::find(myActiveGameObjects.begin(), myActiveGameObjects.end(), anObject) != myActiveGameObjects.end() && "Gameobject is not currently active.");
+	comp_assert(std::find(myActiveGameObjects.begin(), myActiveGameObjects.end(), anObject) != myActiveGameObjects.end() && "Gameobject is not currently active.");
 	myActiveIDS.erase(anObject->GetGameObjectID());
 	myGameObjectsToBeDeleted[anObject] = aTime;
 }

@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentAdmin.h"
+#include "compassert.h"
 
 const bool GameObject::IsActive() const
 {
@@ -53,7 +54,7 @@ void GameObject::SetName(const std::string& aName)
 
 Dynamo::Transform& GameObject::GetTransform()
 {
-	assert(myTransform != nullptr && "GameObject not initialized.");
+	comp_assert(myTransform != nullptr && "GameObject not initialized.");
 	return *myTransform;
 }
 
