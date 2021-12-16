@@ -12,9 +12,9 @@
     "Metalness": 0.0,
     "MetalnessInterp": 1.0,
     "NormalTexture": "Assets/Textures/Default_N.dds",
-    "PixelShader": "Assets/Shaders/ForwardPS.cso",
+    "PixelShader": "Assets/Shaders/GBuffer.cso",
     "ReceiveShadows": true,
-    "Renderer": 1,
+    "Renderer": 0,
     "Roughness": 0.0,
     "RoughnessInterp": 1.0,
     "VertexShader": "Assets/Shaders/VertexShader.cso"

@@ -1,7 +1,4 @@
-﻿  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DebugLine3DVertexShader.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DebugLinePixelShader.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DebugLineVertexShader.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\AmbientLightShader.cso
+﻿  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\AmbientLightShader.cso
   compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DirectionalLightShader.cso
   compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\EmissiveShader.cso
   compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\GBuffer.cso
@@ -13,20 +10,56 @@ C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward
 C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedPS.hlsl(11,12-39): warning X3206: implicit truncation of vector type
   
   compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\WorldAllignedPS.cso
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(22,16-37): warning X3578: Output value 'main' is not completely initialized
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(139,37-86): warning X3570: gradient instruction used in a loop with varying iteration, attempting to unroll the loop
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(22,16-37): warning X3578: Output value 'main' is not completely initialized
-  
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-FXAA.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-GammaCorrection.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-GaussianV.cso
   compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\ForwardPS.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-Bloom.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-Copy.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-GaussianH.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-HDR.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-Luminance.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-MaterialPass.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenVS.cso
   compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\VertexShader.cso
+  pch.cpp
+  AmbientLight.cpp
+  Animator.cpp
+  Camera.cpp
+  DirectionalLight.cpp
+  MeshRenderer.cpp
+  PointLight.cpp
+  Skybox.cpp
+  SpotLight.cpp
+  Transform.cpp
+  DirectXFramework.cpp
+  MainSingleton.cpp
+  WindowHandler.cpp
+  Entry.cpp
+  DDSTextureLoader.cpp
+  ScreenGrab.cpp
+  WICTextureLoader.cpp
+  AnimationFactory.cpp
+  JsonFactory.cpp
+  MaterialFactory.cpp
+  ModelFactory.cpp
+  Compiling...
+  ResourceFactory.cpp
+  ShaderFactory.cpp
+  TextureFactory.cpp
+  DebugRenderer.cpp
+  DeferredRenderer.cpp
+  ForwardRenderer.cpp
+  BloomEffect.cpp
+  FXAAEffect.cpp
+  HDREffect.cpp
+  FullscreenRenderer.cpp
+  GBuffer.cpp
+  Model.cpp
+  RenderManager.cpp
+  SRV.cpp
+  Shader.cpp
+  Texture.cpp
+  Scene.cpp
+  SceneSerializer.cpp
+  ConsoleUtils.cpp
+  CrashHandler.cpp
+  Compiling...
+  Debug.cpp
+  FileUtils.cpp
+  ImGuiManager.cpp
+  Input.cpp
+  RenderUtils.cpp
+  ScopeTimer.cpp
+  Time.cpp
   Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Release.lib
