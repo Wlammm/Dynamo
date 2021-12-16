@@ -39,9 +39,13 @@ namespace Dynamo
 		Main::GetContext()->VSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
 		Main::GetContext()->PSSetConstantBuffers(FRAME_BUFFER_SLOT, 1, &myFrameBuffer);
 
-		myGBufferShader->Bind();
 		for (MeshCommand model : someModels.AsVector())
 		{
+			if (model.myMaterial->myPixelShader)
+				model.myMaterial->myPixelShader->Bind();
+			else
+				myGBufferShader->Bind();
+
 			myObjectBufferData.myIsAnimated = 0;
 			if (model.myIsAnimated)
 			{
@@ -244,15 +248,15 @@ namespace Dynamo
 
 	void DeferredRenderer::CreateShaders()
 	{
-		myFSVertexShader = ShaderFactory::GetShader("Shaders/FullscreenVS.cso", ShaderType::VertexShader);
-		myMeshVertexShader = ShaderFactory::GetShader("Shaders/VertexShader.cso", ShaderType::VertexShader);
-		myMaterialPassShader = ShaderFactory::GetShader("Shaders/FullscreenPS-MaterialPass.cso", ShaderType::PixelShader);
+		myFSVertexShader = ShaderFactory::GetShader("Assets/Shaders/FullscreenVS.cso", ShaderType::VertexShader);
+		myMeshVertexShader = ShaderFactory::GetShader("Assets/Shaders/VertexShader.cso", ShaderType::VertexShader);
+		myMaterialPassShader = ShaderFactory::GetShader("Assets/Shaders/FullscreenPS-MaterialPass.cso", ShaderType::PixelShader);
 
-		myGBufferShader = ShaderFactory::GetShader("Shaders/GBuffer.cso", ShaderType::PixelShader);
-		myDirLightShader = ShaderFactory::GetShader("Shaders/DirectionalLightShader.cso", ShaderType::PixelShader);
-		myAmbLightShader = ShaderFactory::GetShader("Shaders/AmbientLightShader.cso", ShaderType::PixelShader);
-		myPointLightShader = ShaderFactory::GetShader("Shaders/PointLightShader.cso", ShaderType::PixelShader);
-		mySpotLightShader = ShaderFactory::GetShader("Shaders/SpotLightShader.cso", ShaderType::PixelShader);
-		myEmissiveShader = ShaderFactory::GetShader("Shaders/EmissiveShader.cso", ShaderType::PixelShader);
+		myGBufferShader = ShaderFactory::GetShader("Assets/Shaders/GBuffer.cso", ShaderType::PixelShader);
+		myDirLightShader = ShaderFactory::GetShader("Assets/Shaders/DirectionalLightShader.cso", ShaderType::PixelShader);
+		myAmbLightShader = ShaderFactory::GetShader("Assets/Shaders/AmbientLightShader.cso", ShaderType::PixelShader);
+		myPointLightShader = ShaderFactory::GetShader("Assets/Shaders/PointLightShader.cso", ShaderType::PixelShader);
+		mySpotLightShader = ShaderFactory::GetShader("Assets/Shaders/SpotLightShader.cso", ShaderType::PixelShader);
+		myEmissiveShader = ShaderFactory::GetShader("Assets/Shaders/EmissiveShader.cso", ShaderType::PixelShader);
 	}
 }

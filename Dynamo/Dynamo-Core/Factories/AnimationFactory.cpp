@@ -9,8 +9,10 @@ namespace Dynamo
     Animation* AnimationFactory::GetAnimation(const std::string& aPath)
     {
         if (!std::filesystem::exists(aPath))
+        {
+            Console::ErrorLog("Missing animation: %s", aPath.c_str());
             return nullptr;
-
+        }
 
         if (myAnimations.find(aPath) != myAnimations.end())
         {

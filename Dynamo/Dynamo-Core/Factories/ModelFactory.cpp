@@ -16,6 +16,12 @@ namespace Dynamo
 
     Model* ModelFactory::GetModel(const std::string& aPath)
     {
+        if (!std::filesystem::exists(aPath))
+        {
+            Console::ErrorLog("Missing model: %s", aPath.c_str());
+            return nullptr;
+        }
+
         if (myModels.find(aPath) != myModels.end())
         {
             return myModels[aPath].get();

@@ -312,7 +312,7 @@ const int Dynamo::DebugRenderer::GetDrawCallCount() const
 
 bool Dynamo::DebugRenderer::CreatePixelShader()
 {
-	std::ifstream pixelShaderFile("Shaders/DebugLinePixelShader.cso", std::ios::binary);
+	std::ifstream pixelShaderFile("Assets/Shaders/DebugLinePixelShader.cso", std::ios::binary);
 
 	if (!pixelShaderFile.is_open())
 	{
@@ -336,7 +336,7 @@ bool Dynamo::DebugRenderer::CreatePixelShader()
 
 bool Dynamo::DebugRenderer::CreateVertexShader2DLines()
 {
-	std::ifstream vertexShaderFile("Shaders/DebugLineVertexShader.cso", std::ios::binary);
+	std::ifstream vertexShaderFile("Assets/Shaders/DebugLineVertexShader.cso", std::ios::binary);
 
 	if (!vertexShaderFile.is_open())
 	{
@@ -453,7 +453,7 @@ bool Dynamo::DebugRenderer::CreateFrameConstantBuffer()
 
 bool Dynamo::DebugRenderer::CreateVertexShader3DLines()
 {
-	std::ifstream vertexShaderFile("Shaders/DebugLine3DVertexShader.cso", std::ios::binary);
+	std::ifstream vertexShaderFile("Assets/Shaders/DebugLine3DVertexShader.cso", std::ios::binary);
 
 	if (!vertexShaderFile.is_open())
 	{

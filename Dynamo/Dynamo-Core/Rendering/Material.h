@@ -5,10 +5,10 @@
 
 namespace Dynamo
 {
-	enum class SurfaceType
+	enum class Renderer
 	{
-		Opaque,
-		Transparent
+		Deferred,
+		Forward
 	};
 
 	struct Material
@@ -30,7 +30,7 @@ namespace Dynamo
 		float myMetalnessInterpolation = 1;
 
 		bool myReceiveShadows = true;
-		SurfaceType mySurfaceType = SurfaceType::Opaque;
+		Renderer myRenderer = Renderer::Deferred;
 
 		bool myIsDepthTested = true;
 

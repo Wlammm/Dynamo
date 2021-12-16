@@ -12,10 +12,10 @@
     "Metalness": 1.0,
     "MetalnessInterp": 0.0,
     "NormalTexture": "Assets/Textures/Default_N.dds",
-    "PixelShader": "Shaders/SkyboxPS.cso",
+    "PixelShader": "Assets\\Shaders\\SkyboxPS.cso",
     "ReceiveShadows": false,
+    "Renderer": 1,
     "Roughness": 0.0,
     "RoughnessInterp": 0.0,
-    "SurfaceType": 1,
-    "VertexShader": "Shaders/VertexShader.cso"
+    "VertexShader": "Assets/Shaders/VertexShader.cso"
 }

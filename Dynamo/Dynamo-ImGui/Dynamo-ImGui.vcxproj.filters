@@ -69,22 +69,19 @@
     <ClInclude Include="crude_json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
+    <ClInclude Include="imgui_notify.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Widgets.h">
+    <ClInclude Include="font_awesome_5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Math2D.h">
+    <ClInclude Include="fa_solid_900.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Interop.h">
+    <ClInclude Include="tahoma.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Builders.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawing.h">
+    <ClInclude Include="ImGui_Wrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,15 +128,6 @@
     <ClCompile Include="crude_json.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Widgets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Builders.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawing.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui_bezier_math.inl">
@@ -149,9 +137,6 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="imgui_extra_math.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="Math2D.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

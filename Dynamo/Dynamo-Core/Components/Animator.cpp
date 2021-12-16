@@ -68,6 +68,9 @@ namespace Dynamo
 			return;
 		}
 
+		if (!myAnimation)
+			return; 
+
 		myAnimationProgress -= Time::GetDeltaTime();
 		if (myAnimationProgress <= 0)
 		{

@@ -22,7 +22,7 @@ namespace Dynamo
 		void EditorUpdate() override;
 
 	private:
-		MeshRenderer* myMeshRenderer;
+		MeshRenderer* myMeshRenderer = nullptr;
 
 		Animation* myAnimation = nullptr;
 		std::array<Mat4f, 128> myBoneTransforms;

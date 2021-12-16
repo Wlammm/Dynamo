@@ -55,6 +55,11 @@ namespace Dynamo
 		Time::Update();
 		GetRenderManager().Update();
 
+		if (Input::IsKeyDown(KeyCode::Y))
+		{
+			ImGui::InsertNotification(ImGuiToast(ImGuiToastType_Info, 3000, "Hej jag en ankadsadsadsadsakjldsakldsajksaödsjkalödjsaklödjskalöjköl\nfjsdklfjdksfjdsklfjdasköljdsaföl"));
+		}
+
 		if (GetScene() != nullptr)
 		{
 			GetScene()->Update();

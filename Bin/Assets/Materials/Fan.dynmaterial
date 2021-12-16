@@ -12,10 +12,10 @@
     "Metalness": 0.0,
     "MetalnessInterp": 1.0,
     "NormalTexture": "Assets\\Fbx\\DefaultAssets\\Fan_N.dds",
-    "PixelShader": "Shaders/ForwardPS.cso",
+    "PixelShader": "Assets/Shaders/GBuffer.cso",
     "ReceiveShadows": true,
+    "Renderer": 0,
     "Roughness": 0.0,
     "RoughnessInterp": 1.0,
-    "SurfaceType": 0,
-    "VertexShader": "Shaders/VertexShader.cso"
+    "VertexShader": "Assets/Shaders/VertexShader.cso"
 }

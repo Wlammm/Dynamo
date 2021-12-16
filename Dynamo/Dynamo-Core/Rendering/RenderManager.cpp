@@ -18,7 +18,7 @@ namespace Dynamo
 
 		CreateTextures(true);
 
-		myGammaCorrectionShader = ShaderFactory::GetShader("Shaders/FullscreenPS-GammaCorrection.cso", ShaderType::PixelShader);
+		myGammaCorrectionShader = ShaderFactory::GetShader("Assets/Shaders/FullscreenPS-GammaCorrection.cso", ShaderType::PixelShader);
 
 		myDebugRenderer.Init(Main::GetFramework());
 
@@ -43,7 +43,7 @@ namespace Dynamo
 			return;
 		}
 
-		if (aMesh.myMaterial->mySurfaceType == SurfaceType::Opaque)
+		if (aMesh.myMaterial->myRenderer == Renderer::Deferred)
 		{
 			myDeferredMeshes.push_back(aMesh);
 			return;

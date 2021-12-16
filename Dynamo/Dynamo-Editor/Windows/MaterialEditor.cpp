@@ -31,7 +31,7 @@ namespace Editor
 		ImGui::Columns(2, 0, false);
 		ImGui::SetColumnWidth(0, 150);
 
-		DrawSurfaceTypes();
+		DrawRenderers();
 
 		ImGui::NextColumn();
 
@@ -246,25 +246,33 @@ namespace Editor
 
 	void MaterialEditor::DrawShaderPart()
 	{
-		if (myMaterial->mySurfaceType == Dyn::SurfaceType::Transparent)
+		ImGui::Text("Pixel Shader");
+		ImGui::NextColumn();
+		Dyn::Shader* pixelShader = myMaterial->myPixelShader;
+		std::string psName = "";
+		if (pixelShader)
 		{
-			ImGui::Text("Pixel Shader");
-			ImGui::NextColumn();
-			Dyn::Shader* pixelShader = myMaterial->myPixelShader;
-			std::string psName = "";
-			if (pixelShader)
-			{
-				psName = pixelShader->GetPath().filename().string();
-			}
-			psName += "##materialeditorpixelshader";
-
-			ImGui::Button(psName.c_str(), ImVec2(450, 20));
-			if (ImGui::IsItemHovered())
-			{
-				ImGui::SetTooltip(psName.c_str());
-			}
-			ImGui::NextColumn();
+			psName = pixelShader->GetPath().filename().string();
 		}
+		psName += "##materialeditorpixelshader";
+
+		ImGui::Button(psName.c_str(), ImVec2(450, 20));
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::SetTooltip(psName.c_str());
+		}
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".cso"))
+			{
+				std::string path = *(std::string*)payload->Data;
+				myMaterial->myPixelShader = Dyn::ShaderFactory::GetShader(path, Dyn::ShaderType::PixelShader);
+			}
+			ImGui::EndDragDropTarget();
+		}
+
+		ImGui::NextColumn();
 
 		ImGui::Text("Vertex Shader");
 		ImGui::NextColumn();
@@ -280,6 +288,17 @@ namespace Editor
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::SetTooltip(vsName.c_str());
+		}
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(".cso"))
+			{
+				std::string path = *(std::string*)payload->Data;
+				myMaterial->myVertexShader = Dyn::ShaderFactory::GetShader(path, Dyn::ShaderType::VertexShader);
+			}
+
+			ImGui::EndDragDropTarget();
 		}
 	}
 
@@ -316,17 +335,26 @@ namespace Editor
 		ImGui::DragFloat("##materialeditormetalness", &myMaterial->myMetalnessConstant, 0.01f, 0, 1);
 	}
 
-	void MaterialEditor::DrawSurfaceTypes()
+	void MaterialEditor::DrawRenderers()
 	{
-		ImGui::Text("Surface Type");
+		ImGui::Text("Renderer");
 		ImGui::NextColumn();
-		if (ImGui::BeginCombo("##materialeditorsurfacetype", mySurfaceTypes[(int)myMaterial->mySurfaceType].c_str()))
+		if (ImGui::BeginCombo("##materialeditorrenderertype", myRendererTypes[(int)myMaterial->myRenderer].c_str()))
 		{
 			for (int i = 0; i < 2; ++i)
 			{
-				if (ImGui::Selectable(mySurfaceTypes[i].c_str(), i == (int)myMaterial->mySurfaceType))
+				if (ImGui::Selectable(myRendererTypes[i].c_str(), i == (int)myMaterial->myRenderer))
 				{
-					myMaterial->mySurfaceType = (Dyn::SurfaceType)i;
+					myMaterial->myRenderer = (Dyn::Renderer)i;
+
+					if (myMaterial->myRenderer == Dyn::Renderer::Deferred)
+					{
+						myMaterial->myPixelShader = Dyn::ShaderFactory::GetShader("Assets/Shaders/GBuffer.cso", Dyn::ShaderType::PixelShader);
+					}
+					else
+					{
+						myMaterial->myPixelShader = Dyn::ShaderFactory::GetShader("Assets/Shaders/ForwardPS.cso", Dyn::ShaderType::PixelShader);
+					}
 				}
 			}
 			ImGui::EndCombo();
@@ -338,9 +366,13 @@ namespace Editor
 		ImGui::Text("Receive Shadows");
 		ImGui::NextColumn();
 		ImGui::Checkbox("##materialeditorreceiveshadows", &myMaterial->myReceiveShadows);
-		ImGui::NextColumn();
-		ImGui::Text("Depth Tested");
-		ImGui::NextColumn();
-		ImGui::Checkbox("##materialeditordepthtested", &myMaterial->myIsDepthTested);
+
+		if (myMaterial->myRenderer == Dyn::Renderer::Forward)
+		{
+			ImGui::NextColumn();
+			ImGui::Text("Depth Tested");
+			ImGui::NextColumn();
+			ImGui::Checkbox("##materialeditordepthtested", &myMaterial->myIsDepthTested);
+		}
 	}
 }
