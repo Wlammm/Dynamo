@@ -3,8 +3,6 @@
 #include "Rendering/Model.h"
 #include "Rendering/Animation.h"
 
-constexpr float AnimationTimeDelay = 1 / 30;
-
 namespace Dynamo
 {
 	Animator::Animator()
@@ -35,6 +33,14 @@ namespace Dynamo
 			ImGui::EndDragDropTarget();
 		}
 
+		ImGui::NextColumn();
+		ImGui::Text("FPS");
+		ImGui::NextColumn();
+		if (ImGui::InputInt("##animatorfps", &myFPS))
+		{
+			myAnimationProgress = 0;
+		}
+
 		ImGui::Columns(1);
 	}
 
@@ -45,6 +51,8 @@ namespace Dynamo
 		json["Animation"] = "";
 		if(myAnimation)
 			json["Animation"] = myAnimation->myPath.string();
+
+		json["fps"] = myFPS;
 		return json;
 	}
 
@@ -53,6 +61,8 @@ namespace Dynamo
 		std::string animationPath = aJson["Animation"];
 		if (animationPath != "")
 			myAnimation = AnimationFactory::GetAnimation(animationPath);
+
+		myFPS = aJson["fps"];
 	}
 
 	void Animator::OnCreate()
@@ -62,19 +72,16 @@ namespace Dynamo
 
 	void Animator::Update()
 	{
-		if (!myMeshRenderer)
-		{
-			myMeshRenderer = GetComponent<MeshRenderer>();
-			return;
-		}
+		myMeshRenderer = GetComponent<MeshRenderer>();
 
-		if (!myAnimation)
+		if (!myAnimation || !myMeshRenderer)
 			return; 
 
 		myAnimationProgress -= Time::GetDeltaTime();
 		if (myAnimationProgress <= 0)
 		{
-			myAnimationProgress += AnimationTimeDelay;
+			float animationDelay = 1 / (float)myFPS;
+			myAnimationProgress += animationDelay;
 
 			myCurrentFrameIndex++;
 			if (myCurrentFrameIndex > myAnimation->myFrameCount)

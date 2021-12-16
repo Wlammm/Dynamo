@@ -29,5 +29,6 @@ namespace Dynamo
 
 		uint myCurrentFrameIndex = 1;
 		float myAnimationProgress = 0;
+		int myFPS = 30;
 	};
 }

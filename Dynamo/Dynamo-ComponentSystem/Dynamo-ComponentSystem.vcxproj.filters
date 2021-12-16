@@ -56,5 +56,8 @@
     <ClInclude Include="ComponentRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="compassert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

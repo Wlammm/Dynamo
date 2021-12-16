@@ -98,7 +98,7 @@ namespace Dynamo
 		desc.CullMode = D3D11_CULL_BACK;
 
 		HRESULT result = Main::GetDevice()->CreateRasterizerState(&desc, &myRSState);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 	}
 
 	std::vector<PointLightCommand> ForwardRenderer::GetSortedPointLights(const std::vector<PointLightCommand>& someInData, const MeshCommand& aInstance)
@@ -267,6 +267,11 @@ namespace Dynamo
 			myMaterialBufferData.myRoughnessInterp = aMaterial->myRoughnessInterpolation;
 			myMaterialBufferData.myMetalnessConstant = aMaterial->myMetalnessConstant;
 			myMaterialBufferData.myMetalnessInterp = aMaterial->myMetalnessInterpolation;
+
+			myMaterialBufferData.myCustomValue1 = aMaterial->myCustomValues[0];
+			myMaterialBufferData.myCustomValue2 = aMaterial->myCustomValues[1];
+			myMaterialBufferData.myCustomValue3 = aMaterial->myCustomValues[2];
+			myMaterialBufferData.myCustomValue4 = aMaterial->myCustomValues[3];
 		}
 
 		RenderUtils::MapBuffer<MaterialBuffer>(myMaterialBufferData, myMaterialBuffer);

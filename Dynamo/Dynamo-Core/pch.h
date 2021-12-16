@@ -35,6 +35,15 @@
 #include <DArray.hpp>
 #include "Types.h"
 
+// Utils
+#include "Utils/ConsoleUtils.h"
+#include "Utils/Input.h"
+#include "Utils/Time.h"
+#include "Utils/Debug.h"
+#include "Utils/ScopeTimer.h"
+
+#include "Utils/Assert.h"
+
 // ComponentSystem
 #include <ComponentRegistry.h>
 #include <ComponentAdmin.h>
@@ -43,13 +52,6 @@
 #include <GameObject.h>
 
 #include "Components/Transform.h"
-
-// Utils
-#include "Utils/ConsoleUtils.h"
-#include "Utils/Input.h"
-#include "Utils/Time.h"
-#include "Utils/Debug.h"
-#include "Utils/ScopeTimer.h"
 
 // Factories
 #include "Factories/JsonFactory.h"

@@ -223,7 +223,7 @@ void Dynamo::DebugRenderer::DrawSphere3D(
 					sin(radiansOfCircle) * aRadiusRadians);
 				break;
 			default:
-				assert(false && "whot");
+				DYN_ASSERT(false && "whot");
 				break;
 			}
 

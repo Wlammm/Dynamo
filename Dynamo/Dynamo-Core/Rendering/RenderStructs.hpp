@@ -46,6 +46,11 @@ namespace Dynamo
 		Vec2f myUVScale{};
 		int myIsAnimated = 0;
 
+		float myCustomValue1;
+		float myCustomValue2;
+		float myCustomValue3;
+		float myCustomValue4;
+
 		float padding = 0;
 	};
 
@@ -154,5 +159,10 @@ namespace Dynamo
 		float myRoughnessInterp = 1;
 		float myMetalnessConstant = 0;
 		float myMetalnessInterp = 1;
+
+		float myCustomValue1;
+		float myCustomValue2;
+		float myCustomValue3;
+		float myCustomValue4;
 	};
 }

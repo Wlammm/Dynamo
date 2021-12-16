@@ -26,7 +26,7 @@ namespace Dynamo
 		result = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags, nullptr, 0, D3D11_SDK_VERSION, &swapchainDesc,
 			&mySwapChain, &myDevice, nullptr, &myContext);
 
-		assert(SUCCEEDED(result) && "Failed to create devices & swapchain.");
+		DYN_ASSERT(SUCCEEDED(result) && "Failed to create devices & swapchain.");
 
 		GenerateTargets();
 
@@ -71,7 +71,7 @@ namespace Dynamo
 
 	void DirectXFramework::EndFrame()
 	{
-		mySwapChain->Present(1, 0);
+		mySwapChain->Present(0, 0);
 		Input::GetManager().EndFrame();
 	}
 
@@ -80,13 +80,13 @@ namespace Dynamo
 		HRESULT result;
 		ID3D11Texture2D* backBufferTexture;
 		result = mySwapChain->GetBuffer(0, _uuidof(ID3D11Texture2D), (void**)&backBufferTexture);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		result = myDevice->CreateRenderTargetView(backBufferTexture, nullptr, &myBackBuffer);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		result = backBufferTexture->Release();
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		// Do I even need this?
 		ID3D11Texture2D* depthBufferTexture;
@@ -100,10 +100,10 @@ namespace Dynamo
 		depthBufferDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
 		result = myDevice->CreateTexture2D(&depthBufferDesc, nullptr, &depthBufferTexture);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		result = myDevice->CreateDepthStencilView(depthBufferTexture, nullptr, &myDepthBuffer);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		D3D11_VIEWPORT viewport = { 0 };
 		viewport.TopLeftX = 0.0f;

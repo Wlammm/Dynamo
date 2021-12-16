@@ -6,6 +6,7 @@
 #include <memory>
 #include <unordered_map>
 #include <string>
+#include "compassert.h"
 
 class ComponentManager
 {

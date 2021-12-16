@@ -62,9 +62,9 @@ namespace Dynamo
         FbxManager* manager = FbxManager::Create();
         FbxImporter* importer = FbxImporter::Create(manager, "Scene");
         bool result = importer->Initialize(aPath.c_str(), -1, manager->GetIOSettings());
-        assert(result);
+        DYN_ASSERT(result);
         result = importer->IsFBX();
-        assert(result);
+        DYN_ASSERT(result);
 
         FbxScene* scene = FbxScene::Create(manager, "Scene");
 
@@ -136,7 +136,7 @@ namespace Dynamo
                 if (fbxMesh->GetElementBinormalCount() == 0 || fbxMesh->GetElementTangentCount() == 0)
                 {
                     bool result = fbxMesh->GenerateTangentsData(0, true, false);
-                    assert(result);
+                    DYN_ASSERT(result);
                 }
 
                 const uint polyCount = fbxMesh->GetPolygonCount();
@@ -160,9 +160,9 @@ namespace Dynamo
                         fbxsdk::FbxVector4 normal;
                         FbxGeometryElementNormal* normalElement = fbxMesh->GetElementNormal(0);
                         auto mapNode = normalElement->GetMappingMode();
-                        assert(mapNode == 2);
+                        DYN_ASSERT(mapNode == 2);
                         auto refMode = normalElement->GetReferenceMode();
-                        assert(refMode == 0);
+                        DYN_ASSERT(refMode == 0);
                         normal = normalElement->GetDirectArray().GetAt(polygonIndex);
 
                         fbxsdk::FbxVector4 tangent;
@@ -235,7 +235,7 @@ namespace Dynamo
                 }
 
                 HRESULT result;
-                
+
                 D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
                 vertexBufferDesc.ByteWidth = (uint)vertices.size() * sizeof(vertices[0]);
                 vertexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
@@ -246,7 +246,7 @@ namespace Dynamo
 
                 ID3D11Buffer* vertexBuffer;
                 result = Main::GetDevice()->CreateBuffer(&vertexBufferDesc, &vertexSubresource, &vertexBuffer);
-                assert(SUCCEEDED(result));
+                DYN_ASSERT(SUCCEEDED(result));
 
                 D3D11_BUFFER_DESC indexBufferDesc = { 0 };
                 indexBufferDesc.ByteWidth = (uint)indicies.size() * sizeof(indicies[0]);
@@ -258,7 +258,7 @@ namespace Dynamo
 
                 ID3D11Buffer* indexBuffer;
                 result = Main::GetDevice()->CreateBuffer(&indexBufferDesc, &indexSubresource, &indexBuffer);
-                assert(SUCCEEDED(result));
+                DYN_ASSERT(SUCCEEDED(result));
 
                 D3D11_INPUT_ELEMENT_DESC layout[] =
                 {
@@ -281,7 +281,7 @@ namespace Dynamo
                 ID3D11InputLayout* inputLayout;
                 const std::string defaultVSData = MaterialFactory::GetDefaultMaterial()->myVertexShader->GetData();
                 result = Main::GetDevice()->CreateInputLayout(layout, sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC), defaultVSData.data(), defaultVSData.size(), &inputLayout);
-                assert(SUCCEEDED(result));
+                DYN_ASSERT(SUCCEEDED(result));
 
                 Mesh mesh;
                 mesh.myVertexBuffer = vertexBuffer;

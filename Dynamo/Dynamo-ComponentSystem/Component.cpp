@@ -1,5 +1,5 @@
 #include "Component.h"
-
+#include "compassert.h"
 Component::Component(const std::string& aCategory)
 {
 	myCategory = aCategory;

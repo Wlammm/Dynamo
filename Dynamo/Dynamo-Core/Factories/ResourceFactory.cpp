@@ -36,7 +36,7 @@ namespace Dynamo
 		std::wstring wPath = { aPath.begin(), aPath.end() };
 
 		HRESULT result = DirectX::CreateDDSTextureFromFile(Main::GetDevice(), wPath.c_str(), nullptr, &resource);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		SRV* srv = new SRV();
 		srv->mySRV = resource;

@@ -344,6 +344,9 @@
     <ClInclude Include="Rendering\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\Assert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />

@@ -91,7 +91,7 @@ namespace Dynamo
 		psFile.close();
 		
 		HRESULT result = Main::GetDevice()->CreatePixelShader(myData.data(), myData.size(), nullptr, &myPixelShader);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 	}
 
 	void Shader::LoadVertexShader(const std::string& aPath)
@@ -99,9 +99,9 @@ namespace Dynamo
 		std::ifstream vsFile(aPath, std::ios::binary);
 		myData = { std::istreambuf_iterator<char>(vsFile), std::istreambuf_iterator<char>() };
 		vsFile.close();
-		
+
 		HRESULT result = Main::GetDevice()->CreateVertexShader(myData.data(), myData.size(), nullptr, &myVertexShader);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 	}
 
 	void Shader::LoadGeometryShader(const std::string& aPath)
@@ -109,8 +109,8 @@ namespace Dynamo
 		std::ifstream gsFile(aPath, std::ios::binary);
 		myData = { std::istreambuf_iterator<char>(gsFile), std::istreambuf_iterator<char>() };
 		gsFile.close();
-		
+
 		HRESULT result = Main::GetDevice()->CreateGeometryShader(myData.data(), myData.size(), nullptr, &myGeometryShader);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 	}
 }

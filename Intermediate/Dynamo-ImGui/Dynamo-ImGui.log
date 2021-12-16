@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 ﻿  imgui_canvas.cpp
   Dynamo-ImGui.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-ImGui_Debug.lib
+=======
+﻿  Dynamo-ImGui.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-ImGui_Release.lib
+>>>>>>> main
