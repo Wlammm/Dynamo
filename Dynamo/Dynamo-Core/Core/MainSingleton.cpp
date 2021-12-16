@@ -55,11 +55,6 @@ namespace Dynamo
 		Time::Update();
 		GetRenderManager().Update();
 
-		if (Input::IsKeyDown(KeyCode::Y))
-		{
-			DYN_ASSERT(false && "hej hej");
-		}
-
 		if (GetScene() != nullptr)
 		{
 			GetScene()->Update();

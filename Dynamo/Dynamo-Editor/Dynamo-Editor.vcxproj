@@ -126,6 +126,7 @@
       <PrecompiledHeaderFile>EditorPch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)Dynamo-Core\;$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;$(SolutionDir)Dynamo-ImGui\;$(SolutionDir)External\FBXSDK\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +148,7 @@
       <PrecompiledHeaderFile>EditorPch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)Dynamo-Core\;$(SolutionDir)Dynamo-CommonUtilities\;$(SolutionDir)Dynamo-ComponentSystem\;$(SolutionDir)Dynamo-ImGui\;$(SolutionDir)External\FBXSDK\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,7 +161,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="NodeEditor\Nodes\MathNodes\AddNode.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\GraphVariable.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\NodeTypes.cpp" />
+    <ClCompile Include="NodeEditor\Nodes\GraphNodeBase.cpp" />
     <ClCompile Include="Core\EditorSystem.cpp" />
+    <ClCompile Include="NodeEditor\Manager\GraphManager.cpp" />
+    <ClCompile Include="NodeEditor\Manager\GraphNodeRegistry.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\GraphNodeInstance.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\GraphNodePin.cpp" />
     <ClCompile Include="Scene\EditorScene.cpp" />
     <ClCompile Include="Core\EditorWindow.cpp" />
     <ClCompile Include="Managers\EditorManager.cpp" />
@@ -172,7 +182,10 @@
     <ClCompile Include="PostMaster\EditorPostMaster.cpp" />
     <ClCompile Include="Systems\Guizmos.cpp" />
     <ClCompile Include="Systems\SceneSaving.cpp" />
+    <ClCompile Include="NodeEditor\Manager\UID.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\TemplateHelper.cpp" />
     <ClCompile Include="Utils\ThemeUtils.cpp" />
+    <ClCompile Include="NodeEditor\Nodes\Variable\VariableNode.cpp" />
     <ClCompile Include="Windows\ContentBrowser.cpp" />
     <ClCompile Include="Windows\Hierarchy.cpp" />
     <ClCompile Include="Windows\Inspector.cpp" />
@@ -183,6 +196,14 @@
     <ClCompile Include="Windows\Viewport.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NodeEditor\Nodes\MathNodes\AddNode.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\GraphVariable.h" />
+    <ClInclude Include="NodeEditor\Nodes\GraphNodeBase.h" />
+    <ClInclude Include="NodeEditor\Manager\GraphManager.h" />
+    <ClInclude Include="NodeEditor\Manager\GraphNodeRegistry.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\GraphNodeInstance.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\GraphNodePin.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\NodeTypes.h" />
     <ClInclude Include="Scene\EditorScene.h" />
     <ClInclude Include="Core\EditorSystem.h" />
     <ClInclude Include="Core\EditorWindow.h" />
@@ -193,7 +214,10 @@
     <ClInclude Include="PostMaster\EditorPostObserver.h" />
     <ClInclude Include="Systems\Guizmos.h" />
     <ClInclude Include="Systems\SceneSaving.h" />
+    <ClInclude Include="NodeEditor\Manager\UID.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\TemplateHelper.h" />
     <ClInclude Include="Utils\ThemeUtils.h" />
+    <ClInclude Include="NodeEditor\Nodes\Variable\VariableNode.h" />
     <ClInclude Include="Windows\ContentBrowser.h" />
     <ClInclude Include="Windows\Hierarchy.h" />
     <ClInclude Include="PostMaster\EditorPostMaster.h" />

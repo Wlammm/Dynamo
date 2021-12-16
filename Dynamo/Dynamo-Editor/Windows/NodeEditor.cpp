@@ -1,23 +1,30 @@
 #include "EditorPch.h"
 #include "NodeEditor.h"
+#include "NodeEditor/Manager/GraphManager.h"
 
 namespace Editor
 {
 	NodeEditor::NodeEditor()
 		: EditorWindow("Node Editor")
+	{ 
+		myGraphManager = new GraphManager();
+	}
+
+	NodeEditor::~NodeEditor()
 	{
-		ImGui::NodeEditor::Config config;
-		config.SettingsFile = "NodeEditorSettings.json";
-		myEditorContext = ImGui::NodeEditor::CreateEditor(&config);
+		delete myGraphManager;
+		myGraphManager = nullptr;
+	}
+
+	void NodeEditor::Init()
+	{
+		myGraphManager->Load();
 	}
 
 	void NodeEditor::Update()
 	{
-		ImGui::NodeEditor::SetCurrentEditor(myEditorContext);
-		ImGui::NodeEditor::Begin("Test");
-
-
-
-		ImGui::NodeEditor::End();
+		myGraphManager->PreFrame(Time::GetUnscaledDeltaTime());
+		myGraphManager->ConstructEditorTreeAndConnectLinks();
+		myGraphManager->PostFram();
 	}
 }

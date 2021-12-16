@@ -11,6 +11,7 @@
 #include "Windows/Hierarchy.h"
 #include "Windows/Inspector.h"
 #include "Windows/ContentBrowser.h"
+#include "Windows/NodeEditor.h"
 
 #include "Systems/Toolbar.h"
 #include "Systems/Guizmos.h"
@@ -58,6 +59,7 @@ namespace Editor
 		AddWindow(new Hierarchy());
 		AddWindow(new Inspector());
 		AddWindow(new ContentBrowser());
+		AddWindow(new NodeEditor());
 	}
 
 	void EditorManager::CreateSystems()
