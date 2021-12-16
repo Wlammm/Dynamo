@@ -650,10 +650,9 @@ void GraphManager::PreFrame(float aTimeDelta)
 
 	// Modal Dialog for handling variables
 	{
-		ImVec2 pos(io.DisplaySize.x / 2.0f, io.DisplaySize.y / 2.0f);
-		ImGui::SetNextWindowPos(pos, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-		if (ImGui::BeginPopupModal("Manage Variables", nullptr,
-			ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings))
+		//ImVec2 pos(io.DisplaySize.x / 2.0f, io.DisplaySize.y / 2.0f);
+		//ImGui::SetNextWindowPos(pos, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+		if (ImGui::BeginPopupModal("Manage Variables", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings))
 		{
 			// Adding a new variable
 			{
@@ -955,20 +954,8 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 		ed::PushStyleVar(ed::StyleVar_NodePadding, ImVec4(8, 4, 8, 8));
 		ed::BeginNode(nodeInstance->myUID.ToUInt());
 		ImGui::PushID(nodeInstance->myUID.ToUInt());
-		ImGui::BeginVertical("node");
-
-		ImGui::BeginHorizontal("header");
-		ImGui::BeginVertical("headerLabel", ImVec2(0, 28));
 		ImGui::TextUnformatted(nodeInstance->GetNodeName().c_str());
-		ImGui::EndVertical();
-		ImGui::Spring(1);
-		ImGui::Dummy(ImVec2(0, 28));
-		ImGui::Spring(0);
-		ImGui::EndHorizontal();
 		ax::rect HeaderRect = ImGui_GetItemRect();
-		ImGui::Spring(0, ImGui::GetStyle().ItemSpacing.y * 2.0f);
-
-		ImGui::EndVertical();
 
 		std::vector<GraphNodePin*> InputPins;
 		std::vector<GraphNodePin*> OutputPins;
@@ -991,39 +978,66 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 			}
 		}
 
-		ImGui::BeginVertical("Body");
-
 		const bool bDrawExecRow = firstInputExec + firstOutputExec >= -1;
 
+		const ImVec2 nodeNameSize = ImGui::CalcTextSize(nodeInstance->GetNodeName().c_str());
+
+		float paddingSize = nodeNameSize.x * 0.75f;
+		paddingSize = paddingSize > 100.0f ? paddingSize : 100.0f;
+		
 		if (bDrawExecRow)
 		{
-			ImGui::BeginHorizontal("PinRow_Exec");
 			if (firstInputExec > -1)
 			{
 				GraphNodePin* pin = InputPins[firstInputExec];
 				ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Input);
 				DrawPinIcon(*pin, nodeInstance->IsPinConnected(*pin), 255);
 				ed::EndPin();
+				ImGui::SameLine();
+				ImGui::Text(pin->Text.c_str());
 			}
 			if (firstOutputExec > -1)
 			{
-				ImGui::Spring(1.0f);
-				ImGui::Dummy({ 75, 0 });
-
+				if (firstInputExec > -1)
+				{
+					ImGui::SameLine();
+				}
+				ImGui::Dummy({ paddingSize * .70f, 0 });
+				ImGui::SameLine();
 				GraphNodePin* pin = OutputPins[firstOutputExec];
 				ImGui::Text(pin->Text.c_str());
+				ImGui::SameLine();
 				ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Output);
 				DrawPinIcon(*pin, nodeInstance->IsPinConnected(*pin), 255);
 				ed::EndPin();
 			}
-			ImGui::EndHorizontal();
 		}
+
+		std::string largestName = "";
+		for (size_t i = 0; i < InputPins.size(); i++)
+		{
+			if (largestName.size() < InputPins[i]->Text.size())
+			{
+				largestName = InputPins[i]->Text;
+			}
+		}
+		for (size_t i = 0; i < OutputPins.size(); i++)
+		{
+			if (largestName.size() < OutputPins[i]->Text.size())
+			{
+				largestName = OutputPins[i]->Text;
+			}
+		}
+
+		const ImVec2 pinNameSize = ImGui::CalcTextSize(largestName.c_str());
+		float pinPaddingSize = pinNameSize.x * 0.75f;
+		pinPaddingSize = pinPaddingSize > 100.0f ? pinPaddingSize : 100.0f;
+
 
 		const size_t numRows = InputPins.size() > OutputPins.size() ? InputPins.size() : OutputPins.size();
 		for (size_t row = 0; row < numRows; row++)
 		{
-			std::string horizontalName = std::string("PinRow_") + std::to_string(row);
-			ImGui::BeginHorizontal(horizontalName.c_str());
+			bool isPinToLeft = false;
 
 			if (row < InputPins.size() && row != firstInputExec) // Should we draw input?
 			{
@@ -1042,65 +1056,78 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 						ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Input);
 						DrawTypeSpecificPin(*pin, nodeInstance);
 						ed::EndPin();
+						ImGui::SameLine();
 						ImGui::Text(pin->Text.c_str());
 					}
 					else
 					{
 						ImGui::Text(pin->Text.c_str());
+						ImGui::SameLine();
 						ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Input);
 						DrawTypeSpecificPin(*pin, nodeInstance);
 						ed::EndPin();
 					}
 				}
+				isPinToLeft = true;
 			}
 
-			const ImVec2 nodeNameSize = ImGui::CalcTextSize(nodeInstance->GetNodeName().c_str());
-
-			float paddingSize = nodeNameSize.x * 0.75f;
-			paddingSize = paddingSize > 100.0f ? paddingSize : 100.0f;
-
-			ImGui::Dummy({ paddingSize, 0 });
-			ImGui::Spring(1.0f);
 			if (row < OutputPins.size() && row != firstOutputExec)
 			{
+				if (isPinToLeft)
+				{
+					//ImGui::SameLine(to_imvec(ImGui_GetItemRect().bottom_right() - ImGui_GetItemRect().top_left()).x);
+					ImGui::SameLine();
+				}
+				else
+				{
+					//ImGui::SameLine(to_imvec(ImGui_GetItemRect().bottom_right() - ImGui_GetItemRect().top_left()).x);
+					ImGui::Dummy({ pinPaddingSize * .835f, 0 });
+					ImGui::SameLine();
+				}
+
 				GraphNodePin* pin = OutputPins[row];
 				ImGui::Text(pin->Text.c_str());
+				ImGui::SameLine();
 				ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Output);
 				DrawPinIcon(*pin, nodeInstance->IsPinConnected(*pin), 255);
 				ed::EndPin();
 			}
-
-			ImGui::EndHorizontal();
 		}
-
-
-		ImGui::EndVertical();
 
 		ImVec2 NodeBodySize = ImGui::GetItemRectSize();
 
-		HeaderRect = ax::rect(HeaderRect.x, HeaderRect.y, static_cast<int>(NodeBodySize.x), HeaderRect.h);
+		HeaderRect = ax::rect(HeaderRect.x, HeaderRect.y, static_cast<int>(NodeBodySize.x + paddingSize), HeaderRect.h);
 		ed::EndNode();
 
 		if (ImGui::IsItemVisible())
 		{
 			auto drawList = ed::GetNodeBackgroundDrawList(nodeInstance->myUID.ToUInt());
-
+			
 			const auto halfBorderWidth = ed::GetStyle().NodeBorderWidth * 0.5f;
 			auto headerColor = nodeInstance->GetColor();
-			static ImTextureID HeaderTextureId = ImGui_LoadTexture("Sprites/BlueprintBackground.png");
 
-			// Fixed UVs here
-			drawList->AddImageRounded(HeaderTextureId,
+			static Dyn::SRV* image = Dyn::ResourceFactory::GetSRV("Assets/Editor/NodeEditor/Sprites/BlueprintBackground.dds");
+
+			drawList->AddImage(image->Get(),
 				to_imvec(HeaderRect.top_left()) - ImVec2(8 - halfBorderWidth, 4 - halfBorderWidth),
-				to_imvec(HeaderRect.bottom_right()) + ImVec2(8 - halfBorderWidth, 0),
-				ImVec2(0.0f, 0.0f), ImVec2(0.99f, 0.1f),
-				headerColor, ed::GetStyle().NodeRounding, 1 | 2);
+				to_imvec(HeaderRect.bottom_right()) + ImVec2(-(2 - halfBorderWidth), 0),
+				ImVec2(0.0f, 0.0f), ImVec2(0.8f, 0.1f), headerColor);
+			
+			// Fixed UVs here
+			//drawList->AddImageRounded(image,
+			//	to_imvec(HeaderRect.top_left()) - ImVec2(8 - halfBorderWidth, 4 - halfBorderWidth),
+			//	to_imvec(HeaderRect.bottom_right()) + ImVec2(8 - halfBorderWidth, 0),
+			//	ImVec2(0.0f, 0.0f), ImVec2(0.99f, 0.1f),
+			//	headerColor, ed::GetStyle().NodeRounding, 
+			//	ImDrawFlags_Closed | ImDrawListFlags_AntiAliasedLines);
+			
 
 			// Fixed this to align line at bottom of header
+			
 			auto headerSeparatorRect = ax::rect(HeaderRect.bottom_left(), HeaderRect.bottom_right());
 			drawList->AddLine(
 				to_imvec(headerSeparatorRect.top_left()) + ImVec2(-(8 - halfBorderWidth), -0.5f),
-				to_imvec(headerSeparatorRect.top_right()) + ImVec2((8 - halfBorderWidth), -0.5f),
+				to_imvec(headerSeparatorRect.top_right()) + ImVec2((4 - halfBorderWidth), -0.5f),
 				ImColor(255, 255, 255, 255), 1.0f);
 		}
 		ImGui::PopID();

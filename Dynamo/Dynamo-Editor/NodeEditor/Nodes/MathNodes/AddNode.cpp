@@ -6,9 +6,15 @@
 
 AddNode::AddNode()
 {
+	CreatePin("IN", PinDirection::PinDirection_IN);
 	CreatePin("A", PinDirection::PinDirection_IN, DataType::Float);
+	CreatePin("Result 1", PinDirection::PinDirection_OUT, DataType::Float);
+	CreatePin("Result 2", PinDirection::PinDirection_OUT, DataType::Float);
+	CreatePin("Result 3", PinDirection::PinDirection_OUT, DataType::Float);
 	CreatePin("B", PinDirection::PinDirection_IN, DataType::Float);
-	CreatePin("Result", PinDirection::PinDirection_OUT, DataType::Float);
+	CreatePin("Result 4", PinDirection::PinDirection_OUT, DataType::Float);
+	CreatePin("C", PinDirection::PinDirection_IN, DataType::Float);
+	CreatePin("OUT", PinDirection::PinDirection_OUT);
 }
 
 int AddNode::OnExec(GraphNodeInstance* aNodeInstance)
