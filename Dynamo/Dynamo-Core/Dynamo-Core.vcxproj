@@ -163,7 +163,7 @@
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
-      <ObjectFileOutput>$(SolutionDir)..\Bin\Shaders\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(SolutionDir)..\Bin\Assets\Shaders\%(Filename).cso</ObjectFileOutput>
       <EnableDebuggingInformation>true</EnableDebuggingInformation>
     </FxCompile>
   </ItemDefinitionGroup>

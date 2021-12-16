@@ -154,5 +154,10 @@ namespace Dynamo
 		float myRoughnessInterp = 1;
 		float myMetalnessConstant = 0;
 		float myMetalnessInterp = 1;
+
+		float myCustomValue1;
+		float myCustomValue2;
+		float myCustomValue3;
+		float myCustomValue4;
 	};
 }

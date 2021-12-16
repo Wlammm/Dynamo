@@ -125,6 +125,11 @@ cbuffer MaterialBuffer : register(b10)
         float myRoughnessInterp;
         float myMetalnessConstant;
         float myMetalnessInterp;
+
+        float myCustomValue1;
+        float myCustomValue2;
+        float myCustomValue3;
+        float myCustomValue4;
     } myMaterialBuffer;
 }
 

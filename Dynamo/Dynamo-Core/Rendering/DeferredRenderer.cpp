@@ -82,6 +82,11 @@ namespace Dynamo
 				myMaterialBufferData.myRoughnessInterp = mat->myRoughnessInterpolation;
 				myMaterialBufferData.myMetalnessConstant = mat->myMetalnessConstant;
 				myMaterialBufferData.myMetalnessInterp = mat->myMetalnessInterpolation;
+
+				myMaterialBufferData.myCustomValue1 = mat->myCustomValues[0];
+				myMaterialBufferData.myCustomValue2 = mat->myCustomValues[1];
+				myMaterialBufferData.myCustomValue3 = mat->myCustomValues[2];
+				myMaterialBufferData.myCustomValue4 = mat->myCustomValues[3];
 			}
 			RenderUtils::MapBuffer<MaterialBuffer>(myMaterialBufferData, myMaterialBuffer);
 			Main::GetContext()->PSSetConstantBuffers(MATERIAL_BUFFER_SLOT, 1, &myMaterialBuffer);

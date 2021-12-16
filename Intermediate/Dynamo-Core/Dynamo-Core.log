@@ -1,2 +1,32 @@
-﻿  Animator.cpp
+﻿  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DebugLine3DVertexShader.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DebugLinePixelShader.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DebugLineVertexShader.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\AmbientLightShader.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DirectionalLightShader.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\EmissiveShader.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\GBuffer.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\PointLightShader.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\SpotLightShader.cso
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\SkyboxPS.hlsl(8,12-71): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\SkyboxPS.cso
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedPS.hlsl(11,12-39): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\WorldAllignedPS.cso
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(22,16-37): warning X3578: Output value 'main' is not completely initialized
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(139,37-86): warning X3570: gradient instruction used in a loop with varying iteration, attempting to unroll the loop
+C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Fullscreen\FullscreenPS-FXAA.hlsl(22,16-37): warning X3578: Output value 'main' is not completely initialized
+  
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-FXAA.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-GammaCorrection.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-GaussianV.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\ForwardPS.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-Bloom.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-Copy.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-GaussianH.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-HDR.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-Luminance.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-MaterialPass.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenVS.cso
+  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\VertexShader.cso
   Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Release.lib
