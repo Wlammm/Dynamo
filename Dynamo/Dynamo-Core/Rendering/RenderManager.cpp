@@ -278,7 +278,7 @@ namespace Dynamo
 		ID3D11Resource* backBufferResource = nullptr;
 		Main::GetFramework()->GetBackBuffer()->GetResource(&backBufferResource);
 		ID3D11Texture2D* backBufferTexture = (ID3D11Texture2D*)backBufferResource;
-		assert(backBufferTexture);
+		DYN_ASSERT(backBufferTexture);
 
 		myBackBuffer = TextureFactory::CreateTexture(backBufferTexture);
 		myRenderTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R32G32B32A32_FLOAT);

@@ -21,13 +21,13 @@ namespace Dynamo
 
         ID3D11Texture2D* texture;
         result = Main::GetDevice()->CreateTexture2D(&desc, nullptr, &texture);
-        assert(SUCCEEDED(result));
+        DYN_ASSERT(SUCCEEDED(result));
 
         Texture textureResult = CreateTexture(texture);
         ID3D11ShaderResourceView* srv;
 
         result = Main::GetDevice()->CreateShaderResourceView(texture, nullptr, &srv);
-        assert(SUCCEEDED(result));
+        DYN_ASSERT(SUCCEEDED(result));
 
         textureResult.mySRV = srv;
         return textureResult;
@@ -39,7 +39,7 @@ namespace Dynamo
 
         ID3D11RenderTargetView* rtv;
         result = Main::GetDevice()->CreateRenderTargetView(aTexture, nullptr, &rtv);
-        assert(SUCCEEDED(result));
+        DYN_ASSERT(SUCCEEDED(result));
 
         D3D11_VIEWPORT* viewport = nullptr;
 
@@ -75,11 +75,11 @@ namespace Dynamo
 
         ID3D11Texture2D* texture;
         result = Main::GetDevice()->CreateTexture2D(&desc, nullptr, &texture);
-        assert(SUCCEEDED(result));
+        DYN_ASSERT(SUCCEEDED(result));
 
         ID3D11DepthStencilView* dsv;
         result = Main::GetDevice()->CreateDepthStencilView(texture, nullptr, &dsv);
-        assert(SUCCEEDED(result));
+        DYN_ASSERT(SUCCEEDED(result));
 
         D3D11_VIEWPORT* viewport = new D3D11_VIEWPORT({ 0, 0, (float)aSize.x, (float)aSize.y, 0, 1 });
         Texture texResult;
@@ -123,13 +123,13 @@ namespace Dynamo
         {
             desc.Format = textureFormats[i];
             result = Main::GetDevice()->CreateTexture2D(&desc, nullptr, &returnBuffer.myTextures[i]);
-            assert(SUCCEEDED(result));
+            DYN_ASSERT(SUCCEEDED(result));
 
             result = Main::GetDevice()->CreateRenderTargetView(returnBuffer.myTextures[i], nullptr, &returnBuffer.myRTVs[i]);
-            assert(SUCCEEDED(result));
+            DYN_ASSERT(SUCCEEDED(result));
 
             result = Main::GetDevice()->CreateShaderResourceView(returnBuffer.myTextures[i], nullptr, &returnBuffer.mySRVs[i]);
-            assert(SUCCEEDED(result));
+            DYN_ASSERT(SUCCEEDED(result));
         }
 
         returnBuffer.myViewport = new D3D11_VIEWPORT({ 0, 0, (float)desc.Width, (float)desc.Height, 0, 1 });

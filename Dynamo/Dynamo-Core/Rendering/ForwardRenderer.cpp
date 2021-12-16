@@ -98,7 +98,7 @@ namespace Dynamo
 		desc.CullMode = D3D11_CULL_BACK;
 
 		HRESULT result = Main::GetDevice()->CreateRasterizerState(&desc, &myRSState);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 	}
 
 	std::vector<PointLightCommand> ForwardRenderer::GetSortedPointLights(const std::vector<PointLightCommand>& someInData, const MeshCommand& aInstance)

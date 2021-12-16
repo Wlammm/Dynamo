@@ -1,5 +1,2 @@
-﻿  Component.cpp
-  ComponentAdmin.cpp
-  ComponentRegistry.cpp
-  GameObject.cpp
+﻿  ComponentAdmin.cpp
   Dynamo-ComponentSystem.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-ComponentSystem_Release.lib

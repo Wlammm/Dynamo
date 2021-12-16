@@ -22,7 +22,7 @@ namespace Dynamo
 
     ComponentAdmin& Dynamo::Scene::GetComponentAdmin()
     {
-        assert(myComponentAdmin != nullptr && "ComponentAdmin is not initialized in scene.");
+        DYN_ASSERT(myComponentAdmin != nullptr && "ComponentAdmin is not initialized in scene.");
         return *myComponentAdmin;
     }
 

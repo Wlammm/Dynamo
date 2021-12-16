@@ -30,15 +30,15 @@ namespace Dynamo
 
         FbxImporter* importer = FbxImporter::Create(manager, "AnimScene");
         bool result = importer->Initialize(aPath.c_str(), -1, manager->GetIOSettings());
-        assert(result);
+        DYN_ASSERT(result);
         result = importer->IsFBX();
-        assert(result);
+        DYN_ASSERT(result);
 
         FbxScene* scene = FbxScene::Create(manager, "AnimScene");
         FbxAxisSystem axisSystem(FbxAxisSystem::eDirectX);
 
         if (!importer->Import(scene))
-            assert(false && "Failed to import animation");
+            DYN_ASSERT(false && "Failed to import animation");
 
         axisSystem.DeepConvertScene(scene);
 

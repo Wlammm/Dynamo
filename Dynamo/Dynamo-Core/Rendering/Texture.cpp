@@ -36,7 +36,7 @@ namespace Dynamo
 
 	void Texture::SetAsResourceOnSlot(const uint aSlot) const
 	{
-		assert(mySRV && "Texture not initialized.");
+		DYN_ASSERT(mySRV && "Texture not initialized.");
 		Main::GetContext()->PSSetShaderResources(aSlot, 1, &mySRV);
 		Main::GetContext()->GSSetShaderResources(aSlot, 1, &mySRV);
 		Main::GetContext()->VSSetShaderResources(aSlot, 1, &mySRV);

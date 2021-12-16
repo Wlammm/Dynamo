@@ -58,11 +58,11 @@ namespace Dynamo
 		alphaBlendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		alphaBlendDesc.AlphaToCoverageEnable = false;
 		result = Main::GetDevice()->CreateBlendState(&alphaBlendDesc, &myBlendStates[BLENDSTATE_ALPHABLEND]);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		alphaBlendDesc.AlphaToCoverageEnable = true;
 		result = Main::GetDevice()->CreateBlendState(&alphaBlendDesc, &myBlendStates[BLENDSTATE_FOLLIAGE]);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		D3D11_BLEND_DESC additiveBlendDesc = {};
 		additiveBlendDesc.RenderTarget[0].BlendEnable = true;
@@ -74,11 +74,11 @@ namespace Dynamo
 		additiveBlendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_MAX;
 		additiveBlendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		result = Main::GetDevice()->CreateBlendState(&additiveBlendDesc, &myBlendStates[BLENDSTATE_ADDITIVE]);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		myBlendStates[BLENDSTATE_DISABLE] = nullptr;
 	}
-	
+
 	void RenderUtils::CreateSamplerStates()
 	{
 		HRESULT result;
@@ -92,7 +92,7 @@ namespace Dynamo
 		pointSampleDesc.MinLOD = -FLT_MAX;
 		pointSampleDesc.MaxLOD = FLT_MAX;
 		result = Main::GetDevice()->CreateSamplerState(&pointSampleDesc, &mySamplerStates[SAMPLERSTATE_POINT]);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		D3D11_SAMPLER_DESC trilWrapSampleDesc = {};
 		trilWrapSampleDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -103,7 +103,7 @@ namespace Dynamo
 		trilWrapSampleDesc.MinLOD = -FLT_MAX;
 		trilWrapSampleDesc.MaxLOD = FLT_MAX;
 		result = Main::GetDevice()->CreateSamplerState(&trilWrapSampleDesc, &mySamplerStates[SAMPLERSTATE_TRILINEARWRAP]);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		D3D11_SAMPLER_DESC trilClampSampleDesc = {};
 		trilClampSampleDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -115,7 +115,7 @@ namespace Dynamo
 		trilClampSampleDesc.MaxLOD = FLT_MAX;
 
 		result = Main::GetDevice()->CreateSamplerState(&trilClampSampleDesc, &mySamplerStates[SAMPLERSTATE_TRILINEARCLAMP]);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		mySamplerStates[SAMPLERSTATE_TRILINEAR] = nullptr;
 	}
@@ -131,7 +131,7 @@ namespace Dynamo
 		readonlyDesc.StencilEnable = false;
 
 		result = Main::GetDevice()->CreateDepthStencilState(&readonlyDesc, &myDepthStates[DEPTHSTATE_READONLY]);
-		assert(SUCCEEDED(result));
+		DYN_ASSERT(SUCCEEDED(result));
 
 		myDepthStates[DEPTHSTATE_DEFUALT] = nullptr;
 	}

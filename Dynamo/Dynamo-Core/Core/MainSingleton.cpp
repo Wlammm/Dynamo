@@ -19,7 +19,7 @@ namespace Dynamo
 
 	void MainSingleton::Init()
 	{
-		assert(ourInstance == nullptr && "MainSingleton already initialized.");
+		DYN_ASSERT(ourInstance == nullptr && "MainSingleton already initialized.");
 		ourInstance = new MainSingleton();
 
 		Console::Create();
@@ -38,7 +38,7 @@ namespace Dynamo
 
 	void MainSingleton::Destroy()
 	{
-		assert(ourInstance != nullptr && "MainSingleton already destroyed.");
+		DYN_ASSERT(ourInstance != nullptr && "MainSingleton already destroyed.");
 
 		ImGuiManager::Destroy();
 		Time::Destroy();
@@ -72,7 +72,7 @@ namespace Dynamo
 	{
 		return ourInstance->myWindowSize;
 	}
-	
+
 	const Vec2ui& MainSingleton::GetWindowOffset()
 	{
 		return ourInstance->myWindowOffset;
@@ -80,15 +80,15 @@ namespace Dynamo
 
 	const Vec2ui& MainSingleton::GetWindowResolution()
 	{
-		assert(ourInstance->myWindowResolution.x != 0 && "WindowHandler not initialized yet.");
+		DYN_ASSERT(ourInstance->myWindowResolution.x != 0 && "WindowHandler not initialized yet.");
 		return ourInstance->myWindowResolution;
 	}
-	
+
 	const Color& MainSingleton::GetClearColor()
 	{
 		return ourInstance->myClearColor;
 	}
-	
+
 	const std::wstring& MainSingleton::GetWindowTitle()
 	{
 		return ourInstance->myWindowTitle;
@@ -108,16 +108,16 @@ namespace Dynamo
 	{
 		ourInstance->myEngineRunning = aValue;
 	}
-	
+
 	ID3D11Device* MainSingleton::GetDevice()
 	{
-		assert(ourInstance->myDevice != nullptr && "DirectXFramework not initialized.");
+		DYN_ASSERT(ourInstance->myDevice != nullptr && "DirectXFramework not initialized.");
 		return ourInstance->myDevice;
 	}
 
 	ID3D11DeviceContext* MainSingleton::GetContext()
 	{
-		assert(ourInstance->myContext != nullptr && "DirectXFramework not initialized.");
+		DYN_ASSERT(ourInstance->myContext != nullptr && "DirectXFramework not initialized.");
 		return ourInstance->myContext;
 	}
 
