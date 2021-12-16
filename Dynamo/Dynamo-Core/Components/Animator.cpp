@@ -62,13 +62,9 @@ namespace Dynamo
 
 	void Animator::Update()
 	{
-		if (!myMeshRenderer)
-		{
-			myMeshRenderer = GetComponent<MeshRenderer>();
-			return;
-		}
+		myMeshRenderer = GetComponent<MeshRenderer>();
 
-		if (!myAnimation)
+		if (!myAnimation || !myMeshRenderer)
 			return; 
 
 		myAnimationProgress -= Time::GetDeltaTime();
