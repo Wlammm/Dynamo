@@ -74,6 +74,12 @@ cbuffer ObjectBuffer : register(b1)
         float2 myUVScale;
         int myIsAnimated;
 
+        // These values are bound to the meshrenderer. Could differ per instance.
+        float myCustomValue1;
+        float myCustomValue2;
+        float myCustomValue3;
+        float myCustomValue4;
+
         float padding;
     } myObjectBuffer;
 }
@@ -125,7 +131,8 @@ cbuffer MaterialBuffer : register(b10)
         float myRoughnessInterp;
         float myMetalnessConstant;
         float myMetalnessInterp;
-
+        
+        // These values are bound on the material. Does not differ per instance.
         float myCustomValue1;
         float myCustomValue2;
         float myCustomValue3;
