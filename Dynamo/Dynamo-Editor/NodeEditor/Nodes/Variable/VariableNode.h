@@ -1,24 +1,26 @@
 #pragma once
 #include "../GraphNodeBase.h"
 
-class GraphNodeInstance;
-
-class SetNode : public GraphNodeBase
+namespace Editor
 {
-public:
-	SetNode();
+	class GraphNodeInstance;
 
-	virtual int OnExec(GraphNodeInstance* aNodeInstance) override;
-	virtual std::string GetInstanceName(const GraphNodeInstance* aNodeInstance) const override;
-};
+	class SetNode : public GraphNodeBase
+	{
+	public:
+		SetNode();
 
-class GetNode : public GraphNodeBase
-{
-public:
+		virtual int OnExec(GraphNodeInstance* aNodeInstance) override;
+		virtual std::string GetInstanceName(const GraphNodeInstance* aNodeInstance) const override;
+	};
 
-	GetNode();
+	class GetNode : public GraphNodeBase
+	{
+	public:
 
-	virtual int OnExec(GraphNodeInstance* aNodeInstance) override;
-	virtual std::string GetInstanceName(const GraphNodeInstance* aNodeInstance) const override;
-};
+		GetNode();
 
+		virtual int OnExec(GraphNodeInstance* aNodeInstance) override;
+		virtual std::string GetInstanceName(const GraphNodeInstance* aNodeInstance) const override;
+	};
+}

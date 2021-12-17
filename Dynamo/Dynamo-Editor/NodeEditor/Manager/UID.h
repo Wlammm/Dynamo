@@ -3,69 +3,72 @@
 /**
  * Simple Unique ID for Graph Nodes
  */
-class UID
+namespace Editor
 {
-	friend class GraphManager;
-
-	// Instead of having a UID manager we just keep track of all of them in here.
-	static std::vector<unsigned int> myAllUIDs;
-	// As well as the next valid ID.
-	static unsigned int myGlobalUID;
-
-	// My ID
-	unsigned int myID;
-
-public:
-
-	UID(bool aCreateNewUID = true)
+	class UID
 	{
-		if (aCreateNewUID)
+		friend class GraphManager;
+
+		// Instead of having a UID manager we just keep track of all of them in here.
+		static std::vector<unsigned int> myAllUIDs;
+		// As well as the next valid ID.
+		static unsigned int myGlobalUID;
+
+		// My ID
+		unsigned int myID;
+
+	public:
+
+		UID(bool aCreateNewUID = true)
 		{
-			myGlobalUID++;
-			myID = myGlobalUID;
-			while (std::find(myAllUIDs.begin(), myAllUIDs.end(), myID) != myAllUIDs.end())
+			if (aCreateNewUID)
 			{
-				// Increment, the ID is already in use.
 				myGlobalUID++;
 				myID = myGlobalUID;
+				while (std::find(myAllUIDs.begin(), myAllUIDs.end(), myID) != myAllUIDs.end())
+				{
+					// Increment, the ID is already in use.
+					myGlobalUID++;
+					myID = myGlobalUID;
+				}
+				myAllUIDs.push_back(myID);
 			}
-			myAllUIDs.push_back(myID);
 		}
-	}
 
-	operator int() const { return myID; }
-	operator unsigned int() const { return myID; }
+		operator int() const { return myID; }
+		operator unsigned int() const { return myID; }
 
-	int ToInt() const { return myID; }
-	unsigned int ToUInt() const { return myID; }
+		int ToInt() const { return myID; }
+		unsigned int ToUInt() const { return myID; }
 
-	UID& operator=(const UID& other)
-	{
-		// Don't allow assignment of UIDs tha don't exist.
-#ifdef _DEBUG
-		if (std::find(myAllUIDs.begin(), myAllUIDs.end(), myID) != myAllUIDs.end())
+		UID& operator=(const UID& other)
 		{
-			assert(0);
-		}
-#endif
-		myID = other.myID;
-		return *this;
-	}
-	UID& operator=(const int other)
-	{
-		// Don't allow assignment of UIDs tha don't exist.
+			// Don't allow assignment of UIDs tha don't exist.
 #ifdef _DEBUG
-		if (std::find(myAllUIDs.begin(), myAllUIDs.end(), myID) != myAllUIDs.end())
-		{
-			assert(0);
-		}
+			if (std::find(myAllUIDs.begin(), myAllUIDs.end(), myID) != myAllUIDs.end())
+			{
+				assert(0);
+			}
 #endif
-		myID = other;
-		return *this;
-	}
+			myID = other.myID;
+			return *this;
+		}
+		UID& operator=(const int other)
+		{
+			// Don't allow assignment of UIDs tha don't exist.
+#ifdef _DEBUG
+			if (std::find(myAllUIDs.begin(), myAllUIDs.end(), myID) != myAllUIDs.end())
+			{
+				assert(0);
+			}
+#endif
+			myID = other;
+			return *this;
+		}
 
-	void SetUID(unsigned int aID)
-	{
-		myID = aID;
-	}
-};
+		void SetUID(unsigned int aID)
+		{
+			myID = aID;
+		}
+	};
+}

@@ -1,1 +1,6 @@
-﻿  Dynamo-CommonUtilities.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-CommonUtilities_Debug.lib
+﻿  Dynamo-CommonUtilities.cpp
+  InputManager.cpp
+  Point.cpp
+  Timer.cpp
+  Generating Code...
+  Dynamo-CommonUtilities.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-CommonUtilities_Debug.lib

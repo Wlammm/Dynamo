@@ -1,13 +1,15 @@
 #pragma once
 #include "../GraphNodeBase.h"
 
-class PrintNode : public GraphNodeBase
+namespace Editor
 {
-public:
-	PrintNode();
+	class PrintNode : public GraphNodeBase
+	{
+	public:
+		PrintNode();
 
-	int OnExec(class GraphNodeInstance* aNodeInstance) override;
+		int OnExec(class GraphNodeInstance* aNodeInstance) override;
 
-	virtual std::string GetNodeName() const override { return "Print"; }
-};
-
+		virtual std::string GetNodeName() const override { return "Print"; }
+	};
+}

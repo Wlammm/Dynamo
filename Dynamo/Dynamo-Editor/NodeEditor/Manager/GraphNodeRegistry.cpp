@@ -13,20 +13,23 @@
 #include "NodeEditor/Nodes/MathNodes/AddNode.h"
 
 
-void GraphNodeRegistry::PopulateTypes()
+namespace Editor
 {
-	// Base Nodes
-	TemplateHelper::RegisterType<StartNode>();
-	TemplateHelper::RegisterType<SetNode>();
-	TemplateHelper::RegisterType<GetNode>();
+	void GraphNodeRegistry::PopulateTypes()
+	{
+		// Base Nodes
+		TemplateHelper::RegisterType<StartNode>();
+		TemplateHelper::RegisterType<SetNode>();
+		TemplateHelper::RegisterType<GetNode>();
 
-	// Debug Nodes
-	TemplateHelper::RegisterType<PrintNode>();
+		// Debug Nodes
+		TemplateHelper::RegisterType<PrintNode>();
 
-	// Math
-	TemplateHelper::RegisterType<AddNode>();
+		// Math
+		TemplateHelper::RegisterType<AddNode>();
+	}
+
+
+	GraphNodeBase* GraphNodeRegistry::myTypes[128];
+	unsigned short GraphNodeRegistry::myTypeCounter = 0;
 }
-
-
-GraphNodeBase* GraphNodeRegistry::myTypes[128];
-unsigned short GraphNodeRegistry::myTypeCounter = 0;

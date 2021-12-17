@@ -1,9 +1,9 @@
 #pragma once
 
-class GraphManager;
-
 namespace Editor
 {
+	class GraphManager;
+
 	class NodeEditor : public EditorWindow
 	{
 	public:

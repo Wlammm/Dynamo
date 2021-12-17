@@ -1,68 +1,71 @@
 #pragma once
 
-class GraphNodeBase;
-
-class GraphNodeRegistry
+namespace Editor
 {
-public:
-	static void PopulateTypes();
-	static GraphNodeBase* GetNodeTypeFromID(unsigned int aClassID)
-	{
-		return myTypes[aClassID]; // 1:1 to nodetype enum
-	}
+	class GraphNodeBase;
 
-	template<class T>
-	static int GetIdFromType()
+	class GraphNodeRegistry
 	{
-		for (auto& type : myTypes)
+	public:
+		static void PopulateTypes();
+		static GraphNodeBase* GetNodeTypeFromID(unsigned int aClassID)
 		{
-			if (typeid(type) == typeid(T))
-				return type->myID;
+			return myTypes[aClassID]; // 1:1 to nodetype enum
 		}
 
-		return -1;
-	}
-	template<class T>
-	static GraphNodeBase* GetNodeTypePtrFromType()
-	{
-		int typeID = -1;
-
-		const std::type_info& AType = typeid(T);
-
-		for (auto& type : myTypes)
+		template<class T>
+		static int GetIdFromType()
 		{
-			const std::type_info& BType = typeid(*type);
-			if (AType == BType)
+			for (auto& type : myTypes)
 			{
-				typeID = type->myID;
-				break;
+				if (typeid(type) == typeid(T))
+					return type->myID;
 			}
+
+			return -1;
+		}
+		template<class T>
+		static GraphNodeBase* GetNodeTypePtrFromType()
+		{
+			int typeID = -1;
+
+			const std::type_info& AType = typeid(T);
+
+			for (auto& type : myTypes)
+			{
+				const std::type_info& BType = typeid(*type);
+				if (AType == BType)
+				{
+					typeID = type->myID;
+					break;
+				}
+			}
+
+			if (typeID != -1)
+			{
+				return GetNodeTypeFromID(typeID);
+			}
+			return nullptr;
+		}
+		static GraphNodeBase** GetAllNodeTypes()
+		{
+			return myTypes; // 1:1 to nodetype enum
+		}
+		static unsigned short GetNodeTypeCount()
+		{
+			return 	myTypeCounter; // 1:1 to nodetype enum
 		}
 
-		if (typeID != -1)
+		static void Destroy()
 		{
-			return GetNodeTypeFromID(typeID);
+			do
+			{
+				delete myTypes[--myTypeCounter];
+				myTypes[myTypeCounter] = nullptr;
+			} while (myTypeCounter != 0);
 		}
-		return nullptr;
-	}
-	static GraphNodeBase** GetAllNodeTypes()
-	{
-		return myTypes; // 1:1 to nodetype enum
-	}
-	static unsigned short GetNodeTypeCount()
-	{
-		return 	myTypeCounter; // 1:1 to nodetype enum
-	}
 
-	static void Destroy()
-	{
-		do
-		{
-			delete myTypes[--myTypeCounter];
-			myTypes[myTypeCounter] = nullptr;
-		} while (myTypeCounter != 0);
-	}
-
-	static GraphNodeBase* myTypes[128];
-	static unsigned short myTypeCounter;
-};
+		static GraphNodeBase* myTypes[128];
+		static unsigned short myTypeCounter;
+	};
+}
