@@ -239,12 +239,13 @@ namespace Dynamo
 
 	void RenderManager::RenderSelection()
 	{
+		myRenderDepth.ClearDepth();
 		mySelectionTexture.ClearTexture();
 		mySelectionTexture.SetAsActiveTarget(&myRenderDepth);
 
 		CU::DArray<MeshCommand> commands = myDeferredMeshes;
 		commands.AddRange(myForwardMeshes);
-		commands.AddRange(myNonDepthTestedMeshes);
+		//commands.AddRange(myNonDepthTestedMeshes);
 		mySelectionRenderer.Render(commands);
 
 		mySelectionCallback();

@@ -55,9 +55,6 @@ namespace Editor
         if (!scene)
             return;
 
-        Console::LogVector("Pos: ", texturePos.Cast<float>());
-        Console::Log("ID: %i", id);
-
         if (id == 0)
             Main::SetSelectedGameObject(nullptr);
         else
