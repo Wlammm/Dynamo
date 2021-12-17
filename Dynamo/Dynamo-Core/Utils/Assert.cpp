@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Assert.h"
 #include "ConsoleUtils.h"
 #include "../Dynamo-ImGui/ImGui_Wrapper.h"

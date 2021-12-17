@@ -122,6 +122,11 @@ namespace Dynamo
 
 		RenderDebug();
 
+		if (mySelectionCallback)
+		{
+			RenderSelection();
+		}
+
 		if(myRenderDeferred)
 			RenderDeferredPass();
 		RenderToBackBuffer();
@@ -142,6 +147,11 @@ namespace Dynamo
 	const Texture& RenderManager::GetDepthTexture() const
 	{
 		return myRenderDepth;
+	}
+
+	Texture& RenderManager::GetSelectionTexture()
+	{
+		return mySelectionTexture;
 	}
 
 	ForwardRenderer& RenderManager::GetForwardRenderer()
@@ -227,6 +237,21 @@ namespace Dynamo
 		myDebugRenderer.Render(*cam);
 	}
 
+	void RenderManager::RenderSelection()
+	{
+		myRenderDepth.ClearDepth();
+		mySelectionTexture.ClearTexture();
+		mySelectionTexture.SetAsActiveTarget(&myRenderDepth);
+
+		CU::DArray<MeshCommand> commands = myDeferredMeshes;
+		commands.AddRange(myForwardMeshes);
+		//commands.AddRange(myNonDepthTestedMeshes);
+		mySelectionRenderer.Render(commands);
+
+		mySelectionCallback();
+		mySelectionCallback = nullptr;
+	}
+
 	void RenderManager::RenderFullscreenEffects()
 	{
 		RenderUtils::SetBlendState(RenderUtils::BLENDSTATE_DISABLE);
@@ -287,6 +312,8 @@ namespace Dynamo
 
 		myGBuffer = TextureFactory::CreateGBuffer(Main::GetWindowResolution());
 
+		mySelectionTexture = TextureFactory::CreateTexture(Main::GetWindowResolution(), DXGI_FORMAT_R32_UINT, D3D11_CPU_ACCESS_READ);
+
 		if (isFirstTime)
 			return;
 
@@ -297,6 +324,11 @@ namespace Dynamo
 				val->ReInit();
 			}
 		}
+	}
+
+	void RenderManager::SetSelectionCallback(std::function<void(void)> aCallback)
+	{
+		mySelectionCallback = aCallback;
 	}
 
 	void RenderManager::ClearTextures()

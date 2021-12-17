@@ -19,6 +19,8 @@ namespace Dynamo
 
 		ID3D11ShaderResourceView* GetSRV() const;
 
+		ID3D11Texture2D* GetTexture();
+
 		void Release();
 
 	private:

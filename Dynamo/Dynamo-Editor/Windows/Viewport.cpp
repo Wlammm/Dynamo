@@ -18,26 +18,50 @@ namespace Editor
 
 	void Viewport::Update()
 	{
+		myIsHovered = ImGui::IsWindowHovered();
+
 		Dyn::Texture& renderTexture = Dyn::Main::GetRenderManager().GetMainRenderTarget();
 
 		Vec2ui viewportOffset = { 8, 25 };
 		const ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		ImVec2 imageSize = ClampToAspectRatio(viewportPanelSize, { 16, 9 });
+		myImageSize = ClampToAspectRatio(viewportPanelSize, { 16, 9 });
 
-		ImVec2 pos = { (viewportPanelSize.x - imageSize.x) * 0.5f, (viewportPanelSize.y - imageSize.y) * 0.5f };
+		ImVec2 pos = { (viewportPanelSize.x - myImageSize.x) * 0.5f, (viewportPanelSize.y - myImageSize.y) * 0.5f };
 
 		pos.x += viewportOffset.x;
 		pos.y += viewportOffset.y;
 
 		ImGui::SetCursorPos(pos);
-		ImGui::Image(renderTexture.GetSRV(), imageSize);
+		ImGui::Image(renderTexture.GetSRV(), myImageSize);
+		myImagePos = ImGui::GetItemRectMin();
 		HandleDragDrop();
 
 		ImVec2 windowPos = ImGui::GetWindowPos();
 		pos.x += windowPos.x;
 		pos.y += windowPos.y;
 
-		myGuizmos->DrawGuizmos(pos, imageSize);
+		myGuizmos->DrawGuizmos(pos, myImageSize);
+	}
+
+	Vec2f Viewport::GetMousePosWindowNormalized() const
+	{
+		const Vec2ui& mousePos = Input::GetMousePosition();
+		Vec2f mousePosRelative(mousePos.x - myImagePos.x, mousePos.y - myImagePos.y);
+		Vec2f imageSizeCU(myImageSize.x, myImageSize.y);
+		mousePosRelative = mousePosRelative / imageSizeCU;
+
+		if (mousePosRelative.x > 1 || mousePosRelative.x < 0 ||
+			mousePosRelative.y > 1 || mousePosRelative.y < 0)
+		{
+			mousePosRelative = { -1, -1 };
+		}
+
+		return mousePosRelative;
+	}
+
+	bool Viewport::IsHovered() const
+	{
+		return myIsHovered;
 	}
 
 	const ImVec2 Viewport::ClampToAspectRatio(const ImVec2& aSize, const ImVec2& anAspectRatio) const

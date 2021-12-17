@@ -3,6 +3,7 @@
   <ProjectOutputs />
   <ContentFiles>
     <ContentFile>
+<<<<<<< HEAD
       <FullPath>C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\DebugLine3DVertexShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
@@ -73,6 +74,81 @@
     </ContentFile>
     <ContentFile>
       <FullPath>C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\VertexShader.cso</FullPath>
+=======
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DebugLine3DVertexShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DebugLinePixelShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DebugLineVertexShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\AmbientLightShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DirectionalLightShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\EmissiveShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\GBuffer.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\PointLightShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\SpotLightShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\SelectionPS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\SkyboxPS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\WorldAllignedLerpPS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\WorldAllignedPS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-FXAA.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-GammaCorrection.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-GaussianV.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\ForwardPS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-Bloom.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-Copy.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-GaussianH.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-HDR.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-Luminance.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenPS-MaterialPass.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\FullscreenVS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\VertexShader.cso</FullPath>
+>>>>>>> main
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

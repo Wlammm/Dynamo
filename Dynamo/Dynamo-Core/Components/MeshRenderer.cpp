@@ -138,6 +138,7 @@ namespace Dynamo
 			command.myAdditiveColor = myAdditiveColor;
 			command.myMatrix = GetTransform().GetMatrix();
 			command.myMaterial = myMaterials[i];
+			command.myGameObjectID = GetGameObject()->GetGameObjectID();
 
 			if (myBoneTransforms)
 			{
@@ -208,5 +209,14 @@ namespace Dynamo
 	void MeshRenderer::SetBoneTransforms(std::array<Mat4f, 128>* someTransforms)
 	{
 		myBoneTransforms = someTransforms;
+	}
+
+	void MeshRenderer::SetCustomValue(const float aValue, const uint aSlot)
+	{
+		myCustomValues[aSlot] = aValue;
+	}
+	float MeshRenderer::GetCustomValue(const uint aSlot)
+	{
+		return myCustomValues[aSlot];
 	}
 }

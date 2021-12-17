@@ -2,4 +2,8 @@
   Game.cpp
   GameScene.cpp
   Generating Code...
+<<<<<<< HEAD
   Dynamo-Game.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-Game_Debug.lib
+=======
+  Dynamo-Game.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Game_Debug.lib
+>>>>>>> main

@@ -68,6 +68,11 @@ namespace Dynamo
 		return mySRV;
 	}
 
+	ID3D11Texture2D* Texture::GetTexture()
+	{
+		return myTexture;
+	}
+
 	void Texture::Release()
 	{
 		myRenderTarget->Release();

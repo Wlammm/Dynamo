@@ -16,6 +16,7 @@
 #include "Systems/Toolbar.h"
 #include "Systems/Guizmos.h"
 #include "Systems/SceneSaving.h"
+#include "Systems/Selection.h"
 
 /*
 * __pragma(warning(suppress: XXXX))
@@ -67,6 +68,7 @@ namespace Editor
 		AddSystem(new Toolbar());
 		AddSystem(new Guizmos());
 		AddSystem(new SceneSaving());
+		AddSystem(new Selection());
 	}
 
 	void EditorManager::InitWindows()

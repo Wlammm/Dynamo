@@ -50,6 +50,8 @@ namespace Dynamo
 
 			MapMaterialBuffer(model.myMaterial);
 
+			MapBoneBuffer(model);
+
 			MapObjectBuffer(model);
 			SetMeshSettings(*model.myMesh);
 
@@ -89,6 +91,7 @@ namespace Dynamo
 		RenderUtils::CreateBuffer<ForwardSpotLightBuffer>(mySpotLightBuffer);
 		RenderUtils::CreateBuffer<EmissiveBuffer>(myEmissiveBuffer);
 		RenderUtils::CreateBuffer<MaterialBuffer>(myMaterialBuffer);
+		RenderUtils::CreateBuffer<BoneBuffer>(myBoneBuffer);
 	}
 
 	void ForwardRenderer::CreateRSStates()
@@ -156,6 +159,9 @@ namespace Dynamo
 		myObjectBufferData.myUVScale = { 1.0f, 1.0f };
 		myObjectBufferData.myColor = aMesh.myColor;
 		myObjectBufferData.myAdditiveColor = aMesh.myAdditiveColor;
+		if (aMesh.myIsAnimated)
+			myObjectBufferData.myIsAnimated = 1;
+
 		RenderUtils::MapBuffer<ObjectBuffer>(myObjectBufferData, myObjectBuffer);
 
 		Main::GetContext()->VSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
@@ -276,5 +282,13 @@ namespace Dynamo
 
 		RenderUtils::MapBuffer<MaterialBuffer>(myMaterialBufferData, myMaterialBuffer);
 		Main::GetContext()->PSSetConstantBuffers(MATERIAL_BUFFER_SLOT, 1, &myMaterialBuffer);
+	}
+
+	void ForwardRenderer::MapBoneBuffer(const MeshCommand& aMesh)
+	{
+		if(aMesh.myIsAnimated)
+			myBoneBufferData.myBoneTransforms = aMesh.myBoneTransforms;
+		RenderUtils::MapBuffer<BoneBuffer>(myBoneBufferData, myBoneBuffer);
+		Main::GetContext()->VSSetConstantBuffers(BONE_BUFFER_SLOT, 1, &myBoneBuffer);
 	}
 }

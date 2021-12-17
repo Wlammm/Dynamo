@@ -159,6 +159,12 @@
     <ClCompile Include="Factories\AnimationFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rendering\SelectionRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Assert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entry.h">
@@ -347,6 +353,9 @@
     <ClInclude Include="Utils\Assert.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\SelectionRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />
@@ -374,6 +383,7 @@
     <FxCompile Include="Shaders\Fullscreen\FullscreenPS-HDR.hlsl" />
     <FxCompile Include="Shaders\Forward\SkyboxPS.hlsl" />
     <FxCompile Include="Shaders\Forward\WorldAllignedPS.hlsl" />
+    <FxCompile Include="Shaders\Editor\SelectionPS.hlsl" />
     <FxCompile Include="Shaders\Forward\WorldAllignedLerpPS.hlsl" />
   </ItemGroup>
   <ItemGroup>

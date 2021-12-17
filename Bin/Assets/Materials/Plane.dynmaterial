@@ -8,6 +8,7 @@
     "CustomValue2": 0.0,
     "CustomValue3": 0.0,
     "CustomValue4": 0.0,
+    "DepthTested": true,
     "MaterialTexture": "Assets\\Fbx\\DefaultAssets\\plane_m.dds",
     "Metalness": 0.0,
     "MetalnessInterp": 1.0,
