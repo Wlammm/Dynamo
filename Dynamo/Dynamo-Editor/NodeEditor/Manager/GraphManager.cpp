@@ -387,7 +387,7 @@ void DrawPinIcon(const GraphNodePin& pin, bool connected, int alpha)
 		iconType = IconType::Circle; break;
 		return;
 	}
-	const int s_PinIconSize = 24;
+	const int s_PinIconSize = 20;
 	ax::Widgets::Icon(ImVec2(s_PinIconSize, s_PinIconSize), iconType, connected, color, ImColor(32, 32, 32, alpha));
 };
 
@@ -430,12 +430,14 @@ GraphNodeInstance* GraphManager::GetNodeFromPinID(unsigned int aID)
 }
 
 
-void GraphManager::DrawTypeSpecificPin(GraphNodePin& aPin, GraphNodeInstance* aNodeInstance)
+ImVec2 GraphManager::DrawTypeSpecificPin(GraphNodePin& aPin, GraphNodeInstance* aNodeInstance)
 {
+	ImVec2 width = ImVec2(0, 0);
+
 	if (!aPin.AllowConstructInPlace)
 	{
 		ImGui::PushID(aPin.UID.ToUInt());
-		ImGui::PushItemWidth(100.0f);
+		ImGui::PushItemWidth(width.x = 100.0f);
 		DrawPinIcon(aPin, aNodeInstance->IsPinConnected(aPin), 255);
 		ImGui::PopItemWidth();
 		ImGui::PopID();
@@ -452,15 +454,8 @@ void GraphManager::DrawTypeSpecificPin(GraphNodePin& aPin, GraphNodeInstance* aN
 			}
 
 			ImGui::PushID(aPin.UID.ToUInt());
-			ImGui::PushItemWidth(100.0f);
-			if (aNodeInstance->IsPinConnected(aPin))
-			{
-				DrawPinIcon(aPin, true, 255);
-			}
-			else
-			{
-				ImGui::InputText("##edit", (char*)aPin.Data.Ptr, 127);
-			}
+			ImGui::PushItemWidth(width.x = 100.0f);
+			DrawPinIcon(aPin, aNodeInstance->IsPinConnected(aPin), 255);
 			ImGui::PopItemWidth();
 
 			ImGui::PopID();
@@ -474,23 +469,8 @@ void GraphManager::DrawTypeSpecificPin(GraphNodePin& aPin, GraphNodeInstance* aN
 			}
 			int* c = ((int*)aPin.Data.Ptr);
 			ImGui::PushID(aPin.UID.ToUInt());
-			if (aNodeInstance->IsPinConnected(aPin))
-			{
-				DrawPinIcon(aPin, true, 255);
-			}
-			else
-			{
-				// This vertical is here because if you have started an ImGui::BeginHorizontal then
-				// ImGui::SameLine will force a line break and put things on the same vertical line.
-				// If you do ImGui::BeginVertical then ImGui::SameLine puts things on the same
-				// horizontal line. When you think about it it's somewhat logical but also not :P.
-				ImGui::BeginVertical("IntEditWrapper");
-				ImGui::PushItemWidth(100.0f);
-				ImGui::InputInt("##edit", c);
-				ImGui::PopItemWidth();
-				ImGui::EndVertical();
-			}
-
+			ImGui::PushItemWidth(width.x = 100.0f);
+			DrawPinIcon(aPin, aNodeInstance->IsPinConnected(aPin), 255);
 			ImGui::PopID();
 			break;
 		}
@@ -502,15 +482,8 @@ void GraphManager::DrawTypeSpecificPin(GraphNodePin& aPin, GraphNodeInstance* aN
 			}
 			bool* c = ((bool*)aPin.Data.Ptr);
 			ImGui::PushID(aPin.UID.ToUInt());
-			ImGui::PushItemWidth(100.0f);
-			if (aNodeInstance->IsPinConnected(aPin))
-			{
-				DrawPinIcon(aPin, true, 255);
-			}
-			else
-			{
-				ImGui::Checkbox("##edit", c);
-			}
+			ImGui::PushItemWidth(width.x = 100.0f);
+			DrawPinIcon(aPin, aNodeInstance->IsPinConnected(aPin), 255);
 			ImGui::PopItemWidth();
 
 			ImGui::PopID();
@@ -526,15 +499,8 @@ void GraphManager::DrawTypeSpecificPin(GraphNodePin& aPin, GraphNodeInstance* aN
 			}
 			float* c = ((float*)aPin.Data.Ptr);
 			ImGui::PushID(aPin.UID.ToUInt());
-			ImGui::PushItemWidth(70.0f);
-			if (aNodeInstance->IsPinConnected(aPin))
-			{
-				DrawPinIcon(aPin, true, 255);
-			}
-			else
-			{
-				ImGui::InputFloat("##edit", c);
-			}
+			ImGui::PushItemWidth(width.x = 70.0f);
+			DrawPinIcon(aPin, aNodeInstance->IsPinConnected(aPin), 255);
 			ImGui::PopItemWidth();
 
 			ImGui::PopID();
@@ -543,7 +509,7 @@ void GraphManager::DrawTypeSpecificPin(GraphNodePin& aPin, GraphNodeInstance* aN
 		case DataType::Unknown:
 		{
 			ImGui::PushID(aPin.UID.ToInt());
-			ImGui::PushItemWidth(100.0f);
+			ImGui::PushItemWidth(width.x = 100.0f);
 
 			int selectedIndex = -1;
 			if (ImGui::RadioButton("Bool", false))
@@ -582,6 +548,129 @@ void GraphManager::DrawTypeSpecificPin(GraphNodePin& aPin, GraphNodeInstance* aN
 			assert(false && "Don't know how to draw this particular type! Please nodify GraphManager::DrawTypeSpecificPin");
 		}
 	}
+	return width;
+}
+
+ImVec2 GraphManager::DrawTypeSpecificInput(GraphNodePin& aPin, GraphNodeInstance* aNodeInstance)
+{
+	ImVec2 width = ImVec2(0, 0);
+
+	if (!aPin.AllowConstructInPlace)
+	{
+		ImGui::PushID(aPin.UID.ToUInt());
+		ImGui::PushItemWidth(width.x = 100.0f);
+		DrawPinIcon(aPin, aNodeInstance->IsPinConnected(aPin), 255);
+		ImGui::PopItemWidth();
+		ImGui::PopID();
+	}
+	else
+	{
+		switch (aPin.DataType)
+		{
+		case DataType::String:
+		{
+			if (!aPin.Data)
+			{
+				aPin.Data = DataPtr::Create(aPin.DataType, 128);
+			}
+
+			ImGui::PushID(aPin.UID.ToUInt());
+			ImGui::PushItemWidth(width.x = 100.0f);
+			ImGui::InputText("##edit", (char*)aPin.Data.Ptr, 127);
+			ImGui::PopItemWidth();
+
+			ImGui::PopID();
+			break;
+		}
+		case DataType::Int:
+		{
+			if (!aPin.Data)
+			{
+				aPin.Data = DataPtr::Create(aPin.DataType);
+			}
+			int* c = ((int*)aPin.Data.Ptr);
+			ImGui::PushID(aPin.UID.ToUInt());
+			ImGui::PushItemWidth(width.x = 100.0f);
+			ImGui::InputInt("##edit", c);
+			ImGui::PopItemWidth();
+			ImGui::PopID();
+			break;
+		}
+		case DataType::Bool:
+		{
+			if (!aPin.Data)
+			{
+				aPin.Data = DataPtr::Create(aPin.DataType);
+			}
+			bool* c = ((bool*)aPin.Data.Ptr);
+			ImGui::PushID(aPin.UID.ToUInt());
+			ImGui::PushItemWidth(width.x = 100.0f);
+			ImGui::Checkbox("##edit", c);
+			ImGui::PopItemWidth();
+
+			ImGui::PopID();
+			break;
+		}
+		case DataType::Float:
+		{
+			if (!aPin.Data)
+			{
+				aPin.Data = DataPtr::Create(aPin.DataType);
+				float* c = ((float*)aPin.Data.Ptr);
+				*c = 1.0f;
+			}
+			float* c = ((float*)aPin.Data.Ptr);
+			ImGui::PushID(aPin.UID.ToUInt());
+			ImGui::PushItemWidth(width.x = 70.0f);
+			ImGui::InputFloat("##edit", c);
+			ImGui::PopItemWidth();
+
+			ImGui::PopID();
+			break;
+		}
+		case DataType::Unknown:
+		{
+			ImGui::PushID(aPin.UID.ToInt());
+			ImGui::PushItemWidth(width.x = 100.0f);
+
+			int selectedIndex = -1;
+			if (ImGui::RadioButton("Bool", false))
+			{
+				selectedIndex = (int)DataType::Bool;
+			}
+			if (ImGui::RadioButton("Int", false))
+			{
+				selectedIndex = (int)DataType::Int;
+			}
+			if (ImGui::RadioButton("Float", false))
+			{
+				selectedIndex = (int)DataType::Float;
+			}
+			if (ImGui::RadioButton("String", false))
+			{
+				selectedIndex = (int)DataType::String;
+			}
+
+			if (selectedIndex != -1)
+			{
+				GraphNodeInstance* instance = GetNodeFromPinID(aPin.UID.ToUInt());
+				instance->ChangePinTypes((DataType)selectedIndex);
+			}
+
+
+			ImGui::PopItemWidth();
+			ImGui::PopID();
+			break;
+		}
+		case DataType::Variable:
+		{
+			break;
+		}
+		default:
+			assert(false && "Don't know how to draw this particular type! Please nodify GraphManager::DrawTypeSpecificPin");
+		}
+	}
+	return width;
 }
 
 void GraphManager::WillBeCyclic(GraphNodeInstance* aFirst, bool& aIsCyclic, GraphNodeInstance* aBase)
@@ -681,10 +770,10 @@ void GraphManager::PreFrame(float aTimeDelta)
 					myNewVarType = DataType::String;
 				}
 
-				/* 
-				Selectable doesn't work?
-				I want to use this instead of buttons, bror
+				//Selectable doesn't work?
+				//I want to use this instead of buttons, bror
 
+				/*
 				ImGui::Text("Type");
 				ImGui::SameLine();
 				ImGui::Dummy({ 10, 0 });
@@ -1027,16 +1116,15 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 
 		const bool bDrawExecRow = firstInputExec + firstOutputExec >= -1;
 
-		const ImVec2 nodeNameSize = ImGui::CalcTextSize(nodeInstance->GetNodeName().c_str());
-
-		float paddingSize = nodeNameSize.x * 0.75f;
-		paddingSize = paddingSize > 100.0f ? paddingSize : 100.0f;
-		
 		if (bDrawExecRow)
 		{
+			ImVec2 inputNameSize = ImVec2(0, 0);
+
 			if (firstInputExec > -1)
 			{
 				GraphNodePin* pin = InputPins[firstInputExec];
+				inputNameSize = ImGui::CalcTextSize(pin->Text.c_str());
+
 				ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Input);
 				DrawPinIcon(*pin, nodeInstance->IsPinConnected(*pin), 255);
 				ed::EndPin();
@@ -1049,9 +1137,12 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 				{
 					ImGui::SameLine();
 				}
-				ImGui::Dummy({ paddingSize * .70f, 0 });
-				ImGui::SameLine();
 				GraphNodePin* pin = OutputPins[firstOutputExec];
+
+				const ImVec2 outputNameSize = ImGui::CalcTextSize(pin->Text.c_str());
+				ImGui::Dummy({ 117.5f - outputNameSize.x - inputNameSize.x, 0 });
+				ImGui::SameLine();
+
 				ImGui::Text(pin->Text.c_str());
 				ImGui::SameLine();
 				ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Output);
@@ -1060,32 +1151,28 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 			}
 		}
 
-		std::string largestName = "";
-		for (size_t i = 0; i < InputPins.size(); i++)
-		{
-			if (largestName.size() < InputPins[i]->Text.size())
-			{
-				largestName = InputPins[i]->Text;
-			}
-		}
-		for (size_t i = 0; i < OutputPins.size(); i++)
-		{
-			if (largestName.size() < OutputPins[i]->Text.size())
-			{
-				largestName = OutputPins[i]->Text;
-			}
-		}
-
-		const ImVec2 pinNameSize = ImGui::CalcTextSize(largestName.c_str());
-		float pinPaddingSize = pinNameSize.x * 0.75f;
-		pinPaddingSize = pinPaddingSize > 100.0f ? pinPaddingSize : 100.0f;
-
-
 		const size_t numRows = InputPins.size() > OutputPins.size() ? InputPins.size() : OutputPins.size();
+		
 		for (size_t row = 0; row < numRows; row++)
 		{
-			bool isPinToLeft = false;
+			if (row < OutputPins.size() && row != firstOutputExec)
+			{
+				GraphNodePin* pin = OutputPins[row];
 
+				const ImVec2 pinNameSize = ImGui::CalcTextSize(pin->Text.c_str());
+				ImGui::Dummy({ 150.0f - pinNameSize.x, 0 });
+				ImGui::SameLine();
+
+				ImGui::Text(pin->Text.c_str());
+				ImGui::SameLine();
+				ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Output);
+				DrawPinIcon(*pin, nodeInstance->IsPinConnected(*pin), 255);
+				ed::EndPin();
+			}
+		}
+		
+		for (size_t row = 0; row < numRows; row++)
+		{
 			if (row < InputPins.size() && row != firstInputExec) // Should we draw input?
 			{
 				GraphNodePin* pin = InputPins[row];
@@ -1101,57 +1188,31 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 					if (nodeInstance->IsPinConnected(*pin) || !pin->AllowConstructInPlace)
 					{
 						ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Input);
-						DrawTypeSpecificPin(*pin, nodeInstance);
+						/*ImVec2 size = */DrawTypeSpecificPin(*pin, nodeInstance);
 						ed::EndPin();
 						ImGui::SameLine();
 						ImGui::Text(pin->Text.c_str());
+						//ImGui::SameLine();
+						//ImGui::Dummy(size);
 					}
 					else
 					{
-						ImGui::Text(pin->Text.c_str());
-						ImGui::SameLine();
 						ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Input);
 						DrawTypeSpecificPin(*pin, nodeInstance);
 						ed::EndPin();
+						ImGui::SameLine();
+						ImGui::Text(pin->Text.c_str());
+						ImGui::SameLine();
+						DrawTypeSpecificInput(*pin, nodeInstance);
 					}
 				}
-				isPinToLeft = true;
-			}
-
-			if (row < OutputPins.size() && row != firstOutputExec)
-			{
-				if (isPinToLeft)
-				{
-					//ImGui::SameLine(to_imvec(ImGui_GetItemRect().bottom_right() - ImGui_GetItemRect().top_left()).x);
-					ImGui::SameLine();
-				}
-				else
-				{
-					//ImGui::SameLine(to_imvec(ImGui_GetItemRect().bottom_right() - ImGui_GetItemRect().top_left()).x);
-					ImGui::Dummy({ pinPaddingSize * .835f, 0 });
-					ImGui::SameLine();
-
-					//const float itemSpacing = ImGui::GetStyle().ItemSpacing.x;
-					//
-					//float buttonWidth = 100.0f;
-					//ImVec2 cursor = ImGui::GetCursorPos();
-					//cursor.x = ImGui::GetWindowWidth() - (buttonWidth + itemSpacing);
-					//ImGui::SetCursorPos(cursor);
-					//ImGui::PushItemWidth(buttonWidth);
-				}
-
-				GraphNodePin* pin = OutputPins[row];
-				ImGui::Text(pin->Text.c_str());
-				ImGui::SameLine();
-				ed::BeginPin(pin->UID.ToUInt(), ed::PinKind::Output);
-				DrawPinIcon(*pin, nodeInstance->IsPinConnected(*pin), 255);
-				ed::EndPin();
 			}
 		}
+		
 
-		ImVec2 NodeBodySize = ImGui::GetItemRectSize();
+		ImVec2 size = ed::GetNodeSize(nodeInstance->myUID.myID);
 
-		HeaderRect = ax::rect(HeaderRect.x, HeaderRect.y, static_cast<int>(NodeBodySize.x + paddingSize), HeaderRect.h);
+		HeaderRect = ax::rect(HeaderRect.x, HeaderRect.y, static_cast<int>(size.x - 8), HeaderRect.h);
 		ed::EndNode();
 
 		if (ImGui::IsItemVisible())
@@ -1182,7 +1243,7 @@ void GraphManager::ConstructEditorTreeAndConnectLinks()
 			auto headerSeparatorRect = ax::rect(HeaderRect.bottom_left(), HeaderRect.bottom_right());
 			drawList->AddLine(
 				to_imvec(headerSeparatorRect.top_left()) + ImVec2(-(8 - halfBorderWidth), -0.5f),
-				to_imvec(headerSeparatorRect.top_right()) + ImVec2((4 - halfBorderWidth), -0.5f),
+				to_imvec(headerSeparatorRect.top_right()) + ImVec2((-2 - halfBorderWidth), -0.5f),
 				ImColor(255, 255, 255, 255), 1.0f);
 		}
 		ImGui::PopID();

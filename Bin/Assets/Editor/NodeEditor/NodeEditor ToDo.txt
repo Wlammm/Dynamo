@@ -1,0 +1,2 @@
+* Släppa en edge öppnar sökrutan (context sensitive search)
+* Man ska koppla edges till pins och inte till inputfields (wtf?)

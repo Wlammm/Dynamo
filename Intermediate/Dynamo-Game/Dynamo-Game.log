@@ -1,4 +1,5 @@
 ﻿  GamePch.cpp
   Game.cpp
   GameScene.cpp
-  Dynamo-Game.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Game_Release.lib
+  Generating Code...
+  Dynamo-Game.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-Game_Debug.lib

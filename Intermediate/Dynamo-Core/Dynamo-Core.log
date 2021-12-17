@@ -1,22 +1,18 @@
-<<<<<<< HEAD
-﻿  pch.cpp
-=======
-﻿  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\AmbientLightShader.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\DirectionalLightShader.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\EmissiveShader.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\GBuffer.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\PointLightShader.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\SpotLightShader.cso
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\SkyboxPS.hlsl(8,12-71): warning X3206: implicit truncation of vector type
+﻿  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\AmbientLightShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\DirectionalLightShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\EmissiveShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\GBuffer.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\PointLightShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\SpotLightShader.cso
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\SkyboxPS.hlsl(8,12-71): warning X3206: implicit truncation of vector type
   
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\SkyboxPS.cso
-C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedPS.hlsl(11,12-39): warning X3206: implicit truncation of vector type
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\SkyboxPS.cso
+C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedPS.hlsl(11,12-39): warning X3206: implicit truncation of vector type
   
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\WorldAllignedPS.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\ForwardPS.cso
-  compilation object save succeeded; see C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\VertexShader.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\WorldAllignedPS.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\ForwardPS.cso
+  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\VertexShader.cso
   pch.cpp
->>>>>>> main
   AmbientLight.cpp
   Animator.cpp
   Camera.cpp
@@ -37,10 +33,7 @@ C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward
   JsonFactory.cpp
   MaterialFactory.cpp
   ModelFactory.cpp
-<<<<<<< HEAD
   Generating Code...
-=======
->>>>>>> main
   Compiling...
   ResourceFactory.cpp
   ShaderFactory.cpp
@@ -62,6 +55,7 @@ C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward
   SceneSerializer.cpp
   ConsoleUtils.cpp
   CrashHandler.cpp
+  Generating Code...
   Compiling...
   Debug.cpp
   FileUtils.cpp
@@ -70,4 +64,5 @@ C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward
   RenderUtils.cpp
   ScopeTimer.cpp
   Time.cpp
-  Dynamo-Core.vcxproj -> C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Libs\Dynamo-Core_Release.lib
+  Generating Code...
+  Dynamo-Core.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-Core_Debug.lib
