@@ -1,200 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="NodeEditor\Nodes\MathNodes\AddNode.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\GraphVariable.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\NodeTypes.cpp" />
+    <ClCompile Include="NodeEditor\Nodes\GraphNodeBase.cpp" />
+    <ClCompile Include="Core\EditorSystem.cpp" />
+    <ClCompile Include="NodeEditor\Manager\GraphManager.cpp" />
+    <ClCompile Include="NodeEditor\Manager\GraphNodeRegistry.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\GraphNodeInstance.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\GraphNodePin.cpp" />
+    <ClCompile Include="Scene\EditorScene.cpp" />
+    <ClCompile Include="Core\EditorWindow.cpp" />
+    <ClCompile Include="Managers\EditorManager.cpp" />
+    <ClCompile Include="EditorPch.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Core\EditorMainSingleton.cpp" />
+    <ClCompile Include="PostMaster\EditorPostMaster.cpp" />
+    <ClCompile Include="Systems\Guizmos.cpp" />
+    <ClCompile Include="Systems\SceneSaving.cpp" />
+    <ClCompile Include="NodeEditor\Manager\UID.cpp" />
+    <ClCompile Include="NodeEditor\BaseTypes\TemplateHelper.cpp" />
+    <ClCompile Include="Utils\ThemeUtils.cpp" />
+    <ClCompile Include="NodeEditor\Nodes\Variable\VariableNode.cpp" />
+    <ClCompile Include="Windows\ContentBrowser.cpp" />
+    <ClCompile Include="Windows\Hierarchy.cpp" />
+    <ClCompile Include="Windows\Inspector.cpp" />
+    <ClCompile Include="Systems\Toolbar.cpp" />
+    <ClCompile Include="Windows\MaterialEditor.cpp" />
+    <ClCompile Include="Windows\NodeEditor.cpp" />
+    <ClCompile Include="Windows\RenderDebugger.cpp" />
+    <ClCompile Include="Windows\Viewport.cpp" />
+    <ClCompile Include="NodeEditor\Nodes\Base\StartNode.cpp" />
+    <ClCompile Include="NodeEditor\Nodes\Debug\PrintNode.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorPch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Managers\EditorManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\EditorWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\Viewport.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\EditorScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\Hierarchy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PostMaster\EditorPostMaster.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\EditorMainSingleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\Inspector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\ThemeUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Toolbar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\Guizmos.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\EditorSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Systems\SceneSaving.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\ContentBrowser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\MaterialEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Windows\NodeEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\Manager\GraphManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\Manager\GraphNodeRegistry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\Nodes\GraphNodeBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\BaseTypes\GraphNodeInstance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\BaseTypes\GraphNodePin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\Manager\UID.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\BaseTypes\GraphVariable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\Nodes\Variable\VariableNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\BaseTypes\NodeTypes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\Nodes\MathNodes\AddNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeEditor\BaseTypes\TemplateHelper.cpp">
-    <ClCompile Include="Windows\RenderDebugger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="EditorPch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Managers\EditorManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\EditorWindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\EditorSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\Viewport.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\EditorScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\Hierarchy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PostMaster\EditorPostMaster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PostMaster\EditorCommandTypes.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PostMaster\EditorPostObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\EditorMainSingleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\Inspector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\ThemeUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\Toolbar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\Guizmos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Systems\SceneSaving.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\ContentBrowser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\MaterialEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Windows\NodeEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Manager\GraphManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Manager\GraphNodeRegistry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Nodes\GraphNodeBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\BaseTypes\GraphNodeInstance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\BaseTypes\GraphNodePin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\BaseTypes\NodeTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Manager\UID.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\BaseTypes\GraphVariable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Nodes\Variable\VariableNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\Nodes\MathNodes\AddNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeEditor\BaseTypes\TemplateHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="NodeEditor\Nodes\MathNodes\AddNode.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\GraphVariable.h" />
+    <ClInclude Include="NodeEditor\Nodes\GraphNodeBase.h" />
+    <ClInclude Include="NodeEditor\Manager\GraphManager.h" />
+    <ClInclude Include="NodeEditor\Manager\GraphNodeRegistry.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\GraphNodeInstance.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\GraphNodePin.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\NodeTypes.h" />
+    <ClInclude Include="Scene\EditorScene.h" />
+    <ClInclude Include="Core\EditorSystem.h" />
+    <ClInclude Include="Core\EditorWindow.h" />
+    <ClInclude Include="Managers\EditorManager.h" />
+    <ClInclude Include="EditorPch.h" />
+    <ClInclude Include="PostMaster\EditorCommandTypes.hpp" />
+    <ClInclude Include="Core\EditorMainSingleton.h" />
+    <ClInclude Include="PostMaster\EditorPostObserver.h" />
+    <ClInclude Include="Systems\Guizmos.h" />
+    <ClInclude Include="Systems\SceneSaving.h" />
+    <ClInclude Include="NodeEditor\Manager\UID.h" />
+    <ClInclude Include="NodeEditor\BaseTypes\TemplateHelper.h" />
+    <ClInclude Include="Utils\ThemeUtils.h" />
+    <ClInclude Include="NodeEditor\Nodes\Variable\VariableNode.h" />
+    <ClInclude Include="Windows\ContentBrowser.h" />
+    <ClInclude Include="Windows\Hierarchy.h" />
+    <ClInclude Include="PostMaster\EditorPostMaster.h" />
+    <ClInclude Include="Windows\Inspector.h" />
+    <ClInclude Include="Systems\Toolbar.h" />
+    <ClInclude Include="Windows\MaterialEditor.h" />
+    <ClInclude Include="Windows\NodeEditor.h" />
+    <ClInclude Include="Windows\Viewport.h" />
+    <ClInclude Include="NodeEditor\Nodes\Base\StartNode.h" />
+    <ClInclude Include="NodeEditor\Nodes\Debug\PrintNode.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Windows\RenderDebugger.h" />
