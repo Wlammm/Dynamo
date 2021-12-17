@@ -2,11 +2,9 @@
 /Libs/*
 /Intermediate/*
 /Bin/Shaders/*
-
+*.ilk
+*.pdb
+*.log
 *.exe
 *.cso
 *.ini
-*.log
-*.pdb
-*.ilk
-

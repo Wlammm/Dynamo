@@ -1,7 +1,7 @@
 #pragma once
 #include "../GraphNodeBase.h"
 
-class AddNode : GraphNodeBase
+class AddNode : public GraphNodeBase
 {
 public:
 	AddNode();

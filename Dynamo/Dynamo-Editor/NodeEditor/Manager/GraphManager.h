@@ -27,7 +27,8 @@ private:
 
 	class GraphNodeInstance* GetNodeFromPinID(unsigned int aID);
 	GraphNodeInstance* GetNodeFromNodeID(unsigned int aID);
-	void DrawTypeSpecificPin(struct GraphNodePin& aPin, class GraphNodeInstance* aNodeInstance);
+	ImVec2 DrawTypeSpecificPin(struct GraphNodePin& aPin, class GraphNodeInstance* aNodeInstance);
+	ImVec2 DrawTypeSpecificInput(struct GraphNodePin& aPin, class GraphNodeInstance* aNodeInstance);
 	std::vector<class GraphNodeInstance*> myNodeInstancesInGraph;
 
 	struct EditorLinkInfo

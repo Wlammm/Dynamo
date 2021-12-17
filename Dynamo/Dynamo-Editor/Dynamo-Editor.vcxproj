@@ -170,6 +170,7 @@
     <ClCompile Include="NodeEditor\Manager\GraphNodeRegistry.cpp" />
     <ClCompile Include="NodeEditor\BaseTypes\GraphNodeInstance.cpp" />
     <ClCompile Include="NodeEditor\BaseTypes\GraphNodePin.cpp" />
+    <ClCompile Include="NodeEditor\Nodes\Debug\PrintNode.cpp" />
     <ClCompile Include="Scene\EditorScene.cpp" />
     <ClCompile Include="Core\EditorWindow.cpp" />
     <ClCompile Include="Managers\EditorManager.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Core\EditorMainSingleton.cpp" />
     <ClCompile Include="PostMaster\EditorPostMaster.cpp" />
+    <ClCompile Include="NodeEditor\Nodes\Base\StartNode.cpp" />
     <ClCompile Include="Systems\Guizmos.cpp" />
     <ClCompile Include="Systems\SceneSaving.cpp" />
     <ClCompile Include="NodeEditor\Manager\UID.cpp" />
@@ -205,6 +207,7 @@
     <ClInclude Include="NodeEditor\BaseTypes\GraphNodeInstance.h" />
     <ClInclude Include="NodeEditor\BaseTypes\GraphNodePin.h" />
     <ClInclude Include="NodeEditor\BaseTypes\NodeTypes.h" />
+    <ClInclude Include="NodeEditor\Nodes\Debug\PrintNode.h" />
     <ClInclude Include="Scene\EditorScene.h" />
     <ClInclude Include="Core\EditorSystem.h" />
     <ClInclude Include="Core\EditorWindow.h" />
@@ -213,6 +216,7 @@
     <ClInclude Include="PostMaster\EditorCommandTypes.hpp" />
     <ClInclude Include="Core\EditorMainSingleton.h" />
     <ClInclude Include="PostMaster\EditorPostObserver.h" />
+    <ClInclude Include="NodeEditor\Nodes\Base\StartNode.h" />
     <ClInclude Include="Systems\Guizmos.h" />
     <ClInclude Include="Systems\SceneSaving.h" />
     <ClInclude Include="NodeEditor\Manager\UID.h" />

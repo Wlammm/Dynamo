@@ -162,6 +162,9 @@
     <ClCompile Include="Rendering\SelectionRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Assert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entry.h">
@@ -381,6 +384,7 @@
     <FxCompile Include="Shaders\Forward\SkyboxPS.hlsl" />
     <FxCompile Include="Shaders\Forward\WorldAllignedPS.hlsl" />
     <FxCompile Include="Shaders\Editor\SelectionPS.hlsl" />
+    <FxCompile Include="Shaders\Forward\WorldAllignedLerpPS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ShaderStructs.hlsli" />

@@ -31,7 +31,8 @@
     <ClCompile Include="Windows\NodeEditor.cpp" />
     <ClCompile Include="Windows\RenderDebugger.cpp" />
     <ClCompile Include="Windows\Viewport.cpp" />
-    <ClCompile Include="Systems\Selection.cpp" />
+    <ClCompile Include="NodeEditor\Nodes\Base\StartNode.cpp" />
+    <ClCompile Include="NodeEditor\Nodes\Debug\PrintNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NodeEditor\Nodes\MathNodes\AddNode.h" />
@@ -64,7 +65,8 @@
     <ClInclude Include="Windows\MaterialEditor.h" />
     <ClInclude Include="Windows\NodeEditor.h" />
     <ClInclude Include="Windows\Viewport.h" />
-    <ClInclude Include="Systems\Selection.h" />
+    <ClInclude Include="NodeEditor\Nodes\Base\StartNode.h" />
+    <ClInclude Include="NodeEditor\Nodes\Debug\PrintNode.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Windows\RenderDebugger.h" />

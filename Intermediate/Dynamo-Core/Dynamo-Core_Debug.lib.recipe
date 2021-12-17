@@ -36,6 +36,9 @@
       <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\SkyboxPS.cso</FullPath>
     </ContentFile>
     <ContentFile>
+      <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\WorldAllignedLerpPS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\Users\willi\Documents\GitHub\Dynamo\Dynamo\Bin\Assets\Shaders\WorldAllignedPS.cso</FullPath>
     </ContentFile>
     <ContentFile>
