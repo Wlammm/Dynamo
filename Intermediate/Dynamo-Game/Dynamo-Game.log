@@ -2,4 +2,8 @@
   Game.cpp
   GameScene.cpp
   Generating Code...
+<<<<<<< Updated upstream
   Dynamo-Game.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-Game_Debug.lib
+=======
+  Dynamo-Game.vcxproj -> D:\Dynamo\Libs\Dynamo-Game_Debug.lib
+>>>>>>> Stashed changes

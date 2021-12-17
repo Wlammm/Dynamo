@@ -5,8 +5,7 @@
 float2 worldUV(VertexOutput input)
 {
     float3 worldPos = input.myWorldPosition.xyz;
-    //float3 worldPosScale = worldPos / myShaderBuffer.myCustomValue1;
-    float3 worldPosScale = worldPos / 1500;
+    float3 worldPosScale = worldPos / myMaterialBuffer.myCustomValue1;
     
     float3 worldNormal = input.myNormal;
     float3 worldNormalAbs = abs(worldNormal);
@@ -16,7 +15,7 @@ float2 worldUV(VertexOutput input)
     
     if (worldNormalAbs.x > 0.5f)
     {
-        worldPosUV = worldPosScale.zy;
+        worldPosUV = worldPosScale.zy; // this is correct 
     }
     else if (worldNormalAbs.y > 0.5f)
     {
@@ -85,11 +84,8 @@ cbuffer SpotLightBuffer : register(b7)
 PixelOutput main(VertexOutput input)
 {
     float3 toEye = normalize(myFrameBuffer.myCameraPosition.xyz - input.myWorldPosition.xyz);
-    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myWrapSampler, worldUV(input) + input.myPosition.xz).rgb);
-    PixelOutput outp;
-    outp.myColor.rgb = albedo * 10;
-    outp.myColor.a = 1.0f;
-    return outp;
+    float3 albedo = GammaToLinear(myAlbedoTexture.Sample(myWrapSampler, worldUV(input)).rgb);
+
     float3 normal = GetNormal(input);
 
     float3 material = myMaterialTexture.Sample(myDefaultSampler, worldUV(input)).rgb;
@@ -126,7 +122,7 @@ PixelOutput main(VertexOutput input)
     float3 radiance = ambience + dirLight + pointLights + spotLights + emissive;
     
     PixelOutput output;
-    output.myColor.rgb = LinearToGamma(radiance);
+    output.myColor.rgb = normalize(abs(input.myNormal));
     output.myColor.a = 1.0f;
     return output;
 }
