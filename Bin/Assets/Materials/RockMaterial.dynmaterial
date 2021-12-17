@@ -1,0 +1,21 @@
+{
+    "AlbedoTexture": "Assets\\Fbx\\DefaultAssets\\MegaScanRock_A_c.dds",
+    "CustomTexture1": "",
+    "CustomTexture2": "",
+    "CustomTexture3": "",
+    "CustomTexture4": "",
+    "CustomValue1": 30000.0,
+    "CustomValue2": 1.0,
+    "CustomValue3": 0.0,
+    "CustomValue4": 0.0,
+    "MaterialTexture": "Assets\\Fbx\\DefaultAssets\\plane_m.dds",
+    "Metalness": 0.0,
+    "MetalnessInterp": 1.0,
+    "NormalTexture": "Assets\\Fbx\\DefaultAssets\\MegaScanRock_A_n.dds",
+    "PixelShader": "Assets\\Shaders\\WorldAllignedLerpPS.cso",
+    "ReceiveShadows": true,
+    "Renderer": 1,
+    "Roughness": 0.0,
+    "RoughnessInterp": 1.0,
+    "VertexShader": "Assets/Shaders/VertexShader.cso"
+}

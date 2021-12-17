@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿  compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\AmbientLightShader.cso
   compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\DirectionalLightShader.cso
   compilation object save succeeded; see C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Bin\Assets\Shaders\EmissiveShader.cso
@@ -66,3 +67,10 @@ C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\
   Time.cpp
   Generating Code...
   Dynamo-Core.vcxproj -> C:\Users\Pontus\Desktop\Engine\Engine\Dynamo\Libs\Dynamo-Core_Debug.lib
+=======
+﻿D:\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedLerpPS.hlsl(9,12-51): warning X3206: implicit truncation of vector type
+D:\Dynamo\Dynamo\Dynamo-Core\Shaders\Forward\WorldAllignedLerpPS.hlsl(20,12-50): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see D:\Dynamo\Bin\Assets\Shaders\WorldAllignedLerpPS.cso
+  Dynamo-Core.vcxproj -> D:\Dynamo\Libs\Dynamo-Core_Debug.lib
+>>>>>>> Stashed changes
