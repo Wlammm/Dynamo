@@ -14,6 +14,8 @@ namespace Dynamo
 		Mesh const* myMesh = nullptr;
 		Material* myMaterial = nullptr;
 
+		GameObjectID myGameObjectID = 0;
+
 		bool myIsAnimated = false;
 		std::array<Mat4f, 128> myBoneTransforms;
 	};

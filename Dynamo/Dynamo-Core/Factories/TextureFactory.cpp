@@ -57,6 +57,43 @@ namespace Dynamo
         return textureResult;
     }
 
+    Texture TextureFactory::CreateTexture(const CU::Vector2ui& aSize, unsigned int aFormat, int aCPUAccessFlags, int aUsageFlag)
+    {
+        HRESULT result;
+        D3D11_TEXTURE2D_DESC desc = { 0 };
+        desc.Width = aSize.x;
+        desc.Height = aSize.y;
+        desc.MipLevels = 1;
+        desc.ArraySize = 1;
+        desc.Format = static_cast<DXGI_FORMAT>(aFormat);
+        desc.SampleDesc.Count = 1;
+        desc.SampleDesc.Quality = 0;
+        desc.Usage = static_cast<D3D11_USAGE>(aUsageFlag);
+        if (desc.Usage != D3D11_USAGE_DEFAULT)
+        {
+            desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+        }
+        else
+        {
+            desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+        }
+        desc.CPUAccessFlags = aCPUAccessFlags;
+        desc.MiscFlags = 0;
+
+        ID3D11Texture2D* texture;
+        result = Main::GetDevice()->CreateTexture2D(&desc, nullptr, &texture);
+        assert(SUCCEEDED(result));
+
+        Texture textureResult = CreateTexture(texture);
+
+        ID3D11ShaderResourceView* SRV;
+        result = Main::GetDevice()->CreateShaderResourceView(texture, nullptr, &SRV);
+        assert(SUCCEEDED(result));
+
+        textureResult.mySRV = SRV;
+        return textureResult;
+    }
+
     Texture TextureFactory::CreateDepth(const Vec2ui& aSize, DXGI_FORMAT aFormat)
     {
         HRESULT result;

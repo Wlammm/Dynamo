@@ -51,7 +51,7 @@ namespace Dynamo
 		float myCustomValue3;
 		float myCustomValue4;
 
-		float padding = 0;
+		uint myGameObjectID;
 	};
 
 	struct BoneBuffer

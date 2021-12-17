@@ -4,8 +4,10 @@
 #include "FullscreenRenderer.h"
 #include "DebugRenderer.h"
 #include "DeferredRenderer.h"
+#include "SelectionRenderer.h"
 #include "GBuffer.h"
 #include "RenderCommands.hpp"
+
 
 constexpr float globalPointLightIntensityMultiplier = 10000;
 constexpr float globalSpotLightIntensityMultiplier = 10000;
@@ -46,9 +48,13 @@ namespace Dynamo
 		Texture& GetMainRenderTarget();
 		const Texture& GetDepthTexture() const;
 
+		Texture& GetSelectionTexture();
+
 		void ReleaseAllTextures();
 		void CreateTextures(bool isFirstTime);
 
+		// Will update selection texture and callback when its updated.
+		void SetSelectionCallback(std::function<void(void)> aCallback);
 
 	private:
 		void ImGuiRender();
@@ -60,6 +66,7 @@ namespace Dynamo
 		void RenderFullscreenEffects();
 		void RenderDeferredPass();
 		void RenderToBackBuffer();
+		void RenderSelection();
 
 		void GammaCorrection();
 
@@ -88,15 +95,20 @@ namespace Dynamo
 		FullscreenRenderer myFullscreenRenderer;
 		DeferredRenderer myDeferredRenderer;
 		DebugRenderer myDebugRenderer;
+		SelectionRenderer mySelectionRenderer;
 
 		Texture myRenderTexture;
 		Texture myRenderDepth;
 		Texture myBackBuffer;
 		Texture myIntermediateTexture;
 
+		Texture mySelectionTexture;
+
 		GBuffer myGBuffer = {};
 
 		Shader* myGammaCorrectionShader = nullptr;
+
+		std::function<void(void)> mySelectionCallback = nullptr;
 	};
 
 	template<typename T>

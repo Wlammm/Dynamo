@@ -184,6 +184,7 @@
     <ClCompile Include="Systems\SceneSaving.cpp" />
     <ClCompile Include="NodeEditor\Manager\UID.cpp" />
     <ClCompile Include="NodeEditor\BaseTypes\TemplateHelper.cpp" />
+    <ClCompile Include="Systems\Selection.cpp" />
     <ClCompile Include="Utils\ThemeUtils.cpp" />
     <ClCompile Include="NodeEditor\Nodes\Variable\VariableNode.cpp" />
     <ClCompile Include="Windows\ContentBrowser.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="Systems\SceneSaving.h" />
     <ClInclude Include="NodeEditor\Manager\UID.h" />
     <ClInclude Include="NodeEditor\BaseTypes\TemplateHelper.h" />
+    <ClInclude Include="Systems\Selection.h" />
     <ClInclude Include="Utils\ThemeUtils.h" />
     <ClInclude Include="NodeEditor\Nodes\Variable\VariableNode.h" />
     <ClInclude Include="Windows\ContentBrowser.h" />

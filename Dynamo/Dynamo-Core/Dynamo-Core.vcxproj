@@ -204,6 +204,7 @@
     <ClCompile Include="Rendering\GBuffer.cpp" />
     <ClCompile Include="Rendering\Model.cpp" />
     <ClCompile Include="Rendering\RenderManager.cpp" />
+    <ClCompile Include="Rendering\SelectionRenderer.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />
     <ClCompile Include="Rendering\SRV.cpp" />
     <ClCompile Include="Rendering\Texture.cpp" />
@@ -241,6 +242,10 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Shaders\Deferred\SpotLightShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\Editor\SelectionPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
@@ -320,6 +325,7 @@
     <ClInclude Include="Rendering\RenderCommands.hpp" />
     <ClInclude Include="Rendering\RenderManager.h" />
     <ClInclude Include="Rendering\RenderStructs.hpp" />
+    <ClInclude Include="Rendering\SelectionRenderer.h" />
     <ClInclude Include="Rendering\Shader.h" />
     <ClInclude Include="Rendering\SRV.h" />
     <ClInclude Include="Rendering\Texture.h" />

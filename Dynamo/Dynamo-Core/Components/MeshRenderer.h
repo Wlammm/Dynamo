@@ -36,7 +36,10 @@ namespace Dynamo
 
 		void SetBoneTransforms(std::array<Mat4f, 128>* someTransforms);
 
-	protected:
+		void SetCustomValue(const float aValue, const uint aSlot);
+		float GetCustomValue(const uint aSlot);
+
+	private:
 		Model* myModel = nullptr;
 		Color myColor = { 1, 1, 1, 1 };
 		Color myAdditiveColor = { 0, 0, 0, 0 };
@@ -44,5 +47,6 @@ namespace Dynamo
 		std::vector<Material*> myMaterials;
 
 		std::array<Mat4f, 128>* myBoneTransforms = nullptr;
+		std::array<float, 4> myCustomValues = { 0, 0, 0, 0 };
 	};
 }
