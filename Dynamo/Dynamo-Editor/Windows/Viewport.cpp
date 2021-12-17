@@ -18,6 +18,8 @@ namespace Editor
 
 	void Viewport::Update()
 	{
+		myIsHovered = ImGui::IsWindowHovered();
+
 		Dyn::Texture& renderTexture = Dyn::Main::GetRenderManager().GetMainRenderTarget();
 
 		Vec2ui viewportOffset = { 8, 25 };
@@ -55,6 +57,11 @@ namespace Editor
 		}
 
 		return mousePosRelative;
+	}
+
+	bool Viewport::IsHovered() const
+	{
+		return myIsHovered;
 	}
 
 	const ImVec2 Viewport::ClampToAspectRatio(const ImVec2& aSize, const ImVec2& anAspectRatio) const

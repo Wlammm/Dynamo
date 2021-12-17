@@ -22,25 +22,28 @@ namespace Editor
         desc.MiscFlags = 0;
 
         HRESULT result = Dyn::Main::GetDevice()->CreateTexture2D(&desc, nullptr, &myTexture);
-        assert(SUCCEEDED(result));
+        DYN_ASSERT(SUCCEEDED(result));
 	}
 
 	void Selection::Update()
 	{
-        if (Input::IsKeyDown(MouseButton::Left) && !ImGuizmo::IsUsing())
+        if (!myViewport)
         {
+            myViewport = Main::GetEditorManager()->GetWindow<Viewport>();
+            return;
+        }
+
+        if (Input::IsKeyDown(MouseButton::Left) && !ImGuizmo::IsUsing() && myViewport->IsHovered())
+        {
+            Console::Log("Selection");
             Dyn::Main::GetRenderManager().SetSelectionCallback(std::bind(&Selection::SelectionCallback, this));
         }
 	}
 
     void Selection::SelectionCallback()
     {
-        Viewport* viewport = Main::GetEditorManager()->GetWindow<Viewport>();
-        if (!viewport)
-            return;
-
         const Vec2ui& res = Dyn::Main::GetWindowResolution();
-        const Vec2f& viewportMousePos = viewport->GetMousePosWindowNormalized();
+        const Vec2f& viewportMousePos = myViewport->GetMousePosWindowNormalized();
 
         if (viewportMousePos == Vec2f{ -1, -1 })
             return;
@@ -58,7 +61,7 @@ namespace Editor
         if (id == 0)
             Main::SetSelectedGameObject(nullptr);
         else
-            Main::SetSelectedGameObject(scene->GetAllGameObjects()[id]);
+            Main::SetSelectedGameObject(scene->GetAllGameObjects()[id - 1]);
     }
 
     uint Selection::GetIDAtPos(const Vec2ui aPos)

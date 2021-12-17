@@ -43,7 +43,8 @@ namespace Dynamo
 			Main::GetContext()->VSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
 			Main::GetContext()->PSSetConstantBuffers(OBJECT_BUFFER_SLOT, 1, &myObjectBuffer);
 
-			mySelectionBufferData.myGameObjectID = (uint)command.myGameObjectID;
+			// +1 to make 0 be nothing selected. (Remember to do -1 when selecting the object.)
+			mySelectionBufferData.myGameObjectID = (uint)command.myGameObjectID + 1;
 			RenderUtils::MapBuffer<SelectionBuffer>(mySelectionBufferData, mySelectionBuffer);
 			Main::GetContext()->PSSetConstantBuffers(CUSTOM_BUFFER_SLOT, 1, &mySelectionBuffer);
 

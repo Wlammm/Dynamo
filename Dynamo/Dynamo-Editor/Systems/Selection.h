@@ -2,6 +2,8 @@
 
 namespace Editor
 {
+	class Viewport;
+
 	class Selection : public EditorSystem
 	{
 	public:
@@ -14,6 +16,8 @@ namespace Editor
 		uint GetIDAtPos(const Vec2ui aMousePos);
 
 	private:
+		Viewport* myViewport = nullptr;
+
 		ID3D11Texture2D* myTexture = nullptr;
 	};
 }
